@@ -1,6 +1,13 @@
 # Echoes of the Crystal Cave
-
+#### A pixel art memory game
 #### About:
+
+This game takes the classic Simon memory challenge and gives it a unique twist with a cave setting, atmospheric audio, and a five-note scale system. Players interact with glowing crystals that light up and produce musical tones when activated. The game is designed to be accessible, engaging, and visually appealing, with pixel-art aesthetics and simple, responsive controls.
+
+**Target Audience:**
+- Casual gamers who enjoy quick, skill-based challenges.
+- All age groups, from children to adults, due to simple controls and gameplay.
+- Fans of retro and pixel art games looking for a nostalgic yet fresh experience.
 
 ## Design & Planning:
 
@@ -8,7 +15,7 @@
 Echoes of the Crystal Cave is a memory-based puzzle game where players help Brucey the bat navigate a mysterious cave filled with glowing, musical crystals. Players must watch and listen to and repeat sequences of notes to progress, while enjoying a dynamic audio-visual experience.
 
 ### Concept:
-This game takes the classic Simon memory challenge and gives it a unique twist with a cave setting, atmospheric audio, and a five-note scale system. Players interact with glowing crystals that light up and produce musical tones when activated. The game is designed to be accessible, engaging, and visually appealing, with pixel-art aesthetics and simple, responsive controls.
+Help Brucey the bat remember the sequence of crystals. 
 
 ### Game Mechanics:
 #### Controls:
@@ -18,6 +25,8 @@ This game takes the classic Simon memory challenge and gives it a unique twist w
 #### Visual & Audio Cues:
 - Crystals glow in different colours when activated.
 - Each crystal plays a distinct note in a five-note scale.
+- Correct sequence all crystals glow and a rewarding sound plays before the next level sequence starts.
+- Incorrect sequence results in modal pop up with encouraging 'try again' messages (_could have random inspiring messages_) and option to play again yes/no buttons. 
 
 #### Win Conditions:
 - Successfully repeat the full sequence to advance to the next round.
@@ -26,12 +35,22 @@ This game takes the classic Simon memory challenge and gives it a unique twist w
 - In Hard/Default Mode, a single mistake results in a game over. 
 - _(could have feature)_ Easy Mode, players have three chances before restarting.
 
+#### Could have features:
+- **Easter egg** - Player name input. If name is equal to Brucey, Brucey the bat changes colour or wears a hat. 
+
+#### Level Design & Sequence Length:
+1. Level 1 = sequence of 3
+2. Level 2 = sequence of 4
+3. Level 3 = sequence of 5 
+... and so on.
+
+
 #### Reference Images:
 - Music notes/scale and crystal colour correspondence layout:
 
 <details><summary><em>Click to view</em></summary>
    
-   ![Index Home Page Design](assets/media/design-sketch.png)
+   ![Index Home Page Design](assets/media/design-sketch-crystals-controls.png)
 </details>
 
 #### Layout sketches:
