@@ -196,8 +196,15 @@ body {
 @media (max-width: 1263px) {
     .bat {
         left: 30%;  /* Center horizontally */
-        top: 74%;  /* Move below the crystal container */
-        transform: translateX(-50%) scale(1.5); /* Scale down */
+        top: 77%;  /* Move below the crystal container */
+        transform: translateX(-50%) scale(1.2); /* Scale down */
         margin-top: 20px; /* Add space below */
+    }
+}
+
+@media (max-width: 400px) {
+    .bat {
+        top: 70%; /* Move below the crystal container */
+        transform: translateX(-50%) scale(1); /* Scale down */
     }
 }
