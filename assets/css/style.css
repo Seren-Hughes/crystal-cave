@@ -195,16 +195,23 @@ body {
 
 @media (max-width: 1263px) {
     .bat {
-        left: 30%;  /* Center horizontally */
-        top: 77%;  /* Move below the crystal container */
-        transform: translateX(-50%) scale(1.2); /* Scale down */
-        margin-top: 20px; /* Add space below */
-    }
+        left: 17%;  /* Adjust to be just outside the crystal container */
+        transform: translateX(-50%) scale(1.4); /* Scale down */
+    }  
+}
+
+@media (max-width: 900px) {
+    .bat {
+        top: 82%; /* Move below the crystal container */
+        left: 20%; /* Adjust to be just outside the crystal container */
+        transform: translateX(-50%) scale(1.3); /* Scale down */
+    }  
 }
 
 @media (max-width: 400px) {
     .bat {
-        top: 70%; /* Move below the crystal container */
+        top: 80%; /* Move below the crystal container */
+        left: 20%; /* Adjust to be just outside the crystal container */
         transform: translateX(-50%) scale(1); /* Scale down */
     }
 }
