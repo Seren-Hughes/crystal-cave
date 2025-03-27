@@ -94,3 +94,41 @@ body {
 .crystal-container:hover .light-crystal {
     opacity: 1;
 }
+
+/* ----------------------------------*/
+/* ----- Bat sprite animation ------ */
+/* ----------------------------------*/
+
+.bat {
+    position: absolute; /* Position relative to the crystal container */
+    left: 250px; /* Adjust to be just outside the crystal container */
+    top: 50%; 
+    transform: translateY(-50%); /* Center vertically */
+    width: 112px; /* Width of the bat sprite */
+    height: 112px; /* Height of the bat sprite */
+    background-image: url("images/bat-sprite.png");
+    background-size: 224px 112px; /* Width of the sprite sheet */
+    transform: translateY(-50%) scale(1.6); /* 1.3x larger */
+    animation: flap 0.3s steps(2) infinite alternate; /* Quick flap effect */
+}
+
+/* Flap animation */
+@keyframes flap {
+    from { background-position: 0 0; } /* First frame */
+    to { background-position: -210px 0; } /* Second frame */
+} 
+
+/* ----------------------------------------------------------------------*/
+
+/*----------------------------------------*/
+/* -- Media queries for responsiveness -- */
+/*----------------------------------------*/
+
+@media (max-width: 1263px) {
+    .bat {
+        left: 30%;  /* Center horizontally */
+        top: 74%;  /* Move below the crystal container */
+        transform: translateX(-50%) scale(1.5); /* Scale down */
+        margin-top: 20px; /* Add space below */
+    }
+}
