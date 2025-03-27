@@ -26,8 +26,71 @@ body {
     position: relative;
     margin: 0 auto;
     background-image: url("/assets/images/cave-in-container.png");
-    background-size: contain; /* Ensures the border fits inside */
+    background-size: contain; /* Make sure the border fits inside */
     background-position: center;
     background-repeat: no-repeat;
     padding: 3%;
+}
+
+/* crystal row container */
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+}
+
+/* Individual crystal container */
+.crystal-container {
+    width: 30%; /* Adjust crystal size */
+    aspect-ratio: 1 / 1; /* Square container */
+    position: relative; /* Allows absolute positioning of children (crystal images) */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+/* Smaller size for top row crystals to create a sense of depth */
+.row:first-child .crystal-container {
+    width: 25%;
+    margin-top: 33%; /* Slightly move top row down */
+}
+
+.row:last-child {
+    margin-bottom: 10%; /* adjust slightly nudge bottom row to align within cave walls */
+}
+
+/* All crystal images positioned inside the crystal container (game container)*/
+.crystal-container img {
+    position: absolute; /* Allows for stacking of images */
+    width: 100%; /* Fill the container */
+    height: 100%; /* Fill the container */
+    object-fit: contain; /* Maintain aspect ratio */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for hover effect */
+}
+
+/* Glow effect (behind the crystal) */
+.glow {
+    filter: brightness(2) blur(30px); /* Increase brightness and add blur - increase if needed for visual cue accessability */
+    opacity: 0; 
+    z-index: 0; /* Behind everything */
+}
+
+/* Main crystal (default state) */
+.main-crystal {
+    z-index: 2;
+}
+
+/* Lighter crystal (hidden until hover) */
+.light-crystal {
+    opacity: 0;
+    z-index: 3; /* On top of the main crystal */
+}
+
+/* Temporary hover effect - this will change to javascript and onclick event listeners */
+.crystal-container:hover .glow {
+    opacity: 1;
+}
+
+.crystal-container:hover .light-crystal {
+    opacity: 1;
 }
