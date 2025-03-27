@@ -173,7 +173,7 @@ body {
     transform: translateY(-50%); /* Center vertically */
     width: 112px; /* Width of the bat sprite */
     height: 112px; /* Height of the bat sprite */
-    background-image: url("/assets/images/bat-sprite.png"); /* Sprite sheet */
+    background-image: url('../images/bat-sprite.png'); /* Sprite sheet */
     background-size: 224px 112px; /* Width of the sprite sheet */
     transform: translateY(-50%) scale(1.6); /* 1.3x larger */
     animation: flap 0.3s steps(2) infinite alternate; /* Quick flap effect */
