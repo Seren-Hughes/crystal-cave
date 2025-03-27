@@ -118,8 +118,49 @@ body {
     width: fit-content;
     font-family: sans-serif;
     z-index: 1000; /* On top of everything */
-    
 }
+
+/* --------------------------------------------------------------*/
+
+/* ----------------------------------*/
+/* ----------------------------------*/
+/* ------- UI Buttons----------------*/
+/* ----------------------------------*/
+/* ----------------------------------*/
+
+.buttons-container {
+    position: fixed;
+    top: 10px;
+    right: 20px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 buttons per row */
+    grid-template-rows: repeat(5, auto); /* Automatically size rows */
+    gap: 10px; /* Add space between buttons */
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: right;
+}
+
+.game-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 70px; /* Adjust button size - keep the width and height equal */
+    height: 70px;
+}
+
+.game-button img {
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated; /* Keeps pixel art sharp - keeps the button icons clear */
+}
+
+.game-button:hover img {
+    filter: brightness(1.2); /* Lighten on hover */
+}
+
+/* --------------------------------------------------------------*/
 
 /* ----------------------------------*/
 /* ----- Bat sprite animation ------ */
