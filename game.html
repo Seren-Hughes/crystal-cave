@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,56 +8,59 @@
     <!-- Add the link to the CSS file -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
 <body>
 
-<!-- game container div wrapper to contain crystal grid and bat sprite for bat positioning -->
-<div class="game-container">
-    <!-- Crystal Container -->
-    <div class="crystal-grid">
-        <div class="row">
-            <!-- individual crystal containers - *classes to be added to each container for js functionality -->
-            <div class="crystal-container">
-                <!-- duplicated crystal images within each crystal-container div, are used for applying the glow effect css (using z-index to layer glow version behind the main-crystal class) -->
-                <img src="assets/images/crystal_green.png" class="glow" alt="Green Crystal Glowing Layer">
-                <img src="assets/images/crystal_green.png" class="main-crystal" alt="Green Crystal">
-                <img src="assets/images/crystal_green_light.png" class="light-crystal" alt="Lighter Green Crystal">
+    <!-- game container div wrapper to contain crystal grid and bat sprite for bat positioning -->
+    <div class="game-container">
+        <!-- Crystal Container -->
+        <div class="crystal-grid">
+            <div class="row">
+                <!-- individual crystal containers - *classes to be added to each container for js functionality -->
+                <div class="crystal-container">
+                    <!-- duplicated crystal images within each crystal-container div, are used for applying the glow effect css (using z-index to layer glow version behind the main-crystal class) -->
+                    <img src="assets/images/crystal_green.png" class="glow" alt="Green Crystal Glowing Layer">
+                    <img src="assets/images/crystal_green.png" class="main-crystal" alt="Green Crystal">
+                    <img src="assets/images/crystal_green_light.png" class="light-crystal" alt="Lighter Green Crystal">
+                </div>
+
+                <div class="crystal-container">
+                    <img src="assets/images/crystal_yellow.png" class="glow" alt="Yellow Crystal Glowing Layer">
+                    <img src="assets/images/crystal_yellow.png" class="main-crystal" alt="Yellow Crystal">
+                    <img src="assets/images/crystal_yellow_light.png" class="light-crystal"
+                        alt="Lighter Yellow Crystal">
+                </div>
             </div>
-    
-            <div class="crystal-container">
-                <img src="assets/images/crystal_yellow.png" class="glow" alt="Yellow Crystal Glowing Layer">
-                <img src="assets/images/crystal_yellow.png" class="main-crystal" alt="Yellow Crystal">
-                <img src="assets/images/crystal_yellow_light.png" class="light-crystal" alt="Lighter Yellow Crystal">
+
+            <div class="row">
+                <div class="crystal-container">
+                    <img src="assets/images/crystal_blue.png" class="glow" alt="Blue Crystal Glowing Layer">
+                    <img src="assets/images/crystal_blue.png" class="main-crystal" alt="Blue Crystal">
+                    <img src="assets/images/crystal_blue_light.png" class="light-crystal" alt="Lighter Blue Crystal">
+                </div>
+
+                <div class="crystal-container">
+                    <img src="assets/images/crystal_pink.png" class="glow" alt="Pink Crystal Glowing Layer">
+                    <img src="assets/images/crystal_pink.png" class="main-crystal" alt="Pink Crystal">
+                    <img src="assets/images/crystal_pink_light.png" class="light-crystal" alt="Lighter Pink Crystal">
+                </div>
+
+                <div class="crystal-container">
+                    <img src="assets/images/crystal_orange.png" class="glow" alt="Orange Crystal Glowing Layer">
+                    <img src="assets/images/crystal_orange.png" class="main-crystal" alt="Orange Crystal">
+                    <img src="assets/images/crystal_orange_light.png" class="light-crystal"
+                        alt="Lighter Orange Crystal">
+                </div>
+
             </div>
         </div>
-    
-        <div class="row">
-            <div class="crystal-container">
-                <img src="assets/images/crystal_blue.png" class="glow" alt="Blue Crystal Glowing Layer">
-                <img src="assets/images/crystal_blue.png" class="main-crystal" alt="Blue Crystal">
-                <img src="assets/images/crystal_blue_light.png" class="light-crystal" alt="Lighter Blue Crystal">
-            </div>
-    
-            <div class="crystal-container">
-                <img src="assets/images/crystal_pink.png" class="glow" alt="Pink Crystal Glowing Layer">
-                <img src="assets/images/crystal_pink.png" class="main-crystal" alt="Pink Crystal">
-                <img src="assets/images/crystal_pink_light.png" class="light-crystal" alt="Lighter Pink Crystal">
-            </div>
-    
-            <div class="crystal-container">
-                <img src="assets/images/crystal_orange.png" class="glow" alt="Orange Crystal Glowing Layer">
-                <img src="assets/images/crystal_orange.png" class="main-crystal" alt="Orange Crystal">
-                <img src="assets/images/crystal_orange_light.png" class="light-crystal" alt="Lighter Orange Crystal">
-            </div>
-            
+        <!-- bat sprite container -->
+        <div class="bat"></div>
+        <!-- Level Number Container -->
+        <div class="level-indicator">
+            Level <span id="level-number">1</span>
         </div>
     </div>
-    <!-- bat sprite container -->
-    <div class="bat"></div>
-    <!-- Level Number Container -->
-    <div class="level-indicator">
-        Level <span id="level-number">1</span>
-    </div>
-</div>
 
     <!-- buttons container -->
     <div class="buttons-container">
@@ -69,4 +73,5 @@
 
     </div>
 </body>
+
 </html>
