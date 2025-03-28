@@ -212,7 +212,7 @@ body {
 /*----------------------------------------*/
 /* ---------------------------------------*/
 
-
+/* -- tablet devices --*/
 @media (max-width: 900px) {
     /* -- bat moves below the crystal container on smaller devices --*/
     .bat {
@@ -222,24 +222,24 @@ body {
     }
     .buttons-container {
         display: grid;
-        grid-template-columns: repeat(4, 0fr); /* 4 buttons per row */
+        grid-template-columns: repeat(6, 0fr); /* 4 buttons per row */
         grid-template-rows: auto; /* Automatically adjust rows */
         gap: 3px; /* Space between buttons */
         position: absolute;
         top: 8px; /* Position above the game container */
-        left: 26%;
+        left: 50%;
         transform: translateX(-50%);
-        width: 50%; /* Ensure the container spans most of the screen width */
+        width: max-content; /* Ensure the container spans most of the screen width */
     }
 
     .buttons-container .game-button {
-        width: 50px; /* Prevent buttons from shrinking too much */
-        height: 50px;
-        min-width: 50px; /* Set a minimum width */
-        min-height: 50px; /* Set a minimum height */
+        width: 60px; /* Prevent buttons from shrinking too much */
+        height: 60px;
+        min-width: 60px; /* Set a minimum width */
+        min-height: 60px; /* Set a minimum height */
     }
 }
-
+/* --  small tablet devices --*/
 @media (max-width: 700px) {
     .bat {
         top: 85%;
@@ -253,23 +253,19 @@ body {
         top: 90%;
         right: 25px;
     }
+
     .buttons-container {
         display: grid;
-        grid-template-columns: repeat(4, 0fr); /* 4 buttons per row */
+        grid-template-columns: repeat(6, 0fr); /* 4 buttons per row */
         grid-template-rows: auto; /* Automatically adjust rows */
         gap: 3px; /* Space between buttons */
         position: absolute;
         top: 8px; /* Position above the game container */
-        left: 20%;
+        left: 50%;
         transform: translateX(-50%);
-        width: 60%; /* Ensure the container spans most of the screen width */
+        width: max-content; /* Ensure the container spans most of the screen width */
     }
-    .buttons-container .game-button {
-        width: 50px; /* Prevent buttons from shrinking too much */
-        height: 50px;
-        min-width: 50px; /* Set a minimum width */
-        min-height: 50px; /* Set a minimum height */
-    }
+   
 }
 
 @media (max-width: 590px) {
@@ -278,73 +274,63 @@ body {
         left: 20%;
         transform: translateX(-50%) scale(1);
     }
+
     .level-indicator {
         transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
         top: 100%;
         right: -10px;
-        /*font-size: 1rem; /* Adjust font size for smaller screens */
     }
-    .buttons-container {
-        display: grid;
-        grid-template-columns: repeat(4, 0fr); /* 4 buttons per row */
-        grid-template-rows: auto; /* Automatically adjust rows */
-        gap: 3px; /* Space between buttons */
-        position: absolute;
-        top: 8px; /* Position above the game container */
-        left: 15%;
-        transform: translateX(-50%);
-        width: 70%; /* Ensure the container spans most of the screen width */
-    }
-    .buttons-container .game-button {
-        width: 50px; /* Prevent buttons from shrinking too much */
-        height: 50px;
-        min-width: 50px; /* Set a minimum width */
-        min-height: 50px; /* Set a minimum height */
-    }
+    
 }
 
+/* -- mobile devices --*/
 @media (max-width: 500px) {
     .level-indicator {
         transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
         top: 100%;
         right: -30px;
     }
+
     .buttons-container {
         display: grid;
-        grid-template-columns: repeat(4, 0fr); /* 4 buttons per row */
+        grid-template-columns: repeat(6, 0fr); /* 4 buttons per row */
         grid-template-rows: auto; /* Automatically adjust rows */
         gap: 3px; /* Space between buttons */
         position: absolute;
         top: 8px; /* Position above the game container */
-        left: 15%;
+        left: 50%;
         transform: translateX(-50%);
-        width: 80%; /* Ensure the container spans most of the screen width */
+        width: max-content; /* Ensure the container spans most of the screen width */
     }
+
     .buttons-container .game-button {
-        width: 50px; /* Prevent buttons from shrinking too much */
-        height: 50px;
+        width: 55px; /* Prevent buttons from shrinking too much */
+        height: 55px;
         min-width: 50px; /* Set a minimum width */
         min-height: 50px; /* Set a minimum height */
     }
 }
 
+/* -- mobile devices medium to small sizes --*/
 @media (max-width: 400px) {
     .level-indicator {
         transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
         top: 100%;
         right: -40px;
     }
+
     .buttons-container {
         display: grid;
-        grid-template-columns: repeat(4, 0fr); /* 4 buttons per row */
+        grid-template-columns: repeat(5, 0fr); /* 4 buttons per row */
         grid-template-rows: auto; /* Automatically adjust rows */
         gap: 3px; /* Space between buttons */
         position: absolute;
-        top: 8px; /* Position above the game container */
-        left: 40%;
+        top: 30px; /* Position above the game container */
+        left: 50%;
         transform: translateX(-50%);
-        width: 60%; /* Ensure the container spans most of the screen width */
+        width: max-content; /* Ensure the container spans most of the screen width */
     }
+
     .buttons-container .game-button {
         width: 50px; /* Prevent buttons from shrinking too much */
         height: 50px;
@@ -377,11 +363,12 @@ body {
         height: min(75vw, 75vh, 375px); /* Same ratio, adjusted size */
         padding: 2%; /* Slightly reduce padding to accommodate the smaller size */
     }
+
     .buttons-container {
         position: fixed; /* Ensures it's placed relative to the viewport */
-        top: auto; 
+        top: auto; /* Reset top position */
         left: auto; /* Reset left position */
-        right: 1px; /* Position to the right side of the screen */
+        right: -5%; /* Position to the right side of the screen */
         display: grid;
         grid-template-columns: repeat(2, 1fr); /* 2 buttons per row */
         grid-template-rows: repeat(5, auto); /* Automatically size rows */
