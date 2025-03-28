@@ -93,6 +93,14 @@ Brucey the plush bat, who inspired the creative process behind the game’s them
 
    </details>
 
+5. ### Greetings / Ready? Modal:
+
+<details><summary><em>Click to expand wireframes</em></summary>
+
+   ![Greetings Ready? Modal ](assets/media/modal-welcome-ready-wireframes.png')
+
+   </details>
+
 5. ### Game Page Modal View:
 
 <details><summary><em>Click to expand wireframes</em></summary>
