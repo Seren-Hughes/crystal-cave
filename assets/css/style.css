@@ -150,8 +150,8 @@ body {
 
 .level-indicator {
     position: absolute; /* Position relative to the crystal container */
-    bottom: 60px; /* Adjust to position below the crystal container */
-    left: 63%;
+    top: 90%; /* Adjust to position below the crystal container */
+    right: 30px;
     transform: translateX(-50%);
     background-color: black;
     color: #91D4F2;
@@ -228,19 +228,67 @@ body {
         left: 25%;
         transform: translateX(-50%) scale(1);
     }
-}
 
-/* -- media query for rotated view (landscape) on smaller devices --*/
-@media (max-height: 400px) and (orientation: landscape) {
-    .bat {
-        top: auto; /* Reset top position */
-        left: -10%;
-        transform: translateX(-50%) scale(1.2);
+    .level-indicator {
+        transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
+        /*font-size: 1.2rem; /* Adjust font size for smaller screens */
+        top: 90%;
+        right: 25px;
     }
 }
 
-/* Shrink game container to fit within landscape mobile view */
-.crystal-grid {
-    max-width: 75vw; /* Scale down a bit */
-    max-height: 75vh; /* Reduce height to avoid address bar */
+@media (max-width: 590px) {
+    .bat {
+        top: 90%;
+        left: 20%;
+        transform: translateX(-50%) scale(1);
+    }
+    .level-indicator {
+        transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
+        top: 100%;
+        right: -10px;
+        /*font-size: 1rem; /* Adjust font size for smaller screens */
+    }
+}
+
+@media (max-width: 500px) {
+    .level-indicator {
+        transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
+        top: 100%;
+        right: -30px;
+    }
+}
+
+@media (max-width: 400px) {
+    .level-indicator {
+        transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
+        top: 100%;
+        right: -40px;
+    }
+}
+       
+/*------------------------------------------------------------------*/
+/* -- media query for rotated view (landscape) on smaller devices --*/
+/*------------------------------------------------------------------*/
+@media (max-height: 420px) and (orientation: landscape) {
+    .bat {
+        top: 40px; /* Reset top position */
+        left: -15%;
+        transform: translateX(-50%) scale(1.2);
+    }
+
+    .level-indicator {
+        transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
+        top: 70%; /* Reset top position */
+        left: -25%; /* align to the left side of the screen */
+        right: auto; /* Reset right position */
+    }
+    /* Shrink game container to fit within landscape mobile view */
+    .crystal-grid {
+        max-width: 75vw; /* Scale down a bit */
+        max-height: 75vh; /* Reduce height to avoid address bar */
+        width: min(75vw, 75vh, 375px); /* Adjust width and height to maintain proportionality */
+        height: min(75vw, 75vh, 375px); /* Same ratio, adjusted size */
+        padding: 2%; /* Slightly reduce padding to accommodate the smaller size */
+    }
 }
