@@ -19,14 +19,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // This script handles the glow effect on the crystal containers
 document.querySelectorAll('.crystal-container').forEach(container => {
-    container.addEventListener('click', () => {
-        container.querySelector('.glow').classList.toggle('active');
-        container.querySelector('.light-crystal').classList.toggle('active');
+    // Function to handle the glow and light effect for a short period
+    const activateGlow = () => {
+        // Add active classes for glow and light-crystal
+        container.querySelector('.glow').classList.add('active');
+        container.querySelector('.light-crystal').classList.add('active');
+
+        // Remove active classes after 0.6 seconds to return to the default state
+        setTimeout(() => {
+            container.querySelector('.glow').classList.remove('active');
+            container.querySelector('.light-crystal').classList.remove('active');
+        }, 600); // 600ms = 0.6 seconds
+    };
+
+    // Trigger on click or tap
+    container.addEventListener('click', activateGlow);
+
+    // Mobile touch devices
+    container.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Prevents the default touch action (optional)
+        activateGlow();
     });
-//mobile touch devices
-    container.addEventListener('touchstart', () => {
-        container.querySelector('.glow').classList.toggle('active');
-        container.querySelector('.light-crystal').classList.toggle('active');
-    });
-    
 });
