@@ -8,6 +8,7 @@ This game takes the classic Simon memory challenge and gives it a unique twist w
 - Casual gamers who enjoy quick, skill-based challenges.
 - All age groups, from children to adults, due to simple controls and gameplay.
 - Fans of retro and pixel art games looking for a nostalgic yet fresh experience.
+- Fans of music based games.
 
 ## Design & Planning:
 
@@ -119,7 +120,7 @@ Brucey the plush bat, who inspired the creative process behind the game’s them
 
 ## Pseudocode 
 
-Pseudocode was used during the early planning and development stage. It was helpful to write out the basic logic in order to visualise the game layout and html div containers needed in order to make dynamic changes to each componant. 
+Basic pseudocode was used during the early planning and development stage. It was helpful to write out the basic logic in order to visualise the game layout and html div containers needed in order to make dynamic changes to each componant. 
 
 ### Game Initialization:
 
@@ -155,3 +156,44 @@ Pseudocode was used during the early planning and development stage. It was help
 - Add settings like brightness and sound control.
 - Store player progress (e.g., name and highest level reached) in local storage.
 - Easter egg for special player name (e.g., "Brucey" replace bat pixel sprite).
+
+## Function Structure (and game psuedocode refined)
+
+`startGame()`
+
+  - Resets level to 1
+  - Generates an initial sequence of 3 crystals
+  - Displays the sequence to the player
+
+`storeSequence()`
+
+  - Generates a random sequence of crystal notes for each level
+  - Ensures each level has a completely new sequence (level + 2)
+
+`playSequence()`
+
+  - Loops through the stored sequence
+  - Makes each crystal glow and plays the corresponding note
+
+`waitForPlayerInput()`
+
+  - Captures player clicks, keyboard keys / A,W,S,E,D / touch, on crystals
+  - Stores their input sequence
+
+`checkSequence()`
+
+  - Compares player’s input with the stored sequence
+  - If correct: calls `nextLevel()`
+  - If incorrect: calls `showPlayAgainModal()`
+
+`nextLevel()`
+
+  - Increments level by 1
+  - Calls `storeSequence()` to generate a new, longer sequence (by 1)
+  - Calls `playSequence()` to show the new sequence
+
+`showPlayAgainModal()`
+
+  - Displays a modal asking if the player wants to retry
+  - If "Yes": Calls `startGame()` to reset
+  - If "No": Ends the game - return to home page
