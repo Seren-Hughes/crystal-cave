@@ -101,7 +101,7 @@ Brucey the plush bat, who inspired the creative process behind the game’s them
 
    </details>
 
-5. ### Game Page Modal View:
+6. ### Game Page Modal View:
 
 <details><summary><em>Click to expand wireframes</em></summary>
 
@@ -116,3 +116,42 @@ Brucey the plush bat, who inspired the creative process behind the game’s them
    ![404 Error Page](assets/media/echoes-error-page-wireframes.png)
 
    </details>
+
+## Pseudocode 
+
+Pseudocode was used during the early planning and development stage. It was helpful to write out the basic logic in order to visualise the game layout and html div containers needed in order to make dynamic changes to each componant. 
+
+### Game Initialization:
+
+- Start the game when the player clicks "Start".
+- Set the initial level to 1.
+- Determine sequence length based on the level (Level 1 = 3, Level 2 = 4, Level 3 = 5 etc.).
+- Generate a random sequence of numbers (1 to 5), each representing a crystal.
+- Store the sequence.
+- Display (play) the sequence by making the corresponding crystals glow and play their notes.
+
+### Player Input:
+
+- Wait for the player to start inputting their sequence by clicking on crystals.
+- Store each clicked crystal in an array in the order they are clicked.
+- After the player has entered the full sequence, compare it to the generated sequence.
+
+### Sequence Validation:
+
+- _**If the player's input matches the generated sequence:**_
+  - Play a success animation (all crystals glow, twinkly music plays).
+  - Increase the level.
+  - Generate a new sequence with an increased length.
+  - Display the new sequence.
+
+- _**If the player's input does not match:**_
+
+  - Display "Game Over" modal with retry option.
+  - Option to restart from Level 1.
+
+### Additional Features:
+
+- Implement difficulty modes (e.g., limited attempts in hard mode).
+- Add settings like brightness and sound control.
+- Store player progress (e.g., name and highest level reached) in local storage.
+- Easter egg for special player name (e.g., "Brucey" replace bat pixel sprite).
