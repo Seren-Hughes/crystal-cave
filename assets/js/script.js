@@ -41,3 +41,36 @@ document.querySelectorAll('.crystal-container').forEach(container => {
         activateGlow();
     });
 });
+
+// GAME FUNCTIONS 
+
+function startGame() {
+
+};
+
+
+function storeSequence() {
+
+};
+
+
+function playSequence() {
+
+};
+
+function waitForPlayerInput() {
+
+}
+
+
+function checkPlayerInput() {
+
+}
+
+function nextLevel() {
+
+}
+
+function showPlayAgainModal() {
+
+}

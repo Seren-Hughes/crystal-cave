@@ -181,7 +181,7 @@ Basic pseudocode was used during the early planning and development stage. It wa
     - Captures player clicks, keyboard keys / A,W,S,E,D / touch, on crystals
     - Stores their input sequence
 
-5. `checkSequence()`
+5. `checkPlayerInput()`
 
     - Compares player’s input with the stored sequence
     - If correct: calls `nextLevel()`
