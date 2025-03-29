@@ -207,6 +207,32 @@ body {
 
 /* ----------------------------------------------------------------------*/
 
+/*------------------------------------------------*/
+/* --------------Speech Bubble Modal------------- */
+/*------------------------------------------------*/
+.speech-bubble {
+    position: absolute;
+    top: 5%;
+    left: 10%;
+    width: 350px;
+    aspect-ratio: 3 / 2; /* Maintain aspect ratio */
+    background: url('../images/speech-bubble-placeholder.png') no-repeat center;
+    background-size: contain;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    z-index: 2000;
+    cursor: pointer;
+}
+
+/* Hide modal initially */
+.hidden {
+    display: none;
+}
+
+/* -------------------------------------------------------------------------*/
+
 /* ---------------------------------------*/
 /*----------------------------------------*/
 /* -- Media queries for responsiveness -- */
@@ -281,6 +307,10 @@ body {
         top: 100%;
         right: -10px;
     }
+
+    .speech-bubble {
+        width: 250px; /* Adjust width for smaller screens */
+    }
     
 }
 
@@ -337,6 +367,10 @@ body {
         height: 50px;
         min-width: 50px; /* Set a minimum width */
         min-height: 50px; /* Set a minimum height */
+    }
+
+    .speech-bubble {
+        width: 200px; /* Adjust width for smaller screens */
     }
 }
        
