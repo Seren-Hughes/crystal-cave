@@ -9,6 +9,7 @@ This game takes the classic Simon memory challenge and gives it a unique twist w
 - All age groups, from children to adults, due to simple controls and gameplay.
 - Fans of retro and pixel art games looking for a nostalgic yet fresh experience.
 - Fans of music based games.
+- Fans of memory games and memory training games (music memory included).
 
 ## Design & Planning:
 
@@ -152,48 +153,48 @@ Basic pseudocode was used during the early planning and development stage. It wa
 
 ### Additional Features:
 
-- Implement difficulty modes (e.g., limited attempts in hard mode).
+- Implement difficulty modes (e.g., limited attempts in hard mode/lives in easy mode/faster sequence speed).
 - Add settings like brightness and sound control.
 - Store player progress (e.g., name and highest level reached) in local storage.
 - Easter egg for special player name (e.g., "Brucey" replace bat pixel sprite).
 
 ## Function Structure (and game psuedocode refined)
 
-`startGame()`
+1. `startGame()`
 
-  - Resets level to 1
-  - Generates an initial sequence of 3 crystals
-  - Displays the sequence to the player
+    - Resets level to 1
+    - Generates an initial sequence of 3 crystals
+    - Displays the sequence to the player
 
-`storeSequence()`
+2. `storeSequence()`
 
-  - Generates a random sequence of crystal notes for each level
-  - Ensures each level has a completely new sequence (level + 2)
+    - Generates a random sequence of crystal notes for each level
+    - Ensures each level has a completely new sequence (level + 2)
 
-`playSequence()`
+3. `playSequence()`
 
-  - Loops through the stored sequence
-  - Makes each crystal glow and plays the corresponding note
+    - Loops through the stored sequence
+    - Makes each crystal glow and plays the corresponding note
 
-`waitForPlayerInput()`
+4. `waitForPlayerInput()`
 
-  - Captures player clicks, keyboard keys / A,W,S,E,D / touch, on crystals
-  - Stores their input sequence
+    - Captures player clicks, keyboard keys / A,W,S,E,D / touch, on crystals
+    - Stores their input sequence
 
-`checkSequence()`
+5. `checkSequence()`
 
-  - Compares player’s input with the stored sequence
-  - If correct: calls `nextLevel()`
-  - If incorrect: calls `showPlayAgainModal()`
+    - Compares player’s input with the stored sequence
+    - If correct: calls `nextLevel()`
+    - If incorrect: calls `showPlayAgainModal()`
 
-`nextLevel()`
+6. `nextLevel()`
 
-  - Increments level by 1
-  - Calls `storeSequence()` to generate a new, longer sequence (by 1)
-  - Calls `playSequence()` to show the new sequence
+    - Increments level by 1
+    - Calls `storeSequence()` to generate a new, longer sequence (by 1)
+    - Calls `playSequence()` to show the new sequence
 
-`showPlayAgainModal()`
+7. `showPlayAgainModal()`
 
-  - Displays a modal asking if the player wants to retry
-  - If "Yes": Calls `startGame()` to reset
-  - If "No": Ends the game - return to home page
+    - Displays a modal asking if the player wants to retry
+    - If "Yes": Calls `startGame()` to reset
+    - If "No": Ends the game - return to home page

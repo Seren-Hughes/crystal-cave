@@ -99,14 +99,20 @@ body {
     z-index: 3; /* On top of the main crystal */
 }
 
-/* Temporary hover effect - this will change to javascript and onclick event listeners */
+/* Active state for the glow and light-crystal when clicked */
+.glow.active,
+.light-crystal.active {
+    opacity: 1;
+}
+
+/* Temporary hover effect - this will change to javascript and onclick event listeners 
 .crystal-container:hover .glow {
     opacity: 1;
 }
 
 .crystal-container:hover .light-crystal {
     opacity: 1;
-}
+} */
 
 /* ----------------------------------------------------------------------*/
 

@@ -16,3 +16,17 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+// This script handles the glow effect on the crystal containers
+document.querySelectorAll('.crystal-container').forEach(container => {
+    container.addEventListener('click', () => {
+        container.querySelector('.glow').classList.toggle('active');
+        container.querySelector('.light-crystal').classList.toggle('active');
+    });
+//mobile touch devices
+    container.addEventListener('touchstart', () => {
+        container.querySelector('.glow').classList.toggle('active');
+        container.querySelector('.light-crystal').classList.toggle('active');
+    });
+    
+});
