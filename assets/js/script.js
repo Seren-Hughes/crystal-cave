@@ -1,5 +1,6 @@
 // Global variables
 let currentSequence = []; // Store the sequence globally
+let playersInput = []; // Store the player's input globally
 let isSequencePlaying = false; // Flag to check if the sequence is playing
 let isModalClosing = false; // Flag to check if the modal is closing
 let isPlayerTurn = false; // Flag to check if it's the player's turn
@@ -21,24 +22,24 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Closing modal...");
         modal.classList.add("hidden");
         overlay.classList.remove("active"); // Deactivate the overlay
-        console.log("Overlay class list after closing modal:", overlay.classList);
+        console.log("Overlay class list after closing modal:", overlay.classList); // Debugging message
 
         setTimeout(() => {
             isModalClosing = false; // Reset the flag after the modal is closed
             startGame(); // Start the game immediately
-        }, 500); // Keep the slight delay for hiding the modal
+        }, 500); // slight delay for hiding the modal
     }
 
     // Open the modal and activate the overlay
     function openModal() {
-        console.log("Opening modal...");
+        console.log("Opening modal..."); // Debugging message
         modal.classList.remove("hidden");
         overlay.classList.add("active"); // Activate the overlay
     }
 
     // Close modal when clicking on the overlay
     overlay.addEventListener("click", function (event) {
-        console.log("Overlay clicked");
+        console.log("Overlay clicked"); // Debugging message
         closeModal(event);
     });
 
@@ -52,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to handle the glow effect on the crystal containers
     const activateGlow = (container) => {
         if (!isPlayerTurn) {
-            console.log("Crystal interaction blocked: Not player's turn.");
+            console.log("Crystal interaction blocked: Not player's turn."); // Debugging message
             return;
         }
 
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.crystal-container').forEach(container => {
         container.addEventListener('click', function (event) {
             if (!isPlayerTurn) {
-                console.log("Crystal interaction blocked: Not player's turn.");
+                console.log("Crystal interaction blocked: Not player's turn."); // Debugging message
                 event.stopPropagation();
                 return;
             }
@@ -79,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         container.addEventListener('touchstart', function (event) {
             if (!isPlayerTurn) {
-                console.log("Crystal interaction blocked: Not player's turn.");
+                console.log("Crystal interaction blocked: Not player's turn."); // Debugging message
                 event.preventDefault();
                 return;
             }
@@ -88,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// GAME FUNCTIONS
+// --------------------- GAME FUNCTIONS ---------------------- //
 
 // Function to start the game
 function startGame() {
@@ -156,10 +157,37 @@ function playSequence(sequence) {
 function waitForPlayerInput() {
     console.log("Waiting for player input..."); // Debugging message
     isPlayerTurn = true; // Set flag to indicate it's the player's turn
-}
+
+    playersInput = []; // Reset player's input for new round    
+
+    const crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
+    console.log("Crystals available for player input:", crystals); // Debugging message
+
+    function handleCrystalClick(event) {
+        if (!isPlayerTurn) return; // Ignore clicks if it's not the player's turn
+    
+        let clickedColor = event.currentTarget.dataset.color; // Get the crystal's assigned color
+        playersInput.push(clickedColor); // Store the clicked crystal
+        
+        console.log(`Player clicked: ${clickedColor}`); // Debugging message
+        console.log(`Current input sequence: ${playersInput}`); // Debugging message
+    
+        // If player's input matches the required sequence length, stop capturing
+        if (playersInput.length === currentSequence.length) {
+          isPlayerTurn = false; // Prevent further input
+          checkPlayerInput(); // Compare with the correct sequence
+        }
+      }
+    
+      // Add event listeners to each crystal button
+      crystals.forEach(crystal => {
+        crystal.addEventListener("click", handleCrystalClick);
+      });
+    }
+
 
 function checkPlayerInput() {
-
+    
 }
 
 function nextLevel() {
