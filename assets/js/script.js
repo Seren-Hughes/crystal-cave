@@ -4,6 +4,7 @@ let playersInput = []; // Store the player's input globally
 let isSequencePlaying = false; // Flag to check if the sequence is playing
 let isModalClosing = false; // Flag to check if the modal is closing
 let isPlayerTurn = false; // Flag to check if it's the player's turn
+let level = 1; // Initialize level
 
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.querySelector(".speech-bubble");
@@ -94,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
 // Function to start the game
 function startGame() {
     console.log("Starting game..."); // Debugging message
-    let level = 1;
+    level = 1;
     isSequencePlaying = true; // Disable crystal clicks during the sequence
     storeSequence(level); // Generate and store the sequence
     console.log("Current sequence:", currentSequence); // Debugging output
