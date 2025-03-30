@@ -105,14 +105,9 @@ body {
     opacity: 1;
 }
 
-/* Temporary hover effect - this will change to javascript and onclick event listeners 
-.crystal-container:hover .glow {
-    opacity: 1;
+.crystal-container.disabled {
+    pointer-events: none; /* Prevents clicks */
 }
-
-.crystal-container:hover .light-crystal {
-    opacity: 1;
-} */
 
 /* ----------------------------------------------------------------------*/
 
