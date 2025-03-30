@@ -187,13 +187,24 @@ function waitForPlayerInput() {
 
 
 function checkPlayerInput() {
-    
+    console.log("Checking player input..."); // Debugging message
+    // Compare player's input with the correct sequence
+    // Use JSON.stringify to compare arrays - more reliable than .join() 
+    if (JSON.stringify(playersInput) === JSON.stringify(currentSequence)) {
+        console.log("Correct input"); // Debugging message
+        nextLevel(); // Proceed to the next level
+    }
+    else {
+        console.log("Incorrect input"); // Debugging message
+        showPlayAgainModal(); // Show play again modal
+    }
 }
 
 function nextLevel() {
-
+    console.log("Great memory! Let's see what the crystals play next... Proceeding to next level..."); // Debugging message
 }
 
 function showPlayAgainModal() {
-
+    console.log("Showing play again modal..."); // Debugging message
+    alert("Never give up. Never surrender. Play again?"); // Alert the player
 }
