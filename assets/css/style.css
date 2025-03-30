@@ -231,7 +231,24 @@ body {
 .hidden {
     display: none;
 }
+/* ----------------------------------------------------------------------*/
+/* ---------------------- Overlay ---------------------------------------*/
+/* ----------------------------------------------------------------------*/
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0); /* Fully transparent */
+    z-index: 3000; /* Ensure it sits above the crystals and other elements */
+    pointer-events: none; /* Disable clicks by default */
+}
+
+.overlay.active {
+    pointer-events: all; /* Enable clicks when active */
+}
 /* -------------------------------------------------------------------------*/
 
 /* ---------------------------------------*/

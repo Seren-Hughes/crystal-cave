@@ -2,9 +2,11 @@
 let currentSequence = []; // Store the sequence globally
 let isSequencePlaying = false; // Flag to check if the sequence is playing
 let isModalClosing = false; // Flag to check if the modal is closing
+let isPlayerTurn = false; // Flag to check if it's the player's turn
 
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.querySelector(".speech-bubble");
+    const overlay = document.querySelector(".overlay");
 
     // Function to close the modal
     function closeModal(event) {
@@ -16,7 +18,10 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault(); // Prevent any default behavior
         }
 
+        console.log("Closing modal...");
         modal.classList.add("hidden");
+        overlay.classList.remove("active"); // Deactivate the overlay
+        console.log("Overlay class list after closing modal:", overlay.classList);
 
         setTimeout(() => {
             isModalClosing = false; // Reset the flag after the modal is closed
@@ -24,8 +29,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 500); // Keep the slight delay for hiding the modal
     }
 
-    // Close modal when clicking anywhere
-    document.addEventListener("click", function (event) {
+    // Open the modal and activate the overlay
+    function openModal() {
+        console.log("Opening modal...");
+        modal.classList.remove("hidden");
+        overlay.classList.add("active"); // Activate the overlay
+    }
+
+    // Close modal when clicking on the overlay
+    overlay.addEventListener("click", function (event) {
+        console.log("Overlay clicked");
         closeModal(event);
     });
 
@@ -38,6 +51,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Function to handle the glow effect on the crystal containers
     const activateGlow = (container) => {
+        if (!isPlayerTurn) {
+            console.log("Crystal interaction blocked: Not player's turn.");
+            return;
+        }
+
         // Add active classes for glow and light-crystal
         container.querySelector('.glow').classList.add('active');
         container.querySelector('.light-crystal').classList.add('active');
@@ -49,25 +67,23 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 600); // 600ms = 0.6 seconds
     };
 
-    // Prevent clicking on crystals before sequence is finished or while modal is closing
     document.querySelectorAll('.crystal-container').forEach(container => {
         container.addEventListener('click', function (event) {
-            if (isSequencePlaying || isModalClosing) {
-                console.log("Crystal interaction blocked: Sequence playing or modal closing.");
-                event.stopPropagation(); // Prevent the crystal click from doing anything
-                return; // Do nothing if sequence is playing or modal is closing
+            if (!isPlayerTurn) {
+                console.log("Crystal interaction blocked: Not player's turn.");
+                event.stopPropagation();
+                return;
             }
-            activateGlow(container); // Handle normal click actions
+            activateGlow(container);
         });
 
-        // Mobile touch devices
         container.addEventListener('touchstart', function (event) {
-            if (isSequencePlaying || isModalClosing) {
-                console.log("Crystal interaction blocked: Sequence playing or modal closing.");
-                event.preventDefault(); // Prevent the default touch action
-                return; // Do nothing if sequence is playing or modal is closing
+            if (!isPlayerTurn) {
+                console.log("Crystal interaction blocked: Not player's turn.");
+                event.preventDefault();
+                return;
             }
-            activateGlow(container); // Handle normal touch actions
+            activateGlow(container);
         });
     });
 });
@@ -139,6 +155,7 @@ function playSequence(sequence) {
 // Function to wait for player input
 function waitForPlayerInput() {
     console.log("Waiting for player input..."); // Debugging message
+    isPlayerTurn = true; // Set flag to indicate it's the player's turn
 }
 
 function checkPlayerInput() {
