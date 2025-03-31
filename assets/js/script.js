@@ -5,6 +5,7 @@ let isSequencePlaying = false; // Flag to check if the sequence is playing
 let isModalClosing = false; // Flag to check if the modal is closing
 let isPlayerTurn = false; // Flag to check if it's the player's turn
 let level = 1; // Initialize level
+let isWaitingForPlayerInput = false; // Flag to check if waiting for player input
 
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.querySelector(".speech-bubble");
@@ -203,6 +204,21 @@ function checkPlayerInput() {
 
 function nextLevel() {
     console.log("Great memory! Let's see what the crystals play next... Proceeding to next level..."); // Debugging message
+    
+    level++; // Increment the level
+    console.log("Current level:", level); // Debugging message
+    
+    isPlayerTurn = false; // Disable player input until the next sequence is played
+    playersInput = []; // Reset player's input for the next level
+
+    isSequencePlaying = true; // Disable crystal clicks during the sequence
+    
+    storeSequence(level); // Generate and store the new sequence
+    playSequence(currentSequence); // Play the new sequence
+    
+    console.log("Current sequence for next level:", currentSequence); // Debugging output
+
+    isWaitingForPlayerInput = false; // Set flag to indicate waiting for player input   
 }
 
 function showPlayAgainModal() {
