@@ -5,8 +5,13 @@ let isSequencePlaying = false; // Flag to check if the sequence is playing
 let isModalClosing = false; // Flag to check if the modal is closing
 let isPlayerTurn = false; // Flag to check if it's the player's turn
 let level = 1; // Initialize level
-let isWaitingForPlayerInput = false; // Flag to check if waiting for player input
+let isWaitingForInput = false; // Flag to prevent multiple calls to waitForPlayerInput
+let crystalTimeouts = {}; // Store timeout IDs for each crystal
 
+
+
+// -------------------------------- MODAL AND CRYSTAL INTERACTIONS --------------------------------- //
+// Function to handle modal opening and closing
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.querySelector(".speech-bubble");
     const overlay = document.querySelector(".overlay");
@@ -32,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 500); // slight delay for hiding the modal
     }
 
-    // Open the modal and activate the overlay
+    // Open the modal and activate the overlay - *this is set up for other modals to be added later*
     function openModal() {
         console.log("Opening modal..."); // Debugging message
         modal.classList.remove("hidden");
@@ -91,15 +96,17 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// --------------------- GAME FUNCTIONS ---------------------- //
+// ------------------------------------ GAME FUNCTIONS ------------------------------------------ //
 
 // Function to start the game
 function startGame() {
     console.log("Starting game..."); // Debugging message
     level = 1;
     isSequencePlaying = true; // Disable crystal clicks during the sequence
+    clearAllTimeouts(); // Clear any lingering timeouts
     storeSequence(level); // Generate and store the sequence
     console.log("Current sequence:", currentSequence); // Debugging output
+    isWaitingForInput = false; // Reset this flag to allow player input
 }
 
 // Generate and store a random sequence of numbers (1-5 for each crystal)
@@ -119,6 +126,7 @@ function storeSequence(level) {
 
 // Function to play the sequence
 function playSequence(sequence) {
+    clearAllTimeouts(); // Clear any lingering global timeouts
     let crystals = document.querySelectorAll(".crystal-container");
 
     console.log("Sequence will start shortly..."); // Debugging message
@@ -159,37 +167,47 @@ function playSequence(sequence) {
 function waitForPlayerInput() {
     console.log("Waiting for player input..."); // Debugging message
     isPlayerTurn = true; // Set flag to indicate it's the player's turn
+    isWaitingForInput = false; // Reset the flag
 
-    playersInput = []; // Reset player's input for new round    
+    playersInput = []; // Reset player's input for the new round
+    console.log("Player input reset:", playersInput); // Debugging message
 
-    const crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
+    let crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
     console.log("Crystals available for player input:", crystals); // Debugging message
 
-    function handleCrystalClick(event) {
-        if (!isPlayerTurn) return; // Ignore clicks if it's not the player's turn
-    
-        let clickedColor = event.currentTarget.dataset.color; // Get the crystal's assigned color
-        playersInput.push(clickedColor); // Store the clicked crystal
-        
-        console.log(`Player clicked: ${clickedColor}`); // Debugging message
-        console.log(`Current input sequence: ${playersInput}`); // Debugging message
-    
-        // If player's input matches the required sequence length, stop capturing
-        if (playersInput.length === currentSequence.length) {
-          isPlayerTurn = false; // Prevent further input
-          checkPlayerInput(); // Compare with the correct sequence
-        }
-      }
-    
-      // Add event listeners to each crystal button
-      crystals.forEach(crystal => {
-        crystal.addEventListener("click", handleCrystalClick);
-      });
-    }
+    // Remove any existing event listeners to avoid duplicates
+    crystals.forEach(crystal => {
+        crystal.removeEventListener("click", handleCrystalClick); // Remove previous listeners
+        crystal.addEventListener("click", handleCrystalClick); // Add new one
+        console.log("Adding event listener to:", crystal.dataset.color); // Debugging message
+    });
+}
 
+// Define handleCrystalClick globally
+function handleCrystalClick(event) {
+    if (!isPlayerTurn) return; // Ignore clicks if it's not the player's turn
+
+    let clickedColor = event.currentTarget.dataset.color; // Get the crystal's assigned color
+    playersInput.push(clickedColor); // Store the clicked crystal
+
+    console.log(`Player clicked: ${clickedColor}`); // Debugging message
+    console.log(`Current input sequence: ${playersInput}`); // Debugging message
+
+    // If player's input matches the required sequence length, stop capturing
+    if (playersInput.length === currentSequence.length) {
+        isPlayerTurn = false; // Prevent further input
+        checkPlayerInput(); // Compare with the correct sequence
+    }
+}
 
 function checkPlayerInput() {
     console.log("Checking player input..."); // Debugging message
+    console.log("Player's input:", playersInput); // Debugging message
+    console.log("Current sequence:", currentSequence); // Debugging message
+    
+    // Check if both arrays are the same length before comparing
+    console.log(`Player's input length: ${playersInput.length}, Current sequence length: ${currentSequence.length}`); // Debugging message
+    
     // Compare player's input with the correct sequence
     // Use JSON.stringify to compare arrays - more reliable than .join() 
     if (JSON.stringify(playersInput) === JSON.stringify(currentSequence)) {
@@ -197,28 +215,54 @@ function checkPlayerInput() {
         nextLevel(); // Proceed to the next level
     }
     else {
-        console.log("Incorrect input"); // Debugging message
+        console.log("Incorrect input. Showing play again modal"); // Debugging message
         showPlayAgainModal(); // Show play again modal
     }
 }
 
 function nextLevel() {
-    console.log("Great memory! Let's see what the crystals play next... Proceeding to next level..."); // Debugging message
-    
-    level++; // Increment the level
-    console.log("Current level:", level); // Debugging message
-    
-    isPlayerTurn = false; // Disable player input until the next sequence is played
-    playersInput = []; // Reset player's input for the next level
-
+    console.log(`Great memory! Let's see what the crystals play next... Proceeding to level ${level + 1}`); // Debugging message
+    level++; // Increase level
+    playersInput = []; // Reset player's input for the new level
+    isPlayerTurn = false; // Disable player input while playing the sequence
     isSequencePlaying = true; // Disable crystal clicks during the sequence
-    
-    storeSequence(level); // Generate and store the new sequence
-    playSequence(currentSequence); // Play the new sequence
-    
-    console.log("Current sequence for next level:", currentSequence); // Debugging output
 
-    isWaitingForPlayerInput = false; // Set flag to indicate waiting for player input   
+    clearAllTimeouts(); // Clear any lingering timeouts
+
+    storeSequence(level); // Generate and store the sequence
+    playSequence(currentSequence); // Play the new sequence
+    console.log("Current sequence:", currentSequence); // Debugging output
+
+    isWaitingForInput = false; // Reset the flag to allow player input again
+}
+
+function clearTimeoutsAndIntervals() {
+    // Clear all timeouts and intervals to prevent any lingering effects
+    let highestTimeoutId = setTimeout(() => {}, 1000); // Get the highest timeout ID
+    for (let i = 0; i < highestTimeoutId; i++) {
+        clearTimeout(i); // Clear each timeout
+    }
+
+    let highestIntervalId = setInterval(() => {}, 1000); // Get the highest interval ID
+    for (let i = 0; i < highestIntervalId; i++) {
+        clearInterval(i); // Clear each interval
+    }
+    console.log("All timeouts and intervals cleared."); // Debugging message
+}
+
+function clearAllTimeouts() {
+    let highestTimeoutId = setTimeout(() => {}, 0); // Get the highest timeout ID
+    for (let i = 0; i <= highestTimeoutId; i++) {
+        clearTimeout(i); // Clear each timeout
+    }
+    console.log("All global timeouts cleared."); // Debugging message
+
+    // Clear all crystal-specific timeouts
+    for (let color in crystalTimeouts) {
+        clearTimeout(crystalTimeouts[color]);
+        console.log(`Cleared timeout for crystal: ${color}`); // Debugging message
+        delete crystalTimeouts[color];
+    }
 }
 
 function showPlayAgainModal() {
