@@ -184,6 +184,7 @@ function waitForPlayerInput() {
 
     playersInput = []; // Reset player's input for the new round
     console.log("Player input reset:", playersInput); // Debugging message
+    console.log("isPlayerTurn set to:", isPlayerTurn); // Debugging message
 
     let crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
     console.log("Crystals available for player input:", crystals); // Debugging message
@@ -191,7 +192,9 @@ function waitForPlayerInput() {
     // Remove any existing event listeners to avoid duplicates
     crystals.forEach(crystal => {
         crystal.removeEventListener("click", handleCrystalClick); // Remove previous listeners
-        crystal.addEventListener("click", handleCrystalClick); // Add new one
+        crystal.removeEventListener("touchend", handleCrystalClick); // Ensure no duplicates
+        crystal.addEventListener("click", handleCrystalClick); // Add click event listener
+        crystal.addEventListener("touchend", handleCrystalClick); // Add touch event listener
         console.log("Adding event listener to:", crystal.dataset.color); // Debugging message
     });
 }
