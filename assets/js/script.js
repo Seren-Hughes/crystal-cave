@@ -88,9 +88,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         container.addEventListener('touchstart', function (event) {
+            event.preventDefault(); // Prevent default touch behavior
+            
             if (!isPlayerTurn) {
                 console.log("Crystal interaction blocked: Not player's turn."); // Debugging message
-                event.preventDefault();
+                
                 return;
             }
             activateGlow(container);
