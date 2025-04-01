@@ -109,3 +109,72 @@ Before Fix Screenshot
 After Fix Screenshot
 
 ![Fixed Player Clicks Duplicated DevTools Console Logs Screenshot](assets/media/player-clicked-duplicated-fixed-console.png)
+
+
+## 🔎 Lingering Glowing Crystal and Last Crystal Not Glowing 🛠️
+
+### Issue: 
+
+During testing, I encountered two related issues:
+
+1. The last crystal clicked by the player in the sequence would remain glowing after the sequence was completed.
+2. After fixing the lingering glow issue, the last crystal clicked in the sequence stopped glowing entirely, even though it was being logged correctly and matched the sequence length.
+
+### Cause: 
+
+1. The lingering glow issue was caused by the glow effect not being cleared properly for the last clicked crystal. This was likely due to overlapping or incomplete timeout logic.
+2. The issue of the last crystal not glowing was caused by the `checkPlayerInput` function being called immediately after the last click, interrupting the glow deactivation logic.
+
+### Solution:
+
+To address these issues:
+
+1. I ensured that all glow effects were cleared at appropriate times using the `clearAllGlows` function.
+2. I introduced a short delay (600ms) before calling `checkPlayerInput` to allow the glow deactivation logic for the last clicked crystal to complete.
+
+**Code To Fix Lingering Glow:**
+
+```js
+function clearAllGlows() {
+    let crystals = document.querySelectorAll(".crystal-container");
+    crystals.forEach(crystal => {
+        crystal.querySelector('.glow').classList.remove('active');
+        crystal.querySelector('.light-crystal').classList.remove('active');
+    });
+    console.log("All glow effects cleared."); // Debugging message
+}
+```
+
+**Code After Complete Fix (Delay for Last Crystal Glow):**
+
+```js
+if (playersInput.length === currentSequence.length) {
+    isPlayerTurn = false; // Prevent further input
+    console.log("Player input complete. Checking input after delay...");
+
+    // Delay input validation to allow glow deactivation
+    setTimeout(() => {
+        checkPlayerInput(); // Compare with the correct sequence
+    }, 600); // Match the glow deactivation duration
+}
+```
+
+### Why This Works:
+
+- Clearing all glow effects ensures that no crystals remain glowing after the sequence finishes.
+- Adding a delay before `checkPlayerInput` allows the glow deactivation logic for the last clicked crystal to complete, ensuring that it glows properly before transitioning to the next step.
+
+### Importance of Console Messages:
+
+The console messages were instrumental in troubleshooting this issue. By carefully analyzing the sequence of logs, I was able to pinpoint where the logic was being interrupted. The key success message, `"Player input complete. Checking input after delay"`, confirmed that the delay allowed the glow deactivation to complete before transitioning to input validation.
+
+### Testing Results:
+
+1. No crystals remained glowing after the sequence finished.
+2. The last crystal clicked glowed properly and deactivated before transitioning to input validation.
+
+### Console Log After Fix:
+
+Below is a screenshot of the console log showing the success message `"Player input complete. Checking input after delay"`, confirming that the issue was resolved:
+
+![Screenshot Console Log Glowing Crystal Fix](assets/media/crystal-glow-delay-fix.png)
