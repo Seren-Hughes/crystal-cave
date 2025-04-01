@@ -233,12 +233,35 @@ function checkPlayerInput() {
     // Use JSON.stringify to compare arrays - more reliable than .join() 
     if (JSON.stringify(playersInput) === JSON.stringify(currentSequence)) {
         console.log("Correct input"); // Debugging message
-        nextLevel(); // Proceed to the next level
+        celebrateCorrectAnswer(); // Celebrate the correct answer
     }
     else {
         console.log("Incorrect input. Showing play again modal"); // Debugging message
         showPlayAgainModal(); // Show play again modal
     }
+}
+
+function celebrateCorrectAnswer() {
+    let crystals = document.querySelectorAll(".crystal-container");
+    console.log("Celebrating correct answer! All crystals will glow."); // Debugging message
+
+    // Activate glow for all crystals
+    crystals.forEach(crystal => {
+        crystal.querySelector('.glow').classList.add('active');
+        crystal.querySelector('.light-crystal').classList.add('active');
+    });
+
+    // Play celebratory music (placeholder for actual implementation)
+    console.log("Playing celebratory twinkly music...");
+
+    // Deactivate glow after a short delay (e.g., 2 seconds)
+    setTimeout(() => {
+        clearAllGlows(); // Clear all glow effects
+        console.log("Celebration glow deactivated."); // Debugging message
+
+        // Proceed to the next level after the celebration
+        nextLevel();
+    }, 2000); // 2 seconds delay for the celebration
 }
 
 function nextLevel() {
