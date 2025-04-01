@@ -2,7 +2,7 @@
 #### A pixel art memory game
 #### About:
 
-This game takes the classic Simon memory challenge and gives it a unique twist with a cave setting, atmospheric audio, and a five-note scale system. Players interact with glowing crystals that light up and produce musical tones when activated. The game is designed to be accessible, engaging, and visually appealing, with pixel-art aesthetics and simple, responsive controls.
+This game takes the classic Simon and Bop It style memory challenge and gives it a unique twist with a cave setting, atmospheric audio, and a five-note scale system. Players interact with glowing crystals that light up and produce musical tones when activated. The game is designed to be accessible, engaging, and visually appealing, with pixel-art aesthetics and simple, responsive controls.
 
 **Target Audience:**
 - Casual gamers who enjoy quick, skill-based challenges.
@@ -60,6 +60,7 @@ The game is designed to be intuitive and accessible across multiple devices:
 #### Game inspiration: 
 Brucey the plush bat, who inspired the creative process behind the game’s theme. 
 
+![Brucey the Bat](assets/media/brucey.png)
 
 ## Wireframes
 
