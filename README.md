@@ -50,10 +50,8 @@ Help Brucey the bat remember the sequence of crystals.
 #### Reference Images:
 - Music notes/scale and crystal colour correspondence layout:
 
-<details><summary><em>Click to view</em></summary>
-   
-   ![Index Home Page Design](assets/media/design-sketch-crystals-controls.png)
-</details>
+![Index Home Page Design](assets/media/design-sketch-crystals-controls.png)
+
 
 #### Layout sketches:
 The game is designed to be intuitive and accessible across multiple devices:
