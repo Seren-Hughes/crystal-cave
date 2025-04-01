@@ -3,7 +3,7 @@
 
 During development, I encountered several issues with layout positioning and game logic errors. Below are the problems I faced and the solutions implemented.
 
-## Bat Sprite and Level Number Positioning
+## 🔎 Bat Sprite and Level Number Positioning 🛠️
 
 ### Issue:
 - The bat sprite was too close to the crystal container on smaller screens and required many adjustments.
@@ -22,7 +22,7 @@ Below is a screenshot of the DevTools Flexbox grid showing the updated layout/wr
 ![DevTools Screenshot](assets/media/game-div-wrapper-for-level-number.png)
 
 
-# Uncaught ReferenceError: sequence is not defined
+## 🔎 Uncaught ReferenceError: sequence is not defined 🛠️
 
 ### Issue:
 During testing, an error appeared in the console:
@@ -60,3 +60,52 @@ Before Fix Screenshot
 After Fix Screenshot:
 
 ![Fixed Result Uncaught ReferenceError DevTools Screenshot](assets/media/currentTarget-troubleshoot-fix.png)
+
+## 🔎 Duplicate Event Listeners on Player Clicks 🛠️
+
+### Issue: 
+
+During testing, I noticed that clicking on a crystal was registering multiple times in the console. For example, a single click on a crystal would log the `Player clicked:` message three times. This caused the game logic to behave incorrectly, as it treated one click as multiple inputs.
+
+### Cause: 
+
+The issue was caused by event listeners being added multiple times to the same crystal elements. Each time the `waitForPlayerInput` function was called, it added new `click` event listeners to the crystals without removing the existing ones. This resulted in duplicate (or even triplicate) event listeners being attached to the same crystal.
+
+### Solution: 
+
+The fix involved removing any existing event listeners before adding new ones. This was achieved by calling `removeEventListener` for each crystal before attaching the `click` event listener again. This ensured that only one event listener was active for each crystal at any given time.
+
+**Code Before Fix:** 
+
+```js
+crystals.forEach(crystal => {
+    crystal.addEventListener("click", handleCrystalClick); // Adds a new listener without removing existing ones
+    console.log("Adding event listener to:", crystal.dataset.color); // Debugging message
+}); 
+``` 
+**Code After Fix:** 
+
+```js 
+crystals.forEach(crystal => {
+    crystal.removeEventListener("click", handleCrystalClick); // Remove previous listeners
+    crystal.addEventListener("click", handleCrystalClick); // Add new one
+    console.log("Adding event listener to:", crystal.dataset.color); // Debugging message
+});
+```
+### Why This Works:
+By removing existing event listeners before adding new ones, the game ensures that each crystal has only one active event listener. This prevents duplicate clicks from being registered and resolves the issue of multiple logs for a single click.
+
+### Testing Results:
+After implementing the fix, each click on a crystal was logged only once in the console. The game logic correctly processed each click as a single input.
+
+**Before Fix:**
+
+Before Fix Screenshot
+
+![Player Clicks Duplicated DevTools Console Logs Screenshot](assets/media/player-clicked-duplicated-issue.png)
+
+**After Fix:
+
+After Fix Screenshot
+
+![Fixed Player Clicks Duplicated DevTools Console Logs Screenshot](assets/media/player-clicked-duplicated-fixed-console.png)
