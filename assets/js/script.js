@@ -72,9 +72,11 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => {
             container.querySelector('.glow').classList.remove('active');
             container.querySelector('.light-crystal').classList.remove('active');
+            console.log("Player interaction glow deactivated."); // Debugging message
         }, 600); // 600ms = 0.6 seconds
     };
 
+    // Event listeners to the crystal containers for click and touch events 
     document.querySelectorAll('.crystal-container').forEach(container => {
         container.addEventListener('click', function (event) {
             if (!isPlayerTurn) {
@@ -104,6 +106,7 @@ function startGame() {
     level = 1;
     isSequencePlaying = true; // Disable crystal clicks during the sequence
     clearAllTimeouts(); // Clear any lingering timeouts
+    clearAllGlows(); // Clear any lingering glow effects
     storeSequence(level); // Generate and store the sequence
     console.log("Current sequence:", currentSequence); // Debugging output
     isWaitingForInput = false; // Reset this flag to allow player input
@@ -127,31 +130,39 @@ function storeSequence(level) {
 // Function to play the sequence
 function playSequence(sequence) {
     clearAllTimeouts(); // Clear any lingering global timeouts
+    clearAllGlows(); // Clear any lingering glow effects
     let crystals = document.querySelectorAll(".crystal-container");
 
     console.log("Sequence will start shortly..."); // Debugging message
 
     // Add a delay before starting the sequence
     setTimeout(() => {
+        clearAllGlows(); // Clear any lingering glow effects
+        console.log("Cleared all glows before starting the sequence."); // Debugging message
+    }, 300); // Delay by 300ms
+
+    setTimeout(() => {
         sequence.forEach((color, index) => {
-            setTimeout(() => {
+            const glowTimeoutId = setTimeout(() => {
                 let crystal = [...crystals].find(c => c.dataset.color === color);
 
                 if (crystal) {
-                    // Activate glow effect
+                    // Activate glow
+                    console.log(`Activating glow for: ${color}`); // Debugging message
                     crystal.querySelector('.glow').classList.add('active');
                     crystal.querySelector('.light-crystal').classList.add('active');
 
-                    // Placeholder: Play sound (to be added later)
-                    console.log(`Playing sound for: ${color}`);
-
                     // Deactivate glow after a short delay
-                    setTimeout(() => {
+                    crystalTimeouts[color] = setTimeout(() => {
+                        console.log(`Deactivating glow for: ${color}`); // Debugging message
                         crystal.querySelector('.glow').classList.remove('active');
                         crystal.querySelector('.light-crystal').classList.remove('active');
+                        delete crystalTimeouts[color]; // Remove the timeout reference
                     }, 600); // Same duration as glow effect
                 }
             }, index * 1200); // Delay each crystal by 1.2 seconds
+
+            console.log(`Glow timeout ID for ${color}:`, glowTimeoutId); // Debugging message
         });
 
         // Enable crystal clicks after the sequence finishes
@@ -196,7 +207,12 @@ function handleCrystalClick(event) {
     // If player's input matches the required sequence length, stop capturing
     if (playersInput.length === currentSequence.length) {
         isPlayerTurn = false; // Prevent further input
-        checkPlayerInput(); // Compare with the correct sequence
+        console.log("Player input complete. Checking input after delay...");
+
+        // Delay input validation to allow glow deactivation
+        setTimeout(() => {
+            checkPlayerInput(); // Compare with the correct sequence
+        }, 600); // Match the glow deactivation duration
     }
 }
 
@@ -228,6 +244,7 @@ function nextLevel() {
     isSequencePlaying = true; // Disable crystal clicks during the sequence
 
     clearAllTimeouts(); // Clear any lingering timeouts
+    clearAllGlows(); // Clear any lingering glow effects
 
     storeSequence(level); // Generate and store the sequence
     playSequence(currentSequence); // Play the new sequence
@@ -263,6 +280,15 @@ function clearAllTimeouts() {
         console.log(`Cleared timeout for crystal: ${color}`); // Debugging message
         delete crystalTimeouts[color];
     }
+}
+
+function clearAllGlows() {
+    let crystals = document.querySelectorAll(".crystal-container");
+    crystals.forEach(crystal => {
+        crystal.querySelector('.glow').classList.remove('active');
+        crystal.querySelector('.light-crystal').classList.remove('active');
+    });
+    console.log("All glow effects cleared."); // Debugging message
 }
 
 function showPlayAgainModal() {
