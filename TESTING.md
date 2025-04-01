@@ -43,7 +43,7 @@ The fix involved switching from target to currentTarget. The currentTarget prope
 
 `let clickedColor = event.currentTarget.dataset.color; // Correct: currentTarget refers to the crystal container`
 
-### Why This Works:
+### Reasoning Behind the Fix:
 Using currentTarget ensures that the handleCrystalClick function always interacts with the correct crystal container, regardless of which child element triggered the event. This resolved the sequence is not defined error and allowed the game logic to proceed as expected.
 
 ### Testing Results:
@@ -92,7 +92,7 @@ crystals.forEach(crystal => {
     console.log("Adding event listener to:", crystal.dataset.color); // Debugging message
 });
 ```
-### Why This Works:
+### Reasoning Behind the Fix:
 By removing existing event listeners before adding new ones, the game ensures that each crystal has only one active event listener. This prevents duplicate clicks from being registered and resolves the issue of multiple logs for a single click.
 
 ### Testing Results:
@@ -159,7 +159,7 @@ if (playersInput.length === currentSequence.length) {
 }
 ```
 
-### Why This Works:
+### Reasoning Behind the Fix:
 
 - Clearing all glow effects ensures that no crystals remain glowing after the sequence finishes.
 - Adding a delay before `checkPlayerInput` allows the glow deactivation logic for the last clicked crystal to complete, ensuring that it glows properly before transitioning to the next step.
@@ -178,3 +178,54 @@ The console messages were instrumental in troubleshooting this issue. By careful
 Below is a screenshot of the console log showing the success message `"Player input complete. Checking input after delay"`, confirming that the issue was resolved:
 
 ![Screenshot Console Log Glowing Crystal Fix](assets/media/crystal-glow-delay-fix.png)
+
+## 🔎 Mobile Touch Events Not Working 🛠️
+
+### Issue: 
+
+During testing on mobile devices, the game stopped progressing after the first sequence. While the crystals glowed and played back correctly, the game did not respond to player clicks or touches. Interestingly, the game worked perfectly in desktop browsers and in mobile emulation mode in DevTools.
+
+### Cause: 
+
+The issue was caused by missing or conflicting event listeners for touch events (`touchstart` or `touchend`) on mobile devices. While `click` events worked on desktop, mobile devices rely on touch events, and the existing logic did not properly handle these events. Additionally, duplicate event listeners were being added, which may have caused unexpected behavior.
+
+### Solution:
+
+The fix involved ensuring that both `click` and `touchend` event listeners were properly managed for each crystal. Specifically:
+
+1. **Remove Existing Event Listeners:** Before adding new event listeners, any previously attached listeners were removed using `removeEventListener`.
+2. **Add Both `click` and `touchend` Listeners:** Both event types were added to ensure compatibility across desktop and mobile devices.
+
+**Code Before Fix:**
+
+```js
+crystals.forEach(crystal => {
+    crystal.addEventListener("click", handleCrystalClick); // Only adds click event listener
+    console.log("Adding event listener to:", crystal.dataset.color); // Debugging message
+});
+```
+
+**Code After Fix:**
+
+```js
+crystals.forEach(crystal => {
+    crystal.removeEventListener("click", handleCrystalClick); // Remove previous click listeners
+    crystal.removeEventListener("touchend", handleCrystalClick); // Remove previous touchend listeners
+    crystal.addEventListener("click", handleCrystalClick); // Add click event listener
+    crystal.addEventListener("touchend", handleCrystalClick); // Add touch event listener
+    console.log("Adding event listener to:", crystal.dataset.color); // Debugging message
+});
+```
+### Reasoning Behind the Fix:
+
+- Clearing all glow effects ensures that no crystals remain glowing after the sequence finishes.
+- Adding a delay before `checkPlayerInput` allows the glow deactivation logic for the last clicked crystal to complete, ensuring that it glows properly before transitioning to the next step.
+
+### Testing Results:
+
+After implementing the fix: 
+
+1. The game worked on both desktop and mobile devices
+2. Crystals responded correctly to both clicks and touches
+
+
