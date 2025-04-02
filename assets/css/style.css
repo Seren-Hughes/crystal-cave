@@ -1,6 +1,18 @@
 /* Google Fonts import - Jersey 20 for most text, Handjet for level indicator */ 
 @import url('https://fonts.googleapis.com/css2?family=Handjet&family=Jersey+20&display=swap');
 
+/* ................................... */
+/* ========== Global Styles ========== */
+/* ................................... */
+
+/* ========== CSS Variables ========== */
+
+:root {
+    --primary-color: #91D4F2; /* Light blue for text content */
+    --primary-font: 'Jersey 20', sans-serif; /* Jersey 20 font for most text */
+    --secondary-font: 'Handjet', sans-serif; /* Handjet font for level indicator/settings */
+}
+
 
 body {
     display: flex;
@@ -166,7 +178,7 @@ body {
     right: 30px;
     transform: translateX(-50%);
     background-color: black;
-    color: #91D4F2;
+    color: var(--primary-color); /* Light blue for text content */
     font-size: 2rem;
     font-family: "Handjet", sans-serif; /*  Handjet font */
     text-align: center;
