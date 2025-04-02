@@ -1,3 +1,7 @@
+/* Google Fonts import - Jersey 20 for most text, Handjet for level indicator */ 
+@import url('https://fonts.googleapis.com/css2?family=Handjet&family=Jersey+20&display=swap');
+
+
 body {
     display: flex;
     justify-content: center;
@@ -163,12 +167,12 @@ body {
     transform: translateX(-50%);
     background-color: black;
     color: #91D4F2;
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-family: "Handjet", sans-serif; /*  Handjet font */
     text-align: center;
     padding: 10px 20px;
     border-radius: 8px;
     width: fit-content;
-    font-family: sans-serif;
     z-index: 1000; /* On top of everything */
 }
 
