@@ -109,6 +109,12 @@ body {
     pointer-events: none; /* Prevents clicks */
 }
 
+/* Celebration-specific glow effect */
+.glow.celebration-active,
+.light-crystal.celebration-active {
+    transition: opacity 0.8s ease-in-out; /* Slightly longer transition for celebration */
+}
+
 /* ----------------------------------------------------------------------*/
 
 /* ----------------------------------*/

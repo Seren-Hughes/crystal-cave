@@ -246,22 +246,31 @@ function celebrateCorrectAnswer() {
     console.log("Celebrating correct answer! All crystals will glow."); // Debugging message
 
     // Activate glow for all crystals
-    crystals.forEach(crystal => {
-        crystal.querySelector('.glow').classList.add('active');
-        crystal.querySelector('.light-crystal').classList.add('active');
-    });
+    setTimeout(() => {
+        crystals.forEach(crystal => {
+            crystal.querySelector('.glow').classList.add('active', 'celebration-active'); // Add glow and celebration-specific class
+            crystal.querySelector('.light-crystal').classList.add('active', 'celebration-active'); // Add light-crystal and celebration-specific class
+        });
+        console.log("Glow activated for celebration.");
+    }, 300); // 300ms delay before starting the celebration
 
     // Play celebratory music (placeholder for actual implementation)
     console.log("Playing celebratory twinkly music...");
 
-    // Deactivate glow after a short delay (e.g., 2 seconds)
+    // Deactivate glow after a short delay 
     setTimeout(() => {
+        crystals.forEach(crystal => {
+            crystal.querySelector('.glow').classList.remove('active', 'celebration-active'); // Remove glow and celebration-specific class
+            crystal.querySelector('.light-crystal').classList.remove('active', 'celebration-active'); // Remove light-crystal and celebration-specific class
+        });
         clearAllGlows(); // Clear all glow effects
         console.log("Celebration glow deactivated."); // Debugging message
 
-        // Proceed to the next level after the celebration
-        nextLevel();
-    }, 2000); // 2 seconds delay for the celebration
+        // Add a breather before proceeding to the next level
+        setTimeout(() => {
+            nextLevel(); // Proceed to the next level
+        }, 1000); // 1-second breather
+    }, 2500); // 2.5 seconds delay for the celebration
 }
 
 function nextLevel() {
