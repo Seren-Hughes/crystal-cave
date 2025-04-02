@@ -271,6 +271,10 @@ function nextLevel() {
     isPlayerTurn = false; // Disable player input while playing the sequence
     isSequencePlaying = true; // Disable crystal clicks during the sequence
 
+    // update the level number html
+    const levelNumberElement = document.getElementById("level-number");
+    levelNumberElement.textContent = level; // Update the text content to the current level
+
     clearAllTimeouts(); // Clear any lingering timeouts
     clearAllGlows(); // Clear any lingering glow effects
 
