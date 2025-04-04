@@ -303,6 +303,16 @@ function nextLevel() {
     isWaitingForInput = false; // Reset the flag to allow player input again
 }
 
+// ---- Managing lingering glow effects and timed celebrations ---- //
+
+   /* The use of `setTimeout` for deactivating glow effects and adding delays to celebrations
+    was inspired by the following resources: 
+        - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+        - Stack Overflow: https://stackoverflow.com/questions/729921/settimeout-or-setinterval
+        - FreeCodeCamp: https://www.freecodecamp.org/news/javascript-timing-events-settimeout-and-setinterval/
+        * The lingering glow issue and the delay for the last crystal glow are documented in `testing.md` under development troubleshooting notes.
+    */
+// Function to clear all timeouts and intervals
 function clearTimeoutsAndIntervals() {
     // Clear all timeouts and intervals to prevent any lingering effects
     let highestTimeoutId = setTimeout(() => {}, 1000); // Get the highest timeout ID
@@ -317,6 +327,7 @@ function clearTimeoutsAndIntervals() {
     console.log("All timeouts and intervals cleared."); // Debugging message
 }
 
+// Function to clear all global timeouts and crystal-specific timeouts
 function clearAllTimeouts() {
     let highestTimeoutId = setTimeout(() => {}, 0); // Get the highest timeout ID
     for (let i = 0; i <= highestTimeoutId; i++) {
