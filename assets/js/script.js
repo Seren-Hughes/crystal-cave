@@ -36,6 +36,12 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isModalClosing) return; // Prevent multiple triggers
         isModalClosing = true; // Set the flag to true
 
+        /*  Using event.stopPropagation() to prevent the click event from propagating (bubbling - still somewhat murky on this concept but it seems to be working)
+            to other elements. This solution was inspired by:
+            - Free Code Camp: https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/
+            - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
+            - Stack Overflow: https://stackoverflow.com/questions/5963669/whats-the-difference-between-event-stoppropagation-and-event-preventdefault
+        */
         if (event) {
             event.stopPropagation(); // Stop the click event from propagating to other elements
             event.preventDefault(); // Prevent any default behavior
@@ -65,7 +71,8 @@ document.addEventListener("DOMContentLoaded", function () {
         closeModal(event);
     });
 
-    // Close modal with spacebar
+    // Close modal with spacebar - referenced from MDN Web Docs
+    // https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event
     document.addEventListener("keydown", function (event) {
         if (event.key === " ") {
             closeModal(event);
@@ -92,6 +99,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     // Event listeners to the crystal containers for click and touch events 
+    // Reference: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
     document.querySelectorAll('.crystal-container').forEach(container => {
         container.addEventListener('click', function (event) {
             if (!isPlayerTurn) {
@@ -130,6 +138,10 @@ function startGame() {
 }
 
 // Generate and store a random sequence of numbers (1-5 for each crystal)
+    /* Sequence generation and playback references:
+        - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+        - Stack Overflow: https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
+    */
 function storeSequence(level) {
     currentSequence = []; // Reset the sequence before generating a new one
     let crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
@@ -204,7 +216,17 @@ function waitForPlayerInput() {
     let crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
     console.log("Crystals available for player input:", crystals); // Debugging message
 
-    // Remove any existing event listeners to avoid duplicates
+    // Remove any existing event listeners to prevent duplication
+    /* This ensures that no duplicate event listeners are attached to the crystals.
+        Duplicated listeners can occur if `addEventListener` is called multiple times without
+        removing the previous listeners. By using `removeEventListener` before adding new listeners,
+        it ensures only one instance of the event handler is attached to each crystal.
+
+        This issue and its resolution are documented in the development troubleshooting section of `testing.md`.
+
+        Reference:
+        - Stack Overflow: https://stackoverflow.com/questions/45723205/removing-duplicate-event-listeners
+    */
     crystals.forEach(crystal => {
         crystal.removeEventListener("click", handleCrystalClick); // Remove previous listeners
         crystal.removeEventListener("touchend", handleCrystalClick); // Ensure no duplicates
@@ -214,12 +236,18 @@ function waitForPlayerInput() {
     });
 }
 
-// Define handleCrystalClick globally
+// Handle the player's click on a crystal during their turn
+/* This function processes the player's input by:
+   - Checking if it's the player's turn (using the `isPlayerTurn` flag).
+   - Retrieving the clicked crystal's colour and storing it in the `playersInput` array.
+   - Logging debugging information for the clicked crystal and the player's input sequence.
+   - Validating the player's input against the correct sequence after a delay (to allow glow deactivation).
+*/
 function handleCrystalClick(event) {
     if (!isPlayerTurn) return; // Ignore clicks if it's not the player's turn
 
     let clickedColor = event.currentTarget.dataset.color; // Get the crystal's assigned color
-    playersInput.push(clickedColor); // Store the clicked crystal
+    playersInput.push(clickedColor); // Store the clicked crystal color in the player's input array
 
     console.log(`Player clicked: ${clickedColor}`); // Debugging message
     console.log(`Current input sequence: ${playersInput}`); // Debugging message
@@ -244,8 +272,13 @@ function checkPlayerInput() {
     // Check if both arrays are the same length before comparing
     console.log(`Player's input length: ${playersInput.length}, Current sequence length: ${currentSequence.length}`); // Debugging message
     
-    // Compare player's input with the correct sequence
-    // Use JSON.stringify to compare arrays - more reliable than .join() 
+    /* Compare player's input with the correct sequence using JSON.stringify.
+        Strict comparison of both the order and values of the arrays.
+        References:
+        - Stack Overflow: https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript & https://stackoverflow.com/questions/15376185/is-it-fine-to-use-json-stringify-for-deep-comparisons-and-cloning
+        - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+        - GeeksforGeeks: https://www.geeksforgeeks.org/how-to-compare-two-arrays-in-javascript/
+    */
     if (JSON.stringify(playersInput) === JSON.stringify(currentSequence)) {
         console.log("Correct input"); // Debugging message
         celebrateCorrectAnswer(); // Celebrate the correct answer
