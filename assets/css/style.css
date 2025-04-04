@@ -102,6 +102,8 @@ body {
 }
 
 /* Glow effect (behind the crystal) */
+/* adapted from https://stackoverflow.com/questions/8693733/how-to-give-outer-glow-to-an-object-in-a-transparent-png-using-css3 */
+/* & https://jsfiddle.net/nkq1uxfb/3/ */
 .glow {
     filter: brightness(2) blur(30px); /* Increase brightness and add blur - increase if needed for visual cue accessability */
     opacity: 0;
@@ -257,10 +259,11 @@ body {
 .hidden {
     display: none;
 }
-/* ----------------------------------------------------------------------*/
-/* ---------------------- Overlay ---------------------------------------*/
-/* ----------------------------------------------------------------------*/
+/* -----------------------------------------------------------------------------------------*/
+/* ---------------------- Invisible overlay for toggling click events ----------------------*/
+/* -----------------------------------------------------------------------------------------*/
 
+/* This overlay is used to disable clicks on the game container when the modal is open */
 .overlay {
     position: fixed;
     top: 0;
