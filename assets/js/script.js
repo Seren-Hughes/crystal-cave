@@ -11,13 +11,22 @@ let crystalTimeouts = {}; // Store timeout IDs for each crystal
 
 
 // -------------------------------- MODAL AND CRYSTAL INTERACTIONS --------------------------------- //
-// Function to handle modal opening and closing
+
+// ---- Function to handle modal opening and closing ---- //
+
+    /* Modal & overlay functionality adapted and inspired by the following resources:
+        - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+        - CSS Tricks: https://css-tricks.com/considerations-styling-modal/ 
+         (particularly the section on dealing with overlays: https://css-tricks.com/considerations-styling-modal/#aa-dealing-with-the-overlay)
+        - FreeCodeCamp: https://www.freecodecamp.org/news/how-to-build-a-modal-with-javascript/
+    */
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.querySelector(".speech-bubble");
     const overlay = document.querySelector(".overlay");
 
     // Function to close the modal
     function closeModal(event) {
+        
         if (isModalClosing) return; // Prevent multiple triggers
         isModalClosing = true; // Set the flag to true
 
