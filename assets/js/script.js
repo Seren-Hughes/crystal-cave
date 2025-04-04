@@ -1,14 +1,20 @@
-// Global variables
+// -------------------- Global variables --------------------- //
+
+// Flags (boolean variables to manage game state)
+let isSequencePlaying = false; // Indicates if the sequence is currently playing
+let isModalClosing = false; // Prevents multiple triggers of modal close function
+let isPlayerTurn = false; // Indicates if it's the player's turn
+let isWaitingForInput = false; // Prevents multiple calls to waitForPlayerInput
+
+// Arrays (to store sequences and player's input)
 let currentSequence = []; // Store the sequence globally
 let playersInput = []; // Store the player's input globally
-let isSequencePlaying = false; // Flag to check if the sequence is playing
-let isModalClosing = false; // Flag to check if the modal is closing
-let isPlayerTurn = false; // Flag to check if it's the player's turn
+
+// Objects 
+let crystalTimeouts = {}; // Store timeout IDs for each crystal (keyed by crystal color)
+
+// Primitive data types 
 let level = 1; // Initialize level
-let isWaitingForInput = false; // Flag to prevent multiple calls to waitForPlayerInput
-let crystalTimeouts = {}; // Store timeout IDs for each crystal
-
-
 
 // -------------------------------- MODAL AND CRYSTAL INTERACTIONS --------------------------------- //
 
