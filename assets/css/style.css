@@ -77,6 +77,20 @@ h1 {
     }
 }
 
+/* home page still image of bat sprite */
+.home-brucey {
+    position: absolute;
+    top: 10rem;
+    left: 25rem;
+    width: 112px; /* Width of one frame */
+    height: 112px; /* Height of one frame */
+    background-image: url('../images/bat-sprite.png'); /* Sprite sheet */
+    background-size: 224px 112px; /* Total width of the sprite sheet */
+    background-position: 0 0; /* Show only the first frame */
+    z-index: 2; /* On top of everything */
+    transform: translateY(-50%) scale(1.6); /* Scale up brucey */
+}
+
 /* play now button on home page */
 button {
     font-family: var(--primary-font); /* Jersey 20 font */
@@ -84,7 +98,7 @@ button {
     background-color: var(--secondary-background-color); /* Dark background for contrast */
     border: 2px solid var(--primary-background-color); /* Gunmetal border */
     padding: 10px 20px;
-    font-size: 1.5rem; /* Adjust size as needed */
+    font-size: 1.5rem; 
     cursor: pointer;
 }
 
