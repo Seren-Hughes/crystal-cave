@@ -186,7 +186,7 @@ body {
     transform: translateX(-50%);
     background-color: var(--secondary-color); /* Dark background for contrast */
     color: var(--primary-color); /* Light blue for text content */
-    border: 2px solid var(--primary-background-color); /* Air force blue for borders */
+    border: 2px solid var(--primary-background-color); /* Gunmetal border */
     font-size: 2rem;
     font-family: "Handjet", sans-serif; /*  Handjet font */
     text-align: center;
@@ -260,6 +260,12 @@ body {
 .hidden {
     display: none;
 }
+
+/* -------------- Regular Modal Content -------------- */
+
+
+
+
 /* -----------------------------------------------------------------------------------------*/
 /* ---------------------- Invisible overlay for toggling click events ----------------------*/
 /* -----------------------------------------------------------------------------------------*/
