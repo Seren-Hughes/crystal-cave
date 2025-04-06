@@ -17,7 +17,7 @@
     --secondary-font: 'Handjet', sans-serif; /* Handjet font for level indicator/settings */
 }
 
-
+/* global body styles */
 body {
     display: flex;
     justify-content: center;
@@ -32,7 +32,17 @@ body {
     overflow: hidden; /* Prevents horizontal scrollbar */
 }
 
+/* Home page layout */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+}
 
+/* Home page heading */
 h1 {
     font-family: var(--primary-font); /* Jersey 20 font */
     color: var(--primary-color); /* Light blue for text content */
@@ -40,6 +50,31 @@ h1 {
     margin: 0; /* Remove default margin */
     font-size: 5rem; /* Adjust size as needed */
     text-transform: uppercase; /* Uppercase text */
+}
+
+/* Intro text below the home page heading */
+.intro-text {
+    font-family: var(--primary-font); /* Jersey 20 font */
+    color: var(--primary-color); /* Light blue for text content */
+    font-size: 2rem; 
+    margin: 20px 0; /* Space between heading and intro text */
+    text-align: center;
+    width: 35vw; 
+}
+
+/* Fade-in effect for the intro heading and text */
+/* credit: https://blog.hubspot.com/website/css-fade-in by: Jamie Juviler */
+.fade-in-text {
+    opacity: 0; /* Start invisible */
+    animation: fadeIn 3s forwards; /* Fade in animation */
+}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 /* play now button on home page */
