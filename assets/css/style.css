@@ -32,6 +32,27 @@ body {
     overflow: hidden; /* Prevents horizontal scrollbar */
 }
 
+
+h1 {
+    font-family: var(--primary-font); /* Jersey 20 font */
+    color: var(--primary-color); /* Light blue for text content */
+    text-align: center;
+    margin: 0; /* Remove default margin */
+    font-size: 5rem; /* Adjust size as needed */
+    text-transform: uppercase; /* Uppercase text */
+}
+
+/* play now button on home page */
+button {
+    font-family: var(--primary-font); /* Jersey 20 font */
+    color: var(--primary-color); /* Light blue for text content */
+    background-color: var(--secondary-background-color); /* Dark background for contrast */
+    border: 2px solid var(--primary-background-color); /* Gunmetal border */
+    padding: 10px 20px;
+    font-size: 1.5rem; /* Adjust size as needed */
+    cursor: pointer;
+}
+
 /* ----------------------------------*/
 /* --- Wrapper for game container -- */
 /* ----------------------------------*/
