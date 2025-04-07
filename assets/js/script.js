@@ -26,6 +26,74 @@ let level = 1; // Initialize level
          (particularly the section on dealing with overlays: https://css-tricks.com/considerations-styling-modal/#aa-dealing-with-the-overlay)
         - FreeCodeCamp: https://www.freecodecamp.org/news/how-to-build-a-modal-with-javascript/
     */
+
+// Function to open modals (speechBubble or gameModal)
+function openModal(type, title = "", text = "", buttons = []) {
+    console.log(`openModal called with type: ${type}`); // Debugging message
+    const modal = document.querySelector(
+        type === "speechBubble" ? ".speech-bubble" : ".modal-container"
+    );
+    const overlay = document.querySelector(".overlay");
+
+    // Update modal content dynamically for game modals
+    if (type === "gameModal") {
+        modal.querySelector(".modal-title").textContent = title;
+        modal.querySelector(".modal-text").textContent = text;
+
+        // Clear existing buttons
+        const buttonsContainer = modal.querySelector(".modal-buttons");
+        buttonsContainer.innerHTML = "";
+
+        // Add new buttons
+        buttons.forEach(button => {
+            const btn = document.createElement("button");
+            btn.textContent = button.text;
+            btn.className = "modal-button";
+            btn.addEventListener("click", button.action); // Attach the action
+            buttonsContainer.appendChild(btn);
+        });
+    }
+
+    // Show modal and overlay
+    modal.classList.remove("hidden");
+    overlay.classList.add("active");
+    console.log(`${type} modal opened.`); // Debugging message
+}
+
+// Function to close the modal
+function closeModal(type = "speechBubble", event = null) {
+    const modal = document.querySelector(
+        type === "speechBubble" ? ".speech-bubble" : ".modal-container"
+    );
+    const overlay = document.querySelector(".overlay");
+
+    if (isModalClosing) return; // Prevent multiple triggers
+    isModalClosing = true; // Set the flag to true
+
+    /*  Using event.stopPropagation() to prevent the click event from propagating (bubbling - still somewhat murky on this concept but it seems to be working)
+        to other elements. This solution was inspired by:
+        - Free Code Camp: https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/
+        - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
+        - Stack Overflow: https://stackoverflow.com/questions/5963669/whats-the-difference-between-event-stoppropagation-and-event-preventdefault
+    */
+    if (event) {
+        event.stopPropagation(); // Stop the click event from propagating
+        event.preventDefault(); // Prevent any default behavior
+    }
+
+    console.log(`Closing ${type} modal...`); // Debugging message
+    modal.classList.add("hidden");
+    overlay.classList.remove("active"); // Deactivate the overlay
+
+    setTimeout(() => {
+        isModalClosing = false; // Reset the flag after the modal is closed
+        if (type === "speechBubble") {
+            startGame(); // Start the game immediately after closing the speech bubble
+        }
+    }, 500); // Slight delay for hiding the modal
+}
+
+// Event listener for DOMContentLoaded to ensure the script runs after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
     const modal = document.querySelector(".speech-bubble");
     const overlay = document.querySelector(".overlay");
@@ -42,72 +110,6 @@ document.addEventListener("DOMContentLoaded", function () {
         closeModal("speechBubble");
         overlay.classList.remove("active"); // Deactivate the overlay
     });
-
-    // Function to close the modal
-    function closeModal(type = "speechBubble", event = null) {
-        const modal = document.querySelector(
-            type === "speechBubble" ? ".speech-bubble" : ".modal-container"
-        );
-        const overlay = document.querySelector(".overlay");
-
-        if (isModalClosing) return; // Prevent multiple triggers
-        isModalClosing = true; // Set the flag to true
-
-        /*  Using event.stopPropagation() to prevent the click event from propagating (bubbling - still somewhat murky on this concept but it seems to be working)
-            to other elements. This solution was inspired by:
-            - Free Code Camp: https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/
-            - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
-            - Stack Overflow: https://stackoverflow.com/questions/5963669/whats-the-difference-between-event-stoppropagation-and-event-preventdefault
-        */
-        if (event) {
-            event.stopPropagation(); // Stop the click event from propagating
-            event.preventDefault(); // Prevent any default behavior
-        }
-
-        console.log(`Closing ${type} modal...`); // Debugging message
-        modal.classList.add("hidden");
-        overlay.classList.remove("active"); // Deactivate the overlay
-
-        setTimeout(() => {
-            isModalClosing = false; // Reset the flag after the modal is closed
-            if (type === "speechBubble") {
-                startGame(); // Start the game immediately after closing the speech bubble
-            }
-        }, 500); // Slight delay for hiding the modal
-    }
-
-    // Open the modal and activate the overlay - *this is set up for other modals to be added later*
-    function openModal(type, title = "", text = "", buttons = []) {
-        console.log(`openModal called with type: ${type}`); // Debugging message
-        const modal = document.querySelector(
-            type === "speechBubble" ? ".speech-bubble" : ".modal-container"
-        );
-        const overlay = document.querySelector(".overlay");
-
-        // Update modal content dynamically for general modals
-        if (type === "gameModal") {
-            modal.querySelector(".modal-title").textContent = title;
-            modal.querySelector(".modal-text").textContent = text;
-
-            // Clear existing buttons
-            const buttonsContainer = modal.querySelector(".modal-buttons");
-            buttonsContainer.innerHTML = "";
-
-            // Add new buttons
-            buttons.forEach(button => {
-                const btn = document.createElement("button");
-                btn.textContent = button.text;
-                btn.className = "modal-button";
-                btn.addEventListener("click", button.action); // Attach the action
-                buttonsContainer.appendChild(btn);
-            });
-        }
-
-        // Show modal and overlay
-        modal.classList.remove("hidden");
-        overlay.classList.add("active");
-        console.log(`${type} modal opened.`); // Debugging message
-    }
 
     // Close modal when clicking on the overlay
     document.querySelector(".overlay").addEventListener("click", function (event) {
