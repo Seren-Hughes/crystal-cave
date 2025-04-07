@@ -49,7 +49,12 @@ function openModal(type, title = "", text = "", buttons = []) {
             const btn = document.createElement("button");
             btn.textContent = button.text;
             btn.className = "modal-button";
-            btn.addEventListener("click", button.action); // Attach the action
+            btn.addEventListener("click", function (event) {
+                console.log(`Button clicked: ${button.text}`); // Debugging message
+                event.stopPropagation(); // Prevent the click from propagating to the overlay
+                button.action(); // Execute the button's action
+            });
+            console.log(`Button created: ${button.text}`); // Debugging message
             buttonsContainer.appendChild(btn);
         });
     }
@@ -113,9 +118,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Close modal when clicking on the overlay
     document.querySelector(".overlay").addEventListener("click", function (event) {
+        if (event.target.closest(".modal-button")) {
+            console.log("Button clicked, ignoring overlay click."); // Debugging message
+            return;
+        }
+    
         const speechBubble = document.querySelector(".speech-bubble");
         const gameModal = document.querySelector(".modal-container");
-
+    
         if (!speechBubble.classList.contains("hidden")) {
             closeModal("speechBubble", event); // Close the speech bubble modal
         } else if (!gameModal.classList.contains("hidden")) {
@@ -450,7 +460,7 @@ function showPlayAgainModal() {
         {
             text: "Play Again",
             action: () => {
-                console.log("Play Again button clicked"); // Debugging message
+                console.log("Play Again button action triggered"); // Debugging message
                 closeModal("gameModal"); // Close the modal
                 startGame(); // Restart the game programmatically
             }
@@ -458,7 +468,7 @@ function showPlayAgainModal() {
         {
             text: "Some Other Time",
             action: () => {
-                console.log("Some Other Time button clicked"); // Debugging message
+                console.log("Some Other Time button action triggered"); // Debugging message
                 closeModal("gameModal"); // Close the modal
                 location.href = "index.html"; // Redirect to the home page
             }
