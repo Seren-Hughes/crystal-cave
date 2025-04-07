@@ -229,3 +229,78 @@ After implementing the fix:
 2. Crystals responded correctly to both clicks and touches
 
 
+## 🔎 openModal Not Defined 🛠️
+
+### Issue:
+
+During testing, the "Game Over" modal failed to appear, and the following error was logged in the console:
+
+```Uncaught ReferenceError: openModal is not defined```
+
+### Cause:
+
+The `openModal` function was defined inside the `DOMContentLoaded` event listener, making it inaccessible globally. As a result, other functions like `showPlayAgainModal` could not call it.
+
+### Solution:
+
+The `openModal` function was moved outside the `DOMContentLoaded` event listener to the global scope, ensuring it could be accessed by other functions. 
+
+**Code Before Fix:**
+
+```js
+document.addEventListener("DOMContentLoaded", function () {
+    function openModal(type, title = "", text = "", buttons = []) {
+        // Modal logic here
+    }
+});
+```
+**Code After Fix:**
+
+```js
+function openModal(type, title = "", text = "", buttons = []) {
+    // Modal logic here
+}
+document.addEventListener("DOMContentLoaded", function () {
+    // Call openModal here
+});
+```
+
+### Testing Results:
+
+After moving the `openModal` function to the global scope:
+
+1. The "Game Over" modal appeared as expected.
+2. The error `openModal is not defined` no longer appeared in the console.
+
+**Before Fix Screenshot:** 
+
+![openModal Not Defined Screenshot](assets/media/open-modal-not-defined.png)
+
+**After Fix Screenshot:** 
+
+![openModal Fixed](assets/media/open-modal-fix.png)
+
+## 🔎 Overlay Blocking Modal Buttons 🛠️
+
+### Issue:
+
+The "Game Over" modal appeared, but the buttons inside the modal were not clickable. Using the browser's DevTools, it was discovered that the overlay was active and blocking interactions with the modal buttons.
+
+### Cause:
+
+The `.overlay` element had a `z-index` higher than or equal to the `.modal-container`, causing it to intercept clicks intended for the modal buttons.
+
+### Solution:
+
+The `z-index` of the `.modal-container` was increased to ensure it appeared above the `.overlay`. This allowed the modal buttons to be clickable and interactable.
+
+### Testing Results:
+
+After increasing the `z-index` of the `.modal-container`:
+
+1. The modal buttons became clickable.
+2. The button click events triggered the expected actions (e.g., restarting the game or redirecting to the home page).
+
+DevTools Inspect Tool Screenshot Before Fix: 
+
+![Overlay Blocking Modal Buttons](assets/media/overlay-active-over-modal.png)
