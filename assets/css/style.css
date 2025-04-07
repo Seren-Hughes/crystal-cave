@@ -641,6 +641,34 @@ button {
 /* -- media query for rotated view (landscape) on smaller devices --*/
 /*------------------------------------------------------------------*/
 @media (max-height: 420px) and (orientation: landscape) {
+    /* home page heading */
+    h1 {
+        font-size: 2.5rem; /* Reduce heading size */
+    }
+    /* home page text */
+    p.intro-text {
+        font-size: 1rem; /* Slightly smaller intro text */
+        width: 100%; /* Increase width for better readability */
+    }
+    /* home page decorative crystals */
+    .crystal-row {
+        gap: 5px; /* Reduce spacing between crystals */
+    }
+    .crystal {
+        width: 25px; /* Reduce crystal size */
+    }
+    /* home page button */
+    button {
+        font-size: 0.8rem; /* Reduce button font size */
+        padding: 4px 8px; /* Adjust padding */
+    }
+    /* home page bat sprite */
+    .home-brucey {
+        top: 0.2em; /* Adjust to position above the heading */
+        left: 5em; /* Adjust to position to the left of the heading */
+        transform: scale(0.8); /* Scale down Brucey */
+    }
+
     /* game page bat sprite */
     .bat {
         top: 40px; /* Reset top position */
