@@ -40,6 +40,13 @@ body {
     justify-content: center;
     height: 100vh;
     text-align: center;
+    position: relative; /* Ensures children with absolute positioning are positioned relative to this container */
+}
+
+/* Home page header */
+header {
+    position: relative;
+    width: 100%;
 }
 
 /* Home page heading */
@@ -50,16 +57,18 @@ h1 {
     margin: 0; /* Remove default margin */
     font-size: 5rem; /* Adjust size as needed */
     text-transform: uppercase; /* Uppercase text */
+    position: relative;
 }
 
 /* Intro text below the home page heading */
-.intro-text {
+p.intro-text {
     font-family: var(--primary-font); /* Jersey 20 font */
     color: var(--primary-color); /* Light blue for text content */
-    font-size: 2rem; 
-    margin: 20px 0; /* Space between heading and intro text */
-    text-align: center;
-    width: 35vw; 
+    font-size: 2rem; /* Adjust font size */
+    width: 60%; /* Set a responsive width */
+    margin: 1rem auto; /* Center horizontally and add spacing */
+    text-align: center; /* Center the text content */
+    line-height: 1.5; /* Improve readability */
 }
 
 /* Fade-in effect for the intro heading and text */
@@ -77,18 +86,18 @@ h1 {
     }
 }
 
-/* home page still image of bat sprite */
+/* home page non animated image of bat sprite */
 .home-brucey {
     position: absolute;
-    top: 10rem;
-    left: 25rem;
+    top: 0px; /* Adjust to position above the heading */
+    left: 13em; /* Adjust to position to the left of the heading */
     width: 112px; /* Width of one frame */
     height: 112px; /* Height of one frame */
     background-image: url('../images/bat-sprite.png'); /* Sprite sheet */
     background-size: 224px 112px; /* Total width of the sprite sheet */
     background-position: 0 0; /* Show only the first frame */
     z-index: 2; /* On top of everything */
-    transform: translateY(-50%) scale(1.6); /* Scale up brucey */
+    transform: scale(1.6); /* Scale up Brucey */
 }
 
 /* play now button on home page */
@@ -101,6 +110,23 @@ button {
     font-size: 1.5rem; 
     cursor: pointer;
 }
+
+/* Home page decorative crystals */
+.crystal-row {
+    display: flex; /* Arrange crystals in a row */
+    justify-content: center; /* Center the row horizontally */
+    align-items: center; /* Align crystals vertically */
+    gap: 50px; /* Add spacing between crystals */
+    margin: 2rem 0; /* Add spacing above and below the row */
+}
+
+/* Individual crystals */
+.crystal {
+    width: 50px; /* Set a consistent size for the crystals */
+    height: auto; /* Maintain aspect ratio */
+    pointer-events: none; /* Decorative, so no interaction */
+}
+
 
 /* ----------------------------------*/
 /* --- Wrapper for game container -- */
@@ -365,6 +391,34 @@ button {
 
 /* -- tablet devices --*/
 @media (max-width: 900px) {
+    /* home page heading */
+    h1 {
+        font-size: 4rem; /* Reduce heading size */
+    }
+    /* home page text */
+    p.intro-text {
+        font-size: 1.8rem; /* Slightly smaller intro text */
+        width: 80%; /* Increase width for better readability */
+    }
+    /* home page decorative crystals */
+    .crystal-row {
+        gap: 30px; /* Reduce spacing between crystals */
+    }
+    .crystal {
+        width: 40px; /* Reduce crystal size */
+    }
+    /* home page button */
+    button {
+        font-size: 1.2rem; /* Reduce button font size */
+        padding: 8px 16px; /* Adjust padding */
+    }
+    /* home page bat sprite */
+    .home-brucey {
+        top: 0.2em; /* Adjust to position above the heading */
+        left: 8em; /* Adjust to position to the left of the heading */
+        transform: scale(1.4); /* Scale down Brucey */
+    }
+    /* game page bat sprite */
     /* -- bat moves below the crystal container on smaller devices --*/
     .bat {
         top: 82%;
@@ -392,19 +446,47 @@ button {
 }
 /* --  small tablet devices --*/
 @media (max-width: 700px) {
+    /* home page heading */
+    h1 {
+        font-size: 3.5rem; /* Reduce heading size */
+    }
+    /* home page text */
+    p.intro-text {
+        font-size: 1.5rem; /* Slightly smaller intro text */
+        width: 90%; /* Increase width for better readability */
+    }
+    /* home page decorative crystals */
+    .crystal-row {
+        gap: 20px; /* Reduce spacing between crystals */
+    }
+    .crystal {
+        width: 35px; /* Reduce crystal size */
+    }
+    /* home page button */
+    button {
+        font-size: 1.2rem; /* Reduce button font size */
+        padding: 8px 16px; /* Adjust padding */
+    }
+    /* home page bat sprite */
+    .home-brucey {
+        top: 0.2em; /* Adjust to position above the heading */
+        left: 4em; /* Adjust to position to the left of the heading */
+        transform: scale(1.2); /* Scale down Brucey */
+    }
+    /* game page bat sprite */
     .bat {
         top: 85%;
         left: 25%;
         transform: translateX(-50%) scale(1);
     }
-
+    /* game page level indicator */
     .level-indicator {
         transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
         /*font-size: 1.2rem; /* Adjust font size for smaller screens */
         top: 90%;
         right: 25px;
     }
-
+    /* game page buttons */
     .buttons-container {
         display: grid;
         grid-template-columns: repeat(6, 0fr); /* 4 buttons per row */
@@ -420,18 +502,19 @@ button {
 }
 
 @media (max-width: 590px) {
+    /* game page bat sprite */
     .bat {
         top: 90%;
         left: 20%;
         transform: translateX(-50%) scale(1);
     }
-
+    /* game page level indicator */
     .level-indicator {
         transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
         top: 100%;
         right: -10px;
     }
-
+    /* game page speech bubble modal */
     .speech-bubble {
         width: 250px; /* Adjust width for smaller screens */
     }
@@ -440,12 +523,40 @@ button {
 
 /* -- mobile devices --*/
 @media (max-width: 500px) {
+    /* home page heading */
+    h1 {
+        font-size: 3rem; /* Reduce heading size */
+    }
+    /* home page text */
+    p.intro-text {
+        font-size: 1.2rem; /* Slightly smaller intro text */
+        width: 100%; /* Increase width for better readability */
+    }
+    /* home page decorative crystals */
+    .crystal-row {
+        gap: 10px; /* Reduce spacing between crystals */
+    }
+    .crystal {
+        width: 30px; /* Reduce crystal size */
+    }
+    /* home page button */
+    button {
+        font-size: 1rem; /* Reduce button font size */
+        padding: 6px 12px; /* Adjust padding */
+    }
+    /* home page bat sprite */
+    .home-brucey {
+        top: 0.2em; /* Adjust to position above the heading */
+        left: 2em; /* Adjust to position to the left of the heading */
+        transform: scale(0.8); /* Scale down Brucey */
+    }
+    /* Game page level indicator */
     .level-indicator {
         transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
         top: 100%;
         right: -30px;
     }
-
+    /* Game page buttons */
     .buttons-container {
         display: grid;
         grid-template-columns: repeat(6, 0fr); /* 4 buttons per row */
@@ -468,12 +579,40 @@ button {
 
 /* -- mobile devices medium to small sizes --*/
 @media (max-width: 400px) {
+    /* home page heading */
+    h1 {
+        font-size: 2.5rem; /* Reduce heading size */
+    }
+    /* home page text */
+    p.intro-text {
+        font-size: 1rem; /* Slightly smaller intro text */
+        width: 100%; /* Increase width for better readability */
+    }
+    /* home page decorative crystals */
+    .crystal-row {
+        gap: 5px; /* Reduce spacing between crystals */
+    }
+    .crystal {
+        width: 25px; /* Reduce crystal size */
+    }
+    /* home page button */
+    button {
+        font-size: 0.8rem; /* Reduce button font size */
+        padding: 4px 8px; /* Adjust padding */
+    }
+    /* home page bat sprite */
+    .home-brucey {
+        top: 0.2em; /* Adjust to position above the heading */
+        left: 0em; /* Adjust to position to the left of the heading */
+        transform: scale(0.8); /* Scale down Brucey */
+    }
+    /* Game page level indicator */
     .level-indicator {
         transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
         top: 100%;
         right: -40px;
     }
-
+    /* Game page buttons */
     .buttons-container {
         display: grid;
         grid-template-columns: repeat(5, 0fr); /* 4 buttons per row */
@@ -492,7 +631,7 @@ button {
         min-width: 50px; /* Set a minimum width */
         min-height: 50px; /* Set a minimum height */
     }
-
+    /* game page speech bubble modal */
     .speech-bubble {
         width: 200px; /* Adjust width for smaller screens */
     }
@@ -502,12 +641,13 @@ button {
 /* -- media query for rotated view (landscape) on smaller devices --*/
 /*------------------------------------------------------------------*/
 @media (max-height: 420px) and (orientation: landscape) {
+    /* game page bat sprite */
     .bat {
         top: 40px; /* Reset top position */
         left: -15%;
         transform: translateX(-50%) scale(1.2);
     }
-
+    /* game page level indicator */
     .level-indicator {
         transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
         top: 70%; /* Reset top position */
@@ -522,7 +662,7 @@ button {
         height: min(75vw, 75vh, 375px); /* Same ratio, adjusted size */
         padding: 2%; /* Slightly reduce padding to accommodate the smaller size */
     }
-
+    /* game page buttons */
     .buttons-container {
         position: fixed; /* Ensures it's placed relative to the viewport */
         top: auto; /* Reset top position */
