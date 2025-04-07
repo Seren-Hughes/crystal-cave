@@ -1,4 +1,16 @@
-// -------------------- Global variables --------------------- //
+/* 
+TABLE OF CONTENTS:
+1. Global Variables
+2. Modal Functions
+3. Event Listeners
+4. Game Functions
+5. Player Interaction
+6. Utility Functions
+*/
+
+// --------------------------------------------------------------------------------- //
+// ------------------------------- GLOBAL VARIABLES -------------------------------- //
+// --------------------------------------------------------------------------------- //
 
 // Flags (boolean variables to manage game state)
 let isSequencePlaying = false; // Indicates if the sequence is currently playing
@@ -16,16 +28,16 @@ let crystalTimeouts = {}; // Store timeout IDs for each crystal (keyed by crysta
 // Primitive data types 
 let level = 1; // Initialize level
 
-// -------------------------------- MODAL AND CRYSTAL INTERACTIONS --------------------------------- //
+// ---------------------------------------------------------------------------------- //
+// -------------------------------- MODAL FUNCTIONS --------------------------------- //
+// ---------------------------------------------------------------------------------- //
 
-// ---- Function to handle modal opening and closing ---- //
-
-    /* Modal & overlay functionality adapted and inspired by the following resources:
-        - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
-        - CSS Tricks: https://css-tricks.com/considerations-styling-modal/ 
-         (particularly the section on dealing with overlays: https://css-tricks.com/considerations-styling-modal/#aa-dealing-with-the-overlay)
-        - FreeCodeCamp: https://www.freecodecamp.org/news/how-to-build-a-modal-with-javascript/
-    */
+/** Modal & overlay functionality adapted and inspired by the following resources:
+* - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
+* - CSS Tricks: https://css-tricks.com/considerations-styling-modal/ 
+*  (particularly the section on dealing with overlays: https://css-tricks.com/considerations-styling-modal/#aa-dealing-with-the-overlay)
+* - FreeCodeCamp: https://www.freecodecamp.org/news/how-to-build-a-modal-with-javascript/
+*/
 
 // Function to open modals (speechBubble or gameModal)
 function openModal(type, title = "", text = "", buttons = []) {
@@ -65,7 +77,14 @@ function openModal(type, title = "", text = "", buttons = []) {
     console.log(`${type} modal opened.`); // Debugging message
 }
 
-// Function to close the modal
+/** Event bubbling and propagation solution references:
+* Using event.stopPropagation() to prevent the click event from propagating (bubbling - still somewhat murky on this concept but it seems to be working)
+* to other elements. This solution was inspired by:
+* - Free Code Camp: https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/
+* - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
+* - Stack Overflow: https://stackoverflow.com/questions/5963669/whats-the-difference-between-event-stoppropagation-and-event-preventdefault
+* - Additional Resource: https://example.com/another-resource
+*/
 function closeModal(type = "speechBubble", event = null) {
     const modal = document.querySelector(
         type === "speechBubble" ? ".speech-bubble" : ".modal-container"
@@ -75,12 +94,6 @@ function closeModal(type = "speechBubble", event = null) {
     if (isModalClosing) return; // Prevent multiple triggers
     isModalClosing = true; // Set the flag to true
 
-    /*  Using event.stopPropagation() to prevent the click event from propagating (bubbling - still somewhat murky on this concept but it seems to be working)
-        to other elements. This solution was inspired by:
-        - Free Code Camp: https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/
-        - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
-        - Stack Overflow: https://stackoverflow.com/questions/5963669/whats-the-difference-between-event-stoppropagation-and-event-preventdefault
-    */
     if (event) {
         event.stopPropagation(); // Stop the click event from propagating
         event.preventDefault(); // Prevent any default behavior
@@ -97,6 +110,10 @@ function closeModal(type = "speechBubble", event = null) {
         }
     }, 500); // Slight delay for hiding the modal
 }
+
+// ------------------------------------------------------------ //
+// -------------------EVENT LISTENERS ------------------------- //
+// ------------------------------------------------------------ //
 
 // Event listener for DOMContentLoaded to ensure the script runs after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
@@ -122,10 +139,10 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Button clicked, ignoring overlay click."); // Debugging message
             return;
         }
-    
+
         const speechBubble = document.querySelector(".speech-bubble");
         const gameModal = document.querySelector(".modal-container");
-    
+
         if (!speechBubble.classList.contains("hidden")) {
             closeModal("speechBubble", event); // Close the speech bubble modal
         } else if (!gameModal.classList.contains("hidden")) {
@@ -141,25 +158,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Function to handle the glow effect on the crystal containers
-    const activateGlow = (container) => {
-        if (!isPlayerTurn) {
-            console.log("Crystal interaction blocked: Not player's turn."); // Debugging message
-            return;
-        }
-
-        // Add active classes for glow and light-crystal
-        container.querySelector('.glow').classList.add('active');
-        container.querySelector('.light-crystal').classList.add('active');
-
-        // Remove active classes after 0.6 seconds to return to the default state
-        setTimeout(() => {
-            container.querySelector('.glow').classList.remove('active');
-            container.querySelector('.light-crystal').classList.remove('active');
-            console.log("Player interaction glow deactivated."); // Debugging message
-        }, 600); // 600ms = 0.6 seconds
-    };
-
     // Event listeners to the crystal containers for click and touch events 
     // Reference: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
     document.querySelectorAll('.crystal-container').forEach(container => {
@@ -174,10 +172,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         container.addEventListener('touchstart', function (event) {
             event.preventDefault(); // Prevent default touch behavior
-            
+
             if (!isPlayerTurn) {
                 console.log("Crystal interaction blocked: Not player's turn."); // Debugging message
-                
+
                 return;
             }
             activateGlow(container);
@@ -185,7 +183,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// ------------------------------------ GAME FUNCTIONS ------------------------------------------ //
+// ------------------------------------------------------------------------ //
+// ------------------------------ GAME FUNCTIONS -------------------------- //
+// ------------------------------------------------------------------------ //
 
 // Function to start the game
 function startGame() {
@@ -200,10 +200,10 @@ function startGame() {
 }
 
 // Generate and store a random sequence of numbers (1-5 for each crystal)
-    /* Sequence generation and playback references:
-        - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-        - Stack Overflow: https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
-    */
+/** Sequence generation and playback references:
+* - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+* - Stack Overflow: https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
+*/
 function storeSequence(level) {
     currentSequence = []; // Reset the sequence before generating a new one
     let crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
@@ -278,16 +278,16 @@ function waitForPlayerInput() {
     let crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
     console.log("Crystals available for player input:", crystals); // Debugging message
 
-    // Remove any existing event listeners to prevent duplication
-    /* This ensures that no duplicate event listeners are attached to the crystals.
-        Duplicated listeners can occur if `addEventListener` is called multiple times without
-        removing the previous listeners. By using `removeEventListener` before adding new listeners,
-        it ensures only one instance of the event handler is attached to each crystal.
-
-        This issue and its resolution are documented in the development troubleshooting section of `testing.md`.
-
-        Reference:
-        - Stack Overflow: https://stackoverflow.com/questions/45723205/removing-duplicate-event-listeners
+    /** Remove any existing event listeners to prevent duplication
+    * This ensures that no duplicate event listeners are attached to the crystals.
+    * Duplicated listeners can occur if `addEventListener` is called multiple times without
+    * removing the previous listeners. By using `removeEventListener` before adding new listeners,
+    * it ensures only one instance of the event handler is attached to each crystal.
+    *
+    * This issue and its resolution are documented in the development troubleshooting section of `testing.md`.
+    *
+    * Reference:
+    * - Stack Overflow: https://stackoverflow.com/questions/45723205/removing-duplicate-event-listeners
     */
     crystals.forEach(crystal => {
         crystal.removeEventListener("click", handleCrystalClick); // Remove previous listeners
@@ -298,12 +298,16 @@ function waitForPlayerInput() {
     });
 }
 
-// Handle the player's click on a crystal during their turn
-/* This function processes the player's input by:
-   - Checking if it's the player's turn (using the `isPlayerTurn` flag).
-   - Retrieving the clicked crystal's colour and storing it in the `playersInput` array.
-   - Logging debugging information for the clicked crystal and the player's input sequence.
-   - Validating the player's input against the correct sequence after a delay (to allow glow deactivation).
+// ------------------------------------------------------------------------------------- //
+// -------------------------------- PLAYER INTERACTION --------------------------------- //
+// ------------------------------------------------------------------------------------- //
+
+/**  Handle the player's click on a crystal during their turn
+*   This function processes the player's input by:
+*   - Checking if it's the player's turn (using the `isPlayerTurn` flag).
+*   - Retrieving the clicked crystal's colour and storing it in the `playersInput` array.
+*  - Logging debugging information for the clicked crystal and the player's input sequence.
+*  - Validating the player's input against the correct sequence after a delay (to allow glow deactivation).
 */
 function handleCrystalClick(event) {
     if (!isPlayerTurn) return; // Ignore clicks if it's not the player's turn
@@ -325,22 +329,23 @@ function handleCrystalClick(event) {
         }, 600); // Match the glow deactivation duration
     }
 }
-
+/** Checks the player's input against the correct sequence. References:
+   * Compare player's input with the correct sequence using JSON.stringify.
+   * Strict comparison of both the order and values of the arrays.
+   * References:
+   * - Stack Overflow: https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
+   * - Stack Overflow: https://stackoverflow.com/questions/15376185/is-it-fine-to-use-json-stringify-for-deep-comparisons-and-cloning
+   * - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+   * - GeeksforGeeks: https://www.geeksforgeeks.org/how-to-compare-two-arrays-in-javascript/
+   */
 function checkPlayerInput() {
     console.log("Checking player input..."); // Debugging message
     console.log("Player's input:", playersInput); // Debugging message
     console.log("Current sequence:", currentSequence); // Debugging message
-    
+
     // Check if both arrays are the same length before comparing
     console.log(`Player's input length: ${playersInput.length}, Current sequence length: ${currentSequence.length}`); // Debugging message
-    
-    /* Compare player's input with the correct sequence using JSON.stringify.
-        Strict comparison of both the order and values of the arrays.
-        References:
-        - Stack Overflow: https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript & https://stackoverflow.com/questions/15376185/is-it-fine-to-use-json-stringify-for-deep-comparisons-and-cloning
-        - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
-        - GeeksforGeeks: https://www.geeksforgeeks.org/how-to-compare-two-arrays-in-javascript/
-    */
+
     if (JSON.stringify(playersInput) === JSON.stringify(currentSequence)) {
         console.log("Correct input"); // Debugging message
         celebrateCorrectAnswer(); // Celebrate the correct answer
@@ -404,33 +409,51 @@ function nextLevel() {
     isWaitingForInput = false; // Reset the flag to allow player input again
 }
 
-// ---- Managing lingering glow effects and timed celebrations ---- //
+// --------------------------------------------------------------------------------- //
+// ------------------------------ UTILITY FUNCTIONS -------------------------------- //
+// --------------------------------------------------------------------------------- //
 
-    /* The use of `setTimeout` for deactivating glow effects and adding delays to celebrations
-    *  was inspired by the following resources: 
-    *     - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
-    *     - Stack Overflow: https://stackoverflow.com/questions/729921/settimeout-or-setinterval
-    *     - FreeCodeCamp: https://www.freecodecamp.org/news/javascript-timing-events-settimeout-and-setinterval/
-    *  The lingering glow issue and the delay for the last crystal glow are documented in `testing.md` under development troubleshooting notes.
-    */
-// Function to clear all timeouts and intervals
+// Function to handle the glow effect on the crystal containers
+const activateGlow = (container) => {
+    if (!isPlayerTurn) {
+        console.log("Crystal interaction blocked: Not player's turn."); // Debugging message
+        return;
+    }
+
+    // Add active classes for glow and light-crystal
+    container.querySelector('.glow').classList.add('active');
+    container.querySelector('.light-crystal').classList.add('active');
+
+    // Remove active classes to return to the default state
+    setTimeout(() => {
+        container.querySelector('.glow').classList.remove('active');
+        container.querySelector('.light-crystal').classList.remove('active');
+        console.log("Player interaction glow deactivated."); // Debugging message
+    }, 600); // 600ms = 0.6 seconds
+};
+
+/**
+* Clears all timeouts and intervals to prevent lingering effects.
+*/
 function clearTimeoutsAndIntervals() {
     // Clear all timeouts and intervals to prevent any lingering effects
-    let highestTimeoutId = setTimeout(() => {}, 1000); // Get the highest timeout ID
+    let highestTimeoutId = setTimeout(() => { }, 1000); // Get the highest timeout ID
     for (let i = 0; i < highestTimeoutId; i++) {
         clearTimeout(i); // Clear each timeout
     }
 
-    let highestIntervalId = setInterval(() => {}, 1000); // Get the highest interval ID
+    let highestIntervalId = setInterval(() => { }, 1000); // Get the highest interval ID
     for (let i = 0; i < highestIntervalId; i++) {
         clearInterval(i); // Clear each interval
     }
     console.log("All timeouts and intervals cleared."); // Debugging message
 }
 
-// Function to clear all global timeouts and crystal-specific timeouts
+/** 
+ * Clears all global timeouts and crystal-specific timeouts
+ */
 function clearAllTimeouts() {
-    let highestTimeoutId = setTimeout(() => {}, 0); // Get the highest timeout ID
+    let highestTimeoutId = setTimeout(() => { }, 0); // Get the highest timeout ID
     for (let i = 0; i <= highestTimeoutId; i++) {
         clearTimeout(i); // Clear each timeout
     }
@@ -444,6 +467,9 @@ function clearAllTimeouts() {
     }
 }
 
+/**
+* Clears all glow effects from the crystals.
+*/
 function clearAllGlows() {
     let crystals = document.querySelectorAll(".crystal-container");
     crystals.forEach(crystal => {
