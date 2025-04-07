@@ -304,3 +304,6 @@ After increasing the `z-index` of the `.modal-container`:
 DevTools Inspect Tool Screenshot Before Fix: 
 
 ![Overlay Blocking Modal Buttons](assets/media/overlay-active-over-modal.png)
+
+DevTools Inspect Tool Screenshot After Fix:
+![Modal Z-index Fixed](assets/media/overlay-modal-fix.png)
