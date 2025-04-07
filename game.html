@@ -11,14 +11,14 @@
 
 <body>
     <!-- Invisible overlay to control event listener interactions. Pointer events are toggled with the "active" class in JavaScript. -->
-    <div class="overlay active"></div>
+    <div class="overlay hidden"></div>
     <!-- game container div wrapper to contain crystal grid and bat sprite for bat positioning -->
     <div class="game-container">
         <!-- Crystal Container -->
         <div class="crystal-grid">
             <div class="row">
                 <!-- individual crystal containers - data attributes in each container for js functionality -->
-                <div class="crystal-container" data-color="green" >
+                <div class="crystal-container" data-color="green">
                     <!-- duplicated crystal images within each crystal-container div, are used for applying the glow effect css (using z-index to layer glow version behind the main-crystal class) -->
                     <img src="assets/images/crystal_green.png" class="glow" alt="Green Crystal Glowing Layer">
                     <img src="assets/images/crystal_green.png" class="main-crystal" alt="Green Crystal">
@@ -57,14 +57,21 @@
         </div>
         <!-- bat sprite container -->
         <div class="bat"></div>
-        
+
         <!-- Speech Bubble Modal -->
         <div class="speech-bubble">
             <!-- speech text to go here - text changes dynamically planned -->
         </div>
-        <!-- Regular Modal Container -->
-        <div class="modal-container">
-        
+        <!-- Modal Container -->
+        <div class="modal-container hidden">
+            <div class="modal">
+                <h2 class="modal-title">Game Over</h2>
+                <p class="modal-text">Never give up. Never surrender. Play again?</p>
+                <div class="modal-buttons">
+                    <button class="modal-button play-again">Play Again</button>
+                    <button class="modal-button close-modal">Some Other Time</button>
+                </div>
+            </div>
         </div>
         <!-- Level Number Container -->
         <div class="level-indicator">

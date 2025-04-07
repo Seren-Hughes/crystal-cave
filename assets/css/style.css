@@ -352,15 +352,68 @@ button {
     cursor: pointer;
 }
 
-/* Hide modal initially */
-.hidden {
-    display: none;
+/* --------------------------------------------------- */
+/* ----------------- Game Modal Content -------------- */
+/* --------------------------------------------------- */
+
+/* Modal container */
+.modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    background-color: var(--primary-highlight-color); /* Light blue */
+    color: var(--secondary-color); /* Dark charcoal for text */
+    border: 2px solid var(--primary-background-color); /* Gunmetal border */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
 }
 
-/* -------------- Regular Modal Content -------------- */
+/* Modal title */
+.modal-title {
+    font-family: var(--primary-font);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
 
+/* Modal text */
+.modal-text {
+    font-family: var(--primary-font);
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
 
+/* Modal buttons */
+.modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    width: 100%;
+}
 
+.modal-button {
+    font-family: var(--primary-font);
+    font-size: 1rem;
+    padding: 10px 20px;
+    background-color: var(--secondary-background-color); /* Dark background */
+    color: var(--primary-color); /* Light blue text */
+    border: 2px solid var(--primary-background-color); /* Gunmetal border */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.modal-button:hover {
+    background-color: var(--primary-background-color); /* Gunmetal on hover */
+}
 
 /* -----------------------------------------------------------------------------------------*/
 /* ---------------------- Invisible overlay for toggling click events ----------------------*/
@@ -380,6 +433,11 @@ button {
 
 .overlay.active {
     pointer-events: all; /* Enable clicks when active */
+}
+
+/* Hide modals initially */
+.hidden {
+    display: none;
 }
 /* -------------------------------------------------------------------------*/
 

@@ -30,9 +30,26 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal = document.querySelector(".speech-bubble");
     const overlay = document.querySelector(".overlay");
 
+    // Make the overlay active on page load
+    overlay.classList.remove("hidden");
+    overlay.classList.add("active");
+
+    // Open the speech bubble modal on page load
+    openModal("speechBubble");
+
+    // Add a click event listener to close the speech bubble modal and deactivate the overlay
+    modal.addEventListener("click", function () {
+        closeModal("speechBubble");
+        overlay.classList.remove("active"); // Deactivate the overlay
+    });
+
     // Function to close the modal
-    function closeModal(event) {
-        
+    function closeModal(type = "speechBubble", event = null) {
+        const modal = document.querySelector(
+            type === "speechBubble" ? ".speech-bubble" : ".modal-container"
+        );
+        const overlay = document.querySelector(".overlay");
+
         if (isModalClosing) return; // Prevent multiple triggers
         isModalClosing = true; // Set the flag to true
 
@@ -43,39 +60,72 @@ document.addEventListener("DOMContentLoaded", function () {
             - Stack Overflow: https://stackoverflow.com/questions/5963669/whats-the-difference-between-event-stoppropagation-and-event-preventdefault
         */
         if (event) {
-            event.stopPropagation(); // Stop the click event from propagating to other elements
+            event.stopPropagation(); // Stop the click event from propagating
             event.preventDefault(); // Prevent any default behavior
         }
 
-        console.log("Closing modal...");
+        console.log(`Closing ${type} modal...`); // Debugging message
         modal.classList.add("hidden");
         overlay.classList.remove("active"); // Deactivate the overlay
-        console.log("Overlay class list after closing modal:", overlay.classList); // Debugging message
 
         setTimeout(() => {
             isModalClosing = false; // Reset the flag after the modal is closed
-            startGame(); // Start the game immediately
-        }, 500); // slight delay for hiding the modal
+            if (type === "speechBubble") {
+                startGame(); // Start the game immediately after closing the speech bubble
+            }
+        }, 500); // Slight delay for hiding the modal
     }
 
     // Open the modal and activate the overlay - *this is set up for other modals to be added later*
-    function openModal() {
-        console.log("Opening modal..."); // Debugging message
+    function openModal(type, title = "", text = "", buttons = []) {
+        console.log(`openModal called with type: ${type}`); // Debugging message
+        const modal = document.querySelector(
+            type === "speechBubble" ? ".speech-bubble" : ".modal-container"
+        );
+        const overlay = document.querySelector(".overlay");
+
+        // Update modal content dynamically for general modals
+        if (type === "gameModal") {
+            modal.querySelector(".modal-title").textContent = title;
+            modal.querySelector(".modal-text").textContent = text;
+
+            // Clear existing buttons
+            const buttonsContainer = modal.querySelector(".modal-buttons");
+            buttonsContainer.innerHTML = "";
+
+            // Add new buttons
+            buttons.forEach(button => {
+                const btn = document.createElement("button");
+                btn.textContent = button.text;
+                btn.className = "modal-button";
+                btn.addEventListener("click", button.action); // Attach the action
+                buttonsContainer.appendChild(btn);
+            });
+        }
+
+        // Show modal and overlay
         modal.classList.remove("hidden");
-        overlay.classList.add("active"); // Activate the overlay
+        overlay.classList.add("active");
+        console.log(`${type} modal opened.`); // Debugging message
     }
 
     // Close modal when clicking on the overlay
-    overlay.addEventListener("click", function (event) {
-        console.log("Overlay clicked"); // Debugging message
-        closeModal(event);
+    document.querySelector(".overlay").addEventListener("click", function (event) {
+        const speechBubble = document.querySelector(".speech-bubble");
+        const gameModal = document.querySelector(".modal-container");
+
+        if (!speechBubble.classList.contains("hidden")) {
+            closeModal("speechBubble", event); // Close the speech bubble modal
+        } else if (!gameModal.classList.contains("hidden")) {
+            closeModal("gameModal", event); // Close the game modal
+        }
     });
 
     // Close modal with spacebar - referenced from MDN Web Docs
     // https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event
     document.addEventListener("keydown", function (event) {
         if (event.key === " ") {
-            closeModal(event);
+            closeModal("speechBubble", event);
         }
     });
 
@@ -344,12 +394,12 @@ function nextLevel() {
 
 // ---- Managing lingering glow effects and timed celebrations ---- //
 
-   /* The use of `setTimeout` for deactivating glow effects and adding delays to celebrations
-    was inspired by the following resources: 
-        - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
-        - Stack Overflow: https://stackoverflow.com/questions/729921/settimeout-or-setinterval
-        - FreeCodeCamp: https://www.freecodecamp.org/news/javascript-timing-events-settimeout-and-setinterval/
-        * The lingering glow issue and the delay for the last crystal glow are documented in `testing.md` under development troubleshooting notes.
+    /* The use of `setTimeout` for deactivating glow effects and adding delays to celebrations
+    *  was inspired by the following resources: 
+    *     - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+    *     - Stack Overflow: https://stackoverflow.com/questions/729921/settimeout-or-setinterval
+    *     - FreeCodeCamp: https://www.freecodecamp.org/news/javascript-timing-events-settimeout-and-setinterval/
+    *  The lingering glow issue and the delay for the last crystal glow are documented in `testing.md` under development troubleshooting notes.
     */
 // Function to clear all timeouts and intervals
 function clearTimeoutsAndIntervals() {
@@ -392,6 +442,24 @@ function clearAllGlows() {
 }
 
 function showPlayAgainModal() {
-    console.log("Showing play again modal..."); // Debugging message
-    alert("Never give up. Never surrender. Play again?"); // Alert the player
+    console.log("showPlayAgainModal() called"); // Debugging message
+
+    openModal("gameModal", "Game Over", "Never give up. Never surrender. Play again?", [
+        {
+            text: "Play Again",
+            action: () => {
+                console.log("Play Again button clicked"); // Debugging message
+                closeModal("gameModal"); // Close the modal
+                startGame(); // Restart the game programmatically
+            }
+        },
+        {
+            text: "Some Other Time",
+            action: () => {
+                console.log("Some Other Time button clicked"); // Debugging message
+                closeModal("gameModal"); // Close the modal
+                location.href = "index.html"; // Redirect to the home page
+            }
+        }
+    ]);
 }
