@@ -86,6 +86,18 @@ p.intro-text {
     }
 }
 
+/* Game container fades in first */
+.fade-in-game-container {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    animation-delay: 0.5s;
+}
+.fade-in-ui {
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    animation-delay: 0.5s;
+}
+
 /* home page non animated image of bat sprite */
 .home-brucey {
     position: absolute;
@@ -243,14 +255,14 @@ button {
     position: absolute; /* Position relative to the crystal container */
     left: -10%; /* Adjust to be just outside the crystal container */
     top: 50%;
-    transform: translateY(-50%); /* Center vertically */
     width: 112px; /* Width of the bat sprite */
     height: 112px; /* Height of the bat sprite */
     background-image: url('../images/bat-sprite.png'); /* Sprite sheet */
     background-size: 224px 112px; /* Width of the sprite sheet */
     transform: translateY(-50%) scale(1.6); /* Scale up the bat */
     animation: flap 0.3s steps(2) infinite alternate; /* Quick flap effect adapted from https://blog.teamtreehouse.com/css-sprite-sheet-animations-steps */
-    z-index: 2; 
+    z-index: 100;
+    opacity: 1;; 
 }
 
 /* Flap animation */
