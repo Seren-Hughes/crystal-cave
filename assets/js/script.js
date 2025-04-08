@@ -68,6 +68,7 @@ function openModal(type, title = "", text = "", buttons = []) {
         // Clear existing buttons
         const buttonsContainer = modal.querySelector(".modal-buttons");
         buttonsContainer.innerHTML = "";
+        
 
         // Add new buttons
         buttons.forEach(button => {
@@ -82,6 +83,8 @@ function openModal(type, title = "", text = "", buttons = []) {
             console.log(`Button created: ${button.text}`); 
             buttonsContainer.appendChild(btn);
         });
+        
+        overlay.classList.add("with-game-modal");
     }
 
     // Show modal and overlay
@@ -115,6 +118,7 @@ function closeModal(type = "speechBubble", event = null) {
     console.log(`Closing ${type} modal...`); 
     modal.classList.add("hidden");
     overlay.classList.remove("active"); // Deactivate the overlay
+    overlay.classList.remove("with-game-modal");
 
     setTimeout(() => {
         isModalClosing = false; // Reset the flag after the modal is closed

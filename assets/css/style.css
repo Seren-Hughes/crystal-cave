@@ -407,6 +407,7 @@ button {
     align-items: center;
     padding: 20px;
     text-align: center;
+    pointer-events: auto; /* Enable clicks */
 }
 
 /* Modal title */
@@ -440,6 +441,7 @@ button {
     border: 2px solid var(--primary-background-color); /* Gunmetal border */
     border-radius: 5px;
     cursor: pointer;
+    pointer-events: auto; /* Enable clicks */
     transition: background-color 0.3s ease;
 }
 
@@ -471,6 +473,11 @@ button {
 .hidden {
     display: none;
 }
+
+.overlay.with-game-modal {
+    pointer-events: none; /* Disable overlay clicks when game modal is active */
+}
+
 /* -------------------------------------------------------------------------*/
 
 /* ---------------------------------------*/
