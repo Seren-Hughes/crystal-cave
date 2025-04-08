@@ -28,6 +28,19 @@ let crystalTimeouts = {}; // Store timeout IDs for each crystal (keyed by crysta
 // Primitive data types 
 let level = 1; // Initialize level
 
+// Speech bubble messages
+const speechBubbleMessages = [
+    "Oh hi! I didn't know anyone else knew about this place...",
+    "It's so magical here. The crystals... they glow and sing.",
+    "When I copy their melody, they all light up!",
+    "I don't know why... but it feels important.",
+    "Oh! I'm Brucey by the way.",
+    "Want to see what the crystals do?",
+    "Give it a try... I'll be right here!"
+];
+
+let currentMessageIndex = 0; // Track the current message
+
 // ---------------------------------------------------------------------------------- //
 // -------------------------------- MODAL FUNCTIONS --------------------------------- //
 // ---------------------------------------------------------------------------------- //
@@ -117,26 +130,27 @@ function closeModal(type = "speechBubble", event = null) {
 
 // Event listener for DOMContentLoaded to ensure the script runs after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.querySelector(".speech-bubble");
+    const speechBubble = document.querySelector(".speech-bubble");
     const overlay = document.querySelector(".overlay");
 
     // Make the overlay active on page load
     overlay.classList.remove("hidden");
     overlay.classList.add("active");
 
-    // Open the speech bubble modal on page load
-    openModal("speechBubble");
+    // Initialize the first message
+    updateSpeechBubbleText();
 
-    // Add a click event listener to close the speech bubble modal and deactivate the overlay
-    modal.addEventListener("click", function () {
-        closeModal("speechBubble");
-        overlay.classList.remove("active"); // Deactivate the overlay
+    // Add click listener directly to the speech bubble
+    speechBubble.addEventListener("click", function(event) {
+        event.stopPropagation(); // Prevent click from reaching the overlay
+        progressDialogue();
     });
 
-    // Close modal when clicking on the overlay
-    document.querySelector(".overlay").addEventListener("click", function (event) {
+    // Modify the overlay click handler to progress dialogue instead of closing the modal
+    overlay.addEventListener("click", function(event) {
+        // If clicking a button in a game modal, ignore
         if (event.target.closest(".modal-button")) {
-            console.log("Button clicked, ignoring overlay click."); 
+            console.log("Button clicked, ignoring overlay click.");
             return;
         }
 
@@ -144,17 +158,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const gameModal = document.querySelector(".modal-container");
 
         if (!speechBubble.classList.contains("hidden")) {
-            closeModal("speechBubble", event); // Close the speech bubble modal
-        } else if (!gameModal.classList.contains("hidden")) {
-            closeModal("gameModal", event); // Close the game modal
+            progressDialogue();
+        } 
+        
+        else if (!gameModal.classList.contains("hidden")) {
+            closeModal("gameModal", event);
         }
     });
 
-    // Close modal with spacebar - referenced from MDN Web Docs
-    // https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event
-    document.addEventListener("keydown", function (event) {
-        if (event.key === " ") {
-            closeModal("speechBubble", event);
+    /* Add spacebar listener. Reference:
+        https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event
+    */
+    document.addEventListener("keydown", function(event) {
+        if (event.key === " " && !speechBubble.classList.contains("hidden")) {
+            progressDialogue();
         }
     });
 
@@ -182,6 +199,25 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+function progressDialogue() {
+    console.log("Progressing dialogue. Current index:", currentMessageIndex);
+    currentMessageIndex++;
+
+    if (currentMessageIndex < speechBubbleMessages.length) {
+        // Update the speech bubble with the next message
+        updateSpeechBubbleText();
+    } else {
+        // We've reached the end of the messages, start the game! :)
+        const speechBubble = document.querySelector(".speech-bubble");
+        const overlay = document.querySelector(".overlay");
+        
+        speechBubble.classList.add("hidden");
+        overlay.classList.remove("active");
+        console.log("Starting game after last message");
+        startGame();
+    }
+}
 
 // ------------------------------------------------------------------------ //
 // ------------------------------ GAME FUNCTIONS -------------------------- //
@@ -500,4 +536,47 @@ function showPlayAgainModal() {
             }
         }
     ]);
+}
+
+// --------------------------------------------------------------------------------- //
+// ------------------------------ SPEECH BUBBLE FUNCTIONS ------------------------- //
+// --------------------------------------------------------------------------------- //
+
+// Function to update the speech bubble text
+function updateSpeechBubbleText() {
+    const speechBubble = document.querySelector(".speech-bubble");
+    const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+    // Add the current message to the speech bubble
+    speechBubble.innerHTML = `
+        <div class="text-container">
+            <p>${speechBubbleMessages[currentMessageIndex]}</p>
+            <span class="instructions">${
+                currentMessageIndex === speechBubbleMessages.length - 1
+                    ? isTouchDevice
+                        ? "Tap anywhere to begin"
+                        : "Press spacebar or click anywhere to begin"
+                    : isTouchDevice
+                    ? "Tap anywhere to continue"
+                    : "Click anywhere or press spacebar to continue"
+            }</span>
+        </div>
+    `;
+}
+
+// Function to handle speech bubble interaction
+function handleSpeechBubbleInteraction(event) {
+    event.stopPropagation(); // Prevent event bubbling
+
+    const speechBubble = document.querySelector(".speech-bubble");
+    currentMessageIndex++;
+
+    if (currentMessageIndex < speechBubbleMessages.length) {
+        // Update the speech bubble with the next message
+        updateSpeechBubbleText();
+    } else {
+        // Close the speech bubble and start the game
+        closeModal("speechBubble");
+        startGame();
+    }
 }
