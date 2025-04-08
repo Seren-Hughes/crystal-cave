@@ -41,7 +41,7 @@ let level = 1; // Initialize level
 
 // Function to open modals (speechBubble or gameModal)
 function openModal(type, title = "", text = "", buttons = []) {
-    console.log(`openModal called with type: ${type}`); // Debugging message
+    console.log(`openModal called with type: ${type}`); 
     const modal = document.querySelector(
         type === "speechBubble" ? ".speech-bubble" : ".modal-container"
     );
@@ -62,11 +62,11 @@ function openModal(type, title = "", text = "", buttons = []) {
             btn.textContent = button.text;
             btn.className = "modal-button";
             btn.addEventListener("click", function (event) {
-                console.log(`Button clicked: ${button.text}`); // Debugging message
+                console.log(`Button clicked: ${button.text}`); 
                 event.stopPropagation(); // Prevent the click from propagating to the overlay
                 button.action(); // Execute the button's action
             });
-            console.log(`Button created: ${button.text}`); // Debugging message
+            console.log(`Button created: ${button.text}`); 
             buttonsContainer.appendChild(btn);
         });
     }
@@ -74,7 +74,7 @@ function openModal(type, title = "", text = "", buttons = []) {
     // Show modal and overlay
     modal.classList.remove("hidden");
     overlay.classList.add("active");
-    console.log(`${type} modal opened.`); // Debugging message
+    console.log(`${type} modal opened.`); 
 }
 
 /** Event bubbling and propagation solution references:
@@ -99,7 +99,7 @@ function closeModal(type = "speechBubble", event = null) {
         event.preventDefault(); // Prevent any default behavior
     }
 
-    console.log(`Closing ${type} modal...`); // Debugging message
+    console.log(`Closing ${type} modal...`); 
     modal.classList.add("hidden");
     overlay.classList.remove("active"); // Deactivate the overlay
 
@@ -136,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Close modal when clicking on the overlay
     document.querySelector(".overlay").addEventListener("click", function (event) {
         if (event.target.closest(".modal-button")) {
-            console.log("Button clicked, ignoring overlay click."); // Debugging message
+            console.log("Button clicked, ignoring overlay click."); 
             return;
         }
 
@@ -163,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('.crystal-container').forEach(container => {
         container.addEventListener('click', function (event) {
             if (!isPlayerTurn) {
-                console.log("Crystal interaction blocked: Not player's turn."); // Debugging message
+                console.log("Crystal interaction blocked: Not player's turn."); 
                 event.stopPropagation();
                 return;
             }
@@ -174,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault(); // Prevent default touch behavior
 
             if (!isPlayerTurn) {
-                console.log("Crystal interaction blocked: Not player's turn."); // Debugging message
+                console.log("Crystal interaction blocked: Not player's turn."); 
 
                 return;
             }
@@ -189,13 +189,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Function to start the game
 function startGame() {
-    console.log("Starting game..."); // Debugging message
+    console.log("Starting game..."); 
     level = 1;
     isSequencePlaying = true; // Disable crystal clicks during the sequence
     clearAllTimeouts(); // Clear any lingering timeouts
     clearAllGlows(); // Clear any lingering glow effects
     storeSequence(level); // Generate and store the sequence
-    console.log("Current sequence:", currentSequence); // Debugging output
+    console.log("Current sequence:", currentSequence); 
     isWaitingForInput = false; // Reset this flag to allow player input
 }
 
@@ -214,7 +214,7 @@ function storeSequence(level) {
         currentSequence.push(selectedCrystal.dataset.color); // Store the crystal’s color in the global array
     }
 
-    console.log("Generated sequence:", currentSequence); // Debugging output
+    console.log("Generated sequence:", currentSequence); 
     playSequence(currentSequence); // Play the sequence
 }
 
@@ -224,12 +224,12 @@ function playSequence(sequence) {
     clearAllGlows(); // Clear any lingering glow effects
     let crystals = document.querySelectorAll(".crystal-container");
 
-    console.log("Sequence will start shortly..."); // Debugging message
+    console.log("Sequence will start shortly..."); 
 
     // Add a delay before starting the sequence
     setTimeout(() => {
         clearAllGlows(); // Clear any lingering glow effects
-        console.log("Cleared all glows before starting the sequence."); // Debugging message
+        console.log("Cleared all glows before starting the sequence."); 
     }, 300); // Delay by 300ms
 
     setTimeout(() => {
@@ -239,13 +239,13 @@ function playSequence(sequence) {
 
                 if (crystal) {
                     // Activate glow
-                    console.log(`Activating glow for: ${color}`); // Debugging message
+                    console.log(`Activating glow for: ${color}`); 
                     crystal.querySelector('.glow').classList.add('active');
                     crystal.querySelector('.light-crystal').classList.add('active');
 
                     // Deactivate glow after a short delay
                     crystalTimeouts[color] = setTimeout(() => {
-                        console.log(`Deactivating glow for: ${color}`); // Debugging message
+                        console.log(`Deactivating glow for: ${color}`); 
                         crystal.querySelector('.glow').classList.remove('active');
                         crystal.querySelector('.light-crystal').classList.remove('active');
                         delete crystalTimeouts[color]; // Remove the timeout reference
@@ -253,7 +253,7 @@ function playSequence(sequence) {
                 }
             }, index * 1200); // Delay each crystal by 1.2 seconds
 
-            console.log(`Glow timeout ID for ${color}:`, glowTimeoutId); // Debugging message
+            console.log(`Glow timeout ID for ${color}:`, glowTimeoutId); 
         });
 
         // Enable crystal clicks after the sequence finishes
@@ -267,16 +267,16 @@ function playSequence(sequence) {
 
 // Function to wait for player input
 function waitForPlayerInput() {
-    console.log("Waiting for player input..."); // Debugging message
+    console.log("Waiting for player input..."); 
     isPlayerTurn = true; // Set flag to indicate it's the player's turn
     isWaitingForInput = false; // Reset the flag
 
     playersInput = []; // Reset player's input for the new round
-    console.log("Player input reset:", playersInput); // Debugging message
-    console.log("isPlayerTurn set to:", isPlayerTurn); // Debugging message
+    console.log("Player input reset:", playersInput); 
+    console.log("isPlayerTurn set to:", isPlayerTurn); 
 
     let crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
-    console.log("Crystals available for player input:", crystals); // Debugging message
+    console.log("Crystals available for player input:", crystals); 
 
     /** Remove any existing event listeners to prevent duplication
     * This ensures that no duplicate event listeners are attached to the crystals.
@@ -294,7 +294,7 @@ function waitForPlayerInput() {
         crystal.removeEventListener("touchend", handleCrystalClick); // Ensure no duplicates
         crystal.addEventListener("click", handleCrystalClick); // Add click event listener
         crystal.addEventListener("touchend", handleCrystalClick); // Add touch event listener
-        console.log("Adding event listener to:", crystal.dataset.color); // Debugging message
+        console.log("Adding event listener to:", crystal.dataset.color); 
     });
 }
 
@@ -315,8 +315,8 @@ function handleCrystalClick(event) {
     let clickedColor = event.currentTarget.dataset.color; // Get the crystal's assigned color
     playersInput.push(clickedColor); // Store the clicked crystal color in the player's input array
 
-    console.log(`Player clicked: ${clickedColor}`); // Debugging message
-    console.log(`Current input sequence: ${playersInput}`); // Debugging message
+    console.log(`Player clicked: ${clickedColor}`); 
+    console.log(`Current input sequence: ${playersInput}`); 
 
     // If player's input matches the required sequence length, stop capturing
     if (playersInput.length === currentSequence.length) {
@@ -339,26 +339,26 @@ function handleCrystalClick(event) {
    * - GeeksforGeeks: https://www.geeksforgeeks.org/how-to-compare-two-arrays-in-javascript/
    */
 function checkPlayerInput() {
-    console.log("Checking player input..."); // Debugging message
-    console.log("Player's input:", playersInput); // Debugging message
-    console.log("Current sequence:", currentSequence); // Debugging message
+    console.log("Checking player input..."); 
+    console.log("Player's input:", playersInput); 
+    console.log("Current sequence:", currentSequence); 
 
     // Check if both arrays are the same length before comparing
-    console.log(`Player's input length: ${playersInput.length}, Current sequence length: ${currentSequence.length}`); // Debugging message
+    console.log(`Player's input length: ${playersInput.length}, Current sequence length: ${currentSequence.length}`); 
 
     if (JSON.stringify(playersInput) === JSON.stringify(currentSequence)) {
-        console.log("Correct input"); // Debugging message
-        celebrateCorrectAnswer(); // Celebrate the correct answer
+        console.log("Correct input"); 
+        celebrateCorrectAnswer(); 
     }
     else {
-        console.log("Incorrect input. Showing play again modal"); // Debugging message
-        showPlayAgainModal(); // Show play again modal
+        console.log("Incorrect input. Showing play again modal"); 
+        showPlayAgainModal(); 
     }
 }
 
 function celebrateCorrectAnswer() {
     let crystals = document.querySelectorAll(".crystal-container");
-    console.log("Celebrating correct answer! All crystals will glow."); // Debugging message
+    console.log("Celebrating correct answer! All crystals will glow."); 
 
     // Activate glow for all crystals
     setTimeout(() => {
@@ -379,7 +379,7 @@ function celebrateCorrectAnswer() {
             crystal.querySelector('.light-crystal').classList.remove('active', 'celebration-active'); // Remove light-crystal and celebration-specific class
         });
         clearAllGlows(); // Clear all glow effects
-        console.log("Celebration glow deactivated."); // Debugging message
+        console.log("Celebration glow deactivated."); 
 
         // Add a breather before proceeding to the next level
         setTimeout(() => {
@@ -389,7 +389,7 @@ function celebrateCorrectAnswer() {
 }
 
 function nextLevel() {
-    console.log(`Great memory! Let's see what the crystals play next... Proceeding to level ${level + 1}`); // Debugging message
+    console.log(`Great memory! Let's see what the crystals play next... Proceeding to level ${level + 1}`); 
     level++; // Increase level
     playersInput = []; // Reset player's input for the new level
     isPlayerTurn = false; // Disable player input while playing the sequence
@@ -404,7 +404,7 @@ function nextLevel() {
 
     storeSequence(level); // Generate and store the sequence
     playSequence(currentSequence); // Play the new sequence
-    console.log("Current sequence:", currentSequence); // Debugging output
+    console.log("Current sequence:", currentSequence); 
 
     isWaitingForInput = false; // Reset the flag to allow player input again
 }
@@ -416,7 +416,7 @@ function nextLevel() {
 // Function to handle the glow effect on the crystal containers
 const activateGlow = (container) => {
     if (!isPlayerTurn) {
-        console.log("Crystal interaction blocked: Not player's turn."); // Debugging message
+        console.log("Crystal interaction blocked: Not player's turn."); 
         return;
     }
 
@@ -428,7 +428,7 @@ const activateGlow = (container) => {
     setTimeout(() => {
         container.querySelector('.glow').classList.remove('active');
         container.querySelector('.light-crystal').classList.remove('active');
-        console.log("Player interaction glow deactivated."); // Debugging message
+        console.log("Player interaction glow deactivated."); 
     }, 600); // 600ms = 0.6 seconds
 };
 
@@ -446,7 +446,7 @@ function clearTimeoutsAndIntervals() {
     for (let i = 0; i < highestIntervalId; i++) {
         clearInterval(i); // Clear each interval
     }
-    console.log("All timeouts and intervals cleared."); // Debugging message
+    console.log("All timeouts and intervals cleared."); 
 }
 
 /** 
@@ -457,12 +457,12 @@ function clearAllTimeouts() {
     for (let i = 0; i <= highestTimeoutId; i++) {
         clearTimeout(i); // Clear each timeout
     }
-    console.log("All global timeouts cleared."); // Debugging message
+    console.log("All global timeouts cleared."); 
 
     // Clear all crystal-specific timeouts
     for (let color in crystalTimeouts) {
         clearTimeout(crystalTimeouts[color]);
-        console.log(`Cleared timeout for crystal: ${color}`); // Debugging message
+        console.log(`Cleared timeout for crystal: ${color}`); 
         delete crystalTimeouts[color];
     }
 }
@@ -482,7 +482,7 @@ function clearAllGlows() {
 function showPlayAgainModal() {
     console.log("showPlayAgainModal() called"); 
 
-    openModal("gameModal", "Ah, So Close!", "Brucey believes in you! Want to try again?", [
+    openModal("gameModal", "So Close!", "Brucey believes in you! Want to try again?", [
         {
             text: "Play Again",
             action: () => {
