@@ -307,3 +307,84 @@ DevTools Inspect Tool Screenshot Before Fix:
 
 DevTools Inspect Tool Screenshot After Fix:
 ![Modal Z-index Fixed](assets/media/overlay-modal-fix.png)
+
+## 🔎 Overlay Not Progressing Dialogue Messages 🛠️
+
+### Issue:
+
+The speech bubble dialogue system was not working as expected. After implementing the overlay and Brucey's dialogue messages, clicking on the overlay either wasn't progressing through the messages or was skipping directly to starting the game after a single click instead of stepping through each message.
+
+### Cause:
+
+The issue was caused by incorrect event handling in the overlay click listener. The overlay was active (with the .active class correctly applied), but the click events were not properly triggering the dialogue progression function. Additionally, there was confusion between the closeModal function and dialogue progression logic, causing immediate game start rather than sequential dialogue display.
+
+### Solution:
+
+The solution involved:
+
+1. Creating a dedicated `progressDialogue()` function to handle dialogue advancement
+2. Modifying the overlay click handler to call `progressDialogue()` instead of `closeModal()`
+3. Ensuring the speech bubble remained visible until all messages were displayed
+4. Only deactivating the overlay and starting the game after the final message
+
+***Code Before Fix:**
+
+```js
+overlay.addEventListener("click", function(event) {
+    closeModal("speechBubble", event); // Immediately closes the speech bubble
+});
+```
+
+**Code After Fix:**
+
+```js
+overlay.addEventListener("click", function(event) {
+    // If clicking a button in a game modal, ignore
+    if (event.target.closest(".modal-button")) {
+        console.log("Button clicked, ignoring overlay click.");
+        return;
+    }
+
+    const speechBubble = document.querySelector(".speech-bubble");
+    const gameModal = document.querySelector(".modal-container");
+
+    if (!speechBubble.classList.contains("hidden")) {
+        progressDialogue(); // Progress to the next message instead of closing
+    } 
+    else if (!gameModal.classList.contains("hidden")) {
+        closeModal("gameModal", event);
+    }
+});
+
+function progressDialogue() {
+    console.log("Progressing dialogue. Current index:", currentMessageIndex);
+    currentMessageIndex++;
+
+    if (currentMessageIndex < speechBubbleMessages.length) {
+        // Update the speech bubble with the next message
+        updateSpeechBubbleText();
+    } else {
+        // start the game!
+        const speechBubble = document.querySelector(".speech-bubble");
+        const overlay = document.querySelector(".overlay");
+        
+        speechBubble.classList.add("hidden");
+        overlay.classList.remove("active");
+        console.log("Starting game after last message");
+        startGame();
+    }
+}
+```
+
+### Testing Results:
+After implementing the fix:
+
+1. Clicking on the overlay properly progressed through each dialogue message
+2. The instructions text properly updated between messages
+3. After the final message, the speech bubble disappeared and the game started as expected
+
+
+**Console Log Showing Proper Dialogue Progression:**
+
+![Console Log Showing Proper Dialogue Progression](assets/media/progressing-dialogue.png)
+
