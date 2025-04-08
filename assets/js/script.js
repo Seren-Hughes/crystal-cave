@@ -476,26 +476,26 @@ function clearAllGlows() {
         crystal.querySelector('.glow').classList.remove('active');
         crystal.querySelector('.light-crystal').classList.remove('active');
     });
-    console.log("All glow effects cleared."); // Debugging message
+    console.log("All glow effects cleared."); 
 }
 
 function showPlayAgainModal() {
-    console.log("showPlayAgainModal() called"); // Debugging message
+    console.log("showPlayAgainModal() called"); 
 
-    openModal("gameModal", "Game Over", "Never give up. Never surrender. Play again?", [
+    openModal("gameModal", "Ah, So Close!", "Brucey believes in you! Want to try again?", [
         {
             text: "Play Again",
             action: () => {
-                console.log("Play Again button action triggered"); // Debugging message
-                closeModal("gameModal"); // Close the modal
-                startGame(); // Restart the game programmatically
+                console.log("Play Again button action triggered"); 
+                closeModal("gameModal"); 
+                startGame(); // Restart the game 
             }
         },
         {
-            text: "Some Other Time",
+            text: "Maybe later",
             action: () => {
-                console.log("Some Other Time button action triggered"); // Debugging message
-                closeModal("gameModal"); // Close the modal
+                console.log("Maybe later button action triggered"); 
+                closeModal("gameModal"); 
                 location.href = "index.html"; // Redirect to the home page
             }
         }
