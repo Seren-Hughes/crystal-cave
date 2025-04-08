@@ -354,22 +354,22 @@ button {
     cursor: pointer;
     font-family: var(--primary-font); /* Jersey 20 font */
     color: black; /* Black text */
-    font-size: 1.2rem; /* Adjust font size as needed */
+    font-size: 1.8rem; /* Adjust font size as needed */
     margin: 0; /* Remove default margin */
     text-align: center; /* Center the text */
     line-height: 1; /* Improve readability */
 }
 /* Add padding to the text container */
 .speech-bubble .text-container {
-    padding-top: 20px; /* Add space above the text */
-    width: 100%; /* Ensure it spans the width of the bubble */
+    padding-top: 5px; /* Add space above the text */
+    width: 95%; /* Ensure it spans the width of the bubble */
+    height: 100%;;
 }
 /* Style for the instructions (e.g., "Tap anywhere to continue") */
 .speech-bubble .instructions {
     font-size: 1rem; /* Slightly smaller font size */
     font-style: italic; /* Make the text italic */
-    margin-top: 1rem; /* Add spacing above the instructions */
-    color: black; /* Ensure the text is black */
+    color: var(--primary-background-color); 
 }
 
 /* --------------------------------------------------- */

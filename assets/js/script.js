@@ -554,11 +554,11 @@ function updateSpeechBubbleText() {
             <span class="instructions">${
                 currentMessageIndex === speechBubbleMessages.length - 1
                     ? isTouchDevice
-                        ? "Tap anywhere to begin"
-                        : "Press spacebar or click anywhere to begin"
+                        ? "(Tap to start the game!)"
+                        : "(Click or press spacebar to start the game!)"
                     : isTouchDevice
-                    ? "Tap anywhere to continue"
-                    : "Click anywhere or press spacebar to continue"
+                    ? "(Tap to continue...)"
+                    : "(Click or press spacebar to continue...)"
             }</span>
         </div>
     `;
