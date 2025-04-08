@@ -338,11 +338,11 @@ button {
 /*------------------------------------------------*/
 .speech-bubble {
     position: absolute;
-    top: 5%;
-    left: 10%;
+    top: 7%;
+    left: 9%;
     width: 350px;
     aspect-ratio: 3 / 2; /* Maintain aspect ratio */
-    background: url('../images/speech-bubble-placeholder.png') no-repeat center;
+    background: url('../images/speech-bubble-blank.png') no-repeat center;
     background-size: contain;
     display: flex;
     align-items: center;
@@ -483,6 +483,13 @@ button {
         left: 30%;
         transform: translateX(-50%) scale(1.3);
     }
+    /* speech bubble modal */
+    .speech-bubble {
+        width: 300px; /* Adjust width for smaller screens */
+        top: 43%;
+        left: 25%;
+    }
+
     .buttons-container {
         display: grid;
         grid-template-columns: repeat(6, 0fr); /* 4 buttons per row */
