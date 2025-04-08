@@ -505,9 +505,19 @@ button {
     }
     /* speech bubble modal */
     .speech-bubble {
-        width: 300px; /* Adjust width for smaller screens */
+        width: 350px; /* Adjust width for smaller screens */
         top: 43%;
         left: 25%;
+        font-size: 1.7rem; /* Adjust font size for smaller screens */
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+    .speech-bubble .text-container {
+        padding-top: 3px; /* Reduce top padding */
+    }
+    
+    .speech-bubble .instructions {
+        font-size: 0.9rem; /* Slightly smaller instructions */
+        margin-top: 0.5rem; /* Less space above instructions */
     }
 
     .buttons-container {
@@ -601,7 +611,10 @@ button {
     }
     /* game page speech bubble modal */
     .speech-bubble {
-        width: 250px; /* Adjust width for smaller screens */
+        width: 320px; /* Adjust width for smaller screens */
+        font-size: 1.5rem; /* Adjust font size for smaller screens */
+        padding: 10px; /* Adjust padding for smaller screens */
+        top: 50%;
     }
     
 }
@@ -659,6 +672,15 @@ button {
         height: 55px;
         min-width: 50px; /* Set a minimum width */
         min-height: 50px; /* Set a minimum height */
+    }
+
+    /* game page speech bubble modal */
+    .speech-bubble {
+       left: 20%;
+       top: 40%;
+        width: 300px; /* Adjust width for smaller screens */
+        font-size: 1.5rem; /* Adjust font size for smaller screens */
+        padding: 10px; /* Adjust padding for smaller screens */
     }
 }
 
@@ -718,7 +740,9 @@ button {
     }
     /* game page speech bubble modal */
     .speech-bubble {
-        width: 200px; /* Adjust width for smaller screens */
+        width: 290px; /* Adjust width for smaller screens */
+        top: 30%;
+        left: 5%;
     }
 }
        
@@ -788,5 +812,19 @@ button {
         padding: 10px;
         width: max-content; /* make sure buttons only take up necessary space */
         z-index: 1000; /* Ensures it stays on top */
+    }
+    /* speech bubble modal */
+    .speech-bubble {
+        width: 290px; /* Adjust width for smaller screens */
+        top: 20%;
+        left: 5%;
+        font-size: 1.5rem; /* Adjust font size for smaller screens */
+        padding: 10px; /* Adjust padding for smaller screens */
+        transform: scaleY(-1); /* This flips the entire bubble including content */ 
+    }
+    /* Counter-flip the text container to keep text readable */
+    .speech-bubble .text-container {
+        transform: scaleY(-1); /* This flips the text back to normal */
+        padding-top: 90px; /* Pushes text down */
     }
 }
