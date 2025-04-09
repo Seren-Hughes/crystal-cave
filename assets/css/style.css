@@ -30,6 +30,7 @@ body {
     background-position: top;
     background-size: cover;
     overflow: hidden; /* Prevents horizontal scrollbar */
+    -webkit-text-size-adjust: 100%; /* Prevents font scaling on iOS */
 }
 
 /* Home page layout */
@@ -696,10 +697,19 @@ button {
     /* game page speech bubble modal */
     .speech-bubble {
        left: 20%;
-       top: 40%;
-        width: 300px; /* Adjust width for smaller screens */
-        font-size: 1.5rem; /* Adjust font size for smaller screens */
-        padding: 10px; /* Adjust padding for smaller screens */
+       top: 30%;
+        width: 290px; /* Adjust width for smaller screens */
+        font-size: 1.4rem; /* Adjust font size for smaller screens */
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+    .speech-bubble .text-container {
+        padding-top: 10px; /* Add more space above the text */
+        width: 90%; /* Reduce width to fit better */
+    }
+
+    .speech-bubble .instructions {
+        font-size: 0.9rem; /* Slightly smaller instructions */
+        margin-top: 0.5rem; /* Add spacing above instructions */
     }
 }
 
@@ -759,9 +769,19 @@ button {
     }
     /* game page speech bubble modal */
     .speech-bubble {
-        width: 290px; /* Adjust width for smaller screens */
-        top: 30%;
+        width: 280px; /* Adjust width for smaller screens */
+        top: 20%;
         left: 5%;
+    }
+    .speech-bubble .text-container {
+        padding-top: 7px; /* Add more space above the text */
+        width: 85%; /* Reduce width further */
+        padding-bottom: 5px; /* Add space below the text */
+    }
+
+    .speech-bubble .instructions {
+        font-size: 0.8rem; /* Smaller instructions */
+        margin-top: 0.1rem; /* Adjust spacing above instructions */
     }
 }
        
