@@ -152,6 +152,8 @@ button {
     align-items: center;
     width: min(95vw, 95vh, 700px); /* Slightly larger square to crystal-grid (bat positioned in this area relative to crystal-grid container */
     height: min(95vw, 95vh, 700px);
+    margin: 0 auto; /* Center horizontally */
+    box-sizing: border-box; /* Include padding and border in width/height */
 }
 
 
@@ -369,14 +371,15 @@ button {
     color: black; /* Black text */
     font-size: 1.8rem; /* Adjust font size as needed */
     margin: 0; /* Remove default margin */
-    text-align: center; /* Center the text */
     line-height: 1; /* Improve readability */
 }
 /* Add padding to the text container */
 .speech-bubble .text-container {
     padding-top: 5px; /* Add space above the text */
+    padding-bottom: 5px; /* Add space below the text */
     width: 95%; /* Ensure it spans the width of the bubble */
-    height: 100%;;
+    height: auto;
+    text-align: center;;
 }
 /* Style for the instructions (e.g., "Tap anywhere to continue") */
 .speech-bubble .instructions {
@@ -668,6 +671,11 @@ button {
         left: 2em; /* Adjust to position to the left of the heading */
         transform: scale(0.8); /* Scale down Brucey */
     }
+    .game-container {
+        width: 90vw; /* Adjust width for smaller screens */
+        height: 90vw; /* Maintain square aspect ratio */
+        margin: 0 auto; /* Center horizontally */
+    }
     /* Game page level indicator */
     .level-indicator {
         transform: scale(0.8) translateX(-50%); /* Scale down the level indicator */
@@ -699,12 +707,12 @@ button {
        left: 20%;
        top: 30%;
         width: 290px; /* Adjust width for smaller screens */
-        font-size: 1.4rem; /* Adjust font size for smaller screens */
+        font-size: 1.2rem; /* Adjust font size for smaller screens */
         padding: 15px; /* Adjust padding for smaller screens */
     }
     .speech-bubble .text-container {
-        padding-top: 10px; /* Add more space above the text */
-        width: 90%; /* Reduce width to fit better */
+        padding-top: 15px; /* Add more space above the text */
+        padding-bottom: 10px;;
     }
 
     .speech-bubble .instructions {
@@ -769,12 +777,12 @@ button {
     }
     /* game page speech bubble modal */
     .speech-bubble {
-        width: 280px; /* Adjust width for smaller screens */
+        width: 270px; /* Adjust width for smaller screens */
         top: 20%;
         left: 5%;
     }
     .speech-bubble .text-container {
-        padding-top: 7px; /* Add more space above the text */
+        padding-top: 10px; /* Add more space above the text */
         width: 85%; /* Reduce width further */
         padding-bottom: 5px; /* Add space below the text */
     }
