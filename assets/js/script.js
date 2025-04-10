@@ -137,12 +137,23 @@ document.addEventListener("DOMContentLoaded", function () {
     const speechBubble = document.querySelector(".speech-bubble");
     const overlay = document.querySelector(".overlay");
 
-    // Make the overlay active on page load
+    // Keep overlay visible but disable clicks initially
     overlay.classList.remove("hidden");
     overlay.classList.add("active");
+    overlay.style.pointerEvents = "none";
 
-    // Initialize the first message
-    updateSpeechBubbleText();
+    // Keep speech bubble hidden initially
+    speechBubble.classList.add("hidden"); 
+    
+    // Delay appearance of speech bubble by 2 seconds
+    setTimeout(() => {
+        // Show the speech bubble
+        speechBubble.classList.remove("hidden");
+        // Enable overlay clicks
+        overlay.style.pointerEvents = "all";
+        // Initialize the first message
+        updateSpeechBubbleText();
+    }, 2000);
 
     // Add click listener directly to the speech bubble
     speechBubble.addEventListener("click", function(event) {
@@ -154,7 +165,6 @@ document.addEventListener("DOMContentLoaded", function () {
     overlay.addEventListener("click", function(event) {
         // If clicking a button in a game modal, ignore
         if (event.target.closest(".modal-button")) {
-            console.log("Button clicked, ignoring overlay click.");
             return;
         }
 
@@ -218,6 +228,7 @@ function progressDialogue() {
         
         speechBubble.classList.add("hidden");
         overlay.classList.remove("active");
+        overlay.style.pointerEvents = "none"; // Reset pointer events!
         console.log("Starting game after last message");
         startGame();
     }
