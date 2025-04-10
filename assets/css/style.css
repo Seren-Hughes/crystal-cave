@@ -133,7 +133,7 @@ button {
     margin: 2rem 0; /* Add spacing above and below the row */
 }
 
-/* Individual crystals */
+/* Individual crystals on home page */
 .crystal {
     width: 50px; /* Set a consistent size for the crystals */
     height: auto; /* Maintain aspect ratio */
@@ -191,6 +191,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer; /* Change cursor on hover */
 }
 
 /* Smaller size for top row crystals to create a sense of depth */
