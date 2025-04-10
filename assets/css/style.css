@@ -304,6 +304,7 @@ button {
     padding: 8px 20px;
     width: fit-content;
     z-index: 1000; /* On top of everything */
+    display: none; /* Hide by default */
 }
 
 /* --------------------------------------------------------------*/

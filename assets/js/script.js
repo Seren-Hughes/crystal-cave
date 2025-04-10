@@ -248,6 +248,10 @@ function startGame() {
     storeSequence(level); // Generate and store the sequence
     console.log("Current sequence:", currentSequence); 
     isWaitingForInput = false; // Reset this flag to allow player input
+
+    // Show the level indicator
+    const levelIndicator = document.querySelector(".level-indicator");
+    levelIndicator.style.display = "block"; // Make it visible
 }
 
 // Generate and store a random sequence of numbers (1-5 for each crystal)
