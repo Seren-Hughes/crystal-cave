@@ -388,3 +388,88 @@ After implementing the fix:
 
 ![Console Log Showing Proper Dialogue Progression](assets/media/progressing-dialogue.png)
 
+## 🔎 Layout Discrepancies Between DevTools and iPhone 🛠️
+
+### Issue:
+
+The layout of the game appeared correct in Chrome DevTools' mobile emulation mode but looked different on an actual iPhone. Specifically:
+
+- The speech bubble text was positioned too high and too wide within the bubble.
+- The game container was not properly centered.
+
+### Cause:
+
+1. Device Pixel Ratio (DPR): iPhones have a higher pixel density than most desktop monitors, which can affect scaling and layout.
+2. Viewport Meta Tag: While the viewport meta tag was correctly set, additional adjustments were needed for real-world device dimensions.
+3. CSS Media Queries: The media queries used for responsive design did not fully account for the actual dimensions and safe areas of the iPhone screen.
+4. DevTools Limitations: Chrome DevTools' mobile emulation does not perfectly replicate the rendering environment of a real device.
+References:
+- https://stackoverflow.com/questions/61111643/why-does-my-responsive-code-look-different-on-an-iphone-compared-to-slimming-win 
+- https://www.oxyplug.com/optimization/device-pixel-ratio/#:~:text=As%20mentioned%20earlier%2C%20because%20of,browsers%20do%20the%20same%20thing. 
+### Solution:
+
+To resolve the issue, the following steps were taken:
+
+1. **Adjusted Media Queries for Small Screens**
+
+  - Updated the media queries to better match the iPhone's screen dimensions.
+  - Added specific adjustments for the speech bubble and game container.
+**Updated CSS:**
+
+```css
+@media (max-width: 500px) {
+    .speech-bubble {
+       left: 20%;
+       top: 30%;
+        width: 290px; /* Adjust width for smaller screens */
+        font-size: 1.2rem; /* Adjust font size for smaller screens */
+        padding: 15px; /* Adjust padding for smaller screens */
+    }
+    .speech-bubble .text-container {
+        padding-top: 15px; /* Add more space above the text */
+        padding-bottom: 10px;;
+    }
+
+    .speech-bubble .instructions {
+        font-size: 0.9rem; /* Slightly smaller instructions */
+        margin-top: 0.5rem; /* Add spacing above instructions */
+    }
+}
+
+
+```
+
+2. **Verified the Viewport Meta Tag**
+
+  Ensured the viewport meta tag was correctly set to scale the layout properly on high-DPI devices:
+
+```html
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+```
+
+3. **Device Testing**
+
+  - Used BrowserStack to test on multiple iPhone models and browsers.
+  - Compared the layout on BrowserStack devices with my iPhone and DevTools.
+
+### Testing Results:
+1. Before Fix:
+- DevTools: Layout appeared correct.
+- iPhone: Speech bubble too low and text misaligned.
+
+
+  <img src="assets/media/iphone-layout-discrepancy.png" alt="iPhone Layout Before Fix" width="300">
+
+2. After Fix:
+- The layout was consistent across DevTools, BrowserStack devices, and my iPhone.
+- The speech bubble text and game container were properly aligned.
+
+
+  <img src="assets/media/iphone-fixed-speechbubble-layout.png" alt="iPhone Screenshot After Fix" width="300">
+
+### Conclusion
+
+Using BrowserStack alongside my iPhone and DevTools allowed me to identify and resolve layout inconsistencies. The updated media queries and testing process ensured the game looks and functions correctly across devices.
+
+
+
