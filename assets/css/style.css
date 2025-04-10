@@ -387,6 +387,20 @@ button {
     font-style: italic; /* Make the text italic */
     color: var(--primary-background-color); 
 }
+/* Add fade-in animation for the text container */
+.text-container {
+    opacity: 0; /* Start invisible */
+    animation: fadeInText 0.5s ease-in-out forwards; /* Fade-in animation */
+}
+
+@keyframes fadeInText {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
 
 /* --------------------------------------------------- */
 /* ----------------- Game Modal Content -------------- */
