@@ -317,7 +317,7 @@ function playSequence(sequence) {
             console.log("Sequence finished. Player can now interact with crystals.");
             waitForPlayerInput();
         }, sequence.length * 1200); // Ensure the timeout matches the total sequence duration
-    }, 1000); // Add a 1-second delay before starting the sequence
+    }, 2000); // Add a 2-second delay before starting the sequence
 }
 
 // Function to wait for player input
