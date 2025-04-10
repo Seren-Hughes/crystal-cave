@@ -215,6 +215,38 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// Event listener for keydown events to handle keyboard input
+document.addEventListener("keydown", function (event) {
+    if (!isPlayerTurn) {
+        console.log("Key press ignored: Not player's turn.");
+        return;
+    }
+
+    // object to map keys to the crystal colours - key value pairs
+    // Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+    const keyToColorMap = {
+        a: "blue",   // A for Blue Crystal
+        w: "green",  // W for Green Crystal
+        s: "pink",   // S for Pink Crystal
+        e: "yellow", // E for Yellow Crystal
+        d: "orange"  // D for Orange Crystal
+    };
+
+    const pressedKey = event.key.toLowerCase(); // Makes case insensitive - same action result
+    const crystalColor = keyToColorMap[pressedKey];
+
+    if (crystalColor) {
+        console.log(`Key pressed: ${pressedKey} -> Crystal color: ${crystalColor}`);
+
+        // Find the corresponding crystal container
+        const crystal = document.querySelector(`.crystal-container[data-color="${crystalColor}"]`);
+        if (crystal) {
+            activateGlow(crystal); // Trigger the glow effect
+            handleCrystalClick({ currentTarget: crystal }); // trigger the click event for matching the crystal
+        }
+    }
+});
+
 function progressDialogue() {
     console.log("Progressing dialogue. Current index:", currentMessageIndex);
     currentMessageIndex++;
