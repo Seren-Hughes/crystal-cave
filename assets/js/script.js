@@ -36,7 +36,8 @@ const speechBubbleMessages = [
     "I don't know why... but it feels important.",
     "Oh! I'm Brucey by the way.",
     "Want to see what the crystals do?",
-    "Give it a try... I'll be right here!"
+    "Give it a try... I'll be right here!", 
+    "See how many you can remember!",
 ];
 
 let currentMessageIndex = 0; // Track the current message
