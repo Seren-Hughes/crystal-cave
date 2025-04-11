@@ -339,6 +339,7 @@ button {
     padding: 10px;
     border-radius: 10px;
     justify-content: right;
+    z-index: 5000; /* buttons on top of overlay */
 }
 
 .game-button {
