@@ -632,29 +632,3 @@ function handleSpeechBubbleInteraction(event) {
         startGame();
     }
 }
-
-// --------------------------------------------------------------------------------- //
-// ------------------------------ IMAGE PRELOADING -------------------------------- //
-// --------------------------------------------------------------------------------- //
-
-// Preload images to improve performance and reduce lag when buttons are clicked
-// Reference: https://webdesign.tutsplus.com/best-ways-to-preload-images-using-javascript-css-and-html--cms-41329t
-function preloadButtonImages() {
-    const pressedImages = [
-        'assets/images/how-to-play-button-pressed.png',
-        'assets/images/restart-button-pressed.png',
-        'assets/images/sound-on-button-pressed.png',
-        'assets/images/settings-button-pressed.png',
-        'assets/images/home-button-pressed.png',
-        'assets/images/freestyle-star-button-pressed.png',
-        'assets/images/full-screen-button-pressed.png'
-    ];
-
-    pressedImages.forEach(imageSrc => {
-        const img = new Image();
-        img.src = imageSrc;
-    });
-}
-
-// Call the preload function when the page loads
-document.addEventListener('DOMContentLoaded', preloadButtonImages);

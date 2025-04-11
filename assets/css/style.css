@@ -343,47 +343,71 @@ button {
 }
 
 .game-button {
-    background: none;
+    background-color: transparent;;
+    background-image: url('../images/button-sprite-sheet.png'); 
+    /* original buttons 112px x 112px scaled to 70px x 70px */
+    /* scale factor 70 / 112 = 0.625. */
+    /* sprite sheet 1008px x 224px. */
+    /* 1008 multiplied by 0.625 = 630px, 224px x 0.625 = 140px */
+    background-size: 630px 140px; 
+    background-repeat: no-repeat;
+    width: 70px; /* Scaled button width */
+    height: 70px; /* Scaled button height */
     border: none;
     padding: 0;
     cursor: pointer;
-    width: 70px; /* Adjust button size - keep the width and height equal! */
-    height: 70px;
-}
-
-.game-button img {
-    width: 100%;
-    height: auto;
     image-rendering: pixelated; /* Keeps pixel art sharp - keeps the button icons clear */
     transition: transform 0.1s ease, filter 0.1s ease; /* smooths transition between 'pressed' active button images */
 }
-
-.game-button:hover img {
-    filter: brightness(1.2); /* Lighten on hover/click */
+.game-button:hover {
+    filter: brightness(1.4); /* Lighten on hover/click */
+}
+/* replace button images when clicked to pressed versions using sprite sheet positioning */
+.game-button.how-to-play {
+    background-position: 0 0; /* Default state */
+}
+.game-button.how-to-play:active {
+    background-position: 0 -70px; /* Pressed state (first button, second row) */
+}
+/* Restart Button */
+.game-button.restart {
+    background-position: -70px 0; /* Default state (second button, first row) */
+}
+.game-button.restart:active {
+    background-position: -70px -70px; /* Pressed state (second button, second row) */
+}
+/* Sound toggle button */
+.game-button.sound {
+    background-position: -140px 0; /* Default state (third button, first row) */
+}
+.game-button.sound:active {
+    background-position: -140px -70px; /* Pressed state (third button, second row) */
+}
+.game-button.settings {
+    background-position: -280px 0; /* Default state (skip to fifth button, first row) */
+}
+.game-button.settings:active {
+    background-position: -280px -70px; /* Pressed state (skip to fifth button, second row) */
+}
+.game-button.home {
+    background-position: -350px 0; /* Default state (sixth button, first row) */
+}
+.game-button.home:active {
+    background-position: -350px -70px; /* Pressed state (sixth button, second row) */
+}
+.game-button.freestyle {
+    background-position: -420px 0; /* Default state (seventh button, first row) */
+}
+.game-button.freestyle:active {
+    background-position: -420px -70px; /* Pressed state (seventh button, second row) */
+}
+.game-button.full-screen {
+    background-position: -490px 0; /* Default state (eighth button, first row) */
+}
+.game-button.full-screen:active {
+    background-position: -490px -70px; /* Pressed state (eighth button, second row) */
 }
 
-/* replace button images when clicked to pressed versions */
-.game-button.how-to-play:active img {
-    content: url('../images/how-to-play-button-pressed.png'); 
-}
-.game-button.restart:active img {
-    content: url('../images/restart-button-pressed.png');
-}
-.game-button.sound:active img {
-    content: url('../images/sound-on-button-pressed.png');
-}
-.game-button.settings:active img {
-    content: url('../images/settings-button-pressed.png');
-}
-.game-button.home:active img {
-    content: url('../images/home-button-pressed.png');
-}
-.game-button.freestyle:active img {
-    content: url('../images/freestyle-star-button-pressed.png');
-}
-.game-button.full-screen:active img {
-    content: url('../images/full-screen-button-pressed.png');
-}
 /* ----------------------------------------------------------------------*/
 
 /*------------------------------------------------*/
