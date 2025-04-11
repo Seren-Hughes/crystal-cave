@@ -343,6 +343,7 @@ button {
 }
 
 .game-button {
+    position: relative;
     background-color: transparent;;
     background-image: url('../images/button-sprite-sheet.png'); 
     /* original buttons 112px x 112px scaled to 70px x 70px */
@@ -362,6 +363,32 @@ button {
 .game-button:hover {
     filter: brightness(1.2); /* Lighten on hover/click */
 }
+/* Tooltip text */
+.tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: var(--secondary-color);
+    color: #fff;
+    font-family: var(--secondary-font);
+    text-align: center;
+    border: solid 2px #ffffff; 
+    border-radius: 5px;
+    padding: 5px 3px;
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 110%;  
+    opacity: 0; /* Start invisible */
+    transition: opacity 0.3s; /* Smooth fade-in effect */
+}
+
+
+/* Show tooltip on hover */
+.game-button:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1; /* Fade in */
+}
+
 /* replace button images when clicked to pressed versions using sprite sheet positioning */
 .game-button.how-to-play {
     background-position: 0 0; /* Default state */
