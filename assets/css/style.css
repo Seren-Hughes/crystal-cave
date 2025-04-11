@@ -355,12 +355,35 @@ button {
     width: 100%;
     height: auto;
     image-rendering: pixelated; /* Keeps pixel art sharp - keeps the button icons clear */
+    transition: transform 0.1s ease, filter 0.1s ease; /* smooths transition between 'pressed' active button images */
 }
 
 .game-button:hover img {
     filter: brightness(1.2); /* Lighten on hover/click */
 }
 
+/* replace button images when clicked to pressed versions */
+.game-button.how-to-play:active img {
+    content: url('../images/how-to-play-button-pressed.png'); 
+}
+.game-button.restart:active img {
+    content: url('../images/restart-button-pressed.png');
+}
+.game-button.sound:active img {
+    content: url('../images/sound-on-button-pressed.png');
+}
+.game-button.settings:active img {
+    content: url('../images/settings-button-pressed.png');
+}
+.game-button.home:active img {
+    content: url('../images/home-button-pressed.png');
+}
+.game-button.freestyle:active img {
+    content: url('../images/freestyle-star-button-pressed.png');
+}
+.game-button.full-screen:active img {
+    content: url('../images/full-screen-button-pressed.png');
+}
 /* ----------------------------------------------------------------------*/
 
 /*------------------------------------------------*/
