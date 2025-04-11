@@ -360,7 +360,7 @@ button {
     transition: transform 0.1s ease, filter 0.1s ease; /* smooths transition between 'pressed' active button images */
 }
 .game-button:hover {
-    filter: brightness(1.4); /* Lighten on hover/click */
+    filter: brightness(1.2); /* Lighten on hover/click */
 }
 /* replace button images when clicked to pressed versions using sprite sheet positioning */
 .game-button.how-to-play {
@@ -407,7 +407,13 @@ button {
 .game-button.full-screen:active {
     background-position: -490px -70px; /* Pressed state (eighth button, second row) */
 }
-
+/* Exit Fullscreen Button */
+.game-button.exit-full-screen {
+    background-position: -560px 0; /* Default state (exit fullscreen icon) */
+}
+.game-button.exit-full-screen:active {
+    background-position: -560px -70px; /* Pressed state (exit fullscreen icon) */
+}
 /* ----------------------------------------------------------------------*/
 
 /*------------------------------------------------*/

@@ -247,6 +247,39 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
+// Credit: https://www.freecodecamp.org/news/how-to-use-the-javascript-fullscreen-api/
+// Select the fullscreen button
+const fullscreenButton = document.querySelector('.game-button.full-screen');
+// Add a click event listener to toggle fullscreen
+// Reference: https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
+fullscreenButton.addEventListener('click', () => {
+    if (!document.fullscreenElement) {
+        // Enter fullscreen mode
+        document.documentElement.requestFullscreen()
+            .then(() => {
+                fullscreenButton.classList.remove('full-screen');
+                fullscreenButton.classList.add('exit-full-screen');
+                console.log('Entered fullscreen mode');
+            })
+            // safety mechanism to handle errors if fullscreen is not supported
+            // reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises#error_handling
+            .catch((error) => {
+                console.error(`Error attempting to enable fullscreen: ${err.message}`);
+            });
+    } else {
+        // Exit fullscreen mode
+        document.exitFullscreen()
+            .then(() => {
+                fullscreenButton.classList.remove('exit-full-screen');
+                fullscreenButton.classList.add('full-screen');
+                console.log('Exited fullscreen mode');
+            })
+            .catch((error) => {
+                console.error(`Error attempting to exit fullscreen: ${error.message}`);
+            });
+    }
+});
+
 function progressDialogue() {
     console.log("Progressing dialogue. Current index:", currentMessageIndex);
     currentMessageIndex++;
