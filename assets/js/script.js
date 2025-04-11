@@ -250,6 +250,7 @@ document.addEventListener("keydown", function (event) {
 // Credit: https://www.freecodecamp.org/news/how-to-use-the-javascript-fullscreen-api/
 // Select the fullscreen button
 const fullscreenButton = document.querySelector('.game-button.full-screen');
+const tooltipText = fullscreenButton.querySelector('.tooltiptext');
 // Add a click event listener to toggle fullscreen
 // Reference: https://developer.mozilla.org/en-US/docs/Web/API/Fullscreen_API
 fullscreenButton.addEventListener('click', () => {
@@ -259,12 +260,13 @@ fullscreenButton.addEventListener('click', () => {
             .then(() => {
                 fullscreenButton.classList.remove('full-screen');
                 fullscreenButton.classList.add('exit-full-screen');
+                tooltipText.textContent = 'Exit Fullscreen'; // Update tooltip text
                 console.log('Entered fullscreen mode');
             })
             // safety mechanism to handle errors if fullscreen is not supported
             // reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises#error_handling
             .catch((error) => {
-                console.error(`Error attempting to enable fullscreen: ${err.message}`);
+                console.error(`Error attempting to enable fullscreen: ${error.message}`);
             });
     } else {
         // Exit fullscreen mode
@@ -272,6 +274,7 @@ fullscreenButton.addEventListener('click', () => {
             .then(() => {
                 fullscreenButton.classList.remove('exit-full-screen');
                 fullscreenButton.classList.add('full-screen');
+                tooltipText.textContent = 'Enter Fullscreen'; // Update tooltip text
                 console.log('Exited fullscreen mode');
             })
             .catch((error) => {

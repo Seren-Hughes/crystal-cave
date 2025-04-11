@@ -363,7 +363,7 @@ button {
 .game-button:hover {
     filter: brightness(1.2); /* Lighten on hover/click */
 }
-/* Tooltip text */
+/* Tooltip adapted from w3schools https://www.w3schools.com/css/css_tooltip.asp */
 .tooltiptext {
     visibility: hidden;
     width: 120px;
@@ -381,7 +381,6 @@ button {
     opacity: 0; /* Start invisible */
     transition: opacity 0.3s; /* Smooth fade-in effect */
 }
-
 
 /* Show tooltip on hover */
 .game-button:hover .tooltiptext {
