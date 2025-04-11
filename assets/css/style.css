@@ -429,6 +429,7 @@ button {
 }
 .game-button.full-screen {
     background-position: -490px 0; /* Default state (eighth button, first row) */
+    
 }
 .game-button.full-screen:active {
     background-position: -490px -70px; /* Pressed state (eighth button, second row) */
@@ -670,6 +671,15 @@ button {
         min-height: 60px; /* Set a minimum height */
     }
 }
+
+/* -- tablet/phone breakpoint --*/
+@media (max-width: 768px) {
+    /* remove full screen button on touchscreen mobile devices */
+    .game-button.full-screen {
+        display: none;
+    }
+}
+
 /* --  small tablet devices --*/
 @media (max-width: 700px) {
     /* home page heading */
