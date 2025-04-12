@@ -311,16 +311,23 @@ function progressDialogue() {
 function startGame() {
     console.log("Starting game..."); 
     level = 1;
-    isSequencePlaying = true; // Disable crystal clicks during the sequence
+    isSequencePlaying = true; // Disable player input while playing the sequence
     clearAllTimeouts(); // Clear any lingering timeouts
     clearAllGlows(); // Clear any lingering glow effects
     storeSequence(level); // Generate and store the sequence
-    console.log("Current sequence:", currentSequence); 
-    isWaitingForInput = false; // Reset this flag to allow player input
+    console.log("Current sequence:", currentSequence);
+    isWaitingForInput = false; // Reset the flag to allow player input again
 
-    // Show the level indicator
-    const levelIndicator = document.querySelector(".level-indicator");
-    levelIndicator.style.display = "block"; // Make it visible
+    // Make sure the level indicator is visible
+    const levelIndicator = document.querySelector(".level-indicator"); // Get the level indicator element
+    levelIndicator.classList.remove("hidden"); // Hide the level indicator    
+    levelIndicator.style.display = "block"; // Show the level indicator   
+
+    const levelNumberElement = levelIndicator.querySelector("#level-number"); 
+    if (levelNumberElement) {
+        levelNumberElement.textContent = level; // Update the text content to the current level
+    }
+    console.log(`Level indicator displayed for level ${level}`); // debugging for play again issue
 }
 
 // Generate and store a random sequence of numbers (1-5 for each crystal)
@@ -504,7 +511,6 @@ function celebrateCorrectAnswer() {
         });
         clearAllGlows(); // Clear all glow effects
         console.log("Celebration glow deactivated."); 
-
         // Add a breather before proceeding to the next level
         setTimeout(() => {
             nextLevel(); // Proceed to the next level
@@ -521,7 +527,12 @@ function nextLevel() {
 
     // update the level number html
     const levelNumberElement = document.getElementById("level-number");
-    levelNumberElement.textContent = level; // Update the text content to the current level
+    console.log("Level number element:", document.getElementById("level-number"));
+    if (levelNumberElement) {
+        levelNumberElement.textContent = level; // Update the text content to the current level
+    } else {
+        console.error("Level number element not found in the DOM!"); // catch error if the element is not found - stops the game from breaking while fixing - see troubleshooting notes
+    }
 
     clearAllTimeouts(); // Clear any lingering timeouts
     clearAllGlows(); // Clear any lingering glow effects
