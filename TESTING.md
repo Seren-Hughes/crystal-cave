@@ -471,5 +471,56 @@ To resolve the issue, the following steps were taken:
 
 Using BrowserStack alongside my iPhone and DevTools allowed me to identify and resolve layout inconsistencies. The updated media queries and testing process ensured the game looks and functions correctly across devices.
 
+## 🔎 Button Image Lag & Transition to Sprite Sheet 🛠️
 
+### Issue:
+When clicking buttons, there was a noticeable lag or flicker before the new image loaded. The delay disrupted the user experience.
+
+### Cause:
+Each button was using a separate image file for the 'pressed' active state. The first time the button states changed to active, the browser fetched a new image, causing slight loading lag.
+
+### Video Evidence:
+Instead of static images, short video clips were recorded to demonstrate the flicker:
+<video controls src="assets/media/button-active-lag-issue.mp4" title="Title"></video>
+
+### Initial Fix Attempt (preloading images):
+The initial fix involved preloading the button images to reduce lag. However, this did not fully resolve the flicker issue, as the browser still needed to fetch the images when switching states.
+
+### Solution (single sprite sheet):
+Switched to a single sprite sheet containing both button states. The browser only loads one image file, eliminating file fetch delays and flickering. CSS background-position properties were used to show the correct segment of the sprite for each button state.
+
+**Code Before Fix:**
+```css
+.game-button.restart-button {
+  background-image: url('assets/images/restart-button.png');
+}
+.game-button.restart-button:active {
+  background-image: url('assets/images/restart-button-pressed.png');
+}
+```
+
+**Code After Fix:**
+```css
+.game-button {
+  /* Single sprite sheet for all states */
+  background-image: url('assets/images/button-sprite-sheet.png');
+}
+.game-button.restart {
+    background-position: -70px 0; /* Default state (second button, first row) */
+}
+.game-button.restart:active {
+    background-position: -70px -70px; /* Pressed state (second button, second row) */
+}
+```
+
+### Testing Results:
+After switching to a sprite sheet:
+
+1. No lag or flicker was observed when clicking the buttons.
+2. The short video clip below shows the smooth state transitions:
+
+<video controls src="assets/media/button-active-lag-fix.mp4" title="Title"></video>
+
+### Conclusion
+While preloading offered a small improvement, switching to a single sprite sheet minimized loading requests and removed flicker entirely. The overall responsiveness and consistency of the UI improved significantly.
 
