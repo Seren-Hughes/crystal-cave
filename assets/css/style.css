@@ -848,7 +848,7 @@ button {
         grid-template-rows: auto; /* Automatically adjust rows */
         gap: 5px; /* Space between buttons */
         position: absolute;
-        top: 50px; /* Position above the game container */
+        top: 10%; /* Position above the game container */
         left: 50%;
         transform: translateX(-50%);
         width: max-content; /* Ensure the container spans most of the screen width */
@@ -876,7 +876,7 @@ button {
 /* -- mobile devices with smaller height --*/
 @media (max-height: 750px) {
     .buttons-container {
-        top: 4px;
+        top: 2%;;
 }
 }
 
@@ -1020,14 +1020,17 @@ button {
         width: 290px; /* Adjust width for smaller screens */
         top: 20%;
         left: 5%;
-        font-size: 1.5rem; /* Adjust font size for smaller screens */
+        
         padding: 10px; /* Adjust padding for smaller screens */
         transform: scaleY(-1); /* This flips the entire bubble including content */ 
     }
     /* Counter-flip the text container to keep text readable */
     .speech-bubble .text-container {
         transform: scaleY(-1); /* This flips the text back to normal */
-        padding-top: 90px; /* Pushes text down */
+        position: absolute;
+        top: 30px;
+        font-size: 1.4rem; /* Adjust font size for smaller screens */
+        width: 85%; /* Reduce width further */
     }
 }
 
