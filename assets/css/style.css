@@ -344,24 +344,17 @@ button {
 
 .game-button {
     position: relative;
-    background-color: transparent;;
-    background-image: url('../images/button-sprite-sheet.png'); 
-    /* original buttons 112px x 112px scaled to 70px x 70px */
-    /* scale factor 70 / 112 = 0.625. */
-    /* sprite sheet 1008px x 224px. */
-    /* 1008 multiplied by 0.625 = 630px, 224px x 0.625 = 140px */
+    background-color: transparent;
+    background-image: url('../images/button-sprite-sheet-630x140png.png'); /* Sprite sheet for buttons */
     background-size: 630px 140px; 
     background-repeat: no-repeat;
-    width: 70px; /* Scaled button width */
-    height: 70px; /* Scaled button height */
+    width: 70px; /* button size */
+    height: 70px; /* button size */ 
     border: none;
     padding: 0;
     cursor: pointer;
     image-rendering: pixelated; /* Keeps pixel art sharp - keeps the button icons clear */
     transition: transform 0.1s ease, filter 0.1s ease; /* smooths transition between 'pressed' active button images */
-}
-.game-button:hover {
-    filter: brightness(1.2); /* Lighten on hover/click */
 }
 /* Tooltip adapted from w3schools https://www.w3schools.com/css/css_tooltip.asp */
 .tooltiptext {
@@ -395,14 +388,12 @@ button {
 .game-button.how-to-play:active {
     background-position: 0 -70px; /* Pressed state (first button, second row) */
 }
-/* Restart Button */
 .game-button.restart {
     background-position: -70px 0; /* Default state (second button, first row) */
 }
 .game-button.restart:active {
     background-position: -70px -70px; /* Pressed state (second button, second row) */
 }
-/* Sound toggle button */
 .game-button.sound {
     background-position: -140px 0; /* Default state (third button, first row) */
 }
@@ -429,18 +420,17 @@ button {
 }
 .game-button.full-screen {
     background-position: -490px 0; /* Default state (eighth button, first row) */
-    
 }
 .game-button.full-screen:active {
     background-position: -490px -70px; /* Pressed state (eighth button, second row) */
 }
-/* Exit Fullscreen Button */
 .game-button.exit-full-screen {
     background-position: -560px 0; /* Default state (exit fullscreen icon) */
 }
 .game-button.exit-full-screen:active {
     background-position: -560px -70px; /* Pressed state (exit fullscreen icon) */
 }
+
 /* ----------------------------------------------------------------------*/
 
 /*------------------------------------------------*/
@@ -656,7 +646,7 @@ button {
         display: grid;
         grid-template-columns: repeat(6, 0fr); /* 4 buttons per row */
         grid-template-rows: auto; /* Automatically adjust rows */
-        gap: 3px; /* Space between buttons */
+        gap: 5px; /* Space between buttons */
         position: absolute;
         top: 8px; /* Position above the game container */
         left: 50%;
@@ -665,10 +655,59 @@ button {
     }
 
     .buttons-container .game-button {
-        width: 60px; /* Prevent buttons from shrinking too much */
-        height: 60px;
-        min-width: 60px; /* Set a minimum width */
-        min-height: 60px; /* Set a minimum height */
+        width: 60px; /* Button width */
+        height: 60px; /* Button height */
+        background-size: 540px 120px; /* Scale sprite sheet proportionally */
+    }
+
+    /* Adjust background positions for each button to the new proportions - (multiples of 60) */
+    .game-button.how-to-play {
+        background-position: 0 0; 
+    }
+    .game-button.how-to-play:active {
+        background-position: 0 -60px; 
+    }
+    .game-button.restart {
+        background-position: -60px 0; 
+    }
+    .game-button.restart:active {
+        background-position: -60px -60px; 
+    }
+    .game-button.sound {
+        background-position: -120px 0; 
+    }
+    .game-button.sound:active {
+        background-position: -120px -60px; 
+    }
+    .game-button.settings {
+        background-position: -240px 0; 
+    }
+    .game-button.settings:active {
+        background-position: -240px -60px; 
+    }
+    .game-button.home {
+        background-position: -300px 0; 
+    }
+    .game-button.home:active {
+        background-position: -300px -60px; 
+    }
+    .game-button.freestyle {
+        background-position: -360px 0; 
+    }
+    .game-button.freestyle:active {
+        background-position: -360px -60px; 
+    }
+    .game-button.full-screen {
+        background-position: -420px 0; 
+    }
+    .game-button.full-screen:active {
+        background-position: -420px -60px; 
+    }
+    .game-button.exit-full-screen {
+        background-position: -480px 0; 
+    }
+    .game-button.exit-full-screen:active {
+        background-position: -480px -60px; 
     }
 }
 
@@ -727,7 +766,7 @@ button {
         display: grid;
         grid-template-columns: repeat(6, 0fr); /* 4 buttons per row */
         grid-template-rows: auto; /* Automatically adjust rows */
-        gap: 3px; /* Space between buttons */
+        gap: 5px; /* Space between buttons */
         position: absolute;
         top: 8px; /* Position above the game container */
         left: 50%;
@@ -803,21 +842,14 @@ button {
     /* Game page buttons */
     .buttons-container {
         display: grid;
-        grid-template-columns: repeat(6, 0fr); /* 4 buttons per row */
+        grid-template-columns: repeat(3, 0fr); 
         grid-template-rows: auto; /* Automatically adjust rows */
-        gap: 3px; /* Space between buttons */
+        gap: 5px; /* Space between buttons */
         position: absolute;
-        top: 8px; /* Position above the game container */
+        top: 50px; /* Position above the game container */
         left: 50%;
         transform: translateX(-50%);
         width: max-content; /* Ensure the container spans most of the screen width */
-    }
-
-    .buttons-container .game-button {
-        width: 55px; /* Prevent buttons from shrinking too much */
-        height: 55px;
-        min-width: 50px; /* Set a minimum width */
-        min-height: 50px; /* Set a minimum height */
     }
 
     /* game page speech bubble modal */
@@ -877,21 +909,14 @@ button {
     /* Game page buttons */
     .buttons-container {
         display: grid;
-        grid-template-columns: repeat(5, 0fr); /* 4 buttons per row */
+        grid-template-columns: repeat(3, 0fr); /* 4 buttons per row */
         grid-template-rows: auto; /* Automatically adjust rows */
         gap: 3px; /* Space between buttons */
         position: absolute;
-        top: 30px; /* Position above the game container */
+        top: 20px; /* Position above the game container */
         left: 50%;
         transform: translateX(-50%);
         width: max-content; /* Ensure the container spans most of the screen width */
-    }
-
-    .buttons-container .game-button {
-        width: 50px; /* Prevent buttons from shrinking too much */
-        height: 50px;
-        min-width: 50px; /* Set a minimum width */
-        min-height: 50px; /* Set a minimum height */
     }
     /* game page speech bubble modal */
     .speech-bubble {
