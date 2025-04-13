@@ -530,3 +530,43 @@ https://github.com/user-attachments/assets/a264495a-4741-412a-8fc6-74906145ec29
 ### Conclusion
 While preloading offered a small improvement, switching to a single sprite sheet minimized loading requests and removed flicker entirely. The overall responsiveness and consistency of the UI improved significantly.
 
+## 🔎 Level Indicator Reset Issue & Fix Attempts 🛠️
+
+### Issue:
+When restarting the game (e.g., pressing “Play Again”), the level indicator displayed the wrong level or did not reset to Level 1. Sometimes, errors showed that the “#level-number” element was missing. I suspect the issue was related to hiding the level indicator upon game start and not properly resetting it when the game restarted.
+
+### Initial Fix Attempts:
+1. **Directly Updating `.level-indicator` Text**  
+   ```js
+   const levelIndicator = document.querySelector(".level-indicator");
+   levelIndicator.textContent = `Level ${level}`; 
+   ```
+   - This overwrote the entire .level-indicator, removing the <span id="level-number"> element.
+   - Led to console errors like “Level number element: null.”
+   
+   ![DevTools level number console error](assets/media/uncaught-level-indicator.png)
+
+2. **Removing the “Hidden” Class but Missing Span**
+
+    ```js
+    levelIndicator.classList.remove("hidden"); // Show the level indicator
+    ```
+    - Even though `.hidden` was removed, the entire text content got replaced, preventing any updates to the level number.
+
+### Solution:
+1. 
+    ```js
+    const levelIndicator = document.querySelector(".level-indicator");
+    levelIndicator.classList.remove("hidden");
+    levelIndicator.style.display = "block";
+
+    const levelNumberElement = levelIndicator.querySelector("#level-number");
+    if (levelNumberElement) {
+    levelNumberElement.textContent = level; // Updates only the number
+    }
+    ```
+This properly updates only the numeric portion of the level text, preserving the rest of the `.level-indicator` structure.
+
+
+#### Outcome:
+Overwriting only the element’s span avoided removing the entire element under `.level-indicator`. Thanks to these incremental adjustments, the indicator reliably shows “Level 1” on new `startGame()` calls, and the console no longer logs missing elements.
