@@ -779,7 +779,7 @@ button {
 @media (max-width: 590px) {
     /* game page bat sprite */
     .bat {
-        top: 90%;
+        top: 95%;
         left: 20%;
         transform: translateX(-50%) scale(1);
     }
@@ -798,6 +798,8 @@ button {
     }
     
 }
+
+
 
 /* -- mobile devices --*/
 @media (max-width: 500px) {
@@ -869,6 +871,13 @@ button {
         font-size: 0.9rem; /* Slightly smaller instructions */
         margin-top: 0.5rem; /* Add spacing above instructions */
     }
+}
+
+/* -- mobile devices with smaller height --*/
+@media (max-height: 750px) {
+    .buttons-container {
+        top: 4px;
+}
 }
 
 /* -- mobile devices medium to small sizes --*/
@@ -1031,5 +1040,4 @@ button {
   .tooltiptext {
     display: none;
   }
- 
 }
