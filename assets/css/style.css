@@ -1003,6 +1003,9 @@ button {
         width: max-content; /* make sure buttons only take up necessary space */
         z-index: 1000; /* Ensures it stays on top */
     }
+    .game-button.full-screen {
+        display: none;
+    }
     /* speech bubble modal */
     .speech-bubble {
         width: 290px; /* Adjust width for smaller screens */
@@ -1028,4 +1031,5 @@ button {
   .tooltiptext {
     display: none;
   }
+ 
 }
