@@ -479,9 +479,11 @@ When clicking buttons, there was a noticeable lag or flicker before the new imag
 ### Cause:
 Each button was using a separate image file for the 'pressed' active state. The first time the button states changed to active, the browser fetched a new image, causing slight loading lag.
 
-### Video Evidence:
-Instead of static images, short video clips were recorded to demonstrate the flicker:
-<video controls src="assets/media/button-active-lag-issue.mp4" title="Title"></video>
+### Video demonstrating issue:
+Short video clips were recorded to demonstrate the flicker:
+
+https://github.com/user-attachments/assets/21fdd819-22ed-466d-a679-6b45c4f99a87
+
 
 ### Initial Fix Attempt (preloading images):
 The initial fix involved preloading the button images to reduce lag. However, this did not fully resolve the flicker issue, as the browser still needed to fetch the images when switching states.
@@ -519,7 +521,11 @@ After switching to a sprite sheet:
 1. No lag or flicker was observed when clicking the buttons.
 2. The short video clip below shows the smooth state transitions:
 
-<video controls src="assets/media/button-active-lag-fix.mp4" title="Title"></video>
+
+
+https://github.com/user-attachments/assets/a264495a-4741-412a-8fc6-74906145ec29
+
+
 
 ### Conclusion
 While preloading offered a small improvement, switching to a single sprite sheet minimized loading requests and removed flicker entirely. The overall responsiveness and consistency of the UI improved significantly.
