@@ -993,3 +993,14 @@ button {
         padding-top: 90px; /* Pushes text down */
     }
 }
+
+
+/* Only applies to touchscreen devices without hover (tablets and mobiles) */
+/* Credit: https://natenorthway.com/css-sass/hover-and-pointer-media-queries/ */
+/* This hides the tooltip on touch devices to avoid cluttering the screen */
+/* and to prevent the tooltip from showing when the user taps on the button. */
+@media (hover: none) and (pointer: coarse) {
+  .tooltiptext {
+    display: none;
+  }
+}
