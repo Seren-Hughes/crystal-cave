@@ -328,17 +328,15 @@ document.querySelector(".overlay").addEventListener("click", function (event) {
         return;
     }
 
-    const speechBubble = document.querySelector(".speech-bubble");
     const gameModal = document.querySelector(".modal-container");
 
-    if (!speechBubble.classList.contains("hidden")) {
-        console.log("Overlay clicked, but speech bubble is active. Progressing dialogue...");
-        progressDialogue(); // Progress dialogue instead of closing the modal
-    } else if (!gameModal.classList.contains("hidden")) {
+    // Handle closing the game modal
+    if (!gameModal.classList.contains("hidden")) {
         console.log("Overlay clicked, closing game modal...");
         closeModal("gameModal", event);
     }
 });
+
 
 // Event listener for the "Escape" key to close the modal (accessibility feature)
 document.addEventListener("keydown", function (event) {
@@ -358,7 +356,7 @@ function progressDialogue() {
     if (!gameModal.classList.contains("hidden")) {
         console.log("Dialogue progression blocked: Game modal is open.");
         return; // Block dialogue progression if the game modal is open
-    }
+    } 
     console.log("Progressing dialogue. Current index:", currentMessageIndex);
     currentMessageIndex++;
 
