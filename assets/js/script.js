@@ -58,11 +58,10 @@ const overlay = document.querySelector(".overlay");
 */
 
 // Function to open modals (speechBubble or gameModal)
-function openModal(type, title = "", text = "", buttons = []) {
+function openModal(type, title = "", text = "", buttons = [], useOverlay = true) {
     const modal = document.querySelector(
         type === "speechBubble" ? ".speech-bubble" : ".modal-container"
     );
-    const overlay = document.querySelector(".overlay");
 
     // Update modal content dynamically for game modals
     if (type === "gameModal") {
@@ -72,14 +71,13 @@ function openModal(type, title = "", text = "", buttons = []) {
         // Clear existing buttons
         const buttonsContainer = modal.querySelector(".modal-buttons");
         buttonsContainer.innerHTML = "";
-        
 
         // Add new buttons
         buttons.forEach(button => {
             const btn = document.createElement("button");
             btn.textContent = button.text;
             btn.className = "modal-button";
-            btn.addEventListener("click", function (event) { 
+            btn.addEventListener("click", function (event) {
                 event.stopPropagation(); // Prevent the click from propagating to the overlay
                 button.action(); // Execute the button's action
             });
@@ -87,13 +85,16 @@ function openModal(type, title = "", text = "", buttons = []) {
         });
     }
 
-    // Show modal and overlay
+    // Show modal
     modal.classList.remove("hidden");
-    overlay.classList.add("active");
 
-    // Disable pointer events on the overlay
-    overlay.style.pointerEvents = "none";
-    modal.style.pointerEvents = "auto"; // Ensure modal is interactive
+    if (useOverlay) {
+        activateOverlay(); 
+    } else {
+        deactivateOverlay(); // Explicitly remove the overlay. Passing false to the function will deactivate the overlay
+    }
+
+    console.log(`Opened ${type} modal. Overlay used: ${useOverlay}`);
 }
 
 // Event listener for the "How to Play" button and innerHTML content
@@ -113,7 +114,8 @@ document.querySelector(".game-button.how-to-play").addEventListener("click", () 
          </ul>
          <h3>⭐ Freestyle Jam Mode:</h3>
          <p>Tap the star button to make your own music on the crystals—just for fun!</p>`,
-        [{ text: "Close", action: () => closeModal("gameModal") }] // Close button action
+        [{ text: "Close", action: () => closeModal("gameModal") }],
+        false // Pass false to disable the overlay
     );
 });
 
@@ -126,45 +128,54 @@ document.querySelector(".game-button.how-to-play").addEventListener("click", () 
 * - Additional Resource: https://example.com/another-resource
 */
 function closeModal(type = "speechBubble", event = null, callback = null) {
-    const modal = document.querySelector(
-        type === "speechBubble" ? ".speech-bubble" : ".modal-container"
-    );
-    const overlay = document.querySelector(".overlay");
+  const modal = document.querySelector(
+    type === "speechBubble" ? ".speechBubble" : ".modal-container"
+  );
 
-    if (isModalClosing) {
-        return; // Prevent multiple triggers
+  if (isModalClosing) {
+    console.log("closeModal: Modal is already closing. Exiting...");
+    return; // Prevent multiple triggers
+  }
+
+  isModalClosing = true; // Set the flag to prevent multiple triggers
+
+  if (event) {
+    event.stopPropagation(); // Stop the click event from propagating
+    event.preventDefault(); // Prevent any default behavior
+  }
+
+  console.log(`Closing ${type} modal...`);
+  modal.classList.add("hidden");
+
+  // Deactivate overlay unless another modal is still open
+  const otherModalOpen = document.querySelector(
+    ".modal-container:not(.hidden)"
+  );
+
+  if (!otherModalOpen && type !== "speechBubble") {
+    deactivateOverlay(); // Use helper function
+  }
+
+  setTimeout(() => {
+    isModalClosing = false; // Reset the flag after the modal is closed
+
+    // Handle specific behavior for each modal type
+    if (type === "speechBubble") {
+      startGame(); // Start the game immediately after closing the speech bubble
     }
 
-    isModalClosing = true; // Set the flag to prevent multiple triggers
-
-    if (event) {
-        event.stopPropagation(); // Stop the click event from propagating
-        event.preventDefault(); // Prevent any default behavior
+    if (callback) {
+      console.log("Executing callback after closing modal...");
+      callback();
     }
 
-    console.log(`Closing ${type} modal...`); 
-    modal.classList.add("hidden");
-    overlay.classList.remove("active"); // Deactivate the overlay
-    overlay.classList.remove("with-game-modal");
-
-    setTimeout(() => {
-        isModalClosing = false; // Reset the flag after the modal is closed
-
-        // specific action for the speech bubble modal - gameModal does not call startGame() 
-        if (type === "speechBubble") {
-            startGame(); // Start the game immediately after closing the speech bubble
-        } else if (type === "gameModal") { 
-            console.log("Game modal closed. Reactivating overlay..."); 
-            overlay.classList.add("active"); // Reactivate the overlay
-            overlay.style.pointerEvents = "all"; // Ensure the overlay is interactive
-        }
-
-        // Execute the callback if provided
-        if (callback) {
-            console.log("Executing callback after closing modal...");
-            callback();
-        }
-    }, 500); // Slight delay for hiding the modal
+    // Re-activate the overlay if the speech bubble is still visible
+    const speechBubble = document.querySelector(".speech-bubble");
+    if (speechBubble && !speechBubble.classList.contains("hidden")) {
+      console.log("Speech bubble is visible. Re-activating overlay...");
+      activateOverlay();
+    }
+  }, 500); // Slight delay for hiding the modal
 }
 
 // ------------------------------------------------------------ //
@@ -200,21 +211,21 @@ document.addEventListener("DOMContentLoaded", function () {
         progressDialogue();
     });
 
-    // Modify the overlay click handler to progress dialogue instead of closing the modal
-    overlay.addEventListener("click", function(event) {
-        // If clicking a button in a game modal, ignore
-        if (event.target.closest(".modal-button")) {
+    overlay.addEventListener("click", function (event) {
+        // Ignore clicks on modal buttons or the modal itself
+        if (event.target.closest(".modal") || event.target.closest(".modal-button")) {
+            console.log("Overlay click ignored: Click was on a modal or button.");
             return;
         }
-
+    
         const speechBubble = document.querySelector(".speech-bubble");
         const gameModal = document.querySelector(".modal-container");
-
+    
         if (!speechBubble.classList.contains("hidden")) {
+            console.log("Overlay clicked. Progressing dialogue...");
             progressDialogue();
-        } 
-        
-        else if (!gameModal.classList.contains("hidden")) {
+        } else if (!gameModal.classList.contains("hidden")) {
+            console.log("Overlay clicked, closing game modal...");
             closeModal("gameModal", event);
         }
     });
@@ -322,9 +333,10 @@ fullscreenButton.addEventListener('click', () => {
 });
 
 // Event listener for overlay click to close the modal
-document.querySelector(".overlay").addEventListener("click", function (event) {
+overlay.addEventListener("click", function (event) {
     // Ignore clicks on modal buttons or the modal itself
     if (event.target.closest(".modal") || event.target.closest(".modal-button")) {
+        console.log("Overlay click ignored: Click was on a modal or button.");
         return;
     }
 
@@ -336,7 +348,6 @@ document.querySelector(".overlay").addEventListener("click", function (event) {
         closeModal("gameModal", event);
     }
 });
-
 
 // Event listener for the "Escape" key to close the modal (accessibility feature)
 document.addEventListener("keydown", function (event) {
@@ -621,6 +632,18 @@ function nextLevel() {
 // ------------------------------ UTILITY FUNCTIONS -------------------------------- //
 // --------------------------------------------------------------------------------- //
 
+// overlay helper functions to manage the overlay state
+function activateOverlay() {
+    overlay.classList.add("active");
+    overlay.style.pointerEvents = "all"; // Enable pointer events
+    console.log("Overlay activated.");
+}
+function deactivateOverlay() {
+    overlay.classList.remove("active");
+    overlay.style.pointerEvents = "none"; // Disable pointer events
+    console.log("Overlay deactivated.");
+}
+
 // Function to handle the glow effect on the crystal containers
 const activateGlow = (container) => {
     if (!isPlayerTurn) {
@@ -688,45 +711,41 @@ function clearAllGlows() {
 }
 
 function showPlayAgainModal() {
-  console.log("showPlayAgainModal() called");
+    console.log("showPlayAgainModal() called");
 
-  openModal(
-    "gameModal",
-    "So Close!",
-    "Brucey believes in you! Want to try again?",
-    [
-      {
-        text: "Play Again",
-        action: () => {
-          console.log("Play Again button action triggered");
-          // Callback method to close the modal and start the game
-          // The callback is executed after the modal is closed
-          // Reference:  https://www.topcoder.com/thrive/articles/callback-method-oop-null-and-string-in-javascript
-          // and https://www.freecodecamp.org/news/how-to-use-callback-functions-in-javascript/#heading-basic-structure-of-a-callback-function
-          // Credit: https://javascript.info/callbacks
-          closeModal("gameModal", null, () => {
-            console.log("Callback: Starting game after closing modal...");
-
-            overlay.classList.remove("active"); // Deactivate the overlay
-            overlay.style.pointerEvents = "none"; // Disable pointer events
-            console.log("Overlay deactivated.");
-
-            startGame(); // Start the game after the modal is closed
-          });
-        },
-      },
-      {
-        text: "Maybe later",
-        action: () => {
-          console.log("Maybe later button action triggered");
-          closeModal("gameModal", null, () => {
-            console.log("Callback: Redirecting to home page...");
-            location.href = "index.html"; // Redirect to the home page
-          });
-        },
-      },
-    ]
-  );
+    openModal(
+        "gameModal",
+        "So Close!",
+        "Brucey believes in you! Want to try again?",
+        [
+            {
+                text: "Play Again",
+                action: () => {
+                    console.log("Play Again button action triggered");
+                    // Callback method to close the modal and start the game
+                    // The callback is executed after the modal is closed
+                    // Reference:  https://www.topcoder.com/thrive/articles/callback-method-oop-null-and-string-in-javascript
+                    // and https://www.freecodecamp.org/news/how-to-use-callback-functions-in-javascript/#heading-basic-structure-of-a-callback-function
+                    // Credit: https://javascript.info/callbacks
+                    closeModal("gameModal", null, () => {
+                        console.log("Callback: Starting game after closing modal...");
+                        startGame(); // Start the game after the modal is closed
+                    });
+                },
+            },
+            {
+                text: "Maybe later",
+                action: () => {
+                    console.log("Maybe later button action triggered");
+                    closeModal("gameModal", null, () => {
+                        console.log("Callback: Redirecting to home page...");
+                        location.href = "index.html";
+                    });
+                },
+            },
+        ],
+        false // Pass false so the overlay won't activate
+    );
 }
 
 // --------------------------------------------------------------------------------- //
