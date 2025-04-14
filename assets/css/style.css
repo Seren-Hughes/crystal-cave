@@ -451,7 +451,7 @@ button {
     padding: 20px;
     text-align: center;
     z-index: 2000;
-    cursor: pointer;
+    cursor: default;
     font-family: var(--primary-font); /* Jersey 20 font */
     color: black; /* Black text */
     font-size: 1.8rem; /* Adjust font size as needed */

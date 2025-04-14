@@ -332,6 +332,11 @@ document.addEventListener("keydown", function (event) {
 });
 
 function progressDialogue() {
+    const gameModal = document.querySelector(".modal-container");
+    if (!gameModal.classList.contains("hidden")) {
+        console.log("Dialogue progression blocked: Game modal is open.");
+        return; // Block dialogue progression if the game modal is open
+    }
     console.log("Progressing dialogue. Current index:", currentMessageIndex);
     currentMessageIndex++;
 
