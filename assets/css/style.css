@@ -498,13 +498,15 @@ button {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 90%;
-    max-width: 400px;
+    max-width: 70vw; /* Limit width to 70% of viewport width */
+    max-height: 70vh; /* Limit height to 70% of viewport height */
+    overflow-y: auto; /* Enable scrolling if content exceeds max height */
     background-color: var(--primary-highlight-color); /* Light blue */
     color: var(--secondary-color); /* Dark charcoal for text */
     border: 2px solid var(--primary-background-color); /* Gunmetal border */
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    z-index: 9000;
+    z-index: 10000;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -564,6 +566,16 @@ button {
     z-index: 6000; /* Ensure it's above the modal content */
     pointer-events: auto; /* Ensure the button is clickable */
 }
+
+/* overflow modal scrollbar */
+.modal-container::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+}
+
+.modal-container::-webkit-scrollbar-thumb {
+    background-color: var(--primary-background-color); /* Gunmetal */
+}
+
 /* -----------------------------------------------------------------------------------------*/
 /* ---------------------- Invisible overlay for toggling click events ----------------------*/
 /* -----------------------------------------------------------------------------------------*/
@@ -732,6 +744,11 @@ button {
     .game-button.full-screen {
         display: none;
     }
+    .modal-container {
+        width: 95%; /* Adjust width for smaller screens */
+        max-height: 70%; /* Reduce height for smaller screens */
+        padding: 15px; /* Adjust padding */
+    }
 }
 
 /* --  small tablet devices --*/
@@ -885,6 +902,11 @@ button {
     .speech-bubble .instructions {
         font-size: 0.9rem; /* Slightly smaller instructions */
         margin-top: 0.5rem; /* Add spacing above instructions */
+    }
+    .modal-container {
+        width: 90%; /* Further reduce width for very small screens */
+        max-height: 60%; /* Further reduce height */
+        padding: 10px; /* Adjust padding */
     }
 }
 
