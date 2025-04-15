@@ -309,6 +309,11 @@ document.querySelector(".game-button.restart").addEventListener("click", () => {
     startGame(); // Reset the game at level 1
 });
 
+// Home button event listener to redirect to the home page
+document.querySelector(".game-button.home").addEventListener("click", () => {
+    location.href = "index.html"; // Redirect to the home page
+});
+
 // Credit: https://www.freecodecamp.org/news/how-to-use-the-javascript-fullscreen-api/
 // Select the fullscreen button
 const fullscreenButton = document.querySelector('.game-button.full-screen');
