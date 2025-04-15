@@ -18,6 +18,7 @@ let isSequencePlaying = false; // Indicates if the sequence is currently playing
 let isModalClosing = false; // Prevents multiple triggers of modal close function
 let isPlayerTurn = false; // Indicates if it's the player's turn
 let isWaitingForInput = false; // Prevents multiple calls to waitForPlayerInput
+let freestyleMode = false; // Indicates if the game is in freestyle mode
 
 // Arrays (to store sequences and player's input)
 let currentSequence = []; // Store the sequence globally
@@ -306,6 +307,8 @@ document.querySelector(".game-button.restart").addEventListener("click", () => {
         speechBubble.classList.add("hidden");
         gameModal.classList.add("hidden");
     }
+    deactivateOverlay(); // Deactivate overlay
+    freestyleMode = false; // Reset freestyle mode
     startGame(); // Reset the game at level 1
 });
 
@@ -313,6 +316,9 @@ document.querySelector(".game-button.restart").addEventListener("click", () => {
 document.querySelector(".game-button.home").addEventListener("click", () => {
     location.href = "index.html"; // Redirect to the home page
 });
+
+// Freestyle button event listener to activate freestyle mode
+document.querySelector(".game-button.freestyle").addEventListener("click", freestyle);
 
 // Credit: https://www.freecodecamp.org/news/how-to-use-the-javascript-fullscreen-api/
 // Select the fullscreen button
@@ -410,6 +416,11 @@ function progressDialogue() {
 
 // Function to start the game
 function startGame() {
+    if (freestyleMode) {
+        console.log("Freestyle mode active. Skipping normal game logic.");
+        return;
+      }
+
     console.log("Starting game..."); 
     level = 1;
     isSequencePlaying = true; // Disable player input while playing the sequence
@@ -637,12 +648,56 @@ function nextLevel() {
 
     clearAllTimeouts(); // Clear any lingering timeouts
     clearAllGlows(); // Clear any lingering glow effects
-
     storeSequence(level); // Generate and store the sequence
     playSequence(currentSequence); // Play the new sequence
     console.log("Current sequence:", currentSequence); 
 
     isWaitingForInput = false; // Reset the flag to allow player input again
+}
+
+
+function freestyle() {
+    if (freestyleMode) return;
+
+    freestyleMode = true;
+
+    // Clear all timeouts and intervals
+    clearAllTimeouts();
+    clearTimeoutsAndIntervals();
+
+    // Clear all glow effects
+    clearAllGlows();
+
+    // Reset game state flags
+    isPlayerTurn = true; // Allow crystal interactions
+    isWaitingForInput = false;
+    isSequencePlaying = false;
+
+    // Reset player input and sequence
+    playersInput = [];
+    currentSequence = [];
+
+    // Hide the overlay and disable pointer events
+    overlay.classList.remove("active");
+    overlay.style.pointerEvents = "none";
+
+    // Hide the speech bubble
+    const speechBubble = document.querySelector(".speech-bubble");
+    if (speechBubble) {
+        speechBubble.classList.add("hidden");
+    }
+
+    // Hide the level indicator explicitly
+    const levelIndicator = document.querySelector(".level-indicator");
+    if (levelIndicator) {
+        levelIndicator.classList.add("hidden"); // Add the hidden class
+        levelIndicator.style.display = "none"; // Explicitly set display to none
+        console.log("Level indicator hidden.");
+    } else {
+        console.error("Level indicator not found in the DOM!");
+    }
+
+    console.log("Freestyle mode activated. Game logic canceled.");
 }
 
 // --------------------------------------------------------------------------------- //

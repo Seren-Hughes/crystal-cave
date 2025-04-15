@@ -584,9 +584,9 @@ button {
     pointer-events: all; /* Enable clicks when active */
 }
 
-/* Hide modals initially */
+/* Hide modals and level indicators by default */
 .hidden {
-    display: none;
+    display: none; 
 }
 
 .overlay.with-game-modal {
