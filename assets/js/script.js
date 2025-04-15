@@ -120,6 +120,23 @@ document.querySelector(".game-button.how-to-play").addEventListener("click", () 
     );
 });
 
+// Event listener for the "Settings" button to open the settings modal and update the innerHTML content
+document.querySelector(".game-button.settings").addEventListener("click", () => {
+    openModal(
+        "gameModal",
+        "⚙️ Settings",
+        `<p>Audio settings</p>
+         <p>Crystal volume control</p>
+         <p>Music volume control</p>
+         <p>Sound effects volume control</p>
+         <p>Brightness control</p>
+         <p>Delete saved game data</p>`,
+        [{ text: "Close", action: () => closeModal("gameModal") }],
+        false // Pass false to disable the overlay
+    );
+
+});
+
 /** Event bubbling and propagation solution references:
 * Using event.stopPropagation() to prevent the click event from propagating (bubbling - still somewhat murky on this concept but it seems to be working)
 * to other elements. This solution was inspired by:
