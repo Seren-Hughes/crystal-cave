@@ -299,9 +299,12 @@ document.addEventListener("keydown", function (event) {
 // Restart button event listener to reset the game
 document.querySelector(".game-button.restart").addEventListener("click", () => {
     const speechBubble = document.querySelector(".speech-bubble");
-    if (!speechBubble.classList.contains("hidden")) {
-        // Hide the speech bubble before starting the game
+    const gameModal = document.querySelector(".modal-container");
+
+    // If either bubble or game modal is visible, hide them
+    if (!speechBubble.classList.contains("hidden") || !gameModal.classList.contains("hidden")) {
         speechBubble.classList.add("hidden");
+        gameModal.classList.add("hidden");
     }
     startGame(); // Reset the game at level 1
 });
