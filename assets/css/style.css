@@ -1025,7 +1025,6 @@ button {
         gap: 5px; /* Space between buttons */
         padding: 10px;
         width: max-content; /* make sure buttons only take up necessary space */
-        z-index: 1000; /* Ensures it stays on top */
     }
     .game-button.full-screen {
         display: none;

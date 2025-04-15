@@ -716,7 +716,7 @@ function freestyle() {
     // Update the level indicator to show "Freestyle Mode"
     const levelIndicator = document.querySelector(".level-indicator");
     if (levelIndicator) {
-        levelIndicator.textContent = "Freestyle Mode"; // Change the text
+        levelIndicator.textContent = "Freestyle"; // Change the text
         levelIndicator.classList.remove("hidden"); // Ensure it's visible
         levelIndicator.style.display = "block"; // Explicitly show it
         console.log("Level indicator updated to Freestyle Mode.");
