@@ -307,9 +307,10 @@ document.querySelector(".game-button.restart").addEventListener("click", () => {
         speechBubble.classList.add("hidden");
         gameModal.classList.add("hidden");
     }
-    deactivateOverlay(); // Deactivate overlay
+    activateOverlay(); // Activate overlay to block crystal interactions
     freestyleMode = false; // Reset freestyle mode
     startGame(); // Reset the game at level 1
+    console.log("Game restarted and overlay activated.");
 });
 
 // Home button event listener to redirect to the home page
@@ -463,6 +464,7 @@ function storeSequence(level) {
 
 // Function to play the sequence
 function playSequence(sequence) {
+    activateOverlay(); // Activate overlay to block crystal interactions
     clearAllTimeouts(); // Clear any lingering global timeouts
     clearAllGlows(); // Clear any lingering glow effects
     let crystals = document.querySelectorAll(".crystal-container");
@@ -513,6 +515,7 @@ function waitForPlayerInput() {
     console.log("Waiting for player input..."); 
     isPlayerTurn = true; // Set flag to indicate it's the player's turn
     isWaitingForInput = false; // Reset the flag
+    deactivateOverlay(); // Deactivate overlay to allow crystal interactions
 
     playersInput = []; // Reset player's input for the new round
     console.log("Player input reset:", playersInput); 
@@ -609,6 +612,7 @@ function celebrateCorrectAnswer() {
             crystal.querySelector('.glow').classList.add('active', 'celebration-active'); // Add glow and celebration-specific class
             crystal.querySelector('.light-crystal').classList.add('active', 'celebration-active'); // Add light-crystal and celebration-specific class
         });
+        activateOverlay(); // Activate overlay for the celebration to block crystal interactions
         console.log("Glow activated for celebration.");
     }, 300); // 300ms delay before starting the celebration
 
@@ -645,7 +649,7 @@ function nextLevel() {
     } else {
         console.error("Level number element not found in the DOM!"); // catch error if the element is not found - stops the game from breaking while fixing - see troubleshooting notes
     }
-
+    
     clearAllTimeouts(); // Clear any lingering timeouts
     clearAllGlows(); // Clear any lingering glow effects
     storeSequence(level); // Generate and store the sequence

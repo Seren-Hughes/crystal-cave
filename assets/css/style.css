@@ -582,6 +582,7 @@ button {
 
 .overlay.active {
     pointer-events: all; /* Enable clicks when active */
+    background: rgba(182, 43, 138, 0.419); /* Semi-transparent overlay for debugging */
 }
 
 /* Hide modals and level indicators by default */
@@ -590,6 +591,8 @@ button {
 }
 
 .overlay.with-game-modal {
+    
+    background: rgba(182, 43, 138, 0.419); /* Semi-transparent overlay for debugging */
     pointer-events: none; /* Disable overlay clicks when game modal is active */
 }
 
