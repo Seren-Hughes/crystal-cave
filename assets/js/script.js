@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    /* Add spacebar listener. Reference:
+    /* Add spacebar key listener to progress the speech bubble (accessibility). Reference:
         https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event
     */
     document.addEventListener("keydown", function(event) {
@@ -332,7 +332,7 @@ fullscreenButton.addEventListener('click', () => {
     }
 });
 
-// Event listener for overlay click to close the modal
+// Event listener click to close the modal
 overlay.addEventListener("click", function (event) {
     // Ignore clicks on modal buttons or the modal itself
     if (event.target.closest(".modal") || event.target.closest(".modal-button")) {
@@ -353,10 +353,9 @@ overlay.addEventListener("click", function (event) {
 document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
         const modal = document.querySelector(".modal-container");
-        const overlay = document.querySelector(".overlay");
-
+        
         // Close the modal only if it's currently visible
-        if (!modal.classList.contains("hidden") && overlay.classList.contains("active")) {
+        if (!modal.classList.contains("hidden")) {
             closeModal("gameModal", event);
         }
     }
