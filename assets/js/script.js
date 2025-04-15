@@ -296,6 +296,11 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
+// Restart button event listener to reset the game
+document.querySelector(".game-button.restart").addEventListener("click", () => {
+    startGame(); // Reset the game at level 1
+});
+
 // Credit: https://www.freecodecamp.org/news/how-to-use-the-javascript-fullscreen-api/
 // Select the fullscreen button
 const fullscreenButton = document.querySelector('.game-button.full-screen');
