@@ -301,6 +301,11 @@ document.addEventListener("keydown", function (event) {
 document.querySelector(".game-button.restart").addEventListener("click", () => {
     const speechBubble = document.querySelector(".speech-bubble");
     const gameModal = document.querySelector(".modal-container");
+    const levelIndicator = document.querySelector(".level-indicator");
+    
+    if (levelIndicator) {
+        levelIndicator.innerHTML = `Level <span id="level-number">1</span>`; // Reset to Level 1
+    }
 
     // If either bubble or game modal is visible, hide them
     if (!speechBubble.classList.contains("hidden") || !gameModal.classList.contains("hidden")) {
@@ -691,14 +696,15 @@ function freestyle() {
         speechBubble.classList.add("hidden");
     }
 
-    // Hide the level indicator explicitly
+    // Update the level indicator to show "Freestyle Mode"
     const levelIndicator = document.querySelector(".level-indicator");
     if (levelIndicator) {
-        levelIndicator.classList.add("hidden"); // Add the hidden class
-        levelIndicator.style.display = "none"; // Explicitly set display to none
-        console.log("Level indicator hidden.");
+        levelIndicator.textContent = "Freestyle Mode"; // Change the text
+        levelIndicator.classList.remove("hidden"); // Ensure it's visible
+        levelIndicator.style.display = "block"; // Explicitly show it
+        console.log("Level indicator updated to Freestyle Mode.");
     } else {
-        console.error("Level indicator not found in the DOM!");
+        console.error("Level indicator not found in the DOM!"); // catch error if the element is not found
     }
 
     console.log("Freestyle mode activated. Game logic canceled.");
