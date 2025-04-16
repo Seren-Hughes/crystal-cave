@@ -100,25 +100,39 @@ function openModal(type, title = "", text = "", buttons = [], useOverlay = true)
 
 // Event listener for the "How to Play" button and innerHTML content
 document.querySelector(".game-button.how-to-play").addEventListener("click", () => {
-    openModal(
-        "gameModal",
-        "🕹️ How to Play",
-        `<p>🎵 <strong>Echoes of the Crystal Cave</strong> is a memory game with a musical twist!</p>
-         <p>Brucey the bat will guide you through glowing crystal sequences—watch and listen carefully.</p>
-         <p>✨ <strong>Your goal:</strong> Repeat the sequence of crystal notes correctly and see how many levels you can complete!</p>
-         <p>🧠 Each level adds one more note to the sequence.</p>
-         <h3>🖱️ Controls:</h3>
-         <ul>
-             <li>Use <strong>A W S E D</strong> keys (they match the crystal layout)</li>
-             <li>Or click/tap the crystals</li>
-             <li>Works on keyboard, mouse, and touchscreen</li>
-         </ul>
-         <h3>⭐ Freestyle Jam Mode:</h3>
-         <p>Tap the star button to make your own music on the crystals—just for fun!</p>`,
-        [{ text: "Close", action: () => closeModal("gameModal") }],
-        false // Pass false to disable the overlay
-    );
-});
+    // Detect if the user is on a mobile device
+    const isMobile = window.innerWidth <= 768; // tablet mobile device breakpoint
+        const modalTitle = "🕹️ How to Play";
+        const modalText = `
+            <p>🎵 <strong>Echoes of the Crystal Cave</strong> is a memory game with a musical twist!</p>
+            <p>Brucey the bat will guide you through glowing crystal sequences—watch and listen carefully.</p>
+            <p>✨ <strong>Your goal:</strong> Repeat the sequence of crystal notes correctly and see how many levels you can complete!</p>
+            <p>🧠 Each level adds one more note to the sequence.</p>
+            <h3>🖱️ Controls:</h3>
+            <ul>
+                <li>Use <strong>A W S E D</strong> keys (they match the crystal layout)</li>
+                <li>Or click/tap the crystals</li>
+                <li>Works on keyboard, mouse, and touchscreen</li>
+            </ul>
+            ${
+                isMobile 
+                    ? `<p class="mobile-note">📱 Keyboard and mouse controls are available on the desktop version. Try it out for a different experience!</p>`
+                    : "" // Show this note only on mobile devices
+            }
+            <h3>⭐ Freestyle Jam Mode:</h3>
+            <p>Tap the star button to make your own music on the crystals—just for fun!</p>
+            <p>Just click the restart button to reset the game to level 1 anytime.</p>
+        `;
+    
+        // Open the modal with the content
+        openModal(
+            "gameModal",
+            modalTitle,
+            modalText,
+            [{ text: "Close", action: () => closeModal("gameModal") }],
+            false // Pass false to disable the overlay
+        );
+    });
 
 // Event listener for the "Settings" button to open the settings modal and update the innerHTML content
 document.querySelector(".game-button.settings").addEventListener("click", () => {
