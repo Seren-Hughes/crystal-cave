@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <meta name="description" content="Echoes of the Crystal Cave is an interactive memory game where players follow crystal light and melody patterns to progress through levels or explore freely in Freestyle Mode.">
+    <meta name="description"
+        content="Echoes of the Crystal Cave is an interactive memory game where players follow crystal light and melody patterns to progress through levels or explore freely in Freestyle Mode.">
     <title>Echoes of the Crystal Cave | Game</title>
     <!-- Add the link to the CSS file -->
     <link rel="stylesheet" href="assets/css/style.css">
@@ -61,26 +62,25 @@
 
         <!-- Speech Bubble Modal -->
         <div class="speech-bubble">
-        <!-- Dialogue text is controlled by the JavaScript function `progressDialogue()`. 
-        Dialogue lines are stored in the `speechBubbleMessages` string variable. -->        
+            <!-- Dialogue text is controlled by the JavaScript function `progressDialogue()`. 
+        Dialogue lines are stored in the `speechBubbleMessages` string variable. -->
         </div>
-        <!-- Modal Container -->
-        <div class="modal-container hidden">
-            <div class="modal">
-                <h2 class="modal-title">Game Over</h2>
-                <p class="modal-text">Never give up. Never surrender. Play again?</p>
-                <div class="modal-buttons">
-                    <button class="modal-button play-again">Play Again</button>
-                    <button class="modal-button close-modal">Some Other Time</button>
-                </div>
-            </div>
-        </div>
+
         <!-- Level Number Container -->
         <div class="level-indicator">
             Level <span id="level-number">1</span>
         </div>
     </div>
 
+    <div class="modal-container hidden">
+        <div class="modal">
+            <!-- Modal Container - content dynamically controlled by JavaScript 
+            (querySelector targets .modal-container for gameModal functionality) -->
+            <h2 class="modal-title"></h2>
+            <p class="modal-text"></p>
+            <div class="modal-buttons"></div>
+        </div>
+    </div>
     <!-- buttons container -->
     <div class="buttons-container fade-in-ui">
         <button class="game-button how-to-play" aria-label="How to Play">

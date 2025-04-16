@@ -496,8 +496,8 @@ button {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
+    transform: translate(-50%, -50%); 
+    width: 50%;
     max-width: 70vw; /* Limit width to 70% of viewport width */
     max-height: 70vh; /* Limit height to 70% of viewport height */
     overflow-y: auto; /* Enable scrolling if content exceeds max height */
