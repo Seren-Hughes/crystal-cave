@@ -594,7 +594,7 @@ button {
 
 .overlay.active {
     pointer-events: all; /* Enable clicks when active */
-    background: rgba(182, 43, 138, 0.419); /* Semi-transparent overlay for debugging */
+    background: rgba(0, 0, 0, 0); /* transparent overlay */
 }
 
 /* Hide modals and level indicators by default */
@@ -603,8 +603,6 @@ button {
 }
 
 .overlay.with-game-modal {
-    
-    background: rgba(182, 43, 138, 0.419); /* Semi-transparent overlay for debugging */
     pointer-events: none; /* Disable overlay clicks when game modal is active */
 }
 
@@ -904,7 +902,6 @@ button {
         margin-top: 0.5rem; /* Add spacing above instructions */
     }
     .modal-container {
-        width: 90%; /* Further reduce width for very small screens */
         max-height: 60%; /* Further reduce height */
         padding: 10px; /* Adjust padding */
     }
