@@ -19,6 +19,7 @@ let isModalClosing = false; // Prevents multiple triggers of modal close functio
 let isPlayerTurn = false; // Indicates if it's the player's turn
 let isWaitingForInput = false; // Prevents multiple calls to waitForPlayerInput
 let freestyleMode = false; // Indicates if the game is in freestyle mode
+let skipTriggered = false; // Indicates if the skip button was triggered
 
 // Arrays (to store sequences and player's input)
 let currentSequence = []; // Store the sequence globally
@@ -172,10 +173,6 @@ function closeModal(type = "speechBubble", event = null, callback = null) {
   }
 
   isModalClosing = true; // Set the flag to prevent multiple triggers
-  
-  // Reset message index after closing openNameModal() players name input modal to prevent dialogue from being skipped
-  currentMessageIndex = 5;
-  progressDialogue();
 
   if (event) {
     event.stopPropagation(); // Stop the click event from propagating
@@ -442,15 +439,15 @@ function progressDialogue() {
     if (!gameModal.classList.contains("hidden")) {
         console.log("Dialogue progression blocked: Game modal is open.");
         return; // Block dialogue progression if the game modal is open
-    } 
+    }
 
     // Check if a player name is stored
-    const storedName = localStorage.getItem("playerName"); 
+    const storedName = localStorage.getItem("playerName");
 
-    currentMessageIndex++;
+    currentMessageIndex++; // Increment the message index
 
-    // if the player name is not stored, and the current message index is 6, open the name modal
-    if (!storedName && currentMessageIndex === 6) {
+    // if the player name is not stored, and the current message index is 6, and skipTriggered is false, open the name modal
+    if (!storedName && currentMessageIndex === 6 && !skipTriggered) {
         openNameModal();
         return;
     }
@@ -458,26 +455,25 @@ function progressDialogue() {
     // if the player name is stored, and the current message index is 0 (first message on page load), 
     // then set the current message index to 9 (the last message before the startGame() function is called)
     if (storedName && currentMessageIndex <= 0) {
-        currentMessageIndex = 9; 
+        currentMessageIndex = 9;
         speechBubbleMessages[9] = `Hi again, ${storedName}! Let's play!`;
     }
-   
+
     if (storedName) {
         speechBubbleMessages[6] = `Nice to meet you, ${storedName}!`;
     }
+
 
     if (currentMessageIndex < speechBubbleMessages.length) {
         // Update the speech bubble with the next message
         updateSpeechBubbleText();
     } else {
-        // We've reached the end of the messages, start the game! :)
+        // End of the messages, start the game
         const speechBubble = document.querySelector(".speech-bubble");
         const overlay = document.querySelector(".overlay");
-        
         speechBubble.classList.add("hidden");
         overlay.classList.remove("active");
         overlay.style.pointerEvents = "none"; // Reset pointer events!
-        console.log("Starting game after last message");
         startGame();
     }
 }
@@ -940,25 +936,36 @@ function handleSpeechBubbleInteraction(event) {
 }
 
 function openNameModal() {
-    const modalTitle = "What's your name?";
-    const modalText = `
-        <input type="text" id="player-name-input" placeholder="Enter your name" required/>
-    `;
+    const modalTitle = "Players Name";
+    const modalText = 
+        `<input type="text" id="player-name-input" placeholder="Enter your name"/>`;
     const modalButtons = [
         {
             text: "OK",
             action: () => {
-                const nameInput = document.querySelector("#player-name-input").value.trim();
+                const nameInput = document.querySelector("#player-name-input").value.trim(); // Get the value of the input field
                 if (nameInput) {
-                    localStorage.setItem("playerName", nameInput);
+                    localStorage.setItem("playerName", nameInput); // Store the name in local storage
+                    speechBubbleMessages[6] = `Nice to meet you, ${nameInput}!`; // Update the message with the player's name
                 }
+                currentMessageIndex = 5;
                 closeModal("gameModal", null, () => {
-                   
                     progressDialogue();
                 });
             },
         },
-    ];
+        {
+            text: "Skip",
+            action: () => {
+                skipTriggered = true; // prevents re-opening the modal
+                speechBubbleMessages[6] = "No name? You must be on a secret mission!"; 
+                currentMessageIndex = 5; 
+                closeModal("gameModal", null, () => {
+                    progressDialogue();
+                });
+            },
+        },
 
-    openModal("gameModal", modalTitle, modalText, modalButtons, false);
+    ];
+    openModal("gameModal", modalTitle, modalText, modalButtons, false); 
 }
