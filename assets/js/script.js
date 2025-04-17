@@ -892,6 +892,18 @@ function showPlayAgainModal() {
     );
 }
 
+// Set the height of the body to the visible viewport height
+// For mobile devices where the address bar may hide/show and affect the height/layout
+function setBodyHeight() {
+    document.body.style.height = `${window.innerHeight}px`;
+}
+
+// Set the height on page load
+window.addEventListener("load", setBodyHeight);
+
+// Update the height when the window is resized (if the the address bar hides)
+window.addEventListener("resize", setBodyHeight);
+
 // --------------------------------------------------------------------------------- //
 // ------------------------------ SPEECH BUBBLE FUNCTIONS ------------------------- //
 // --------------------------------------------------------------------------------- //

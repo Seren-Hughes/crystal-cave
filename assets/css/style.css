@@ -22,7 +22,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100%; /* JavaScript to set responsive height with setBodyHeight() */
     margin: 0; /* background behind game container */
     background-color: var(--secondary-color);  /* Fallback colour if image fails */
     background-image: url('../images/cavewalls-background.png');
