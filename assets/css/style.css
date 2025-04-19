@@ -140,6 +140,24 @@ button {
     pointer-events: none; /* Decorative, so no interaction */
 }
 
+/* ios overlay for audio permission listener event. must be hidden by default */
+.ios-start-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    color: var(--primary-color); /* Light blue for text content */
+    font-family: var(--primary-font); /* Jersey 20 font */
+    font-size: 1.5rem; /* Adjust font size */
+    text-align: center;
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* Ensure it's on top of everything */
+}
+
 
 /* ----------------------------------*/
 /* --- Wrapper for game container -- */
