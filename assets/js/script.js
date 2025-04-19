@@ -153,7 +153,7 @@ function closeModal(type = "speechBubble", event = null, callback = null) {
         }
 
         if (callback) {
-            callback();
+            callback(); // showPlayAgainModal() callback is executed after the modal is closed to start the game
         }
 
         // Re-activate the overlay if the speech bubble is still visible
@@ -329,62 +329,77 @@ function progressDialogue() {
 document.addEventListener("DOMContentLoaded", function () {
     const gameContainer = document.querySelector(".game-container");
     const iosOverlay = document.querySelector(".ios-start-overlay");
-    
-    // Detect iOS - some code copied from the tutorialspoint link above
+    const speechBubble = document.querySelector(".speech-bubble");
+    const overlay = document.querySelector(".overlay");
+    const buttonsContainer = document.querySelector(".buttons-container"); // The container with fade-in-ui
+    const allButtons = document.querySelectorAll(".game-button");
+
+    function startIntro() {
+        const storedName = localStorage.getItem("playerName");
+
+        if (storedName) {
+            currentMessageIndex = 9;
+            speechBubbleMessages[9] = `Hi again, ${storedName}! Let's play!`;
+        }
+
+        updateSpeechBubbleText();
+
+        // Keep overlay visible but disable clicks initially
+        overlay.classList.remove("hidden");
+        overlay.classList.add("active");
+        overlay.style.pointerEvents = "none";
+
+
+        speechBubble.classList.add("hidden");
+
+        // Delay appearance of speech bubble by 2 seconds
+        setTimeout(() => {
+            speechBubble.classList.remove("hidden");
+            overlay.style.pointerEvents = "all";
+            updateSpeechBubbleText();
+        }, 2000);
+    }
+
+    // Detect iOS
     if (isIOS()) {
         console.log("This is an iOS device.");
+
         // Remove fade-in so it doesn't start automatically
         gameContainer.classList.remove("fade-in-game-container");
-        iosOverlay.style.display = "flex"; // Show the iOS overlay
+        allButtons.forEach((btn) => btn.classList.add("hidden-on-ios"));
+        buttonsContainer.classList.remove("fade-in-ui");
 
-        // Tap/Click event to enable fade-in - * read somewhere that audio responds better to a touch event than a click event - need to test this when implementing audio *
+        // Hide game container visually until iOS overlay is dismissed
+        gameContainer.style.visibility = "hidden";
+
+        // Show iOS overlay
+        iosOverlay.style.display = "flex";
+
+        // Tap to continue - (may need to change click to touchstart for audio iOS devices)
         iosOverlay.addEventListener("click", () => {
             iosOverlay.style.display = "none";
-            gameContainer.classList.add("fade-in-game-container"); // Re-add fade-in
+            gameContainer.style.visibility = "visible"; // Show the game container
+            // Restart css animations. Credit: https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/ 
+            // void gameContainer.offsetWidth; // force reflow if needed - test the fade-ins and animations on ios device on multi browsers
+            gameContainer.classList.add("fade-in-game-container");
+            // Show the buttons
+            buttonsContainer.classList.add("fade-in-ui");
+            allButtons.forEach((btn) => btn.classList.remove("hidden-on-ios"));
+            startIntro(); // Resume the intro sequence
         });
     } else {
         console.log("This is not an iOS device!");
+        startIntro();
     }
 
-    const speechBubble = document.querySelector(".speech-bubble");
-    const overlay = document.querySelector(".overlay");
+    // event listeners inside domContentLoaded to ensure they exist in the DOM - don't remove them from here!
 
-    const storedName = localStorage.getItem("playerName");
-    if (storedName) {
-        // Skip directly to final message
-        currentMessageIndex = 9;
-        speechBubbleMessages[9] = `Hi again, ${storedName}! Let's play!`;
-    }
-
-    updateSpeechBubbleText();
-
-    // Keep overlay visible but disable clicks initially
-    overlay.classList.remove("hidden");
-    overlay.classList.add("active");
-    overlay.style.pointerEvents = "none";
-
-    // Keep speech bubble hidden initially
-    speechBubble.classList.add("hidden");
-
-    // Delay appearance of speech bubble by 2 seconds
-    setTimeout(() => {
-        // Show the speech bubble
-        speechBubble.classList.remove("hidden");
-        // Enable overlay clicks
-        overlay.style.pointerEvents = "all";
-        // Initialize the first message
-        updateSpeechBubbleText();
-    }, 2000);
-    
-
-    // Add click listener directly to the speech bubble
     speechBubble.addEventListener("click", function (event) {
-        event.stopPropagation(); // Prevent click from reaching the overlay
+        event.stopPropagation();
         progressDialogue();
     });
 
     overlay.addEventListener("click", function (event) {
-        // Ignore clicks on modal buttons or the modal itself
         if (
             event.target.closest(".modal") ||
             event.target.closest(".modal-button")
@@ -392,7 +407,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        const speechBubble = document.querySelector(".speech-bubble");
         const gameModal = document.querySelector(".modal-container");
 
         if (!speechBubble.classList.contains("hidden")) {
@@ -402,17 +416,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    /* Add spacebar key listener to progress the speech bubble (accessibility). Reference:
-          https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event
-      */
     document.addEventListener("keydown", function (event) {
         if (event.key === " " && !speechBubble.classList.contains("hidden")) {
             progressDialogue();
         }
     });
 
-    // Event listeners to the crystal containers for click and touch events
-    // Reference: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
     document.querySelectorAll(".crystal-container").forEach((container) => {
         container.addEventListener("click", function (event) {
             if (!isPlayerTurn) {
@@ -423,7 +432,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         container.addEventListener("touchstart", function (event) {
-            event.preventDefault(); // Prevent default touch behavior
+            event.preventDefault();
 
             if (!isPlayerTurn) {
                 return;
