@@ -48,6 +48,12 @@ let currentMessageIndex = 0; // Track the current message
 // Global variable for the overlay so it can be accessed in all modal functions
 const overlay = document.querySelector(".overlay");
 
+
+// ios detection https://www.tutorialspoint.com/detect-whether-a-device-is-ios-or-not-using-javascript#:~:text=This%20method%20involves%20examining%20the,%22%2C%20or%20%22iPod%22.
+function isIOS() {
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+  }
+
 // ---------------------------------------------------------------------------------- //
 // -------------------------------- MODAL FUNCTIONS --------------------------------- //
 // ---------------------------------------------------------------------------------- //
@@ -321,6 +327,25 @@ function progressDialogue() {
 
 // Event listener for DOMContentLoaded to ensure the script runs after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
+    const gameContainer = document.querySelector(".game-container");
+    const iosOverlay = document.querySelector(".ios-start-overlay");
+    
+    // Detect iOS - some code copied from the tutorialspoint link above
+    if (isIOS()) {
+        console.log("This is an iOS device.");
+        // Remove fade-in so it doesn't start automatically
+        gameContainer.classList.remove("fade-in-game-container");
+        iosOverlay.style.display = "flex"; // Show the iOS overlay
+
+        // Tap/Click event to enable fade-in - * read somewhere that audio responds better to a touch event than a click event - need to test this when implementing audio *
+        iosOverlay.addEventListener("click", () => {
+            iosOverlay.style.display = "none";
+            gameContainer.classList.add("fade-in-game-container"); // Re-add fade-in
+        });
+    } else {
+        console.log("This is not an iOS device!");
+    }
+
     const speechBubble = document.querySelector(".speech-bubble");
     const overlay = document.querySelector(".overlay");
 
@@ -350,6 +375,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Initialize the first message
         updateSpeechBubbleText();
     }, 2000);
+    
 
     // Add click listener directly to the speech bubble
     speechBubble.addEventListener("click", function (event) {
