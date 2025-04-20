@@ -1,10 +1,11 @@
 /* 
-1. Global Variables
+1. Global Variables 
 2. Modal Functions
 3. Speech Bubble Modal Functions
 4. Event Listeners
 5. Game Functions
 6. Utility Functions
+7. Audio Functions
 */
 
 // --------------------------------------------------------------------------------- //
@@ -47,12 +48,45 @@ let currentMessageIndex = 0; // Track the current message
 
 // Global variable for the overlay so it can be accessed in all modal functions
 const overlay = document.querySelector(".overlay");
-
+// Global variable for the audio context to manage audio playback
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
 // ios detection https://www.tutorialspoint.com/detect-whether-a-device-is-ios-or-not-using-javascript#:~:text=This%20method%20involves%20examining%20the,%22%2C%20or%20%22iPod%22.
 function isIOS() {
     return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
   }
+
+// Map crystal colors to their audio file paths
+const crystalSounds = {
+    blue: "assets/audio/blue-crystal-c-placeholder.mp3",
+    green: "assets/audio/green-crystal-d-placeholder.mp3",
+    pink: "assets/audio/pink-crystal-e-placeholder.mp3",
+    yellow: "assets/audio/yellow-crystal-f-placeholder.mp3",
+    orange: "assets/audio/orange-crystal-g-placeholder.mp3",
+};
+
+const celebrationSound = "assets/audio/c-major-celebration-placeholder.mp3";
+
+// Store the decoded audio buffers
+const audioBuffers = {};
+
+// Load all audio files
+async function loadAllAudio() {
+    for (const [color, filePath] of Object.entries(crystalSounds)) {
+        try {
+            audioBuffers[color] = await loadAudioFile(filePath);
+            console.log(`Loaded audio for ${color}: ${filePath}`);
+        } catch (error) {
+            console.error(`Failed to load audio for ${color}: ${filePath}`, error);
+        }
+    }
+    try {
+        audioBuffers.celebration = await loadAudioFile(celebrationSound);
+        console.log("Loaded celebration sound:", celebrationSound);
+    } catch (error) {
+        console.error("Failed to load celebration sound:", celebrationSound, error);
+    }
+}
 
 // ---------------------------------------------------------------------------------- //
 // -------------------------------- MODAL FUNCTIONS --------------------------------- //
@@ -333,8 +367,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const overlay = document.querySelector(".overlay");
     const buttonsContainer = document.querySelector(".buttons-container"); // The container with fade-in-ui
     const allButtons = document.querySelectorAll(".game-button");
-
+    
     function startIntro() {
+        loadAllAudio(); // Load all audio files
         const storedName = localStorage.getItem("playerName");
 
         if (storedName) {
@@ -706,6 +741,13 @@ function playSequence(sequence) {
                     crystal.querySelector(".glow").classList.add("active");
                     crystal.querySelector(".light-crystal").classList.add("active");
 
+                    // Play the corresponding crystal sound
+                    if (audioBuffers[color]) {
+                        playSound(audioBuffers[color]);
+                    } else {
+                        console.error(`No audio buffer found for crystal: ${color}`);
+                    }
+
                     // Deactivate glow after a short delay
                     crystalTimeouts[color] = setTimeout(() => {
                         crystal.querySelector(".glow").classList.remove("active");
@@ -945,6 +987,15 @@ const activateGlow = (container) => {
     container.querySelector(".glow").classList.add("active");
     container.querySelector(".light-crystal").classList.add("active");
 
+    // Play the corresponding crystal sound
+    const crystalColor = container.dataset.color;
+    console.log("Activating glow for crystal:", crystalColor);
+    if (audioBuffers[crystalColor]) {
+        playSound(audioBuffers[crystalColor]);
+    } else {
+        console.error("No audio buffer found for crystal:", crystalColor);
+    }
+
     // Remove active classes to return to the default state
     setTimeout(() => {
         container.querySelector(".glow").classList.remove("active");
@@ -1007,3 +1058,36 @@ window.addEventListener("load", setBodyHeight);
 
 // Update the height when the window is resized (if the the address bar hides)
 window.addEventListener("resize", setBodyHeight);
+
+//------------------------------------------------------------ //
+// ----------------------- AUDIO FUNCTIONS ------------------- //
+//------------------------------------------------------------ //
+
+// fetch api audio files to load and decode them into AudioBuffer objects
+async function loadAudioFile(url) {
+    console.log("Fetching audio file:", url);
+    const response = await fetch(url);
+    if (!response.ok) {
+        console.error(`Failed to fetch audio file: ${url}`);
+        return null;
+    }
+    const arrayBuffer = await response.arrayBuffer();
+    try {
+        return await audioContext.decodeAudioData(arrayBuffer);
+    } catch (error) {
+        console.error(`Failed to decode audio file: ${url}`, error);
+        return null;
+    }
+}
+
+function playSound(buffer) {
+    if (!buffer) {
+        console.error("No audio buffer provided to playSound.");
+        return;
+    }
+    const source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioContext.destination);
+    source.start(0);
+    console.log("Playing sound:", buffer);
+}
