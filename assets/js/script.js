@@ -71,6 +71,9 @@ const caveBackgroundSound = "assets/audio/cave-background-placeholder.mp3";
 
 const caveAmbienceSound = "assets/audio/ambience-placeholder.mp3";
 
+let backgroundGainNode; // Gain node for background sound
+let ambientGainNode; // Gain node for ambient sound
+
 // Store the decoded audio buffers
 const audioBuffers = {};
 
@@ -749,12 +752,14 @@ function playSequence(sequence) {
     activateOverlay(); // Activate overlay to block crystal interactions
     clearAllTimeouts(); // Clear any lingering global timeouts
     clearAllGlows(); // Clear any lingering glow effects
+    
     let crystals = document.querySelectorAll(".crystal-container");
 
     // Add a delay before starting the sequence
     setTimeout(() => {
         clearAllGlows(); // Clear any lingering glow effects
         console.log("Cleared all glows before starting the sequence.");
+        
     }, 300); // Delay by 300ms
 
     setTimeout(() => {
@@ -766,6 +771,7 @@ function playSequence(sequence) {
                     // Activate glow
                     crystal.querySelector(".glow").classList.add("active");
                     crystal.querySelector(".light-crystal").classList.add("active");
+                    lowerAmbientVolume(); // Lower the ambient soundscape volume
 
                     // Play the corresponding crystal sound
                     if (audioBuffers[color]) {
@@ -805,6 +811,8 @@ function waitForPlayerInput() {
 
     let crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
     console.log("Crystals available for player input:", crystals);
+
+    
 
     /** Remove any existing event listeners to prevent duplication
      * This ensures that no duplicate event listeners are attached to the crystals.
@@ -861,6 +869,7 @@ function handleCrystalClick(event) {
  * - GeeksforGeeks: https://www.geeksforgeeks.org/how-to-compare-two-arrays-in-javascript/
  */
 function checkPlayerInput() {
+    restoreAmbientVolume(); // Restore ambient soundscape volume
     // Check if both arrays are the same length before comparing
     console.log(
         `Player's input length: ${playersInput.length}, Current sequence length: ${currentSequence.length}`
@@ -1128,10 +1137,13 @@ function playBackgroundSound() {
         return;
     }
     const source = audioContext.createBufferSource();
+    backgroundGainNode = audioContext.createGain(); // Create a GainNode for volume control
+
     source.buffer = audioBuffers.background;
     source.loop = true; // Enable looping
-    source.connect(audioContext.destination);
+    source.connect(backgroundGainNode).connect(audioContext.destination); // Connect source to GainNode, then to destination
     source.start(0);
+    backgroundGainNode.gain.value = 0.1; // Set initial volume to 0.3
     console.log("Playing background sound.");
 }
 // ambient soundscape
@@ -1140,10 +1152,28 @@ function playAmbientSound() {
         console.error("No audio buffer found for ambient sound.");
         return;
     }
+
     const source = audioContext.createBufferSource();
+    ambientGainNode = audioContext.createGain(); // Create a GainNode for volume control
+
     source.buffer = audioBuffers.ambient;
     source.loop = true; // Enable looping
-    source.connect(audioContext.destination);
+    source.connect(ambientGainNode).connect(audioContext.destination); // Connect source to GainNode, then to destination
     source.start(0);
-    console.log("Playing ambient sound.");
+
+    ambientGainNode.gain.value = 0.3; // Set initial volume to 0.3
+    console.log("Playing ambient sound with volume control.");
+}
+
+function lowerAmbientVolume() {
+    if (ambientGainNode) {
+        ambientGainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 2); // Lower volume to 0.1 over 2 seconds
+        console.log("Lowering ambient volume.");
+    }
+}
+function restoreAmbientVolume() {
+    if (ambientGainNode) {
+        ambientGainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 2); // Restore volume to 0.3 over 2 seconds
+        console.log("Restoring ambient volume.");
+    }
 }
