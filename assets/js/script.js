@@ -69,6 +69,8 @@ const celebrationSound = "assets/audio/c-major-celebration-placeholder.mp3";
 
 const caveBackgroundSound = "assets/audio/cave-background-placeholder.mp3";
 
+const caveAmbienceSound = "assets/audio/ambience-placeholder.mp3";
+
 // Store the decoded audio buffers
 const audioBuffers = {};
 
@@ -93,6 +95,12 @@ async function loadAllAudio() {
         console.log("Loaded background sound:", caveBackgroundSound);
     } catch (error) {
         console.error("Failed to load background sound:", caveBackgroundSound, error);
+    }
+    try {
+        audioBuffers.ambient = await loadAudioFile(caveAmbienceSound);
+        console.log("Loaded ambient sound:", caveAmbienceSound);
+    } catch (error) {
+        console.error("Failed to load ambient sound:", caveAmbienceSound, error);
     }
 }
 
@@ -378,7 +386,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     function startIntro() {
         loadAllAudio().then(() => {
-            playBackgroundSound(); // Start the background sound after loading audio
+            playBackgroundSound(); // Start the background cave sounds after loading audio
+            playAmbientSound(); // Start the ambient soundscape after loading audio
             const storedName = localStorage.getItem("playerName");
 
         if (storedName) {
@@ -1100,7 +1109,7 @@ async function loadAudioFile(url) {
         return null;
     }
 }
-
+// Load all audio files and store them in the audioBuffers object
 function playSound(buffer) {
     if (!buffer) {
         console.error("No audio buffer provided to playSound.");
@@ -1112,7 +1121,7 @@ function playSound(buffer) {
     source.start(0);
     console.log("Playing sound:", buffer);
 }
-
+// cave atmosphere sounds
 function playBackgroundSound() {
     if (!audioBuffers.background) {
         console.error("No audio buffer found for background sound.");
@@ -1124,4 +1133,17 @@ function playBackgroundSound() {
     source.connect(audioContext.destination);
     source.start(0);
     console.log("Playing background sound.");
+}
+// ambient soundscape
+function playAmbientSound() {
+    if (!audioBuffers.ambient) {
+        console.error("No audio buffer found for ambient sound.");
+        return;
+    }
+    const source = audioContext.createBufferSource();
+    source.buffer = audioBuffers.ambient;
+    source.loop = true; // Enable looping
+    source.connect(audioContext.destination);
+    source.start(0);
+    console.log("Playing ambient sound.");
 }
