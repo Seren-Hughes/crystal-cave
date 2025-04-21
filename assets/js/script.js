@@ -872,6 +872,10 @@ function celebrateCorrectAnswer() {
         });
         activateOverlay(); // Activate overlay for the celebration to block crystal interactions
         console.log("Glow activated for celebration.");
+        // Play the celebration sound
+        if (audioBuffers.celebration) {
+            playSound(audioBuffers.celebration);
+        }
     }, 300); // 300ms delay before starting the celebration
 
     // Play celebratory music (placeholder for actual implementation)
