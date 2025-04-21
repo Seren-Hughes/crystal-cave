@@ -420,7 +420,14 @@ document.addEventListener("DOMContentLoaded", function () {
             // Show the buttons
             buttonsContainer.classList.add("fade-in-ui");
             allButtons.forEach((btn) => btn.classList.remove("hidden-on-ios"));
-            startIntro(); // Resume the intro sequence
+            // Resume audio context if suspended (iOS specific behavior)
+            if (audioContext.state === "suspended") {
+                audioContext.resume().then(() => {
+                    console.log("AudioContext resumed on iOS.");
+                });
+            }
+            iosOverlay.style.display = "none";
+            startIntro();
         });
     } else {
         console.log("This is not an iOS device!");
