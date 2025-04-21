@@ -19,6 +19,7 @@ let isPlayerTurn = false; // Indicates if it's the player's turn
 let isWaitingForInput = false; // Prevents multiple calls to waitForPlayerInput
 let freestyleMode = false; // Indicates if the game is in freestyle mode
 let skipTriggered = false; // Indicates if the skip button was triggered
+let isMuted = false; // Indicates if the sound is muted
 
 // Arrays (to store sequences and player's input)
 let currentSequence = []; // Store the sequence globally
@@ -618,6 +619,22 @@ document.querySelector(".game-button.restart").addEventListener("click", () => {
     console.log("Game restarted and overlay activated.");
 });
 
+// sound button event listener to mute/unmute the game sounds
+document.querySelector(".game-button.sound").addEventListener("click", () => {
+    toggleMute();
+
+    // Update the button's appearance and tooltip text based on the mute state
+    const soundButton = document.querySelector(".game-button.sound");
+    const tooltipText = soundButton.querySelector(".tooltiptext");
+    if (isMuted) {
+        soundButton.classList.add("muted"); // Add a muted class for styling
+        tooltipText.textContent = "Unmute Sound"; // Update tooltip text
+    } else {
+        soundButton.classList.remove("muted"); // Remove the muted class
+        tooltipText.textContent = "Mute Sound"; // Update tooltip text
+    }
+});
+
 // Home button event listener to redirect to the home page
 document.querySelector(".game-button.home").addEventListener("click", () => {
     location.href = "index.html"; // Redirect to the home page
@@ -1175,5 +1192,21 @@ function restoreAmbientVolume() {
     if (ambientGainNode) {
         ambientGainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 2); // Restore volume to 0.3 over 2 seconds
         console.log("Restoring ambient volume.");
+    }
+}
+
+function toggleMute() {
+    isMuted = !isMuted; // Toggle the mute state
+
+    if (isMuted) {
+        // Mute all sounds by setting gain to 0
+        if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        if (ambientGainNode) ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        console.log("Sound muted.");
+    } else {
+        // Restore the original gain values
+        if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Adjust to your desired volume
+        if (ambientGainNode) ambientGainNode.gain.setValueAtTime(0.3, audioContext.currentTime); // Adjust to your desired volume
+        console.log("Sound unmuted.");
     }
 }
