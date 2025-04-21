@@ -67,6 +67,8 @@ const crystalSounds = {
 
 const celebrationSound = "assets/audio/c-major-celebration-placeholder.mp3";
 
+const caveBackgroundSound = "assets/audio/cave-background-placeholder.mp3";
+
 // Store the decoded audio buffers
 const audioBuffers = {};
 
@@ -85,6 +87,12 @@ async function loadAllAudio() {
         console.log("Loaded celebration sound:", celebrationSound);
     } catch (error) {
         console.error("Failed to load celebration sound:", celebrationSound, error);
+    }
+    try {
+        audioBuffers.background = await loadAudioFile(caveBackgroundSound);
+        console.log("Loaded background sound:", caveBackgroundSound);
+    } catch (error) {
+        console.error("Failed to load background sound:", caveBackgroundSound, error);
     }
 }
 
@@ -369,8 +377,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const allButtons = document.querySelectorAll(".game-button");
     
     function startIntro() {
-        loadAllAudio(); // Load all audio files
-        const storedName = localStorage.getItem("playerName");
+        loadAllAudio().then(() => {
+            playBackgroundSound(); // Start the background sound after loading audio
+            const storedName = localStorage.getItem("playerName");
 
         if (storedName) {
             currentMessageIndex = 9;
@@ -393,6 +402,7 @@ document.addEventListener("DOMContentLoaded", function () {
             overlay.style.pointerEvents = "all";
             updateSpeechBubbleText();
         }, 2000);
+    });
     }
 
     // Detect iOS
@@ -1101,4 +1111,17 @@ function playSound(buffer) {
     source.connect(audioContext.destination);
     source.start(0);
     console.log("Playing sound:", buffer);
+}
+
+function playBackgroundSound() {
+    if (!audioBuffers.background) {
+        console.error("No audio buffer found for background sound.");
+        return;
+    }
+    const source = audioContext.createBufferSource();
+    source.buffer = audioBuffers.background;
+    source.loop = true; // Enable looping
+    source.connect(audioContext.destination);
+    source.start(0);
+    console.log("Playing background sound.");
 }
