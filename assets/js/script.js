@@ -66,7 +66,7 @@ const celebrationSound = "assets/audio/c-major-celebration-placeholder.mp3";
 
 const caveBackgroundSound = "assets/audio/cave-background-placeholder.mp3";
 
-const caveAmbienceSound = "assets/audio/ambience-placeholder.mp3";
+const caveAmbienceSound = "assets/audio/ambience-placeholder-off.mp3";
 
 let effectsGainNode; // Gain node for crystal and celebration sounds
 let backgroundGainNode; // Gain node for background sound
