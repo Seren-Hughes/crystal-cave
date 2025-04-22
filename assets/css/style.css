@@ -612,6 +612,67 @@ button {
     background-color: var(--primary-background-color); /* Gunmetal */
 }
 
+/*  Settings modal styles*/
+.settings-section {
+    margin-bottom: 20px;
+}
+
+.setting {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.setting label {
+    flex: 1; /* Take up equal space for alignment */
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.mute-toggle {
+    background-color: var(--secondary-background-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+button.delete-data-button {
+    background-color: #924411;
+    font-family: var(--primary-font);
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    pointer-events: auto; /* Enable clicks */
+    transition: background-color 0.3s ease;
+}
+
+button.delete-data-button:hover {
+    background-color: #7a3b0d; /* Darker shade on hover */
+}
+
+.volume-slider,
+.brightness-slider {
+    width: 150px;
+    height: 10px;
+    background: #ccc;
+    border: 1px solid var(--primary-background-color);
+    appearance: none;
+}
+
+.volume-slider::-webkit-slider-thumb,
+.brightness-slider::-webkit-slider-thumb {
+    width: 15px;
+    height: 15px;
+    background: var(--secondary-background-color);
+    border: 1px solid var(--primary-background-color);
+    cursor: pointer;
+    appearance: none;
+}
+
 /* -----------------------------------------------------------------------------------------*/
 /* ---------------------- Invisible overlay for toggling click events ----------------------*/
 /* -----------------------------------------------------------------------------------------*/
@@ -1018,6 +1079,34 @@ button {
     .speech-bubble .instructions {
         font-size: 0.8rem; /* Smaller instructions */
         margin-top: 0.1rem; /* Adjust spacing above instructions */
+    }
+
+    /* settings modal content*/ 
+    .setting {
+        display: flex;
+        flex-direction: column; /* Stack label and controls vertically */
+        align-items: flex-start; /* Align items to the left */
+        gap: 5px; /* Add spacing between the label and controls */
+    }
+
+    .setting label {
+        width: 100%; /* Ensure the label spans the full width */
+    }
+
+    .controls {
+        display: flex; /* Keep mute toggle and slider on the same row */
+        align-items: center; /* Vertically align the button and slider */
+        gap: 10px; /* Add spacing between the button and slider */
+        width: 100%; /* Ensure the controls span the full width */
+    }
+
+    .mute-toggle {
+        flex-shrink: 0; /* Prevent the button from shrinking */
+    }
+
+    .volume-slider,
+    .brightness-slider {
+        flex: 1; /* Allow the slider to take up remaining space */
     }
 }
        

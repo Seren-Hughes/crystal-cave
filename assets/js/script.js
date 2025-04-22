@@ -568,22 +568,54 @@ document
     });
 
 // Event listener for the "Settings" button to open the settings modal and update the innerHTML content
-document
-    .querySelector(".game-button.settings")
-    .addEventListener("click", () => {
-        openModal(
-            "gameModal",
-            "⚙️ Settings",
-            `<p>Audio settings</p>
-         <p>Crystal volume control</p>
-         <p>Music volume control</p>
-         <p>Sound effects volume control</p>
-         <p>Brightness control</p>
-         <p>Delete saved game data</p>`,
-            [{ text: "Close", action: () => closeModal("gameModal") }],
-            false // Pass false to disable the overlay
-        );
-    });
+document.querySelector(".game-button.settings").addEventListener("click", () => {
+    openModal(
+        "gameModal",
+        "⚙️ Settings",
+        `
+        <div class="settings-section">
+            <h3>Audio Settings</h3>
+            <div class="setting">
+                <label>Ambient Sounds</label>
+                <button class="mute-toggle" data-sound="ambient">M</button>
+                <input type="range" class="volume-slider" data-sound="ambient" min="0" max="1" step="0.01" value="0.7">
+            </div>
+            <div class="setting">
+                <label>Background Cave FX</label>
+                <button class="mute-toggle" data-sound="background">M</button>
+                <input type="range" class="volume-slider" data-sound="background" min="0" max="1" step="0.01" value="0.7">
+            </div>
+            <div class="setting">
+                <label>Crystal FX</label>
+                <button class="mute-toggle" data-sound="effects">M</button>
+                <input type="range" class="volume-slider" data-sound="effects" min="0" max="1" step="0.01" value="0.7">
+            </div>
+            <div class="setting">
+                <label>Celebration FX</label>
+                <button class="mute-toggle" data-sound="celebration">M</button>
+                <input type="range" class="volume-slider" data-sound="celebration" min="0" max="1" step="0.01" value="0.7">
+            </div>
+        </div>
+        <div class="settings-section">
+            <h3>Display Settings</h3>
+            <div class="setting">
+                <label>Brightness</label>
+                <input type="range" class="brightness-slider" min="0.5" max="1.5" step="0.01" value="1">
+            </div>
+        </div>
+        <div class="settings-section">
+            <h3>Saved Data</h3>
+            <div class="setting id="delete-data">
+              <p>Delete saved data</p>
+              <button class="delete-data-button">Delete Saved Data</button>
+            </div>
+        </div>
+        `,
+        [{ text: "Close", action: () => closeModal("gameModal") }],
+        false // Pass false to disable the overlay
+    );
+
+});
 
 // Restart button event listener to reset the game
 document.querySelector(".game-button.restart").addEventListener("click", () => {
