@@ -68,6 +68,7 @@ const caveBackgroundSound = "assets/audio/cave-background-placeholder.mp3";
 
 const caveAmbienceSound = "assets/audio/ambience-placeholder.mp3";
 
+let effectsGainNode; // Gain node for crystal and celebration sounds
 let backgroundGainNode; // Gain node for background sound
 let ambientGainNode; // Gain node for ambient sound
 
@@ -777,7 +778,10 @@ function playSequence(sequence) {
                     // Activate glow
                     crystal.querySelector(".glow").classList.add("active");
                     crystal.querySelector(".light-crystal").classList.add("active");
-                    lowerAmbientVolume(); // Lower the ambient soundscape volume
+                    
+                    if (!isMuted) {
+                        lowerAmbientVolume();
+                    }
 
                     // Play the corresponding crystal sound
                     if (audioBuffers[color]) {
@@ -1126,13 +1130,23 @@ async function loadAudioFile(url) {
 }
 // Load all audio files and store them in the audioBuffers object
 function playSound(buffer) {
+    if (isMuted) {
+        console.log("Sound is muted. Skipping playback.");
+        return; // Do nothing if the game is muted
+    }
     if (!buffer) {
         console.error("No audio buffer provided to playSound.");
         return;
     }
+    if (!effectsGainNode) {
+        effectsGainNode = audioContext.createGain(); // Create the GainNode if it doesn't exist
+        effectsGainNode.gain.value = 1; // Set initial volume to 1 (full volume)
+        effectsGainNode.connect(audioContext.destination); // Connect to the destination
+    }
+
     const source = audioContext.createBufferSource();
     source.buffer = buffer;
-    source.connect(audioContext.destination);
+    source.connect(effectsGainNode); // Connect to the effects GainNode
     source.start(0);
     console.log("Playing sound:", buffer);
 }
@@ -1172,12 +1186,31 @@ function playAmbientSound() {
 }
 
 function lowerAmbientVolume() {
+    if (isMuted) {
+        console.log("Ambient volume adjustment skipped because sound is muted.");
+        if (ambientGainNode) {
+            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime); // Cancel any scheduled volume changes
+            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Ensure gain is 0
+        }
+        return; // Do nothing if the game is muted
+    }
+
     if (ambientGainNode) {
         ambientGainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 2); // Lower volume to 0.1 over 2 seconds
         console.log("Lowering ambient volume.");
     }
 }
+
 function restoreAmbientVolume() {
+    if (isMuted) {
+        console.log("Ambient volume adjustment skipped because sound is muted.");
+        if (ambientGainNode) {
+            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime); // Cancel any scheduled volume changes
+            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Ensure gain is 0
+        }
+        return; // Do nothing if the game is muted
+    }
+
     if (ambientGainNode) {
         ambientGainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 2); // Restore volume to 0.3 over 2 seconds
         console.log("Restoring ambient volume.");
@@ -1190,12 +1223,17 @@ function toggleMute() {
     if (isMuted) {
         // Mute all sounds by setting gain to 0
         if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(0, audioContext.currentTime);
-        if (ambientGainNode) ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        if (ambientGainNode) {
+            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime); // Cancel any scheduled volume changes
+            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Immediately set gain to 0
+        }
+        if (effectsGainNode) effectsGainNode.gain.setValueAtTime(0, audioContext.currentTime);
         console.log("Sound muted.");
     } else {
         // Restore the original gain values
         if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Adjust to your desired volume
         if (ambientGainNode) ambientGainNode.gain.setValueAtTime(0.3, audioContext.currentTime); // Adjust to your desired volume
+        if (effectsGainNode) effectsGainNode.gain.setValueAtTime(1, audioContext.currentTime); // Restore full volume for effects
         console.log("Sound unmuted.");
     }
 }
