@@ -615,6 +615,10 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
         false // Pass false to disable the overlay
     );
 
+    // Event listener for the delete data button
+    document.querySelector(".delete-data-button").addEventListener("click", () => {
+        deleteSavedData();
+    });
 });
 
 // Restart button event listener to reset the game
@@ -1139,6 +1143,23 @@ window.addEventListener("load", setBodyHeight);
 
 // Update the height when the window is resized (if the the address bar hides)
 window.addEventListener("resize", setBodyHeight);
+
+
+function deleteSavedData() {
+    // Clear specific data from localStorage
+    localStorage.removeItem("playerName"); // Remove the player's name
+    console.log("Player name removed from localStorage.");
+
+    // Clear all localStorage data
+    localStorage.clear(); 
+
+    // Provide feedback to the user
+    alert("Saved data has been deleted!");
+
+    // Reset any game state or UI elements affected by the deleted data
+    speechBubbleMessages[6] = "Nice to meet you!"; // Reset the default message
+    currentMessageIndex = 0; // Reset the message index
+}
 
 //------------------------------------------------------------ //
 // ----------------------- AUDIO FUNCTIONS ------------------- //
