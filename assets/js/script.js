@@ -109,14 +109,27 @@ async function loadAllAudio() {
 // -------------------------------- MODAL FUNCTIONS --------------------------------- //
 // ---------------------------------------------------------------------------------- //
 
-/** Modal & overlay functionality adapted and inspired by the following resources:
- * - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/Element/classList
- * - CSS Tricks: https://css-tricks.com/considerations-styling-modal/
- *  (particularly the section on dealing with overlays: https://css-tricks.com/considerations-styling-modal/#aa-dealing-with-the-overlay)
- * - FreeCodeCamp: https://www.freecodecamp.org/news/how-to-build-a-modal-with-javascript/
+/**
+ * Opens a modal (either "speechBubble" or "gameModal") and dynamically updates its content.
+ * 
+ * This function handles:
+ * - Dynamically updating the modal's title, text, and buttons for "gameModal".
+ * - Adding event listeners to modal buttons to execute their respective actions.
+ * - Showing the modal and optionally activating or deactivating the overlay.
+ * 
+ * References:
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [CSS Tricks: Considerations Styling Modal](https://css-tricks.com/considerations-styling-modal/)
+ * - [FreeCodeCamp: How to Build a Modal with JavaScript](https://www.freecodecamp.org/news/how-to-build-a-modal-with-javascript/)
+ * 
+ * @param {string} type - The type of modal to open ("speechBubble" or "gameModal").
+ * @param {string} [title=""] - The title of the modal (used for "gameModal").
+ * @param {string} [text=""] - The text content of the modal (used for "gameModal").
+ * @param {Array<Object>} [buttons=[]] - An array of button objects for "gameModal". Each object should have:
+ *   - {string} text - The button's label.
+ *   - {Function} action - The function to execute when the button is clicked.
+ * @param {boolean} [useOverlay=true] - Whether to activate the overlay when the modal is opened.
  */
-
-// Function to open modals (speechBubble or gameModal)
 function openModal(
     type,
     title = "",
@@ -163,7 +176,7 @@ function openModal(
 /**
  * Closes a modal and optionally executes a callback after closing.
  * 
- * This function handles modal closing behavior, including:
+ * This function handles modal closing behaviour, including:
  * - Hiding the modal.
  * - Deactivating the overlay unless another modal is still open.
  * - Executing a callback function after the modal is closed.
