@@ -52,10 +52,6 @@ const overlay = document.querySelector(".overlay");
 // Global variable for the audio context to manage audio playback
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-// ios detection https://www.tutorialspoint.com/detect-whether-a-device-is-ios-or-not-using-javascript#:~:text=This%20method%20involves%20examining%20the,%22%2C%20or%20%22iPod%22.
-function isIOS() {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-  }
 
 // Map crystal colors to their audio file paths
 const crystalSounds = {
@@ -382,7 +378,7 @@ function progressDialogue() {
 // Event listener for DOMContentLoaded to ensure the script runs after the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", function () {
     const gameContainer = document.querySelector(".game-container");
-    const iosOverlay = document.querySelector(".ios-start-overlay");
+    const audioUserEventOverlay = document.querySelector(".audio-user-event-overlay");
     const speechBubble = document.querySelector(".speech-bubble");
     const overlay = document.querySelector(".overlay");
     const buttonsContainer = document.querySelector(".buttons-container"); // The container with fade-in-ui
@@ -417,45 +413,38 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 2000);
     });
     }
-
-    // Detect iOS
-    if (isIOS()) {
-        console.log("This is an iOS device.");
-
         // Remove fade-in so it doesn't start automatically
         gameContainer.classList.remove("fade-in-game-container");
-        allButtons.forEach((btn) => btn.classList.add("hidden-on-ios"));
+        allButtons.forEach((btn) => btn.classList.add("hidden-on-audio-overlay"));
         buttonsContainer.classList.remove("fade-in-ui");
 
-        // Hide game container visually until iOS overlay is dismissed
+        // Hide game container visually until audio user event overlay is dismissed
         gameContainer.style.visibility = "hidden";
 
-        // Show iOS overlay
-        iosOverlay.style.display = "flex";
+        // Show audio user event overlay
+        audioUserEventOverlay.style.display = "flex";
 
-        // Tap to continue - (may need to change click to touchstart for audio iOS devices)
-        iosOverlay.addEventListener("click", () => {
-            iosOverlay.style.display = "none";
+        // Tap to continue - (may need to change click to touchstart for audio event on mobile devices)
+        audioUserEventOverlay.addEventListener("click", () => {
+            audioUserEventOverlay.style.display = "none";
             gameContainer.style.visibility = "visible"; // Show the game container
             // Restart css animations. Credit: https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/ 
-            // void gameContainer.offsetWidth; // force reflow if needed - test the fade-ins and animations on ios device on multi browsers
+            // void gameContainer.offsetWidth; // force reflow if needed - test the fade-ins and animations on ios device on multi browsers 
+            // ***commented out code don't forget to delete it later***
             gameContainer.classList.add("fade-in-game-container");
             // Show the buttons
             buttonsContainer.classList.add("fade-in-ui");
-            allButtons.forEach((btn) => btn.classList.remove("hidden-on-ios"));
-            // Resume audio context if suspended (iOS specific behavior)
+            allButtons.forEach((btn) => btn.classList.remove("hidden-on-audio-overlay"));
+            // Resume audio context if suspended 
             if (audioContext.state === "suspended") {
                 audioContext.resume().then(() => {
-                    console.log("AudioContext resumed on iOS.");
+                    console.log("AudioContext resumed");
                 });
             }
-            iosOverlay.style.display = "none";
+            audioUserEventOverlay.style.display = "none";
             startIntro();
         });
-    } else {
-        console.log("This is not an iOS device!");
-        startIntro();
-    }
+    
 
     // event listeners inside domContentLoaded to ensure they exist in the DOM - don't remove them from here!
 

@@ -140,12 +140,12 @@ button {
     pointer-events: none; /* Decorative, so no interaction */
 }
 
-/*-------------------------------------------------*/
-/*------------------iOS overlay--------------------*/
-/*-------------------------------------------------*/
+/*--------------------------------------------------------------*/
+/*------------------Audio user event overlay--------------------*/
+/*--------------------------------------------------------------*/
 
-/* ios overlay for audio permission listener event. must be hidden by default */
-.ios-start-overlay {
+/* overlay for audio permission listener event. must be hidden by default */
+.audio-user-event-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -161,12 +161,12 @@ button {
     align-items: center;
     z-index: 10000; /* Ensure it's on top of everything */
 }
-.ios-start-overlay p {
+.audio-user-event-overlay p {
     margin: 0; /* Remove default margin */
     padding: 0 20px; /* Add padding for better readability */
     line-height: 1.5; /* Improve readability */
 }
-.hidden-on-ios {
+.hidden-on-audio-overlay {
     display: none;
 }
 
