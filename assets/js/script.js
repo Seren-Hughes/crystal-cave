@@ -600,7 +600,7 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
             <h3>Display Settings</h3>
             <div class="setting">
                 <label>Brightness</label>
-                <input type="range" class="brightness-slider" min="0.5" max="1.5" step="0.01" value="1">
+                <input type="range" class="brightness-slider" min="0.9" max="1.6" step="0.01" value="1.3">
             </div>
         </div>
         <div class="settings-section">
@@ -618,6 +618,11 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
     // Event listener for the delete data button
     document.querySelector(".delete-data-button").addEventListener("click", () => {
         deleteSavedData();
+    });
+    // Event listener for the brightness slider to adjust brightness
+    document.querySelector(".brightness-slider").addEventListener("input", (event) => {
+        const brightnessValue = event.target.value; // Get the slider's current value
+        document.body.style.filter = `brightness(${brightnessValue})`; // Update the body's brightness
     });
 });
 
