@@ -251,6 +251,22 @@ function openNameModal() {
     openModal("gameModal", modalTitle, modalText, modalButtons, false);
 }
 
+/**
+ * Displays a modal asking the player if they want to play again.
+ * 
+ * This modal provides two options:
+ * - "Play Again": Closes the modal and starts the game using a callback.
+ * - "Maybe Later": Closes the modal and redirects the player to the home page.
+ * 
+ * The "Play Again" button executes a callback function that:
+ * - Closes the modal.
+ * - Starts the game by calling `startGame()` after the modal is closed.
+ * 
+ * References:
+ * - [TopCoder: Callback Method in JavaScript](https://www.topcoder.com/thrive/articles/callback-method-oop-null-and-string-in-javascript)
+ * - [FreeCodeCamp: How to Use Callback Functions in JavaScript](https://www.freecodecamp.org/news/how-to-use-callback-functions-in-javascript/#heading-basic-structure-of-a-callback-function)
+ * - [JavaScript.info: Callbacks](https://javascript.info/callbacks)
+ */
 function showPlayAgainModal() {
     console.log("showPlayAgainModal() called");
 
@@ -263,11 +279,6 @@ function showPlayAgainModal() {
                 text: "Play Again",
                 action: () => {
                     console.log("Play Again button action triggered");
-                    // Callback method to close the modal and start the game
-                    // The callback is executed after the modal is closed
-                    // Reference:  https://www.topcoder.com/thrive/articles/callback-method-oop-null-and-string-in-javascript
-                    // and https://www.freecodecamp.org/news/how-to-use-callback-functions-in-javascript/#heading-basic-structure-of-a-callback-function
-                    // Credit: https://javascript.info/callbacks
                     closeModal("gameModal", null, () => {
                         console.log("Callback: Starting game after closing modal...");
                         startGame(); // Start the game after the modal is closed
