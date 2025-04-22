@@ -160,13 +160,23 @@ function openModal(
     }
 }
 
-/** Event bubbling and propagation solution references:
- * Using event.stopPropagation() to prevent the click event from propagating (bubbling - still somewhat murky on this concept but it seems to be working)
- * to other elements. This solution was inspired by:
- * - Free Code Camp: https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/
- * - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
- * - Stack Overflow: https://stackoverflow.com/questions/5963669/whats-the-difference-between-event-stoppropagation-and-event-preventdefault
- * - Additional Resource: https://example.com/another-resource
+/**
+ * Closes a modal and optionally executes a callback after closing.
+ * 
+ * This function handles modal closing behavior, including:
+ * - Hiding the modal.
+ * - Deactivating the overlay unless another modal is still open.
+ * - Executing a callback function after the modal is closed.
+ * - Re-activating the overlay if the speech bubble modal is still visible.
+ * 
+ * Event bubbling and propagation solution references:
+ * - [FreeCodeCamp: Event Propagation](https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/)
+ * - [MDN Web Docs: Event.stopPropagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
+ * - [Stack Overflow: Difference Between stopPropagation and preventDefault](https://stackoverflow.com/questions/5963669/whats-the-difference-between-event-stoppropagation-and-event-preventdefault)
+ * 
+ * @param {string} [type="speechBubble"] - The type of modal to close (e.g., "speechBubble" or "gameModal").
+ * @param {Event|null} [event=null] - The event triggering the modal close, if applicable.
+ * @param {Function|null} [callback=null] - A callback function to execute after the modal is closed.
  */
 function closeModal(type = "speechBubble", event = null, callback = null) {
     const modal = document.querySelector(
