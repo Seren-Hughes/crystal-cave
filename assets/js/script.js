@@ -411,11 +411,30 @@ function updateSpeechBubbleText() {
     `;
 }
 
-// Function to handle speech bubble interaction
+/**
+ * Handles interaction with the speech bubble.
+ * 
+ * This function manages the progression of speech bubble messages and determines the next action:
+ * - If there are more messages in the `speechBubbleMessages` array, it updates the speech bubble with the next message.
+ * - If the last message has been displayed, it closes the speech bubble and starts the game.
+ * 
+ * Behaviour:
+ * - Increments the `currentMessageIndex` to track the next message.
+ * - Calls `updateSpeechBubbleText()` to update the speech bubble content.
+ * - Calls `closeModal("speechBubble")` and `startGame()` when the last message is reached.
+ * 
+ * Notes:
+ * - Uses `event.stopPropagation()` to prevent the interaction event from bubbling up to parent elements.
+ * 
+ * References:
+ * - [MDN Web Docs: Event.stopPropagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
+ * 
+ * @param {Event} event - The interaction event (e.g., click or touch) triggering the function.
+ * 
+ */
 function handleSpeechBubbleInteraction(event) {
     event.stopPropagation(); // Prevent event bubbling
 
-    const speechBubble = document.querySelector(".speech-bubble");
     currentMessageIndex++;
 
     if (currentMessageIndex < speechBubbleMessages.length) {
