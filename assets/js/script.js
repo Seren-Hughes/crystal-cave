@@ -365,7 +365,31 @@ function showPlayAgainModal() {
 // -------------------------- SPEECH BUBBLE MODAL FUNCTIONS ------------------------ //
 // --------------------------------------------------------------------------------- //
 
-// Function to update the speech bubble text
+/**
+ * Updates the speech bubble text and instructions based on the current message index.
+ * 
+ * This function dynamically updates the content of the speech bubble, including:
+ * - The current message from the `speechBubbleMessages` array.
+ * - Contextual instructions based on the device type (touch or non-touch) and the current message index.
+ * 
+ * Behaviour:
+ * - If the current message is the last one in the array, the instructions prompt the player to start the game.
+ * - Otherwise, the instructions prompt the player to continue to the next message.
+ * - Instructions are tailored for touch devices (e.g., "Tap to continue...") or non-touch devices (e.g., "Click or press spacebar to continue...").
+ * 
+ * Device Detection:
+ * - Uses `"ontouchstart" in window` to check for touch event support.
+ * - Uses `navigator.maxTouchPoints > 0` for more accurate detection of touch-enabled devices.
+ * - Combines both checks with the logical OR (`||`) operator:
+ *   - If either condition is `true`, the device is considered a touch device.
+ *   - Logical OR (`||`) returns `true` if at least one of the conditions is `true`.
+ * - Credit: [GeeksforGeeks: How to Detect Touch Screen Device Using JavaScript](https://www.geeksforgeeks.org/how-to-detect-touch-screen-device-using-javascript/?itm_source=auth&itm_medium=contributions&itm_campaign=articles)
+ * 
+ * References:
+ * - [MDN Web Docs: Element.innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)
+ * - [MDN Web Docs: Touch Events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events)
+ * 
+ */
 function updateSpeechBubbleText() {
     const speechBubble = document.querySelector(".speech-bubble");
     const isTouchDevice =
