@@ -447,6 +447,43 @@ function handleSpeechBubbleInteraction(event) {
     }
 }
 
+/**
+ * Progresses the dialogue in the speech bubble based on the current message index.
+ * 
+ * This function handles the flow of dialogue messages and determines the next action:
+ * - If the game modal is open, dialogue progression is blocked.
+ * - If the player's name is not stored and the current message index is 6, the name input modal is opened.
+ * - If the player's name is stored and the current message index is 0 (on page load), the dialogue skips to the last message index 9.
+ * - Updates the speech bubble with the next message or starts the game if the last message is reached.
+ * 
+ * Behaviour:
+ * - Increments the `currentMessageIndex` to track the next message.
+ * - Updates the speech bubble content using `updateSpeechBubbleText()`.
+ * - Opens the name input modal using `openNameModal()` if conditions are met.
+ * - Starts the game using `startGame()` when the last message is reached.
+ * 
+ * Notes:
+ * - The player's name is retrieved from `localStorage` and used to personalise the dialogue.
+ * - The `skipTriggered` flag prevents reopening the name modal if the skip button was previously clicked.
+ * -  Reference: [Geeks for Geeks: Use of FLAG in programming](https://www.geeksforgeeks.org/use-of-flag-in-programming/)
+ * - The overlay is deactivated, and pointer events are reset when the dialogue ends.
+ * 
+ * Blocking Condition:
+ * - If the game modal (`.modal-container`) is open (not hidden), dialogue progression is blocked.
+ * - This is achieved with the condition:
+ *   ```javascript
+ *   if (!gameModal.classList.contains("hidden")) {
+ *       return; // Block dialogue progression if the game modal is open
+ *   }
+ *   ```
+ * References:
+ * - [MDN Web Docs: localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * 
+ * @example
+ * // Progress the dialogue when the speech bubble is clicked
+ * speechBubble.addEventListener("click", progressDialogue);
+ */
 function progressDialogue() {
     const gameModal = document.querySelector(".modal-container");
     if (!gameModal.classList.contains("hidden")) {
@@ -464,8 +501,6 @@ function progressDialogue() {
         return;
     }
 
-    // if the player name is stored, and the current message index is 0 (first message on page load),
-    // then set the current message index to 9 (the last message before the startGame() function is called)
     if (storedName && currentMessageIndex <= 0) {
         currentMessageIndex = 9;
         speechBubbleMessages[9] = `Hi again, ${storedName}! Let's play!`;
