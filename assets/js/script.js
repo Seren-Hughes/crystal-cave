@@ -1773,7 +1773,43 @@ function deleteSavedData() {
 // ----------------------- AUDIO FUNCTIONS ------------------- //
 //------------------------------------------------------------ //
 
-// fetch api audio files to load and decode them into AudioBuffer objects
+/**
+ * Fetches an audio file from the given URL and decodes it into an AudioBuffer object.
+ * 
+ * This function uses the Fetch API to retrieve the audio file and decodes it using the Web Audio API.
+ * If the fetch or decoding process fails, an error is logged, and `null` is returned.
+ * 
+ * Behaviour:
+ * - Fetches the audio file from the provided URL.
+ * - Converts the response into an ArrayBuffer.
+ * - Decodes the ArrayBuffer into an AudioBuffer using `audioContext.decodeAudioData`.
+ * - Logs errors if the fetch or decoding process fails.
+ * 
+ * Notes:
+ * - This function is asynchronous and should be called with `await` or `.then`.
+ * - The returned AudioBuffer can be used for audio playback in the game.
+ * - The `try...catch` block ensures that any errors during the decoding process are caught and handled gracefully, preventing the application from crashing.
+ * 
+ * References:
+ * - [MDN Web Docs: Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+ * - [MDN Web Docs: ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
+ * - [MDN Web Docs: AudioContext.decodeAudioData](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData)
+ * - [W3Schools: Async/Await](https://www.w3schools.com/js/js_async.asp)
+ * - [W3Schools: JavaScript Promises](https://www.w3schools.com/js/js_promise.asp)
+ * - [FreeCodeCamp: Try/Catch in JavaScript – How to Handle Errors in JS](https://www.freecodecamp.org/news/try-catch-in-javascript/)
+ * 
+ * @param {string} url - The URL of the audio file to fetch and decode.
+ * @returns {Promise<AudioBuffer|null>} A promise that resolves to the decoded AudioBuffer or `null` if an error occurs.
+ * 
+ * @example
+ * // Load an audio file and store it in a variable
+ * const audioBuffer = await loadAudioFile("assets/audio/example.mp3");
+ * if (audioBuffer) {
+ *     console.log("Audio file loaded successfully.");
+ * } else {
+ *     console.error("Failed to load audio file.");
+ * }
+ */
 async function loadAudioFile(url) {
     console.log("Fetching audio file:", url);
     const response = await fetch(url);
@@ -1789,7 +1825,35 @@ async function loadAudioFile(url) {
         return null;
     }
 }
-// Load all audio files and store them in the audioBuffers object
+
+/**
+ * Plays a sound using the provided AudioBuffer.
+ * 
+ * This function handles audio playback by creating a BufferSource, connecting it to a GainNode for volume control,
+ * and starting the playback. If the game is muted or no buffer is provided, the function exits early.
+ * 
+ * Behaviour:
+ * - Checks if the game is muted (`isMuted` flag). If muted, skips playback.
+ * - Validates the provided AudioBuffer. If no buffer is provided, logs an error and exits.
+ * - Creates a GainNode (`effectsGainNode`) if it doesn't already exist.
+ * - Connects the BufferSource to the GainNode and starts playback.
+ * - Logs the playback process for debugging purposes.
+ * 
+ * Notes:
+ * - The GainNode is used to control the volume of sound effects.
+ * - This function is called whenever a crystal sound or celebration sound needs to be played.
+ * 
+ * References:
+ * - [MDN Web Docs: AudioContext.createBufferSource](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createBufferSource)
+ * - [MDN Web Docs: AudioNode.connect](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect)
+ * - [MDN Web Docs: AudioBufferSourceNode.start](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/start)
+ * 
+ * @param {AudioBuffer} buffer - The AudioBuffer containing the sound to play.
+ * 
+ * @example
+ * // Play a crystal sound
+ * playSound(audioBuffers["blue"]);
+ */
 function playSound(buffer) {
     if (isMuted) {
         console.log("Sound is muted. Skipping playback.");
@@ -1811,7 +1875,31 @@ function playSound(buffer) {
     source.start(0);
     console.log("Playing sound:", buffer);
 }
-// cave atmosphere sounds
+/**
+ * Plays the background sound for the game.
+ * 
+ * This function handles the playback of the background sound by:
+ * - Creating a BufferSource and GainNode for volume control.
+ * - Looping the background sound for continuous playback.
+ * - Connecting the BufferSource to the GainNode and the audio context destination.
+ * 
+ * Behaviour:
+ * - Checks if the background audio buffer is loaded. If not, logs an error and exits.
+ * - Creates a GainNode (`backgroundGainNode`) for controlling the background sound volume.
+ * - Sets the initial volume of the background sound to 0.1.
+ * - Logs the playback process for debugging purposes.
+ * 
+ * Notes:
+ * - The GainNode is used to control the volume of the background sound.
+ * - The background sound is looped to ensure continuous playback during the game.
+ * 
+ * References:
+ * - [MDN Web Docs: AudioContext.createBufferSource](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createBufferSource)
+ * - [MDN Web Docs: AudioNode.connect](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect)
+ * - [MDN Web Docs: AudioBufferSourceNode.loop](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop)
+ * - [MDN Web Docs: AudioContext.createGain](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createGain)
+ * 
+ */
 function playBackgroundSound() {
     if (!audioBuffers.background) {
         console.error("No audio buffer found for background sound.");
@@ -1827,7 +1915,31 @@ function playBackgroundSound() {
     backgroundGainNode.gain.value = 0.1; // Set initial volume to 0.3
     console.log("Playing background sound.");
 }
-// ambient soundscape
+/**
+ * Plays the ambient soundscape for the game.
+ * 
+ * This function handles the playback of the ambient sound by:
+ * - Creating a BufferSource and GainNode for volume control.
+ * - Looping the ambient sound for continuous playback.
+ * - Connecting the BufferSource to the GainNode and the audio context destination.
+ * 
+ * Behaviour:
+ * - Checks if the ambient audio buffer is loaded. If not, logs an error and exits.
+ * - Creates a GainNode (`ambientGainNode`) for controlling the ambient sound volume.
+ * - Sets the initial volume of the ambient sound to 0.3.
+ * - Logs the playback process for debugging purposes.
+ * 
+ * Notes:
+ * - The GainNode is used to control the volume of the ambient sound.
+ * - The ambient sound is looped to ensure continuous playback during the game.
+ * 
+ * References:
+ * - [MDN Web Docs: AudioContext.createBufferSource](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createBufferSource)
+ * - [MDN Web Docs: AudioNode.connect](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect)
+ * - [MDN Web Docs: AudioBufferSourceNode.loop](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop)
+ * - [MDN Web Docs: AudioContext.createGain](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createGain)
+ *
+ */
 function playAmbientSound() {
     if (!audioBuffers.ambient) {
         console.error("No audio buffer found for ambient sound.");
@@ -1846,6 +1958,30 @@ function playAmbientSound() {
     console.log("Playing ambient sound with volume control.");
 }
 
+/**
+ * Lowers the ambient sound volume gradually over a specified duration.
+ * 
+ * This function reduces the volume of the ambient sound to 0.1 over 2 seconds using a linear ramp.
+ * If the game is muted, the volume is immediately set to 0, and no ramping occurs.
+ * 
+ * Behaviour:
+ * - Checks if the game is muted (`isMuted` flag). If muted, skips the ramping process and sets the volume to 0.
+ * - Cancels any scheduled volume changes to ensure a smooth transition.
+ * - Gradually lowers the volume to 0.1 over 2 seconds using `linearRampToValueAtTime`.
+ * - Logs the volume adjustment process for debugging purposes.
+ * 
+ * Notes:
+ * - The `linearRampToValueAtTime` method ensures a smooth transition in volume.
+ * - This function is typically called during gameplay events that require reduced ambient sound.
+ * 
+ * References:
+ * - [MDN Web Docs: AudioParam.linearRampToValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime)
+ * - [MDN Web Docs: AudioParam.cancelScheduledValues](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/cancelScheduledValues)
+ * 
+ * @example
+ * // Lower the ambient volume during a sequence
+ * lowerAmbientVolume();
+ */
 function lowerAmbientVolume() {
     if (isMuted) {
         console.log("Ambient volume adjustment skipped because sound is muted.");
@@ -1862,6 +1998,30 @@ function lowerAmbientVolume() {
     }
 }
 
+/**
+ * Restores the ambient sound volume gradually over a specified duration.
+ * 
+ * This function increases the volume of the ambient sound to 0.3 over 2 seconds using a linear ramp.
+ * If the game is muted, the volume is immediately set to 0, and no ramping occurs.
+ * 
+ * Behaviour:
+ * - Checks if the game is muted (`isMuted` flag). If muted, skips the ramping process and sets the volume to 0.
+ * - Cancels any scheduled volume changes to ensure a smooth transition.
+ * - Gradually restores the volume to 0.3 over 2 seconds using `linearRampToValueAtTime`.
+ * - Logs the volume adjustment process for debugging purposes.
+ * 
+ * Notes:
+ * - The `linearRampToValueAtTime` method ensures a smooth transition in volume.
+ * - This function is called after gameplay events that required reduced ambient sound (crystal notes).
+ * 
+ * References:
+ * - [MDN Web Docs: AudioParam.linearRampToValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime)
+ * - [MDN Web Docs: AudioParam.cancelScheduledValues](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/cancelScheduledValues)
+ * 
+ * @example
+ * // Restore the ambient volume after a sequence
+ * restoreAmbientVolume();
+ */
 function restoreAmbientVolume() {
     if (isMuted) {
         console.log("Ambient volume adjustment skipped because sound is muted.");
@@ -1877,7 +2037,37 @@ function restoreAmbientVolume() {
         console.log("Restoring ambient volume.");
     }
 }
-
+/**
+ * Toggles the mute state of the game, muting or unmuting all sounds.
+ * 
+ * This function handles the muting and unmuting of all game audio by adjusting the gain values of the 
+ * background, ambient, and effects GainNodes. When muted, all gain values are set to 0. When unmuted, 
+ * the gain values are restored to their default levels.
+ * 
+ * Behaviour:
+ * - Toggles the `isMuted` flag to switch between muted and unmuted states.
+ * - If muted:
+ *   - Sets the gain of all GainNodes (background, ambient, effects) to 0.
+ *   - Cancels any scheduled volume changes for the ambient GainNode.
+ * - If unmuted:
+ *   - Restores the gain of all GainNodes to their default levels:
+ *     - Background sound: 0.1
+ *     - Ambient sound: 0.3
+ *     - Effects: 1
+ * - Logs the mute or unmute action for debugging purposes.
+ * 
+ * Notes:
+ * - The GainNodes must be initialised before calling this function.
+ * - This function is triggered by a "Mute" button in the game's UI.
+ * 
+ * References:
+ * - [MDN Web Docs: AudioParam.setValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setValueAtTime)
+ * - [MDN Web Docs: AudioParam.cancelScheduledValues](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/cancelScheduledValues)
+ * 
+ * @example
+ * // Toggle the mute state of the game
+ * toggleMute();
+ */
 function toggleMute() {
     isMuted = !isMuted; // Toggle the mute state
 
@@ -1892,8 +2082,8 @@ function toggleMute() {
         console.log("Sound muted.");
     } else {
         // Restore the original gain values
-        if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Adjust to your desired volume
-        if (ambientGainNode) ambientGainNode.gain.setValueAtTime(0.3, audioContext.currentTime); // Adjust to your desired volume
+        if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(0.1, audioContext.currentTime); 
+        if (ambientGainNode) ambientGainNode.gain.setValueAtTime(0.3, audioContext.currentTime); 
         if (effectsGainNode) effectsGainNode.gain.setValueAtTime(1, audioContext.currentTime); // Restore full volume for effects
         console.log("Sound unmuted.");
     }
