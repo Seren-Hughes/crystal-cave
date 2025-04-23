@@ -182,15 +182,30 @@ function openModal(
  * - Executing a callback function after the modal is closed.
  * - Re-activating the overlay if the speech bubble modal is still visible.
  * 
+ *  * A ternary operator (shorthand for a simple `if-else` statement) is used to determine which modal element to target:
+ * ```javascript
+ * type === "speechBubble" ? ".speechBubble" : ".modal-container"
+ * ```
+ * - If `type` is `"speechBubble"`, it selects the `.speechBubble` element.
+ * - Otherwise, it selects the `.modal-container` element.
+ * 
  * Event bubbling and propagation solution references:
  * - [FreeCodeCamp: Event Propagation](https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/)
  * - [MDN Web Docs: Event.stopPropagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
  * - [Stack Overflow: Difference Between stopPropagation and preventDefault](https://stackoverflow.com/questions/5963669/whats-the-difference-between-event-stoppropagation-and-event-preventdefault)
  * 
+ * Ternary operator reference:
+ * - [MDN Web Docs: Conditional (Ternary) Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
  * @param {string} [type="speechBubble"] - The type of modal to close (e.g., "speechBubble" or "gameModal").
  * @param {Event|null} [event=null] - The event triggering the modal close, if applicable.
  * @param {Function|null} [callback=null] - A callback function to execute after the modal is closed.
- */
+ * 
+ * @example
+ * // Close the "gameModal" without an associated event and execute a callback
+ * closeModal("gameModal", null, () => {
+ *     console.log("Modal closed. Callback executed.");
+ * });
+*/
 function closeModal(type = "speechBubble", event = null, callback = null) {
     const modal = document.querySelector(
         type === "speechBubble" ? ".speechBubble" : ".modal-container"
@@ -238,7 +253,32 @@ function closeModal(type = "speechBubble", event = null, callback = null) {
     }, 500); // Slight delay for hiding the modal
 }
 
-// Player name input
+/**
+ * Opens a modal to prompt the player for their name.
+ * 
+ * This modal allows the player to input their name or skip the prompt. The player's name is stored in local storage if provided, 
+ * and the speech bubble message is updated accordingly. If the player skips, an alternative message is used.
+ * 
+ * Behaviour:
+ * - If the player enters their name, the speech bubble message at index 6 is updated to:
+ *   `"Nice to meet you, [playerName]!"` (where `[playerName]` is the name entered by the player).
+ * - If the player skips, the speech bubble message at index 6 is updated to:
+ *   `"No name? You must be on a secret mission!"`.
+ * 
+ * The modal includes two buttons:
+ * - "OK": Saves the player's name and progresses the dialogue inserting the player's name with template literal.
+ * - "Skip": Skips the name input and progresses the dialogue with an alternative message.
+ * 
+ * Notes:
+ * - The `closeModal` function is called with `null` as the second argument for the `event` parameter, 
+ *   indicating that no event is associated with the modal close action.
+ * 
+ * References:
+ * - [MDN Web Docs: localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+ * - [MDN Web Docs: Element.querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
+ * - [FreeCodeCamp: How to use localStorage in JavaScript](https://www.freecodecamp.org/news/use-local-storage-in-modern-applications/)
+ * 
+ */
 function openNameModal() {
     const modalTitle = "Players Name";
     const modalText = `<input type="text" id="player-name-input" placeholder="Enter your name"/>`;
