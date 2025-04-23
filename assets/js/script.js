@@ -13,6 +13,15 @@
 // ------------------------------- GLOBAL VARIABLES -------------------------------- //
 // --------------------------------------------------------------------------------- //
 
+/**
+ * Global variables used to manage the game state, player input, and audio settings.
+ * 
+ * Notes:
+ * - Flags are used to track the current state of the game (e.g., `isPlayerTurn`, `isMuted`).
+ * - Arrays store the current sequence and the player's input.
+ * - Objects like `crystalTimeouts` manage crystal-specific timeouts.
+ * - Audio-related variables (e.g., `audioBuffers`, `effectsGainNode`) handle sound playback.
+ */
 // Flags (boolean variables to manage game state)
 let isSequencePlaying = false; // Indicates if the sequence is currently playing
 let isModalClosing = false; // Prevents multiple triggers of modal close function
@@ -76,7 +85,23 @@ let ambientGainNode; // Gain node for ambient sound
 // Store the decoded audio buffers
 const audioBuffers = {};
 
-// Load all audio files
+/**
+ * Loads all audio files required for the game and stores them in the `audioBuffers` object.
+ * 
+ * This function fetches and decodes audio files for crystal sounds, background music, ambient sound, and celebration effects.
+ * 
+ * Behaviour:
+ * - Iterates through the `crystalSounds` object to load crystal-specific audio files.
+ * - Loads additional sounds for background, ambient, and celebration effects.
+ * - Logs the loading process and errors for debugging purposes.
+ * 
+ * Notes:
+ * - This function is asynchronous and should be called with `await`.
+ * - The `audioBuffers` object stores the decoded audio data for playback.
+ * 
+ * References:
+ * - [MDN Web Docs: Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+ */
 async function loadAllAudio() {
     for (const [color, filePath] of Object.entries(crystalSounds)) {
         try {
@@ -705,10 +730,41 @@ function initializeGameSite() {
 // ------------------- EVENT LISTENERS ------------------------ //
 // ------------------------------------------------------------ //
 
+/**
+ * Event listeners for user interactions with the game.
+ * 
+ * This section defines event listeners for various game interactions, including:
+ * - DOMContentLoaded to initialize the game site.
+ * - Speech bubble clicks to progress dialogue.
+ * - Keyboard input for crystal interactions.
+ * - Button clicks for game controls (e.g., "How to Play", "Settings", "Restart").
+ * - Overlay clicks to close modals or progress dialogue.
+ * - Fullscreen toggle for the game.
+ * 
+ * Notes:
+ * - Inline callbacks are used for some event listeners, while others reference named functions.
+ * - Event listeners ensure responsive and interactive gameplay across devices.
+ * 
+ * References:
+ * - [MDN Web Docs: EventTarget.addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+ * - [MDN Web Docs: KeyboardEvent](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)
+ */
+
 // Call the initializeGameSite function when the DOM is fully loaded
 document.addEventListener("DOMContentLoaded", initializeGameSite);
 
-// Event listener for keydown events to handle keyboard input
+/**
+ * Event listener for keyboard input to handle crystal interactions.
+ * 
+ * This listener maps specific keys (e.g., A, W, S, E, D) to crystal colors and triggers the corresponding glow effect and sound.
+ * 
+ * Notes:
+ * - The `keyToColorMap` object maps keys to crystal colors.
+ * - The `handleCrystalClick` function is called to process the interaction.
+ * 
+ * References:
+ * - [MDN Web Docs: KeyboardEvent.key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key)
+ */
 document.addEventListener("keydown", function (event) {
     if (!isPlayerTurn) {
         return;
@@ -741,7 +797,7 @@ document.addEventListener("keydown", function (event) {
     }
 });
 
-// Event listener for the "How to Play" button and innerHTML content
+// Event listener for the "How to Play" button to open the instructions modal
 document
     .querySelector(".game-button.how-to-play")
     .addEventListener("click", () => {
