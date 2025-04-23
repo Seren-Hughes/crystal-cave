@@ -66,7 +66,7 @@ const celebrationSound = "assets/audio/c-major-celebration-placeholder.mp3";
 
 const caveBackgroundSound = "assets/audio/cave-background-placeholder.mp3";
 
-const caveAmbienceSound = "assets/audio/ambience-placeholder-off.mp3";
+const caveAmbienceSound = "assets/audio/ambience-placeholder.mp3";
 
 let effectsGainNode; // Gain node for crystal and celebration sounds
 let backgroundGainNode; // Gain node for background sound
@@ -525,87 +525,136 @@ function progressDialogue() {
 }
 
 // ------------------------------------------------------------ //
-// -------------------EVENT LISTENERS ------------------------- //
+// ------------------- INITIALISATION FUNCTIONS --------------- //
 // ------------------------------------------------------------ //
 
-// Event listener for DOMContentLoaded to ensure the script runs after the DOM is fully loaded
-document.addEventListener("DOMContentLoaded", function () {
+/**
+ * Initialises the game site after the DOM is fully loaded.
+ * 
+ * This function sets up the game environment, initialises UI elements, and adds event listeners for user interactions. 
+ * It ensures that all DOM elements are available before interacting with them and handles the initial overlay logic 
+ * to prepare the game for the player.
+ * 
+ * Key Features:
+ * - Hides the game container and shows an audio user event overlay to ensure user interaction before audio playback.
+ * - Sets up animations, buttons, and event listeners for various game interactions.
+ * - Handles audio context resumption for browsers that require user interaction to start audio playback.
+ * - Starts the game introduction sequence after the user interacts with the audio overlay.
+ * - Handles user interaction with the invisible overlay.
+ * 
+ * Behaviour:
+ * - Removes fade-in animations from the game container and buttons to prevent automatic animations.
+ * - Hides the game container until the audio user event overlay has been interacted with.
+ * - Adds event listeners for:
+ *   - Speech bubble interactions to progress dialogue.
+ *   - Overlay clicks to close modals or progress dialogue.
+ *   - Keyboard interactions (e.g., spacebar to progress dialogue).
+ *   - Crystal interactions for both click and touch events.
+ * 
+ * Notes:
+ * - _**Moving code out of this function may break the game because DOM elements might not exist yet!**_
+ * - The logic encapsulated in initializeGameSite is only called after the DOM is fully loaded to ensure all elements are available.
+ * - The `audioUserEventOverlay` is displayed to prompt the user for interaction before audio playback.
+ * - The `audioContext` is resumed if it is in a suspended state, ensuring audio playback works as expected.
+ * - The `startIntro` function is called after the audio user event overlay is dismissed. It handles the game introduction sequence.
+ * 
+ * References:
+ * - [MDN Web Docs: Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
+ * - [MDN Web Docs: AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)
+ * - [MDN Web Docs: resume()](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/resume)
+ * - [MDN Web Docs: suspend()](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/suspend)
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: EventTarget.addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)
+ * - [FreeCodeCamp: DOM Manipulation Best Practices](https://www.freecodecamp.org/news/dom-manipulation-best-practices/)
+ * 
+ * @example
+ * // Call the initializeGameSite function when the DOM is fully loaded
+ * document.addEventListener("DOMContentLoaded", initializeGameSite);
+ */
+function initializeGameSite() {
     const gameContainer = document.querySelector(".game-container");
     const audioUserEventOverlay = document.querySelector(".audio-user-event-overlay");
     const speechBubble = document.querySelector(".speech-bubble");
     const overlay = document.querySelector(".overlay");
     const buttonsContainer = document.querySelector(".buttons-container"); // The container with fade-in-ui
     const allButtons = document.querySelectorAll(".game-button");
+
+    // Remove fade-in so it doesn't start automatically
+    gameContainer.classList.remove("fade-in-game-container");
+    allButtons.forEach((btn) => btn.classList.add("hidden-on-audio-overlay"));
+    buttonsContainer.classList.remove("fade-in-ui");
+
+    // Hide game container visually until audio user event overlay is dismissed
+    gameContainer.style.visibility = "hidden";
+
+    // Show audio user event overlay
+    audioUserEventOverlay.style.display = "flex";
+
+    // Tap to continue - (may need to change click to touchstart for audio event on mobile devices)
+    audioUserEventOverlay.addEventListener("click", () => {
+        audioUserEventOverlay.style.display = "none";
+        gameContainer.style.visibility = "visible"; // Show the game container
+        // Restart css animations. Credit: https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/ 
+        // void gameContainer.offsetWidth; // force reflow if needed - test the fade-ins and animations on ios device on multi browsers 
+        // ***commented out code don't forget to delete it later***
+        gameContainer.classList.add("fade-in-game-container");
+        // Show the buttons
+        buttonsContainer.classList.add("fade-in-ui");
+        allButtons.forEach((btn) => btn.classList.remove("hidden-on-audio-overlay"));
+        // Resume audio context if suspended 
+        if (audioContext.state === "suspended") {
+            audioContext.resume().then(() => {
+                console.log("AudioContext resumed");
+            });
+        }
+        audioUserEventOverlay.style.display = "none";
+        startIntro();
+    });
     
+    /**
+     * Starts the game introduction sequence.
+     * 
+     * This function:
+     * - Loads all audio files and starts background and ambient sounds.
+     * - Handles user interaction with the overlay.
+     * - Updates the speech bubble with the player's name if stored in `localStorage`.
+     * - Delays the appearance of the speech bubble for a smoother introduction.
+     */
     function startIntro() {
         loadAllAudio().then(() => {
             playBackgroundSound(); // Start the background cave sounds after loading audio
             playAmbientSound(); // Start the ambient soundscape after loading audio
             const storedName = localStorage.getItem("playerName");
 
-        if (storedName) {
-            currentMessageIndex = 9;
-            speechBubbleMessages[9] = `Hi again, ${storedName}! Let's play!`;
-        }
-
-        updateSpeechBubbleText();
-
-        // Keep overlay visible but disable clicks initially
-        overlay.classList.remove("hidden");
-        overlay.classList.add("active");
-        overlay.style.pointerEvents = "none";
-
-
-        speechBubble.classList.add("hidden");
-
-        // Delay appearance of speech bubble by 2 seconds
-        setTimeout(() => {
-            speechBubble.classList.remove("hidden");
-            overlay.style.pointerEvents = "all";
-            updateSpeechBubbleText();
-        }, 2000);
-    });
-    }
-        // Remove fade-in so it doesn't start automatically
-        gameContainer.classList.remove("fade-in-game-container");
-        allButtons.forEach((btn) => btn.classList.add("hidden-on-audio-overlay"));
-        buttonsContainer.classList.remove("fade-in-ui");
-
-        // Hide game container visually until audio user event overlay is dismissed
-        gameContainer.style.visibility = "hidden";
-
-        // Show audio user event overlay
-        audioUserEventOverlay.style.display = "flex";
-
-        // Tap to continue - (may need to change click to touchstart for audio event on mobile devices)
-        audioUserEventOverlay.addEventListener("click", () => {
-            audioUserEventOverlay.style.display = "none";
-            gameContainer.style.visibility = "visible"; // Show the game container
-            // Restart css animations. Credit: https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/ 
-            // void gameContainer.offsetWidth; // force reflow if needed - test the fade-ins and animations on ios device on multi browsers 
-            // ***commented out code don't forget to delete it later***
-            gameContainer.classList.add("fade-in-game-container");
-            // Show the buttons
-            buttonsContainer.classList.add("fade-in-ui");
-            allButtons.forEach((btn) => btn.classList.remove("hidden-on-audio-overlay"));
-            // Resume audio context if suspended 
-            if (audioContext.state === "suspended") {
-                audioContext.resume().then(() => {
-                    console.log("AudioContext resumed");
-                });
+            if (storedName) {
+                currentMessageIndex = 9;
+                speechBubbleMessages[9] = `Hi again, ${storedName}! Let's play!`;
             }
-            audioUserEventOverlay.style.display = "none";
-            startIntro();
+
+            updateSpeechBubbleText();
+
+            // Keep overlay visible but disable clicks initially
+            overlay.classList.remove("hidden");
+            overlay.classList.add("active");
+            overlay.style.pointerEvents = "none";
+            speechBubble.classList.add("hidden");
+
+            // Delay appearance of speech bubble by 2 seconds
+            setTimeout(() => {
+                speechBubble.classList.remove("hidden");
+                overlay.style.pointerEvents = "all";
+                updateSpeechBubbleText();
+            }, 2000);
         });
-    
+    }
 
-    // event listeners inside domContentLoaded to ensure they exist in the DOM - don't remove them from here!
-
+    // Event listener for the speech bubble to handle interaction
     speechBubble.addEventListener("click", function (event) {
         event.stopPropagation();
         progressDialogue();
     });
 
+    // Event listener for the overlay to close modals and handle clicks outside of them
     overlay.addEventListener("click", function (event) {
         if (
             event.target.closest(".modal") ||
@@ -623,12 +672,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Event listener for the "space" key to progress the dialogue
     document.addEventListener("keydown", function (event) {
         if (event.key === " " && !speechBubble.classList.contains("hidden")) {
             progressDialogue();
         }
     });
 
+    // Event listener for player input on the crystals 
     document.querySelectorAll(".crystal-container").forEach((container) => {
         container.addEventListener("click", function (event) {
             if (!isPlayerTurn) {
@@ -637,7 +688,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             activateGlow(container);
         });
-
+        // Touch event for mobile devices
         container.addEventListener("touchstart", function (event) {
             event.preventDefault();
 
@@ -647,7 +698,14 @@ document.addEventListener("DOMContentLoaded", function () {
             activateGlow(container);
         });
     });
-});
+}
+
+// ------------------------------------------------------------ //
+// ------------------- EVENT LISTENERS ------------------------ //
+// ------------------------------------------------------------ //
+
+// Call the initializeGameSite function when the DOM is fully loaded
+document.addEventListener("DOMContentLoaded", initializeGameSite);
 
 // Event listener for keydown events to handle keyboard input
 document.addEventListener("keydown", function (event) {
