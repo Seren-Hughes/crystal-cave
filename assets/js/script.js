@@ -1008,10 +1008,32 @@ function startGame() {
     console.log(`Level indicator displayed for level ${level}`); // debugging for play again issue
 }
 
-// Generate and store a random sequence of numbers (1-5 for each crystal)
-/** Sequence generation and playback references:
- * - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
- * - Stack Overflow: https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript
+/**
+ * Generates and stores a random sequence of crystal colours for the current level.
+ * 
+ * This function creates a sequence of crystal colours based on the current level and stores it in the global `currentSequence` array.
+ * The sequence is then played back using the `playSequence` function.
+ * 
+ * Behaviour:
+ * - Resets the `currentSequence` array to ensure no lingering data from previous levels.
+ * - Generates a random sequence of crystal colours by selecting random crystals from the DOM.
+ * - The length of the sequence is determined by the current level (`level + 2`).
+ * - Stores the colour of each selected crystal in the `currentSequence` array.
+ * - Calls `playSequence` to play back the generated sequence.
+ * 
+ * Notes:
+ * - The sequence length starts at 3 crystals for level 1 and increases by 1 for each subsequent level.
+ * - Crystal colours are retrieved from the `data-color` attribute of each crystal container.
+ * 
+ * References:
+ * - [MDN Web Docs: Math.random](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)
+ * - [Stack Overflow: Generate Random Number Between Two Numbers](https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript)
+ * 
+ * @param {number} level - The current game level, used to determine the sequence length.
+ * 
+ * @example
+ * // Generate and store a sequence for level 1
+ * storeSequence(1);
  */
 function storeSequence(level) {
     currentSequence = []; // Reset the sequence before generating a new one
@@ -1028,7 +1050,40 @@ function storeSequence(level) {
     playSequence(currentSequence); // Play the sequence
 }
 
-// Function to play the sequence
+/**
+ * Plays the sequence of crystal colours for the current level.
+ * 
+ * This function visually and audibly plays back the sequence of crystal colours stored in the `sequence` array.
+ * It activates the glow effect on the crystals, plays the corresponding sounds, and ensures proper timing between each crystal.
+ * 
+ * Behaviour:
+ * - Activates the overlay to block player interactions during the sequence.
+ * - Clears any lingering timeouts or glow effects from previous sequences.
+ * - Iterates through the `sequence` array and plays each crystal's glow and sound with a delay.
+ * - Deactivates the glow effect after a short duration for each crystal.
+ * - Enables player interactions after the sequence finishes.
+ * 
+ * Notes:
+ * - The sequence playback is delayed by 2 seconds before starting to allow for a smoother transition.
+ * - Each crystal in the sequence is played with a 1.2-second delay between them.
+ * - The glow effect duration for each crystal is 600ms.
+ * - If the game is muted (`isMuted` is `true`), no sound will be played.
+ * 
+ * References:
+ * - [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+ * - [FreeCodeCamp: JavaScript Timing Events: setTimeout and setInterval](https://www.freecodecamp.org/news/javascript-timing-events-settimeout-and-setinterval/)
+ * - [MDN Web Docs: Array.forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+ * - [MDN Web Docs: Array.prototype.find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)
+ * - [MDN Web Docs: HTMLElement.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)
+ * - [FreeCodeCamp: JavaScript Array Find Tutorial - How to Iterate Through Elements in an Array](https://www.freecodecamp.org/news/javascript-array-find-tutorial-how-to-iterate-through-elements-in-an-array/)
+ * - [Dev.to: Console Methods](https://dev.to/johongirr/consolelog-consoleerror-consoleassert-and-more-1lf)
+ * 
+ * @param {string[]} sequence - An array of crystal colours representing the sequence to be played.
+ * 
+ * @example
+ * // Play a sequence of crystal colours
+ * playSequence(["blue", "green", "pink"]);
+ */
 function playSequence(sequence) {
     activateOverlay(); // Activate overlay to block crystal interactions
     clearAllTimeouts(); // Clear any lingering global timeouts
@@ -1045,25 +1100,25 @@ function playSequence(sequence) {
 
     setTimeout(() => {
         sequence.forEach((color, index) => {
-            const glowTimeoutId = setTimeout(() => {
+            setTimeout(() => {
                 let crystal = [...crystals].find((c) => c.dataset.color === color);
-
+        
                 if (crystal) {
                     // Activate glow
                     crystal.querySelector(".glow").classList.add("active");
                     crystal.querySelector(".light-crystal").classList.add("active");
-                    
+        
                     if (!isMuted) {
                         lowerAmbientVolume();
                     }
-
+        
                     // Play the corresponding crystal sound
                     if (audioBuffers[color]) {
                         playSound(audioBuffers[color]);
                     } else {
                         console.error(`No audio buffer found for crystal: ${color}`);
                     }
-
+        
                     // Deactivate glow after a short delay
                     crystalTimeouts[color] = setTimeout(() => {
                         crystal.querySelector(".glow").classList.remove("active");
@@ -1082,7 +1137,31 @@ function playSequence(sequence) {
     }, 2000); // Add a 2-second delay before starting the sequence
 }
 
-// Function to wait for player input
+/**
+ * Waits for the player to input their sequence by interacting with the crystals.
+ * 
+ * This function prepares the game for the player's turn by:
+ * - Activating the crystals for interaction.
+ * - Resetting the player's input array for the new round.
+ * - Removing any duplicate event listeners to prevent unintended behavior.
+ * 
+ * Behaviour:
+ * - Sets the `isPlayerTurn` flag to `true` to indicate it's the player's turn.
+ * - Resets the `playersInput` array to ensure no lingering input from previous rounds.
+ * - Deactivates the overlay to allow crystal interactions.
+ * - Ensures no duplicate event listeners are attached to the crystals by removing existing listeners before adding new ones.
+ * 
+ * Notes:
+ * - Duplicate event listeners can cause unintended behaviour, such as multiple triggers for a single interaction.
+ * - The `removeEventListener` method is used to prevent duplication before attaching new listeners.
+ * - This function is called after the sequence has been played back to the player.
+ * 
+ * References:
+ * - [MDN Web Docs: EventTarget.removeEventListener() method](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)
+ * - [FreeCodeCamp: The addEventListener() Method](https://www.freecodecamp.org/news/javascript-addeventlistener-example-code/)
+ * - [Stack Overflow: Removing Duplicate Event Listeners](https://stackoverflow.com/questions/45723205/removing-duplicate-event-listeners)
+ * 
+ */
 function waitForPlayerInput() {
     console.log("Waiting for player input...");
     isPlayerTurn = true; // Set flag to indicate it's the player's turn
@@ -1096,19 +1175,7 @@ function waitForPlayerInput() {
     let crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
     console.log("Crystals available for player input:", crystals);
 
-    
-
-    /** Remove any existing event listeners to prevent duplication
-     * This ensures that no duplicate event listeners are attached to the crystals.
-     * Duplicated listeners can occur if `addEventListener` is called multiple times without
-     * removing the previous listeners. By using `removeEventListener` before adding new listeners,
-     * it ensures only one instance of the event handler is attached to each crystal.
-     *
-     * This issue and its resolution are documented in the development troubleshooting section of `testing.md`.
-     *
-     * Reference:
-     * - Stack Overflow: https://stackoverflow.com/questions/45723205/removing-duplicate-event-listeners
-     */
+    // Add event listeners to each crystal for player input
     crystals.forEach((crystal) => {
         crystal.removeEventListener("click", handleCrystalClick); // Remove previous listeners
         crystal.removeEventListener("touchend", handleCrystalClick); // Ensure no duplicates
@@ -1117,12 +1184,36 @@ function waitForPlayerInput() {
     });
 }
 
-/**  Handle the player's click on a crystal during their turn
- *   This function processes the player's input by:
- *   - Checking if it's the player's turn (using the `isPlayerTurn` flag).
- *   - Retrieving the clicked crystal's colour and storing it in the `playersInput` array.
- *  - Logging debugging information for the clicked crystal and the player's input sequence.
- *  - Validating the player's input against the correct sequence after a delay (to allow glow deactivation).
+/**
+ * Handles the player's click on a crystal during their turn.
+ * 
+ * This function processes the player's input by:
+ * - Checking if it's the player's turn (using the `isPlayerTurn` flag).
+ * - Retrieving the clicked crystal's colour and storing it in the `playersInput` array.
+ * - Logging debugging information for the clicked crystal and the player's input sequence.
+ * - Validating the player's input against the correct sequence after a delay (to allow glow deactivation).
+ * 
+ * Behaviour:
+ * - If it's not the player's turn (`isPlayerTurn` is `false`), the function exits early.
+ * - Adds the clicked crystal's colour to the `playersInput` array.
+ * - Logs the clicked crystal's colour and the current input sequence for debugging purposes.
+ * - If the player's input matches the required sequence length, input validation is triggered after a 600ms delay.
+ * 
+ * Notes:
+ * - The `isPlayerTurn` flag prevents interactions when it's not the player's turn.
+ * - The delay before input validation matches the glow deactivation duration to ensure smooth gameplay.
+ * - This function is called whenever the player clicks or taps on a crystal.
+ * 
+ * References:
+ * - [MDN Web Docs: Event.currentTarget](https://developer.mozilla.org/en-US/docs/Web/API/Event/currentTarget)
+ * - [W3Schools: JavaScript Array push()](https://www.w3schools.com/jsref/jsref_push.asp)
+ * - [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+ * 
+ * @param {Event} event - The click or touch event triggered by the player's interaction with a crystal.
+ * 
+ * @example
+ * // Handle a player's click on a crystal
+ * crystalElement.addEventListener("click", handleCrystalClick);
  */
 function handleCrystalClick(event) {
     if (!isPlayerTurn) return; // Ignore clicks if it's not the player's turn
@@ -1143,14 +1234,43 @@ function handleCrystalClick(event) {
         }, 600); // Match the glow deactivation duration
     }
 }
-/** Checks the player's input against the correct sequence. References:
- * Compare player's input with the correct sequence using JSON.stringify.
- * Strict comparison of both the order and values of the arrays.
+/**
+ * Checks the player's input sequence against the correct sequence for the current level.
+ * 
+ * This function validates the player's input by:
+ * - Restoring the ambient soundscape volume before performing the comparison.
+ * - Comparing the `playersInput` array with the `currentSequence` array using `JSON.stringify` for strict equality.
+ * - Logging debugging information about the lengths of both arrays and the comparison result.
+ * - Triggering the appropriate response based on the comparison result:
+ *   - Calls `celebrateCorrectAnswer` if the input is correct.
+ *   - Calls `showPlayAgainModal` if the input is incorrect.
+ * 
+ * Behaviour:
+ * - Logs the lengths of the player's input and the correct sequence for debugging purposes.
+ * - Uses strict comparison to ensure both the order and values of the arrays match.
+ * - Restores the ambient sound volume before performing the comparison.
+ * - Calls the appropriate function to handle the result of the comparison.
+ * 
+ * Notes:
+ * - The `JSON.stringify` method is used for deep comparison of arrays.
+ * - This function is called after the player has completed their input sequence.
+  * 
  * References:
- * - Stack Overflow: https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
- * - Stack Overflow: https://stackoverflow.com/questions/15376185/is-it-fine-to-use-json-stringify-for-deep-comparisons-and-cloning
- * - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
- * - GeeksforGeeks: https://www.geeksforgeeks.org/how-to-compare-two-arrays-in-javascript/
+ * - [MDN Web Docs: JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)
+ * - [Stack Overflow: How to compare arrays in JavaScript](https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript)
+ * - [GeeksforGeeks: How to compare two arrays in JavaScript](https://www.geeksforgeeks.org/how-to-compare-two-arrays-in-javascript/)
+ * 
+ * @example
+ * // Example of a correct input sequence
+ * playersInput = ["blue", "green", "pink"];
+ * currentSequence = ["blue", "green", "pink"];
+ * checkPlayerInput(); // Logs "Correct input" and triggers celebration.
+ * 
+ * @example
+ * // Example of an incorrect input sequence
+ * playersInput = ["blue", "pink", "green"];
+ * currentSequence = ["blue", "green", "pink"];
+ * checkPlayerInput(); // Logs "Incorrect input" and shows the play again modal.
  */
 function checkPlayerInput() {
     restoreAmbientVolume(); // Restore ambient soundscape volume
@@ -1168,6 +1288,33 @@ function checkPlayerInput() {
     }
 }
 
+/**
+ * Celebrates the player's correct input by activating a glowing effect on all crystals, 
+ * playing a celebration sound, and transitioning to the next level.
+ * 
+ * This function handles the celebration sequence by:
+ * - Activating glow effects on all crystals with a delay.
+ * - Playing a celebration sound if available.
+ * - Blocking player interactions during the celebration using an overlay.
+ * - Deactivating the glow effects after a short duration.
+ * - Adding a brief pause before transitioning to the next level.
+ * 
+ * Behaviour:
+ * - Activates the glow and celebration-specific classes for all crystals.
+ * - Plays the celebration sound if the `audioBuffers.celebration` buffer is loaded.
+ * - Deactivates the glow effects after 2.5 seconds.
+ * - Proceeds to the next level after a 1-second breather following the glow deactivation.
+ * 
+ * Notes:
+ * - The overlay is activated during the celebration to block player interactions.
+ * - The celebration sound is played only if the game is not muted and the audio buffer is available.
+ * - This function is called when the player's input matches the correct sequence.
+ * 
+ * References:
+ * - [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * 
+ */
 function celebrateCorrectAnswer() {
     let crystals = document.querySelectorAll(".crystal-container");
     console.log("Celebrating correct answer! All crystals will glow.");
@@ -1211,6 +1358,33 @@ function celebrateCorrectAnswer() {
     }, 2500); // 2.5 seconds delay for the celebration
 }
 
+/**
+ * Prepares the game for the next level by resetting the game state, updating the level indicator, 
+ * generating a new sequence, and playing it back to the player.
+ * 
+ * This function handles the transition to the next level by:
+ * - Incrementing the `level` variable to reflect the new level.
+ * - Resetting the player's input array for the new level.
+ * - Disabling player interactions while the sequence is being played.
+ * - Updating the level number displayed in the UI.
+ * - Clearing any lingering timeouts or glow effects from the previous level.
+ * - Generating and storing the new sequence for the current level.
+ * - Playing the new sequence for the player.
+ * 
+ * Behaviour:
+ * - Updates the level indicator in the DOM to reflect the current level.
+ * - Logs the current sequence for debugging purposes.
+ * - Ensures the game state is reset before starting the new level.
+ * 
+ * Notes:
+ * - If the level indicator element is not found in the DOM, an error is logged, but the game continues.
+ * - This function is called after the player successfully completes the current level.
+ * 
+ * References:
+ * - [MDN Web Docs: Element.textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)
+ * - [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+ * 
+ */
 function nextLevel() {
     console.log(
         `Great memory! Let's see what the crystals play next... Proceeding to level ${level + 1
@@ -1239,7 +1413,30 @@ function nextLevel() {
     isWaitingForInput = false; // Reset the flag to allow player input again
 }
 
-// freestyle play mode
+/**
+ * Activates freestyle mode, allowing the player to interact with the crystals freely without following a sequence.
+ * 
+ * This function cancels the current game logic and prepares the game for freestyle play by:
+ * - Clearing all timeouts, intervals, and glow effects.
+ * - Resetting game state flags and player input.
+ * - Hiding the overlay and speech bubble.
+ * - Updating the level indicator to display "Freestyle Mode."
+ * 
+ * Behaviour:
+ * - Ensures that freestyle mode is activated only once by checking the `freestyleMode` flag.
+ * - Resets the game state to allow unrestricted crystal interactions.
+ * - Logs the activation of freestyle mode for debugging purposes.
+ * 
+ * Notes:
+ * - Freestyle mode is a non-competitive mode where the player can freely interact with the crystals.
+ * - The overlay is deactivated to allow crystal interactions.
+ * - This function is triggered when the player selects the freestyle mode option.
+ * 
+ * References:
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+ * 
+ */
 function freestyle() {
     if (freestyleMode) return;
 
