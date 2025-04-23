@@ -1485,19 +1485,88 @@ function freestyle() {
 // ------------------------------ UTILITY FUNCTIONS -------------------------------- //
 // --------------------------------------------------------------------------------- //
 
-// overlay helper functions to manage the overlay state
+/**
+ * Activates the overlay by adding the 'active' class and enabling pointer events.
+ * 
+ * This function ensures that the overlay is visible and interactive, blocking user interactions with the game elements behind it.
+ * 
+ * Behaviour:
+ * - Adds the 'active' class to the overlay element.
+ * - Enables pointer events to make the overlay interactive.
+ * - Logs the activation of the overlay for debugging purposes.
+ * 
+ * Notes:
+ * - The overlay is used to block interactions during specific game states, such as sequence playback or modals.
+ * 
+ * References:
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: CSS pointer-events](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events)
+ * 
+ * @example
+ * // Activate the overlay to block user input
+ * activateOverlay();
+ */
 function activateOverlay() {
     overlay.classList.add("active");
     overlay.style.pointerEvents = "all"; // Enable pointer events
     console.log("Overlay activated.");
 }
+/**
+ * Deactivates the overlay by removing the 'active' class and disabling pointer events.
+ * 
+ * This function ensures that the overlay is hidden and non-interactive, allowing user interactions with the game elements behind it.
+ * 
+ * Behaviour:
+ * - Removes the 'active' class from the overlay element.
+ * - Disables pointer events to make the overlay non-interactive.
+ * - Logs the deactivation of the overlay for debugging purposes.
+ * 
+ * Notes:
+ * - The overlay is deactivated to allow user interactions during specific game states, such as the player's turn.
+ * 
+ * References:
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: CSS pointer-events](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events)
+ * 
+ * @example
+ * // Deactivate the overlay to allow user input
+ * deactivateOverlay();
+ */
 function deactivateOverlay() {
     overlay.classList.remove("active");
     overlay.style.pointerEvents = "none"; // Disable pointer events
     console.log("Overlay deactivated.");
 }
 
-// Function to handle the glow effect on the crystal containers
+/**
+ * Activates the glow effect for a crystal container and plays the corresponding sound.
+ * 
+ * This function visually highlights the crystal by adding active classes to its glow and light-crystal elements.
+ * It also plays the associated sound for the crystal's color and removes the glow effect after a short delay.
+ * 
+ * Behaviour:
+ * - Checks if it is the player's turn (`isPlayerTurn` flag). If not, the function exits early.
+ * - Adds the 'active' class to the glow and light-crystal elements of the container.
+ * - Plays the corresponding sound for the crystal's color if the audio buffer is available.
+ * - Logs the activation of the glow and any errors related to missing audio buffers.
+ * - Removes the 'active' class from the glow and light-crystal elements after 600ms.
+ * 
+ * Notes:
+ * - The glow effect duration is set to 600ms to match the game's visual timing.
+ * - If the audio buffer for the crystal's color is not found, an error is logged, but the game continues.
+ * 
+ * References:
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: HTMLElement.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)
+ * - [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+ * 
+ * @param {HTMLElement} container - The crystal container element to activate the glow for.
+ * 
+ * @example
+ * // Activate the glow for a crystal container
+ * const crystalContainer = document.querySelector(".crystal-container[data-color='blue']");
+ * activateGlow(crystalContainer);
+ */
 const activateGlow = (container) => {
     if (!isPlayerTurn) {
         return;
@@ -1524,7 +1593,29 @@ const activateGlow = (container) => {
 };
 
 /**
- * Clears all timeouts and intervals to prevent lingering effects.
+ * Clears all active timeouts and intervals to prevent lingering effects in the game.
+ * 
+ * This function ensures that no timeouts or intervals from previous game states remain active,
+ * which could interfere with the current game logic or cause unexpected behavior.
+ * 
+ * Behaviour:
+ * - Retrieves the highest timeout ID currently in use and clears all timeouts up to that ID.
+ * - Retrieves the highest interval ID currently in use and clears all intervals up to that ID.
+ * - Logs the clearing process for debugging purposes.
+ * 
+ * Notes:
+ * - This function is useful for resetting the game state or transitioning between game modes.
+ * - Clearing timeouts and intervals ensures that no unintended callbacks are executed.
+ * 
+ * References:
+ * - [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+ * - [MDN Web Docs: setInterval](https://developer.mozilla.org/en-US/docs/Web/API/setInterval)
+ * - [MDN Web Docs: clearTimeout](https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout)
+ * - [MDN Web Docs: clearInterval](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval)
+ * 
+ * @example
+ * // Clear all timeouts and intervals before starting a new game
+ * clearTimeoutsAndIntervals();
  */
 function clearTimeoutsAndIntervals() {
     // Clear all timeouts and intervals to prevent any lingering effects
@@ -1540,7 +1631,26 @@ function clearTimeoutsAndIntervals() {
 }
 
 /**
- * Clears all global timeouts and crystal-specific timeouts
+ * Clears all global timeouts and crystal-specific timeouts.
+ * 
+ * This function ensures that no lingering timeouts from previous game states remain active,
+ * which could interfere with the current game logic or cause unexpected behavior.
+ * 
+ * Behaviour:
+ * - Retrieves the highest timeout ID currently in use and clears all timeouts up to that ID.
+ * - Iterates through the `crystalTimeouts` object to clear timeouts specific to each crystal.
+ * - Logs the clearing process for debugging purposes and removes references to cleared timeouts.
+ * 
+ * Notes:
+ * - This function is more specific for managing crystal timeouts and ensures that no unintended glow effects persist.
+ * 
+ * References:
+ * - [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
+ * - [MDN Web Docs: clearTimeout](https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout)
+ * 
+ * @example
+ * // Clear all timeouts before starting a new game
+ * clearAllTimeouts();
  */
 function clearAllTimeouts() {
     let highestTimeoutId = setTimeout(() => { }, 0); // Get the highest timeout ID
@@ -1558,6 +1668,24 @@ function clearAllTimeouts() {
 
 /**
  * Clears all glow effects from the crystals.
+ * 
+ * This function ensures that no lingering glow effects remain active on any crystal,
+ * resetting their visual state to default.
+ * 
+ * Behaviour:
+ * - Selects all crystal containers in the DOM.
+ * - Removes the 'active' class from the glow and light-crystal elements of each crystal.
+ * 
+ * Notes:
+ * - This function is useful for resetting the visual state of crystals between game states or levels.
+ * 
+ * References:
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)
+ * 
+ * @example
+ * // Clear all glow effects from the crystals
+ * clearAllGlows();
  */
 function clearAllGlows() {
     let crystals = document.querySelectorAll(".crystal-container");
@@ -1567,8 +1695,30 @@ function clearAllGlows() {
     });
 }
 
-// Set the height of the body to the visible viewport height
-// For mobile devices where the address bar may hide/show and affect the height/layout
+/**
+ * Sets the height of the body element to match the visible viewport height.
+ * 
+ * This function adjusts the height of the body to account for changes in the viewport height,
+ * such as when the address bar on mobile devices hides or shows, which can affect the layout.
+ * 
+ * Behaviour:
+ * - Retrieves the current viewport height using `window.innerHeight`.
+ * - Sets the body's height style property to the calculated viewport height.
+ * 
+ * Notes:
+ * - This function is particularly useful for ensuring consistent layout on mobile devices.
+ * - It should be called on page load and whenever the window is resized.
+ * 
+ * References:
+ * - [MDN Web Docs: Window.innerHeight](https://developer.mozilla.org/en-US/docs/Web/API/Window/innerHeight)
+ * - [MDN Web Docs: Element.style](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style)
+ * 
+ * @example
+ * // Set the body height on page load
+ * window.addEventListener("load", setBodyHeight);
+ * // Update the height when the window is resized (if the the address bar hides)
+ * window.addEventListener("resize", setBodyHeight);
+ */
 function setBodyHeight() {
     document.body.style.height = `${window.innerHeight}px`;
 }
@@ -1579,7 +1729,30 @@ window.addEventListener("load", setBodyHeight);
 // Update the height when the window is resized (if the the address bar hides)
 window.addEventListener("resize", setBodyHeight);
 
-
+/**
+ * Deletes all saved data from localStorage and resets relevant game state and UI elements.
+ * 
+ * This function clears specific and all localStorage data, provides feedback to the user,
+ * and resets any game state or UI elements affected by the deleted data.
+ * 
+ * Behaviour:
+ * - Removes the player's name from localStorage.
+ * - Clears all localStorage data.
+ * - Displays an alert to inform the user that the saved data has been deleted.
+ * - Resets the speech bubble message and message index to their default values.
+ * 
+  * Notes:
+ * - This function is triggered by the settings modal and the "Delete Saved Data" button within it.
+ * - It is useful for resetting the game to its initial state.
+ * - The speech bubble message at index 6 is reset to "Nice to meet you!".
+ * - The `currentMessageIndex` is reset to 0.
+ * 
+ * References:
+ * - [MDN Web Docs: localStorage.removeItem](https://developer.mozilla.org/en-US/docs/Web/API/Storage/removeItem)
+ * - [MDN Web Docs: localStorage.clear](https://developer.mozilla.org/en-US/docs/Web/API/Storage/clear)
+ * - [MDN Web Docs: alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert)
+ * 
+ */
 function deleteSavedData() {
     // Clear specific data from localStorage
     localStorage.removeItem("playerName"); // Remove the player's name
