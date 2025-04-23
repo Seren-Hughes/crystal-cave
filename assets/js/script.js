@@ -2,10 +2,11 @@
 1. Global Variables 
 2. Modal Functions
 3. Speech Bubble Modal Functions
-4. Event Listeners
-5. Game Functions
-6. Utility Functions
-7. Audio Functions
+4. Initialisation Functions
+5. Event Listeners
+6. Game Functions
+7. Utility Functions
+8. Audio Functions
 */
 
 // --------------------------------------------------------------------------------- //
@@ -957,7 +958,29 @@ document.addEventListener("keydown", function (event) {
 // ------------------------------ GAME FUNCTIONS -------------------------- //
 // ------------------------------------------------------------------------ //
 
-// Function to start the game
+/**
+ * Starts the game by initialising the game state and preparing the first level.
+ * 
+ * This function handles the setup required to begin the game, including:
+ * - Resetting the game state variables.
+ * - Clearing any lingering timeouts or glow effects.
+ * - Generating and storing the sequence for the current level.
+ * - Displaying the level indicator and updating it with the current level.
+ * 
+ * Behaviour:
+ * - If `freestyleMode` is active, the function exits early without executing normal game logic.
+ * - Resets the game state to ensure a clean start.
+ * - Disables player input while the sequence is playing.
+ * - Updates the level indicator to reflect the current level.
+ * 
+ * Notes:
+ * - The `freestyleMode` flag allows the player to interact with the crystals freely without following the game sequence.
+ * - The `clearAllTimeouts` and `clearAllGlows` functions are used to ensure no lingering effects from previous levels.
+ * 
+ * References:
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * 
+ */
 function startGame() {
     if (freestyleMode) {
         console.log("Freestyle mode active. Skipping normal game logic.");
