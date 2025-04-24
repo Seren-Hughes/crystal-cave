@@ -391,6 +391,7 @@ button {
     visibility: hidden;
     width: 120px;
     background-color: var(--secondary-color);
+    background-image: none; /* Ensure to remove inherited background images */
     color: #fff;
     font-family: var(--secondary-font);
     text-align: center;
@@ -409,6 +410,20 @@ button {
 .game-button:hover .tooltiptext {
     visibility: visible;
     opacity: 1; /* Fade in */
+}
+/* Tooltip container for delete data button within settings modal */
+.delete-data-button {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+/* Show tooltip on hover */
+.delete-data-button:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+    background-color: var(--secondary-color);
+    top: -80px;
+    right: 12%; 
 }
 
 /* replace button images when clicked to pressed versions using sprite sheet positioning */

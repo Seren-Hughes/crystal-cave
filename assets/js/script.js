@@ -636,7 +636,7 @@ function initializeGameSite() {
         audioUserEventOverlay.style.display = "none";
         startIntro();
     });
-    
+
     /**
      * Starts the game introduction sequence.
      * 
@@ -874,7 +874,10 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
             <h3>Saved Data</h3>
             <div class="setting id="delete-data">
               <p>Delete saved data</p>
-              <button class="delete-data-button">Delete Saved Data</button>
+              <button class="delete-data-button">
+                Delete Saved Data
+                <span class="tooltiptext">Warning: This will delete your saved data and reload the page</span>
+              </button>
             </div>
         </div>
         `,
@@ -886,18 +889,18 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
     document.querySelector(".delete-data-button").addEventListener("click", () => {
         deleteSavedData();
     });
-     // Update the brightness slider to match the current brightness level
-     const brightnessSlider = document.querySelector(".brightness-slider");
-     const currentBrightness = parseFloat(
-         getComputedStyle(document.body).filter.match(/brightness\(([^)]+)\)/)?.[1] || 1.3
-     );
-     brightnessSlider.value = currentBrightness;
- 
-     // Event listener for the brightness slider to adjust brightness
-     brightnessSlider.addEventListener("input", (event) => {
-         const brightnessValue = event.target.value; // Get the slider's current value
-         document.body.style.filter = `brightness(${brightnessValue})`; // Update the body's brightness
-     });
+    // Update the brightness slider to match the current brightness level
+    const brightnessSlider = document.querySelector(".brightness-slider");
+    const currentBrightness = parseFloat(
+        getComputedStyle(document.body).filter.match(/brightness\(([^)]+)\)/)?.[1] || 1.3
+    );
+    brightnessSlider.value = currentBrightness;
+
+    // Event listener for the brightness slider to adjust brightness
+    brightnessSlider.addEventListener("input", (event) => {
+        const brightnessValue = event.target.value; // Get the slider's current value
+        document.body.style.filter = `brightness(${brightnessValue})`; // Update the body's brightness
+    });
 });
 
 // Restart button event listener to reset the game
@@ -1151,37 +1154,37 @@ function playSequence(sequence) {
     activateOverlay(); // Activate overlay to block crystal interactions
     clearAllTimeouts(); // Clear any lingering global timeouts
     clearAllGlows(); // Clear any lingering glow effects
-    
+
     let crystals = document.querySelectorAll(".crystal-container");
 
     // Add a delay before starting the sequence
     setTimeout(() => {
         clearAllGlows(); // Clear any lingering glow effects
         console.log("Cleared all glows before starting the sequence.");
-        
+
     }, 300); // Delay by 300ms
 
     setTimeout(() => {
         sequence.forEach((color, index) => {
             setTimeout(() => {
                 let crystal = [...crystals].find((c) => c.dataset.color === color);
-        
+
                 if (crystal) {
                     // Activate glow
                     crystal.querySelector(".glow").classList.add("active");
                     crystal.querySelector(".light-crystal").classList.add("active");
-        
+
                     if (!isMuted) {
                         lowerAmbientVolume();
                     }
-        
+
                     // Play the corresponding crystal sound
                     if (audioBuffers[color]) {
                         playSound(audioBuffers[color]);
                     } else {
                         console.error(`No audio buffer found for crystal: ${color}`);
                     }
-        
+
                     // Deactivate glow after a short delay
                     crystalTimeouts[color] = setTimeout(() => {
                         crystal.querySelector(".glow").classList.remove("active");
@@ -2146,8 +2149,8 @@ function toggleMute() {
         console.log("Sound muted.");
     } else {
         // Restore the original gain values
-        if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(0.1, audioContext.currentTime); 
-        if (ambientGainNode) ambientGainNode.gain.setValueAtTime(0.3, audioContext.currentTime); 
+        if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        if (ambientGainNode) ambientGainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
         if (effectsGainNode) effectsGainNode.gain.setValueAtTime(1, audioContext.currentTime); // Restore full volume for effects
         console.log("Sound unmuted.");
     }
