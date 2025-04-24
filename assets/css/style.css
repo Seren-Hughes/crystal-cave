@@ -1117,31 +1117,34 @@ button.delete-data-button:hover {
     }
 
     /* settings modal content*/ 
-    .setting {
-        display: flex;
-        flex-direction: column; /* Stack label and controls vertically */
-        align-items: flex-start; /* Align items to the left */
-        gap: 5px; /* Add spacing between the label and controls */
+    .settings-section .setting {
+        /* Set up a 2-column grid */
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-gap: 0.5rem; /* Spacing between grid cells */
     }
-
-    .setting label {
-        width: 100%; /* Ensure the label spans the full width */
+    
+    /* Label spans the entire first row */
+    .settings-section .setting label {
+        grid-column: 1 / 3; /* Spans both columns */
+        font-size: 1.2rem; /* Adjust font size */
+        text-align: left;
     }
-
-    .controls {
-        display: flex; /* Keep mute toggle and slider on the same row */
-        align-items: center; /* Vertically align the button and slider */
-        gap: 10px; /* Add spacing between the button and slider */
-        width: 100%; /* Ensure the controls span the full width */
+    
+    /* Mute toggle in the second row, first column */
+    .settings-section .setting .mute-toggle {
+        grid-column: 1;
     }
-
-    .mute-toggle {
-        flex-shrink: 0; /* Prevent the button from shrinking */
+    
+    /* Slider in the second row, second column */
+    .settings-section .setting .volume-slider {
+        grid-column: 2;
+        width: 100%; /* Let the slider fill its grid cell */
     }
-
-    .volume-slider,
-    .brightness-slider {
-        flex: 1; /* Allow the slider to take up remaining space */
+    /* Let brightness slider fill the full width */
+    .settings-section .setting .brightness-slider {
+        grid-column: 1 / 3;
+        width: 100%;
     }
 }
        

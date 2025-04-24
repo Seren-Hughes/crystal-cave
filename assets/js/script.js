@@ -908,11 +908,6 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
                 <button class="mute-toggle" data-sound="effects">M</button>
                 <input type="range" class="volume-slider" data-sound="effects" min="0" max="1" step="0.01" value="0.7">
             </div>
-            <div class="setting">
-                <label>Celebration FX</label>
-                <button class="mute-toggle" data-sound="celebration">M</button>
-                <input type="range" class="volume-slider" data-sound="celebration" min="0" max="1" step="0.01" value="0.7">
-            </div>
         </div>
         <hr class="section-divider">
         <div class="settings-section">
@@ -925,13 +920,14 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
         <hr class="section-divider">
         <div class="settings-section">
             <h3>Saved Data</h3>
-            <div class="setting id="delete-data">
+            <div class="setting" id="delete-data">
               <p>Delete saved data</p>
               <button class="delete-data-button">
                 Delete Saved Data
                 <span class="tooltiptext">Warning: This will delete your saved data and reload the page</span>
               </button>
             </div>
+            <hr class="section-divider">
         </div>
         `,
         [{ text: "Close", action: () => closeModal("gameModal") }],
