@@ -952,6 +952,38 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
             }
         });
     });
+    // Event listeners for mute buttons in settings modal
+    document.querySelectorAll(".mute-toggle").forEach(button => {
+        button.addEventListener("click", event => {
+            const soundType = event.target.dataset.sound;
+    
+            if (soundType === "ambient" && ambientGainNode) {
+                if (ambientGainNode.gain.value > 0) {
+                    ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Mute
+                    button.classList.add("muted"); // Add muted styling
+                } else {
+                    ambientGainNode.gain.setValueAtTime(0.3, audioContext.currentTime); // Unmute
+                    button.classList.remove("muted"); // Remove muted styling
+                }
+            } else if (soundType === "background" && backgroundGainNode) {
+                if (backgroundGainNode.gain.value > 0) {
+                    backgroundGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Mute
+                    button.classList.add("muted"); // Add muted styling
+                } else {
+                    backgroundGainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Unmute
+                    button.classList.remove("muted"); // Remove muted styling
+                }
+            } else if (soundType === "effects" && effectsGainNode) {
+                if (effectsGainNode.gain.value > 0) {
+                    effectsGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Mute
+                    button.classList.add("muted"); // Add muted styling
+                } else {
+                    effectsGainNode.gain.setValueAtTime(1, audioContext.currentTime); // Unmute
+                    button.classList.remove("muted"); // Remove muted styling
+                }
+            }
+        });
+    });
 
     // Event listener for the delete data button
     document.querySelector(".delete-data-button").addEventListener("click", () => {

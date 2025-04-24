@@ -667,6 +667,10 @@ button {
     cursor: pointer;
     font-size: 14px;
 }
+.mute-toggle.muted {
+    background-color: #924411; /* Background colour when muted */
+    color: white; 
+}
 
 button.delete-data-button {
     background-color: #924411;
