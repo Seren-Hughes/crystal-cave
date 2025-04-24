@@ -946,6 +946,7 @@ document.querySelector(".game-button.restart").addEventListener("click", () => {
     const speechBubble = document.querySelector(".speech-bubble");
     const gameModal = document.querySelector(".modal-container");
     const levelIndicator = document.querySelector(".level-indicator");
+    const freestyleButton = document.querySelector(".game-button.freestyle");
 
     if (levelIndicator) {
         levelIndicator.innerHTML = `Level <span id="level-number">1</span>`; // Reset to Level 1
@@ -959,6 +960,8 @@ document.querySelector(".game-button.restart").addEventListener("click", () => {
         speechBubble.classList.add("hidden");
         gameModal.classList.add("hidden");
     }
+
+    freestyleButton.classList.remove("mode"); // Ensure freestyle button is not in active mode
     activateOverlay(); // Activate overlay to block crystal interactions
     freestyleMode = false; // Reset freestyle mode
     startGame(); // Reset the game at level 1
