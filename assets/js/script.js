@@ -886,11 +886,18 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
     document.querySelector(".delete-data-button").addEventListener("click", () => {
         deleteSavedData();
     });
-    // Event listener for the brightness slider to adjust brightness
-    document.querySelector(".brightness-slider").addEventListener("input", (event) => {
-        const brightnessValue = event.target.value; // Get the slider's current value
-        document.body.style.filter = `brightness(${brightnessValue})`; // Update the body's brightness
-    });
+     // Update the brightness slider to match the current brightness level
+     const brightnessSlider = document.querySelector(".brightness-slider");
+     const currentBrightness = parseFloat(
+         getComputedStyle(document.body).filter.match(/brightness\(([^)]+)\)/)?.[1] || 1.3
+     );
+     brightnessSlider.value = currentBrightness;
+ 
+     // Event listener for the brightness slider to adjust brightness
+     brightnessSlider.addEventListener("input", (event) => {
+         const brightnessValue = event.target.value; // Get the slider's current value
+         document.body.style.filter = `brightness(${brightnessValue})`; // Update the body's brightness
+     });
 });
 
 // Restart button event listener to reset the game
