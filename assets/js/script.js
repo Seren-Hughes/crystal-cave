@@ -881,14 +881,16 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
     */
     openModal(
         "gameModal",
-        "Game Menu",
+        "Game Dashboard",
         `
+        <hr class="section-divider">
         <div class="settings-section">
             <h3>Game Stats</h3>
             <p>Player Name: ${playerName}</p>
             <p>Highest Level Reached: ${highestLevelDisplay}</p>
             <p>Best Memory Streak: ${crystalsRememberedDisplay}</p>
         </div>
+        <hr class="section-divider">
         <div class="settings-section">
             <h3>Audio Settings</h3>
             <div class="setting">
@@ -912,6 +914,7 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
                 <input type="range" class="volume-slider" data-sound="celebration" min="0" max="1" step="0.01" value="0.7">
             </div>
         </div>
+        <hr class="section-divider">
         <div class="settings-section">
             <h3>Display Settings</h3>
             <div class="setting">
@@ -919,6 +922,7 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
                 <input type="range" class="brightness-slider" min="0.9" max="1.6" step="0.01" value="1.3">
             </div>
         </div>
+        <hr class="section-divider">
         <div class="settings-section">
             <h3>Saved Data</h3>
             <div class="setting id="delete-data">

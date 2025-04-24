@@ -422,6 +422,8 @@ button {
     visibility: visible;
     opacity: 1;
     background-color: var(--secondary-color);
+    font-size: 1.3rem; /* Adjust font size */
+    width: 200px; /* Adjust width */
     top: -80px;
     right: 12%; 
 }
@@ -649,6 +651,12 @@ button {
     flex: 1; /* Take up equal space for alignment */
     font-size: 14px;
     margin-right: 10px;
+}
+
+.section-divider {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 20px 0;
 }
 
 .mute-toggle {
