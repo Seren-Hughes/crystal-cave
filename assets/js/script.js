@@ -850,10 +850,34 @@ document
 
 // Event listener for the "Settings" button to open the settings modal and update the innerHTML content
 document.querySelector(".game-button.settings").addEventListener("click", () => {
+    const highestLevel = localStorage.getItem("highestLevel") || "N/A";
+    const playerName = localStorage.getItem("playerName") || "Unknown Player";
+    const crystalsRemembered = highestLevel !== "N/A" ? parseInt(highestLevel) + 2 : "N/A";
+    /**
+    * Explanation:
+    * - `localStorage.getItem`: Retrieves data stored in the browser's localStorage.
+    * - `||`: Provides a fallback value if the retrieved data is `null` or undefined. 
+    * - `parseInt`: Converts the string value of `highestLevel` to an integer for calculations.
+    * - The logic ensures that even if no data is stored in localStorage, the game can still display default values.
+    * - The number of crystals remembered is based on the highest level. The formula is `highestLevel + 2` because the sequence starts with 3 crystals at level 1
+    *
+    * References:
+    * - [MDN Web Docs: localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+    * - [MDN Web Docs: parseInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
+    * - [MDN Web Docs: Logical OR (||) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR)
+    * - [MDN Web Docs: Ternary operator: ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
+    * - [Stack Overflow: Default values with || operator](https://stackoverflow.com/questions/476436/is-there-a-null-coalescing-operator-in-javascript)
+    */
     openModal(
         "gameModal",
         "⚙️ Settings",
         `
+        <div class="settings-section">
+            <h3>Game Stats</h3>
+            <p>Player Name: ${playerName}</p>
+            <p>Highest Level Reached: Level ${highestLevel}</p>
+            <p>Best Memory Streak: ${crystalsRemembered} Crystals!</p>
+        </div>
         <div class="settings-section">
             <h3>Audio Settings</h3>
             <div class="setting">
@@ -1433,6 +1457,7 @@ function celebrateCorrectAnswer() {
         clearAllGlows(); // Clear all glow effects
         // Add a breather before proceeding to the next level
         setTimeout(() => {
+            updateHighestLevel(); // Updates the highest level reached if a player name is stored
             nextLevel(); // Proceed to the next level
         }, 1000); // 1-second breather
     }, 2500); // 2.5 seconds delay for the celebration
@@ -1810,6 +1835,45 @@ window.addEventListener("load", setBodyHeight);
 window.addEventListener("resize", setBodyHeight);
 
 /**
+ * Updates the highest level reached by the player and stores it in localStorage.
+ * 
+ * This function checks if a player's name is stored in localStorage. If a name exists, it compares the current level 
+ * with the stored highest level. If the current level is greater, it updates the highest level in localStorage.
+ * 
+ * Behaviour:
+ * - Retrieves the player's name from localStorage.
+ * - If no name is found, logs a message and exits the function.
+ * - Retrieves the stored highest level from localStorage or defaults to 0 if not found.
+ * - Compares the current level with the stored highest level.
+ * - If the current level is higher, updates the highest level in localStorage.
+ * 
+ * Notes:
+ * - This function is called after the player successfully completes a level within the celebrateCorrectAnswer() function.
+ * - The highest level is only stored if a player's name is present in localStorage.
+ * 
+ * References:
+ * - [MDN Web Docs: localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)
+ * - [MDN Web Docs: parseInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)
+ * 
+ * @example
+ * // Update the highest level after completing a level
+ * updateHighestLevel();
+ */
+function updateHighestLevel() {
+    const storedName = localStorage.getItem("playerName"); // Check if the player's name is stored
+    if (!storedName) {
+        console.log("Player name not found. Highest level will not be stored.");
+        return; // Exit the function if no player name is stored
+    }
+
+    const storedHighestLevel = parseInt(localStorage.getItem("highestLevel")) || 0;
+    if (level > storedHighestLevel) {
+        localStorage.setItem("highestLevel", level);
+        console.log(`New highest level saved: Level ${level}`);
+    }
+}
+
+/**
  * Deletes all saved data from localStorage and resets relevant game state and UI elements.
  * 
  * This function clears specific and all localStorage data, provides feedback to the user,
@@ -1818,6 +1882,7 @@ window.addEventListener("resize", setBodyHeight);
  * Behaviour:
  * - Removes the player's name from localStorage.
  * - Clears all localStorage data.
+ * - Clears the highest level in localStorage.
  * - Resets the speech bubble message and message index to their default values.
  * - Reloads the page to ensure all changes take effect.
  * 
@@ -1840,6 +1905,7 @@ function deleteSavedData() {
 
     // Clear all localStorage data
     localStorage.clear();
+    localStorage.removeItem("highestLevel"); // Reset the highest level
 
     // Reset any game state or UI elements affected by the deleted data
     speechBubbleMessages[6] = "Nice to meet you!"; // Reset the default message
