@@ -850,9 +850,20 @@ document
 
 // Event listener for the "Settings" button to open the settings modal and update the innerHTML content
 document.querySelector(".game-button.settings").addEventListener("click", () => {
-    const highestLevel = localStorage.getItem("highestLevel") || "N/A";
+    const highestLevel = localStorage.getItem("highestLevel");
     const playerName = localStorage.getItem("playerName") || "Unknown Player";
-    const crystalsRemembered = highestLevel !== "N/A" ? parseInt(highestLevel) + 2 : "N/A";
+    const crystalsRemembered =
+        highestLevel && parseInt(highestLevel) > 0
+            ? parseInt(highestLevel) + 2
+            : null;
+
+    const highestLevelDisplay = highestLevel
+        ? `Level ${highestLevel}`
+        : "Not yet played";
+
+    const crystalsRememberedDisplay = crystalsRemembered
+        ? `${crystalsRemembered} Crystals!`
+        : "No crystals remembered yet.";    
     /**
     * Explanation:
     * - `localStorage.getItem`: Retrieves data stored in the browser's localStorage.
@@ -870,13 +881,13 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
     */
     openModal(
         "gameModal",
-        "⚙️ Settings",
+        "Game Menu",
         `
         <div class="settings-section">
             <h3>Game Stats</h3>
             <p>Player Name: ${playerName}</p>
-            <p>Highest Level Reached: Level ${highestLevel}</p>
-            <p>Best Memory Streak: ${crystalsRemembered} Crystals!</p>
+            <p>Highest Level Reached: ${highestLevelDisplay}</p>
+            <p>Best Memory Streak: ${crystalsRememberedDisplay}</p>
         </div>
         <div class="settings-section">
             <h3>Audio Settings</h3>
