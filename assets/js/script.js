@@ -1519,23 +1519,33 @@ function nextLevel() {
 }
 
 /**
- * Activates freestyle mode, allowing the player to interact with the crystals freely without following a sequence.
+ * Toggles freestyle mode, allowing the player to enter or exit freestyle mode.
  * 
- * This function cancels the current game logic and prepares the game for freestyle play by:
- * - Clearing all timeouts, intervals, and glow effects.
- * - Resetting game state flags and player input.
- * - Hiding the overlay and speech bubble.
- * - Updating the level indicator to display "Freestyle Mode."
+ * This function handles both entering and exiting freestyle mode:
+ * 
+ * When entering freestyle mode:
+ * - Cancels the current game logic and prepares the game for freestyle play.
+ * - Clears all timeouts, intervals, and glow effects.
+ * - Resets game state flags and player input.
+ * - Hides the overlay and speech bubble.
+ * - Updates the level indicator to display "Freestyle Mode."
+ * - Updates the freestyle button to indicate the active mode.
+ * - Changes the tooltip to "Exit Freestyle Mode."
+ * 
+ * When exiting freestyle mode:
+ * - Resets the game state to level 1.
+ * - Updates the level indicator to display "Level 1."
+ * - Updates the freestyle button to its default state.
+ * - Changes the tooltip to "Enter Freestyle Mode."
  * 
  * Behaviour:
- * - Ensures that freestyle mode is activated only once by checking the `freestyleMode` flag.
- * - Resets the game state to allow unrestricted crystal interactions.
- * - Logs the activation of freestyle mode for debugging purposes.
+ * - Ensures that freestyle mode is toggled correctly by checking the `freestyleMode` flag.
+ * - Logs the activation or deactivation of freestyle mode for debugging purposes.
  * 
  * Notes:
  * - Freestyle mode is a non-competitive mode where the player can freely interact with the crystals.
- * - The overlay is deactivated to allow crystal interactions.
- * - This function is triggered when the player selects the freestyle mode option.
+ * - The overlay is deactivated to allow crystal interactions during freestyle mode.
+ * - This function is triggered when the player clicks the freestyle button.
  * 
  * References:
  * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
@@ -1543,47 +1553,79 @@ function nextLevel() {
  * 
  */
 function freestyle() {
-    if (freestyleMode) return;
+    const freestyleButton = document.querySelector(".game-button.freestyle");
+    const tooltipText = freestyleButton.querySelector(".tooltiptext");
 
-    freestyleMode = true;
+    if (freestyleMode) {
+        // Exit freestyle mode
+        freestyleMode = false;
+        freestyleButton.classList.remove("mode"); // Reset button to default state
+        tooltipText.textContent = "Enter Freestyle Mode"; // Update tooltip
 
-    // Clear all timeouts and intervals
-    clearAllTimeouts();
-    clearTimeoutsAndIntervals();
+        const speechBubble = document.querySelector(".speech-bubble");
+        const gameModal = document.querySelector(".modal-container");
+        const levelIndicator = document.querySelector(".level-indicator");
 
-    // Clear all glow effects
-    clearAllGlows();
-
-    // Reset game state flags
-    isPlayerTurn = true; // Allow crystal interactions
-    isWaitingForInput = false;
-    isSequencePlaying = false;
-
-    // Reset player input and sequence
-    playersInput = [];
-    currentSequence = [];
-
-    // Hide the overlay and disable pointer events
-    overlay.classList.remove("active");
-    overlay.style.pointerEvents = "none";
-
-    // Hide the speech bubble
-    const speechBubble = document.querySelector(".speech-bubble");
-    if (speechBubble) {
-        speechBubble.classList.add("hidden");
-    }
-
-    // Update the level indicator to show "Freestyle Mode"
-    const levelIndicator = document.querySelector(".level-indicator");
-    if (levelIndicator) {
-        levelIndicator.textContent = "Freestyle"; // Change the text
-        levelIndicator.classList.remove("hidden"); // Ensure it's visible
-        levelIndicator.style.display = "block"; // Explicitly show it
+        if (levelIndicator) {
+            levelIndicator.innerHTML = `Level <span id="level-number">1</span>`; // Reset to Level 1
+        }
+        // If either bubble or game modal is visible, hide them
+        if (
+            !speechBubble.classList.contains("hidden") ||
+            !gameModal.classList.contains("hidden")
+        ) {
+            speechBubble.classList.add("hidden");
+            gameModal.classList.add("hidden");
+        }
+        activateOverlay(); // Activate overlay to block crystal interactions
+        freestyleMode = false; // Reset freestyle mode
+        startGame(); // Reset the game at level 1
+        console.log("Game restarted and overlay activated.");
     } else {
-        console.error("Level indicator not found in the DOM!"); // catch error if the element is not found
-    }
+        // Enter freestyle mode
+        freestyleMode = true;
 
-    console.log("Freestyle mode activated. Game logic canceled.");
+        // Clear all timeouts and intervals
+        clearAllTimeouts();
+        clearTimeoutsAndIntervals();
+
+        // Clear all glow effects
+        clearAllGlows();
+
+        // Reset game state flags
+        isPlayerTurn = true; // Allow crystal interactions
+        isWaitingForInput = false;
+        isSequencePlaying = false;
+
+        // Reset player input and sequence
+        playersInput = [];
+        currentSequence = [];
+
+        // Hide the overlay and disable pointer events
+        overlay.classList.remove("active");
+        overlay.style.pointerEvents = "none";
+
+        // Hide the speech bubble
+        const speechBubble = document.querySelector(".speech-bubble");
+        if (speechBubble) {
+            speechBubble.classList.add("hidden");
+        }
+
+        // Update the level indicator to show "Freestyle Mode"
+        const levelIndicator = document.querySelector(".level-indicator");
+        if (levelIndicator) {
+            levelIndicator.textContent = "Freestyle"; // Change the text
+            levelIndicator.classList.remove("hidden"); // Ensure it's visible
+            levelIndicator.style.display = "block"; // Explicitly show it
+        } else {
+            console.error("Level indicator not found in the DOM!"); // catch error if the element is not found
+        }
+
+        // Update the freestyle button
+        freestyleButton.classList.add("mode"); // Change button to yellow star
+        tooltipText.textContent = "Exit Freestyle Mode"; // Update tooltip
+        console.log("Freestyle mode activated. Game logic canceled.");
+    }
 }
 
 // --------------------------------------------------------------------------------- //
