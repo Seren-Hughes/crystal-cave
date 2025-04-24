@@ -1801,19 +1801,19 @@ window.addEventListener("resize", setBodyHeight);
  * Behaviour:
  * - Removes the player's name from localStorage.
  * - Clears all localStorage data.
- * - Displays an alert to inform the user that the saved data has been deleted.
  * - Resets the speech bubble message and message index to their default values.
+ * - Reloads the page to ensure all changes take effect.
  * 
-  * Notes:
+ * Notes:
  * - This function is triggered by the settings modal and the "Delete Saved Data" button within it.
- * - It is useful for resetting the game to its initial state.
  * - The speech bubble message at index 6 is reset to "Nice to meet you!".
  * - The `currentMessageIndex` is reset to 0.
+ * - Reloading the page ensures a clean state after data deletion.
  * 
  * References:
  * - [MDN Web Docs: localStorage.removeItem](https://developer.mozilla.org/en-US/docs/Web/API/Storage/removeItem)
  * - [MDN Web Docs: localStorage.clear](https://developer.mozilla.org/en-US/docs/Web/API/Storage/clear)
- * - [MDN Web Docs: alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert)
+ * - [MDN Web Docs: location.reload](https://developer.mozilla.org/en-US/docs/Web/API/Location/reload)
  * 
  */
 function deleteSavedData() {
@@ -1822,14 +1822,15 @@ function deleteSavedData() {
     console.log("Player name removed from localStorage.");
 
     // Clear all localStorage data
-    localStorage.clear(); 
-
-    // Provide feedback to the user
-    alert("Saved data has been deleted!");
+    localStorage.clear();
 
     // Reset any game state or UI elements affected by the deleted data
     speechBubbleMessages[6] = "Nice to meet you!"; // Reset the default message
     currentMessageIndex = 0; // Reset the message index
+
+    // Reload the page to ensure a clean state
+    console.log("Reloading the page after deleting saved data...");
+    location.reload(); // Reload the page to apply changes
 }
 
 //------------------------------------------------------------ //
