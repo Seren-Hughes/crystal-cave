@@ -205,10 +205,19 @@ function openModal(
  * This function handles modal closing behaviour, including:
  * - Hiding the modal.
  * - Deactivating the overlay unless another modal is still open.
+ * - Resetting the scroll position of the modal to the top (for "gameModal").
  * - Executing a callback function after the modal is closed.
  * - Re-activating the overlay if the speech bubble modal is still visible.
  * 
- *  * A ternary operator (shorthand for a simple `if-else` statement) is used to determine which modal element to target:
+ * * Behaviour:
+ * - If the modal type is `"gameModal"`, the scroll position is reset to the top using `scrollTop = 0`.
+ * - Prevents multiple triggers of the close action using the `isModalClosing` flag.
+ * - Stops event propagation and prevents default behaviour if an event is provided.
+ * - Deactivates the overlay unless another modal is still open.
+ * - Executes a callback function if provided after the modal is closed.
+ * - Re-activates the overlay if the speech bubble modal is still visible.
+ * 
+ *  A ternary operator (shorthand for a simple `if-else` statement) is used to determine which modal element to target:
  * ```javascript
  * type === "speechBubble" ? ".speechBubble" : ".modal-container"
  * ```
@@ -222,6 +231,7 @@ function openModal(
  * 
  * Ternary operator reference:
  * - [MDN Web Docs: Conditional (Ternary) Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
+ * 
  * @param {string} [type="speechBubble"] - The type of modal to close (e.g., "speechBubble" or "gameModal").
  * @param {Event|null} [event=null] - The event triggering the modal close, if applicable.
  * @param {Function|null} [callback=null] - A callback function to execute after the modal is closed.
