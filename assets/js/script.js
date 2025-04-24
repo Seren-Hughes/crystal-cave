@@ -237,6 +237,10 @@ function closeModal(type = "speechBubble", event = null, callback = null) {
         type === "speechBubble" ? ".speechBubble" : ".modal-container"
     );
 
+    if (type === "gameModal") {
+        modal.scrollTop = 0; // Reset scroll to the top
+    }
+
     if (isModalClosing) {
         return; // Prevent multiple triggers
     }
