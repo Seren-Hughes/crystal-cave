@@ -934,6 +934,25 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
         false // Pass false to disable the overlay
     );
 
+    // Event listeners for volume sliders
+    document.querySelectorAll(".volume-slider").forEach(slider => {
+        slider.addEventListener("input", event => {
+            const volume = parseFloat(event.target.value);
+            const soundType = event.target.dataset.sound;
+    
+            if (soundType === "ambient" && ambientGainNode) {
+                ambientGainNode.gain.value = volume;
+                console.log(`Ambient volume set to: ${volume}`);
+            } else if (soundType === "background" && backgroundGainNode) {
+                backgroundGainNode.gain.value = volume;
+                console.log(`Background volume set to: ${volume}`);
+            } else if (soundType === "effects" && effectsGainNode) {
+                effectsGainNode.gain.value = volume;
+                console.log(`Effects volume set to: ${volume}`);
+            }
+        });
+    });
+
     // Event listener for the delete data button
     document.querySelector(".delete-data-button").addEventListener("click", () => {
         deleteSavedData();
@@ -2014,6 +2033,24 @@ function deleteSavedData() {
  * }
  */
 async function loadAudioFile(url) {
+    // Initialize GainNodes - move to global scope if audio issues arise on mobile devices
+    if (!ambientGainNode) {
+        ambientGainNode = audioContext.createGain();
+        ambientGainNode.gain.value = 0.3; // Default volume for ambient sounds
+        ambientGainNode.connect(audioContext.destination);
+    }
+
+    if (!backgroundGainNode) {
+        backgroundGainNode = audioContext.createGain();
+        backgroundGainNode.gain.value = 0.1; // Default volume for background sounds
+        backgroundGainNode.connect(audioContext.destination);
+    }
+
+    if (!effectsGainNode) {
+        effectsGainNode = audioContext.createGain();
+        effectsGainNode.gain.value = 1; // Default volume for effects
+        effectsGainNode.connect(audioContext.destination);
+    }
     console.log("Fetching audio file:", url);
     const response = await fetch(url);
     if (!response.ok) {
