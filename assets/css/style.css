@@ -375,8 +375,8 @@ button {
 .game-button {
     position: relative;
     background-color: transparent;
-    background-image: url('../images/button-sprite-sheet-630x140png.png'); /* Sprite sheet for buttons */
-    background-size: 630px 140px; 
+    background-image: url('../images/button-sprite-sheet-700x140.png'); /* Sprite sheet for buttons */
+    background-size: 700px 140px; 
     background-repeat: no-repeat;
     width: 70px; /* button size */
     height: 70px; /* button size */ 
@@ -468,6 +468,12 @@ button {
 }
 .game-button.freestyle:active {
     background-position: -420px -70px; /* Pressed state (seventh button, second row) */
+}
+.game-button.freestyle.mode {
+    background-position: -630px 0; /* button ten on sprite sheet - yellow star freestyle mode */          
+}
+.game-button.freestyle.mode:active {
+    background-position: -630px -70px; /* button ten in pressed state */
 }
 .game-button.full-screen {
     background-position: -490px 0; /* Default state (eighth button, first row) */
@@ -839,6 +845,12 @@ button.delete-data-button:hover {
     }
     .game-button.freestyle:active {
         background-position: -360px -60px; 
+    }
+    .game-button.freestyle.mode {
+        background-position: -540px 0; 
+    }
+    .game-button.freestyle.mode:active {
+        background-position: -540px -60px; 
     }
     .game-button.full-screen {
         background-position: -420px 0; 
