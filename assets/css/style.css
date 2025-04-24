@@ -800,7 +800,7 @@ button.delete-data-button:hover {
     .buttons-container .game-button {
         width: 60px; /* Button width */
         height: 60px; /* Button height */
-        background-size: 540px 120px; /* Scale sprite sheet proportionally */
+        background-size: 600px 120px; /* Scale sprite sheet proportionally */
     }
 
     /* Adjust background positions for each button to the new proportions - (multiples of 60) */
