@@ -649,7 +649,7 @@ button {
 
 .setting label {
     flex: 1; /* Take up equal space for alignment */
-    font-size: 14px;
+    font-size: 1.2rem; /* Adjust font size */
     margin-right: 10px;
 }
 
