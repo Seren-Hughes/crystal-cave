@@ -81,6 +81,13 @@ const caveAmbienceSound = "assets/audio/ambience-placeholder.mp3";
 let effectsGainNode; // Gain node for crystal and celebration sounds
 let backgroundGainNode; // Gain node for background sound
 let ambientGainNode; // Gain node for ambient sound
+let userAmbientVolume = 0.7; // User volume for ambient sound
+let userBackgroundVolume = 0.7; // User volume for background sound
+let userEffectsVolume = 0.7; // User volume for crystal effects sound
+// Audio mute flags
+let isAmbientMuted = false;
+let isBackgroundMuted = false;
+let isEffectsMuted = false;
 
 // Store the decoded audio buffers
 const audioBuffers = {};
@@ -878,6 +885,8 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
     * - [MDN Web Docs: Logical OR (||) operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_OR)
     * - [MDN Web Docs: Ternary operator: ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)
     * - [Stack Overflow: Default values with || operator](https://stackoverflow.com/questions/476436/is-there-a-null-coalescing-operator-in-javascript)
+    * - [W3Schools: Range Slider](https://www.w3schools.com/howto/howto_js_rangeslider.asp)
+    * - [MDN Web Docs: AudioParam.setValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setValueAtTime)
     */
     openModal(
         "gameModal",
@@ -933,7 +942,9 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
         [{ text: "Close", action: () => closeModal("gameModal") }],
         false // Pass false to disable the overlay
     );
-
+    // Sync the audio settings UI with the current state
+    syncAudioSettingsUI();
+    
     // Event listeners for volume sliders
     document.querySelectorAll(".volume-slider").forEach(slider => {
         slider.addEventListener("input", event => {
@@ -941,15 +952,22 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
             const soundType = event.target.dataset.sound;
     
             if (soundType === "ambient" && ambientGainNode) {
-                ambientGainNode.gain.value = volume;
-                console.log(`Ambient volume set to: ${volume}`);
+                userAmbientVolume = volume;
+                if (!isAmbientMuted) ambientGainNode.gain.value = volume;
             } else if (soundType === "background" && backgroundGainNode) {
-                backgroundGainNode.gain.value = volume;
-                console.log(`Background volume set to: ${volume}`);
+                userBackgroundVolume = volume;
+                if (!isBackgroundMuted) backgroundGainNode.gain.value = volume;
             } else if (soundType === "effects" && effectsGainNode) {
-                effectsGainNode.gain.value = volume;
-                console.log(`Effects volume set to: ${volume}`);
+                userEffectsVolume = volume;
+                if (!isEffectsMuted) effectsGainNode.gain.value = volume;
             }
+    
+            // Unmute if slider is moved above 0
+            if (soundType === "ambient" && volume > 0) isAmbientMuted = false;
+            if (soundType === "background" && volume > 0) isBackgroundMuted = false;
+            if (soundType === "effects" && volume > 0) isEffectsMuted = false;
+    
+            syncAudioSettingsUI();
         });
     });
     // Event listeners for mute buttons in settings modal
@@ -958,33 +976,18 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
             const soundType = event.target.dataset.sound;
     
             if (soundType === "ambient" && ambientGainNode) {
-                if (ambientGainNode.gain.value > 0) {
-                    ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Mute
-                    button.classList.add("muted"); // Add muted styling
-                } else {
-                    ambientGainNode.gain.setValueAtTime(0.3, audioContext.currentTime); // Unmute
-                    button.classList.remove("muted"); // Remove muted styling
-                }
+                isAmbientMuted = !isAmbientMuted;
+                ambientGainNode.gain.setValueAtTime(isAmbientMuted ? 0 : userAmbientVolume, audioContext.currentTime);
             } else if (soundType === "background" && backgroundGainNode) {
-                if (backgroundGainNode.gain.value > 0) {
-                    backgroundGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Mute
-                    button.classList.add("muted"); // Add muted styling
-                } else {
-                    backgroundGainNode.gain.setValueAtTime(0.1, audioContext.currentTime); // Unmute
-                    button.classList.remove("muted"); // Remove muted styling
-                }
+                isBackgroundMuted = !isBackgroundMuted;
+                backgroundGainNode.gain.setValueAtTime(isBackgroundMuted ? 0 : userBackgroundVolume, audioContext.currentTime);
             } else if (soundType === "effects" && effectsGainNode) {
-                if (effectsGainNode.gain.value > 0) {
-                    effectsGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Mute
-                    button.classList.add("muted"); // Add muted styling
-                } else {
-                    effectsGainNode.gain.setValueAtTime(1, audioContext.currentTime); // Unmute
-                    button.classList.remove("muted"); // Remove muted styling
-                }
+                isEffectsMuted = !isEffectsMuted;
+                effectsGainNode.gain.setValueAtTime(isEffectsMuted ? 0 : userEffectsVolume, audioContext.currentTime);
             }
+            syncAudioSettingsUI();
         });
     });
-
     // Event listener for the delete data button
     document.querySelector(".delete-data-button").addEventListener("click", () => {
         deleteSavedData();
@@ -992,7 +995,34 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
     // Update the brightness slider to match the current brightness level
     const brightnessSlider = document.querySelector(".brightness-slider");
     const currentBrightness = parseFloat(
-        getComputedStyle(document.body).filter.match(/brightness\(([^)]+)\)/)?.[1] || 1.3
+        /**
+        * Retrieves the current brightness value from the body's CSS filter property.
+         *
+        * This code uses `getComputedStyle` to access the computed CSS filter string applied to the `<body>`,
+        * then extracts the numeric value from the `brightness(...)` filter using a regular expression.
+        * If no brightness filter is set, it defaults to `1.3`.
+        *
+        * Behaviour:
+        * - Gets the computed filter property of the body element.
+        * - Uses a regular expression to match and extract the value inside `brightness(...)`.
+        * - Uses optional chaining (`?.[1]`) to safely access the matched value.
+        * - Falls back to `1.3` if no match is found.
+        *
+        * References:
+        * - [MDN Web Docs: Window.getComputedStyle](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle)
+        * - [MDN Web Docs: String.prototype.match()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match)
+        * - [MDN Web Docs: Optional chaining (?.)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining)
+        * - [MDN Web Docs: CSS filter property](https://developer.mozilla.org/en-US/docs/Web/CSS/filter)
+        * - [Slack Overflow: CSS Filter Regex JS](https://stackoverflow.com/questions/45487318/css-filter-regex-js)
+        *
+        * @returns {number} The current brightness value applied to the body, or 1.3 if not set.
+        *
+        * @example
+        * const currentBrightness = parseFloat(
+        *    getComputedStyle(document.body).filter.match(/brightness\(([^)]+)\)/)?.[1] || 1.3
+        * );
+        */
+        getComputedStyle(document.body).filter.match(/brightness\(([^)]+)\)/)?.[1] || 1.3 // Get the brightness value from the CSS filter applied to document.body, or use 1.3 as default
     );
     brightnessSlider.value = currentBrightness;
 
@@ -1981,6 +2011,57 @@ function updateHighestLevel() {
 }
 
 /**
+ * Synchronises the audio settings UI in the settings modal.
+ *
+ * This function updates the state of all audio-related UI controls in the settings modal (game dashboard),
+ * including volume sliders and mute buttons for ambient, background, and effects channels.
+ * It sets each slider to the user's intended volume (not the current GainNode value, which may be ducked or globally muted)
+ * and applies or removes the `.muted` class on each mute button based on the per-channel mute flags.
+ *
+ * Behaviour:
+ * - Iterates over all `.volume-slider` elements and sets their value to the corresponding user volume variable.
+ * - Updates the `.mute-toggle` button style for each channel based on its mute flag.
+ * - Ensures the UI always reflects the user's intended audio state, regardless of temporary changes to GainNode values.
+ *
+ * Notes:
+ * - Should be called after opening the settings modal and after any user interaction with audio controls.
+ * - Does not modify audio playback, only updates the UI.
+ *
+ * References:  
+ * - [MDN Web Docs: NodeList: forEach() method](https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach)
+ * - [MDN Web Docs: Element.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)
+ */
+function syncAudioSettingsUI() {
+    document.querySelectorAll(".volume-slider").forEach(slider => {
+        const soundType = slider.dataset.sound;
+        let userVolume = 1; 
+        let isMuted = false; 
+
+        if (soundType === "ambient") {
+            userVolume = userAmbientVolume;
+            isMuted = isAmbientMuted;
+        } else if (soundType === "background") {
+            userVolume = userBackgroundVolume;
+            isMuted = isBackgroundMuted;
+        } else if (soundType === "effects") {
+            userVolume = userEffectsVolume;
+            isMuted = isEffectsMuted;
+        }
+
+        slider.value = userVolume;
+
+        const muteButton = document.querySelector(`.mute-toggle[data-sound="${soundType}"]`);
+        if (muteButton) {
+            if (isMuted) {
+                muteButton.classList.add("muted");
+            } else {
+                muteButton.classList.remove("muted");
+            }
+        }
+    });
+}
+
+/**
  * Deletes all saved data from localStorage and resets relevant game state and UI elements.
  * 
  * This function clears specific and all localStorage data, provides feedback to the user,
@@ -2232,20 +2313,20 @@ function playAmbientSound() {
 
 /**
  * Lowers the ambient sound volume gradually over a specified duration.
- * 
+ *
  * This function reduces the volume of the ambient sound to 0.1 over 2 seconds using a linear ramp.
- * If the game is muted, the volume is immediately set to 0, and no ramping occurs.
- * 
+ * If the game is muted (global mute or per-channel mute), the volume is immediately set to 0 and no ramping occurs.
+ *
  * Behaviour:
- * - Checks if the game is muted (`isMuted` flag). If muted, skips the ramping process and sets the volume to 0.
+ * - Checks if the game is globally muted (`isMuted`). If muted, cancels any scheduled volume changes and sets the volume to 0.
  * - Cancels any scheduled volume changes to ensure a smooth transition.
- * - Gradually lowers the volume to 0.1 over 2 seconds using `linearRampToValueAtTime`.
+ * - Gradually lowers the volume to 0.1 over 2 seconds using `linearRampToValueAtTime` if not muted.
  * - Logs the volume adjustment process for debugging purposes.
- * 
+ *
  * Notes:
  * - The `linearRampToValueAtTime` method ensures a smooth transition in volume.
- * - This function is typically called during gameplay events that require reduced ambient sound.
- * 
+ * - This function is typically called during gameplay events that require reduced ambient sound (e.g., crystal sequence playback).
+ *
  * References:
  * - [MDN Web Docs: AudioParam.linearRampToValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime)
  * - [MDN Web Docs: AudioParam.cancelScheduledValues](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/cancelScheduledValues)
@@ -2258,33 +2339,33 @@ function lowerAmbientVolume() {
     if (isMuted) {
         console.log("Ambient volume adjustment skipped because sound is muted.");
         if (ambientGainNode) {
-            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime); // Cancel any scheduled volume changes
-            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Ensure gain is 0
+            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime);
+            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime);
         }
         return; // Do nothing if the game is muted
     }
 
     if (ambientGainNode) {
-        ambientGainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 2); // Lower volume to 0.1 over 2 seconds
-        console.log("Lowering ambient volume.");
+        ambientGainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 2);
     }
 }
 
 /**
  * Restores the ambient sound volume gradually over a specified duration.
- * 
- * This function increases the volume of the ambient sound to 0.3 over 2 seconds using a linear ramp.
- * If the game is muted, the volume is immediately set to 0, and no ramping occurs.
- * 
+ *
+ * This function increases the volume of the ambient sound to the user's intended ambient volume (`userAmbientVolume`)
+ * over 2 seconds using a linear ramp. If the game is globally muted (`isMuted`), the volume is immediately set to 0
+ * and no ramping occurs.
+ *
  * Behaviour:
- * - Checks if the game is muted (`isMuted` flag). If muted, skips the ramping process and sets the volume to 0.
+ * - Checks if the game is globally muted (`isMuted`). If muted, cancels any scheduled volume changes and sets the volume to 0.
  * - Cancels any scheduled volume changes to ensure a smooth transition.
- * - Gradually restores the volume to 0.3 over 2 seconds using `linearRampToValueAtTime`.
+ * - Gradually restores the volume to `userAmbientVolume` over 2 seconds using `linearRampToValueAtTime` if not muted.
  * - Logs the volume adjustment process for debugging purposes.
- * 
+ *
  * Notes:
  * - The `linearRampToValueAtTime` method ensures a smooth transition in volume.
- * - This function is called after gameplay events that required reduced ambient sound (crystal notes).
+ * - This function is called after gameplay events that required reduced ambient sound (crystal notes). 
  * 
  * References:
  * - [MDN Web Docs: AudioParam.linearRampToValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime)
@@ -2298,40 +2379,37 @@ function restoreAmbientVolume() {
     if (isMuted) {
         console.log("Ambient volume adjustment skipped because sound is muted.");
         if (ambientGainNode) {
-            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime); // Cancel any scheduled volume changes
-            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Ensure gain is 0
+            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime);
+            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime);
         }
-        return; // Do nothing if the game is muted
+        return;
     }
-
     if (ambientGainNode) {
-        ambientGainNode.gain.linearRampToValueAtTime(0.3, audioContext.currentTime + 2); // Restore volume to 0.3 over 2 seconds
-        console.log("Restoring ambient volume.");
+        ambientGainNode.gain.linearRampToValueAtTime(userAmbientVolume, audioContext.currentTime + 2);
     }
 }
 /**
- * Toggles the mute state of the game, muting or unmuting all sounds.
- * 
- * This function handles the muting and unmuting of all game audio by adjusting the gain values of the 
- * background, ambient, and effects GainNodes. When muted, all gain values are set to 0. When unmuted, 
- * the gain values are restored to their default levels.
- * 
+ * Toggles the global mute state of the game, muting or unmuting all sounds.
+ *
+ * This function handles the muting and unmuting of all game audio by adjusting the gain values of the
+ * background, ambient, and effects GainNodes. When muted, all gain values are set to 0. When unmuted,
+ * the gain values are restored to the user's intended per-channel volume, unless a channel is muted via its own mute flag.
+ *
  * Behaviour:
  * - Toggles the `isMuted` flag to switch between muted and unmuted states.
  * - If muted:
  *   - Sets the gain of all GainNodes (background, ambient, effects) to 0.
  *   - Cancels any scheduled volume changes for the ambient GainNode.
  * - If unmuted:
- *   - Restores the gain of all GainNodes to their default levels:
- *     - Background sound: 0.1
- *     - Ambient sound: 0.3
- *     - Effects: 1
+ *   - Restores the gain of all GainNodes to their user-set volume, unless the channel is muted via its per-channel mute flag.
+ * - Calls `syncAudioSettingsUI()` to update the UI mute button styles.
  * - Logs the mute or unmute action for debugging purposes.
- * 
+ *
  * Notes:
+ * - Does not change per-channel mute flags (`isAmbientMuted`, `isBackgroundMuted`, `isEffectsMuted`).
  * - The GainNodes must be initialised before calling this function.
- * - This function is triggered by a "Mute" button in the game's UI.
- * 
+ * - This function is triggered by the main "Mute" button in the game's UI.
+ *
  * References:
  * - [MDN Web Docs: AudioParam.setValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setValueAtTime)
  * - [MDN Web Docs: AudioParam.cancelScheduledValues](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/cancelScheduledValues)
@@ -2341,22 +2419,21 @@ function restoreAmbientVolume() {
  * toggleMute();
  */
 function toggleMute() {
-    isMuted = !isMuted; // Toggle the mute state
+    isMuted = !isMuted;
 
     if (isMuted) {
-        // Mute all sounds by setting gain to 0
         if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(0, audioContext.currentTime);
         if (ambientGainNode) {
-            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime); // Cancel any scheduled volume changes
-            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime); // Immediately set gain to 0
+            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime);
+            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime);
         }
         if (effectsGainNode) effectsGainNode.gain.setValueAtTime(0, audioContext.currentTime);
         console.log("Sound muted.");
     } else {
-        // Restore the original gain values
-        if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-        if (ambientGainNode) ambientGainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        if (effectsGainNode) effectsGainNode.gain.setValueAtTime(1, audioContext.currentTime); // Restore full volume for effects
+        if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(isBackgroundMuted ? 0 : userBackgroundVolume, audioContext.currentTime);
+        if (ambientGainNode) ambientGainNode.gain.setValueAtTime(isAmbientMuted ? 0 : userAmbientVolume, audioContext.currentTime);
+        if (effectsGainNode) effectsGainNode.gain.setValueAtTime(isEffectsMuted ? 0 : userEffectsVolume, audioContext.currentTime);
         console.log("Sound unmuted.");
     }
+    syncAudioSettingsUI();
 }

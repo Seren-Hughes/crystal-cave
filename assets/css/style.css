@@ -662,7 +662,7 @@ button {
 .mute-toggle {
     background-color: var(--secondary-background-color);
     color: white;
-    border: none;
+    border: 2px solid var(--primary-background-color); /* Gunmetal border */
     padding: 5px 10px;
     cursor: pointer;
     font-size: 14px;
