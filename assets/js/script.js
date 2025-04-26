@@ -691,7 +691,7 @@ function initializeGameSite() {
                 speechBubble.classList.remove("hidden");
                 overlay.style.pointerEvents = "all";
                 updateSpeechBubbleText();
-            }, 2000);
+            }, 1300);
         });
     }
 
