@@ -992,44 +992,27 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
     document.querySelector(".delete-data-button").addEventListener("click", () => {
         deleteSavedData();
     });
-    // Update the brightness slider to match the current brightness level
+    /**
+     * Gets the current brightness value from the body's CSS filter property.
+     * Splits the filter string and finds the brightness(...) value, defaulting to 1.3 if not set.
+     *
+     * References:
+     * - https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle
+     * - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/split
+     * - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat
+     */
     const brightnessSlider = document.querySelector(".brightness-slider");
-    const currentBrightness = parseFloat(
-        /**
-        * Retrieves the current brightness value from the body's CSS filter property.
-         *
-        * This code uses `getComputedStyle` to access the computed CSS filter string applied to the `<body>`,
-        * then extracts the numeric value from the `brightness(...)` filter using a regular expression.
-        * If no brightness filter is set, it defaults to `1.3`.
-        *
-        * Behaviour:
-        * - Gets the computed filter property of the body element.
-        * - Uses a regular expression to match and extract the value inside `brightness(...)`.
-        * - Uses optional chaining (`?.[1]`) to safely access the matched value.
-        * - Falls back to `1.3` if no match is found.
-        *
-        * References:
-        * - [MDN Web Docs: Window.getComputedStyle](https://developer.mozilla.org/en-US/docs/Web/API/Window/getComputedStyle)
-        * - [MDN Web Docs: String.prototype.match()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/match)
-        * - [MDN Web Docs: Optional chaining (?.)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining)
-        * - [MDN Web Docs: CSS filter property](https://developer.mozilla.org/en-US/docs/Web/CSS/filter)
-        * - [Slack Overflow: CSS Filter Regex JS](https://stackoverflow.com/questions/45487318/css-filter-regex-js)
-        *
-        * @returns {number} The current brightness value applied to the body, or 1.3 if not set.
-        *
-        * @example
-        * const currentBrightness = parseFloat(
-        *    getComputedStyle(document.body).filter.match(/brightness\(([^)]+)\)/)?.[1] || 1.3
-        * );
-        */
-        getComputedStyle(document.body).filter.match(/brightness\(([^)]+)\)/)?.[1] || 1.3 // Get the brightness value from the CSS filter applied to document.body, or use 1.3 as default
-    );
+    const bodyFilter = getComputedStyle(document.body).getPropertyValue("filter") || "";
+    const brightnessPart = bodyFilter.trim().split(/\s+/).find(part => part.startsWith("brightness("));
+    const currentBrightness = brightnessPart
+    ? parseFloat(brightnessPart.replace("brightness(", "").replace(")", ""))
+    : 1.3;
+
     brightnessSlider.value = currentBrightness;
 
-    // Event listener for the brightness slider to adjust brightness
     brightnessSlider.addEventListener("input", (event) => {
-        const brightnessValue = event.target.value; // Get the slider's current value
-        document.body.style.filter = `brightness(${brightnessValue})`; // Update the body's brightness
+    const brightnessValue = event.target.value;
+    document.body.style.filter = `brightness(${brightnessValue})`;
     });
 });
 
