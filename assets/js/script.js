@@ -974,6 +974,15 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
     document.querySelectorAll(".mute-toggle").forEach(button => {
         button.addEventListener("click", event => {
             const soundType = event.target.dataset.sound;
+
+            // If global mute is on and user unmutes a channel, unmute globally
+            if (isMuted) {
+                isMuted = false;
+                // Restore all channels to their intended state
+                if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(isBackgroundMuted ? 0 : userBackgroundVolume, audioContext.currentTime);
+                if (ambientGainNode) ambientGainNode.gain.setValueAtTime(isAmbientMuted ? 0 : userAmbientVolume, audioContext.currentTime);
+                if (effectsGainNode) effectsGainNode.gain.setValueAtTime(isEffectsMuted ? 0 : userEffectsVolume, audioContext.currentTime);
+            }
     
             if (soundType === "ambient" && ambientGainNode) {
                 isAmbientMuted = !isAmbientMuted;
@@ -986,6 +995,7 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
                 effectsGainNode.gain.setValueAtTime(isEffectsMuted ? 0 : userEffectsVolume, audioContext.currentTime);
             }
             syncAudioSettingsUI();
+            updateSoundButtonUI();
         });
     });
     // Event listener for the delete data button
@@ -1057,6 +1067,7 @@ document.querySelector(".game-button.sound").addEventListener("click", () => {
         soundButton.classList.remove("muted"); // Remove the muted class
         tooltipText.textContent = "Mute Sound"; // Update tooltip text
     }
+    updateSoundButtonUI();
 });
 
 // Home button event listener to redirect to the home page
@@ -2032,6 +2043,7 @@ function syncAudioSettingsUI() {
         }
 
         slider.value = userVolume;
+        slider.disabled = isMuted || isMuted; // Disable if globally or channel muted
 
         const muteButton = document.querySelector(`.mute-toggle[data-sound="${soundType}"]`);
         if (muteButton) {
@@ -2042,6 +2054,42 @@ function syncAudioSettingsUI() {
             }
         }
     });
+}
+
+/**
+ * Updates the main sound button UI to reflect the current global and per-channel mute state.
+ *
+ * This function sets the appearance and tooltip of the main sound button based on whether the game is globally muted
+ * or all individual channels (ambient, background, effects) are muted. If any channel is unmuted and global mute is off,
+ * the button appears unmuted; otherwise, it appears muted.
+ *
+ * Behaviour:
+ * - Removes the "muted" class and sets tooltip to "Mute Sound" if any channel is unmuted and global mute is off.
+ * - Adds the "muted" class and sets tooltip to "Unmute Sound" if global mute is on or all channels are muted.
+ *
+ * Notes:
+ * - Should be called after any mute/unmute action or when the audio state changes.
+ * - Keeps the UI consistent with the actual audio playback state.
+ *
+ * References:
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
+ *
+ * @example
+ * // Update the sound button UI after toggling mute
+ * updateSoundButtonUI();
+ */
+function updateSoundButtonUI() {
+    const soundButton = document.querySelector(".game-button.sound");
+    const tooltipText = soundButton.querySelector(".tooltiptext");
+    // If any channel is unmuted and global mute is off, show as unmuted
+    if (!isMuted && (!isAmbientMuted || !isBackgroundMuted || !isEffectsMuted)) {
+        soundButton.classList.remove("muted");
+        tooltipText.textContent = "Mute Sound";
+    } else {
+        soundButton.classList.add("muted");
+        tooltipText.textContent = "Unmute Sound";
+    }
 }
 
 /**
