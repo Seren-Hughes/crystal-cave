@@ -608,7 +608,9 @@ After implementing the fix:
 2. Crystals and modal buttons respond correctly to user interactions.
 3. No further issues with unresponsive crystals or blocked modals.
 
-#### Video: Overlay Debugging in Action
+#### GIF: Overlay Debugging in Action
 
-The following video shows the opaque overlay blocking interactions and how making it visible helped identify and resolve the issue:
+The following GIF shows the opaque overlay for blocking interactions and how making it visible helped identify and resolve the issue:
+
+![Overlay Debugging GIF](assets/media/colour-overlay-development-troubleshooting.gif)
 
