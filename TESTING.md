@@ -570,3 +570,45 @@ This properly updates only the numeric portion of the level text, preserving the
 
 #### Outcome:
 Overwriting only the element’s span avoided removing the entire element under `.level-indicator`. Thanks to these incremental adjustments, the indicator reliably shows “Level 1” on new `startGame()` calls, and the console no longer logs missing elements.
+
+
+## 🔎 Overlay & Crystal Interactivity Debugging 🛠️
+
+### Issue:
+After introducing modals and more complex game states, crystals sometimes became unresponsive even though logs showed event listeners were attached and it was the player's turn. Console logs alone were not enough to diagnose the problem.
+
+### Cause:
+The `.overlay` element, which controls user interaction, was still active and blocking pointer events even when the game logic indicated it should be inactive. This was especially problematic after modal interactions or during certain game states.
+
+### Troubleshooting Steps:
+- Switched from relying solely on console logs to using the VS Code debugger to step through the code and inspect variable states and event flow.
+- Temporarily changed the `.overlay` element from transparent to an opaque colour. This made it visually obvious when the overlay was active and blocking interactions.
+- Recorded a video of the overlay in action to correlate visual state with code execution and event logs.
+- Observed that the overlay was still covering the game area and blocking pointer events at unintended times.
+
+### Solution:
+- Refactored the overlay activation/deactivation logic to ensure it was only active when intended (e.g., during sequence playback or when a modal was open).
+- Used the visible overlay to confirm that overlay state matched the intended game state at all times.
+- Increased the `z-index` of the `.modal-container` to ensure modal buttons appeared above the overlay and were clickable.
+
+**Commit:**  
+`a01f9c6` — Update overlay crystal logic for crystal interactivity states; made overlay opaque for debugging.
+
+### Reasoning Behind the Fix:
+Making the overlay visible allowed for immediate visual feedback on its state, which quickly revealed the root cause of the interaction issues. The VS Code debugger helped confirm that the overlay and game state flags were not always in sync.
+
+### Lesson Learned:
+- Making invisible UI blockers visible (even temporarily) can quickly reveal interaction issues.
+- The VS Code debugger is invaluable when console logs are insufficient for tracking down state or event flow bugs.
+- In hindsight, implementing a visible overlay for debugging earlier would have saved significant troubleshooting time and clarified many interaction issues much sooner.
+
+### Testing Results:
+After implementing the fix:
+1. Overlay state now matches the intended game state at all times.
+2. Crystals and modal buttons respond correctly to user interactions.
+3. No further issues with unresponsive crystals or blocked modals.
+
+#### Video: Overlay Debugging in Action
+
+The following video shows the opaque overlay blocking interactions and how making it visible helped identify and resolve the issue:
+
