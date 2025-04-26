@@ -597,7 +597,7 @@ The `.overlay` element, which controls user interaction, was still active and bl
 ### Reasoning Behind the Fix:
 Making the overlay visible allowed for immediate visual feedback on its state, which quickly revealed the root cause of the interaction issues. The VS Code debugger helped confirm that the overlay and game state flags were not always in sync.
 
-### Lesson Learned:
+### ✨ Lesson Learned:
 - Making invisible UI blockers visible (even temporarily) can quickly reveal interaction issues.
 - The VS Code debugger is invaluable when console logs are insufficient for tracking down state or event flow bugs.
 - In hindsight, implementing a visible overlay for debugging earlier would have saved significant troubleshooting time and clarified many interaction issues much sooner.
@@ -613,4 +613,39 @@ After implementing the fix:
 The following GIF shows the opaque overlay for blocking interactions and how making it visible helped identify and resolve the issue:
 
 ![Overlay Debugging GIF](assets/media/colour-overlay-development-troubleshooting.gif)
+
+## 🔎 Mobile Browser Address Bar & Body Height Issues 🛠️
+
+### Issue:
+On some mobile devices, especially iPhones and Android browsers, the game layout would shift or become misaligned when the browser address bar appeared or disappeared. This caused the game container or UI elements to be cut off or not fully visible.
+
+<img src="assets/media/mobile-address-body-height.png" alt="mobile device layout before fix" width="300">
+
+### Cause:
+Mobile browsers dynamically adjust the viewport height as the address bar shows/hides, but CSS `100vh` does not account for these changes. As a result, elements sized with `100vh` could extend beneath the visible area or become clipped.
+
+### Solution:
+- Implemented a JavaScript-based responsive body height adjustment.
+- On page load and on window resize/orientation change, set the CSS `body` height property to the value of `window.innerHeight`.
+- In CSS, set `body { height: 100%; }` as a fallback. JavaScript dynamically updates the height, so there is no need for `100vh` or a custom property.
+
+**Commit:**  
+`171f7c2` — fix: implement responsive body height adjustment for mobile devices where browser address bars may affect layout
+
+**Code Example:**
+```js
+function setBodyHeight() {
+    document.body.style.height = `${window.innerHeight}px`;
+}
+
+window.addEventListener("load", setBodyHeight);
+window.addEventListener("resize", setBodyHeight);
+```
+
+### Reasoning Behind the Fix:
+Using a dynamic custom property for height ensures the layout always fits the visible viewport, regardless of browser UI changes. 
+
+### Testing Results:
+- The game layout now remains consistent and fully visible, even as the address bar appears/disappears or the device orientation changes.
+- No more cut-off or hidden UI elements on mobile browsers.
 
