@@ -731,5 +731,50 @@ At first, I believed the audio autoplay restriction was only an iOS feature. How
 - The overlay prompt and fade-in logic are consistent everywhere.
 - No more platform-specific bugs or user confusion regarding audio playback.
 
+## 🔎 Crystal Sounds Ignoring Mute & Ambient Volume Ducking Issues 🛠️
 
+### Issue:
+- Crystal sounds were playing even when the game was muted using the mute toggle.
+- The ambient volume "ducking" effect (lowering ambient sound during crystal playback) was retriggering audio playback, even when the game was muted.
+
+### Cause:
+- The mute toggle logic did not include crystal sound effects, so they continued to play regardless of the mute state.
+- The `lowerAmbientVolume` and `restoreAmbientVolume` functions did not check the mute state before adjusting or retriggering audio, causing unwanted audio behaviour during mute.
+
+### Solution:
+- Updated the mute toggle functionality to ensure crystal sounds are also muted when the game is muted.
+- Adjusted the ambient volume handling so that ducking and restoring volume do not retrigger audio playback if the game is muted.
+
+**Commit:**  
+`2209b74` — fix: ensure crystal sounds are included in the mute toggle functionality and adjust ambient volume handling so it doesn't retrigger audio during mute state
+
+**Code Example:**
+```js
+function playSound(buffer) {
+    if (isMuted) {
+        console.log("Sound is muted. Skipping playback.");
+        return; // Do nothing if the game is muted
+    }
+    // ...rest of playSound logic...
+}
+
+function lowerAmbientVolume() {
+    if (isMuted) {
+        if (ambientGainNode) {
+            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime);
+            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime);
+        }
+        return; // Do nothing if the game is muted
+    }
+    // ...rest of lowerAmbientVolume logic...
+}
+```
+
+### Reasoning Behind the Fix:
+By ensuring all sound effects—including crystal sounds—respect the mute state, and by preventing ambient volume ducking from retriggering audio during mute, the game's audio behavior is now consistent and predictable for users.
+
+
+### Testing Results:
+- After the fix, muting the game silences all sounds, including crystal effects.
+- No audio is played or retriggered when the game is muted, even during ambient volume changes.
 
