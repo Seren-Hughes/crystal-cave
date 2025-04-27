@@ -1086,12 +1086,14 @@ function updateSoundButtonUI() {
 - Toggling per-channel mute did not always update the global mute button.
 - Video demonstration:  
 
+https://github.com/user-attachments/assets/842e965a-86f0-49d5-9e4d-b57b98b0b8d9
 
 ### After the Fix:
 - The sound button and all mute controls now stay in sync with the actual audio state.
 - Unmuting a channel while globally muted unmutes globally and updates the UI.
 - Video demonstration:  
 
+https://github.com/user-attachments/assets/a803f2e6-8866-4e21-af40-65e2531e096d
 
 ### Reasoning Behind the Fix:
 Keeping the UI and mute state in sync is essential for a predictable and user-friendly experience. By centralizing the UI update logic and ensuring it runs after every mute/unmute action, the mute controls now always reflect the true state of the game’s audio.
