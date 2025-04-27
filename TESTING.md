@@ -842,3 +842,75 @@ This greatly improves code navigation and understanding, especially for complex 
 ---
 
 *This process improvement has already made my codebase easier to maintain and will help future development by reminding myself and helping others to understand the project more quickly.*
+
+## 🔎 DOMContentLoaded & Initialisation Issues 🛠️
+
+### Issue:
+Clumsy Initialisation and Difficult Maintenance
+
+**Background:**  
+While the game worked, the initialisation logic was scattered and clumsy. All setup code and event listeners were inside a large, DOMContentLoaded event listener. This made it difficult to add new features, maintain the code, or reason about the game’s startup sequence.  
+Attempts to tidy up or move code often resulted in the game breaking, leading to a multi-day crisis of confidence in the codebase.
+
+**Solution:**  
+I refactored all DOM initialisation logic into a single `initializeGameSite` function, which is called only after the DOMContentLoaded event fires. This encapsulation made the startup process clear, modular, and maintainable.
+
+**Code Example:**
+```js
+/**
+ * Initialises the game site after the DOM has fully loaded.
+ * Sets up event listeners, UI controls, and game state.
+ */
+function initializeGameSite() {
+    // All setup logic here
+    // ...
+}
+document.addEventListener("DOMContentLoaded", initializeGameSite);
+```
+
+**Reasoning Behind the Fix:**  
+Encapsulating all initialisation logic in a dedicated function and calling it only after the DOM is ready ensures robust, predictable setup. This approach also improves code readability and maintainability, making it much easier to add new features or debug issues in the future.
+
+**Testing Results:**
+- The game’s startup process is now reliable and easy to extend.
+- No more fear of breaking everything when adding new features.
+- The codebase is much easier to maintain and understand.
+
+---
+
+*This refactor improved the reliability of the game’s startup process, making the codebase easier to maintain.*
+
+## 🔎 Flash of Unstyled Content (FOUC) 🛠️
+
+### Issue: 
+
+Flash of Unstyled Content (FOUC) — Speech Bubble Appears Briefly on First Load
+
+**Problem:**  
+When first loading the game page, the speech bubble (with no text) would briefly appear before disappearing, even though it was supposed to fade in only when needed. On page refresh, this did not occur.
+
+**Cause:**  
+The speech bubble was not hidden by default in the HTML or CSS. JavaScript would hide it after the DOM loaded, but there was a split second where it was visible before the script ran.
+
+**Solution:**  
+Set the speech bubble to be hidden by default in the HTML, and only show it (with fade-in) by adding a class in JavaScript when needed.
+
+
+**Code Example:**
+```html
+<div class="speech-bubble hidden">
+</div>
+```
+
+**JS Example:**
+```js
+const speechBubble = document.querySelector(".speech-bubble");
+speechBubble.classList.remove("hidden"); // Show the speech bubble when needed
+```
+
+**References:**  
+- [DEV: How to Get Rid of the Flash of Unstyled Content ](https://dev.to/fbnlsr/how-to-get-rid-of-the-flash-of-unstyled-content-5e7)
+- [DEV: What the FOUC is Happening?](https://dev.to/lyqht/what-the-fouc-is-happening-flash-of-unstyled-content-413j)
+
+---
+
