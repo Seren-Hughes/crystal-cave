@@ -599,7 +599,7 @@ Making the overlay visible allowed for immediate visual feedback on its state, w
 ### ✨ Lesson Learned:
 - Making invisible UI blockers visible (even temporarily) can quickly reveal interaction issues.
 - The VS Code debugger is invaluable when console logs are insufficient for tracking down state or event flow bugs.
-- In hindsight, implementing a visible overlay for debugging earlier would have saved significant troubleshooting time and clarified many interaction issues much sooner.
+- _In hindsight_, implementing a visible overlay for debugging earlier would have saved significant troubleshooting time and clarified many interaction issues much sooner.
 
 ### Testing Results:
 After implementing the fix:
@@ -682,4 +682,54 @@ By ensuring the game container and speech bubble are only shown after the overla
 ![GIF showing iOS audio overlay issue fixed](assets/media/ios-overlay-loading-fix.gif)
 ---
 
-*Note: In a later update, this audio user event overlay logic was unified across all devices and browsers, not just iOS. This change is documented in a subsequent troubleshooting section.*
+*Note: In a later update, this audio user event overlay logic was unified across all devices and browsers, not just iOS. This change is documented next.*
+
+## 🔎 Audio Context Resume & Universal Audio User Event Overlay 🛠️
+
+### Issue:
+Initially, the audio permission overlay (`.ios-start-overlay`) and audio context resume logic were only implemented for iOS, since iOS Safari was known to block audio playback until a user gesture. On desktop Chrome, everything seemed to work fine at first.
+
+However, after introducing more Web Audio API features (such as mute toggle buttons and sound effects), I discovered that audio would not start on other browsers (including Chrome and Firefox) until the user interacted with the page. For example, audio would only play after clicking a crystal during the player's turn, not on page load.
+
+### Cause:
+- Modern browsers (not just iOS) now block autoplay of audio and require a user gesture to resume or start the `AudioContext`.
+- The original overlay and resume logic were iOS-specific, so users on other platforms did not get a clear prompt to enable audio, and the resume logic was not always triggered.
+- This led to inconsistent and confusing audio behaviour across devices and browsers.
+
+### Solution:
+- **Commit `81a6b03`:**  
+  Added logic to check if the `audioContext` is suspended and resume it on user interaction with the overlay. This ensured audio would reliably start on iOS after the user tapped to continue.
+- **Commit `a64c872`:**  
+  Refactored the overlay and logic to be cross-platform:
+    - Renamed `.ios-start-overlay` to `.audioUserEventOverlay`.
+    - Applied the same audio resume and overlay dismissal logic to all devices and browsers, not just iOS.
+    - Ensured a consistent user experience and reliable audio playback everywhere.
+
+**Code Example:**
+```js
+audioUserEventOverlay.addEventListener("click", () => {
+    if (audioContext.state === "suspended") {
+        audioContext.resume().then(() => {
+            console.log("AudioContext resumed");
+        });
+    }
+    audioUserEventOverlay.style.display = "none";
+    startIntro();
+});
+```
+
+### Reasoning Behind the Fix:
+At first, I believed the audio autoplay restriction was only an iOS feature. However, after adding more Web Audio API features and testing on other browsers, I realized that this restriction is now enforced by almost all browsers. Making the overlay and audio context resume logic universal ensures all users receive a clear prompt and that audio playback works reliably everywhere.
+
+### ✨ Lesson Learned:
+- Audio autoplay restrictions are now a cross-platform standard, not just an iOS quirk.
+- Always test audio initialisation and user gesture requirements on multiple platforms.
+- Unifying overlay and permission logic improves both code maintainability and user experience.
+
+### Testing Results:
+- Audio now starts reliably after user interaction on all devices and browsers.
+- The overlay prompt and fade-in logic are consistent everywhere.
+- No more platform-specific bugs or user confusion regarding audio playback.
+
+
+
