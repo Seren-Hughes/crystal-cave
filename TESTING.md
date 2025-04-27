@@ -771,10 +771,74 @@ function lowerAmbientVolume() {
 ```
 
 ### Reasoning Behind the Fix:
-By ensuring all sound effects—including crystal sounds—respect the mute state, and by preventing ambient volume ducking from retriggering audio during mute, the game's audio behavior is now consistent and predictable for users.
+By ensuring all sound effects—including crystal sounds—respect the mute state, and by preventing ambient volume ducking from retriggering audio during mute, the game's audio behaviour is now consistent and predictable for users.
 
 
 ### Testing Results:
 - After the fix, muting the game silences all sounds, including crystal effects.
 - No audio is played or retriggered when the game is muted, even during ambient volume changes.
 
+## 📝 JSDoc Adoption & Documentation Refactor 🛠️
+
+### Context:
+After a mentor session with Daniel Hamilton, I learned about the benefits of JSDoc for documenting JavaScript functions. Previously, I had written multiline comments (using `/* ... */`) to explain callback functions and logic, mainly to keep my script cleaner and easier to navigate by allowing comment folding in VS Code.
+
+### Discovery:
+- My mentor pointed out that my multiline comments were already a good start for JSDoc.
+- He showed me examples, resources, and explained how JSDoc comments can be used for better code navigation, IDE tooltips, and even generating documentation automatically.
+- I realised that what I stumbled upon for code folding was actually the JSDoc format, and that using it consistently would benefit both my workflow and anyone else reading my code.
+
+### Solution:
+- Began converting function comments into proper JSDoc format for clarity and IDE support, with the goal of eventually generating full project documentation from these comments.
+
+**Example Before:**
+```js
+
+ /** Event bubbling and propagation solution references:
+  * Using event.stopPropagation() to prevent the click event from propagating
+  * to other elements. This solution was inspired by:
+  * - Free Code Camp: https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/
+  * - MDN Web Docs: https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
+  */
+function closeModal() { ... }
+```
+
+**Example After:**
+```js
+/**
+  * Closes a modal and optionally executes a callback after closing.
+  * 
+  * This function handles modal closing behaviour, including:
+  * - Hiding the modal.
+  * - Deactivating the overlay unless another modal is still open.
+  * - Executing a callback function after the modal is closed.
+  * - Re-activating the overlay if the speech bubble modal is still visible.
+  * 
+  * Event bubbling and propagation solution references:
+  * - [FreeCodeCamp: Event Propagation](https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/)
+  * - [MDN Web Docs: Event.stopPropagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
+  * 
+  * @param {string} [type="speechBubble"] - The type of modal to close (e.g., "speechBubble" or "gameModal").
+  * @param {Event|null} [event=null] - The event triggering the modal close, if applicable.
+  * @param {Function|null} [callback=null] - A callback function to execute after the modal is closed.
+  */
+ function closeModal(type = "speechBubble", event = null, callback = null) { ... }
+```
+### 
+**JSDoc tooltip on hover:**
+
+![JSDoc Tooltip Example](assets/media/jsdoc-hover-ide-tooltip.png)
+
+**JSDoc tooltip in VS Code shows the function description, parameters, and references.**
+This greatly improves code navigation and understanding, especially for complex functions or when returning to the code after a break. It also helps other developers understand the codebase more quickly and how to use the functions.
+
+![JSDoc Tooltip Example 2](assets/media/jsdoc-hover-ide-tooltip-2.png)
+
+### ✨ Lesson Learned:
+- JSDoc improves code navigation, IDE support, and can be used to generate external docs.
+- Feedback and code review is invaluable for discovering best practices and improving code quality.
+- I plan to convert all my JSDoc comments into a full documentation set once development is complete.
+
+---
+
+*This process improvement has already made my codebase easier to maintain and will help future development by reminding myself and helping others to understand the project more quickly.*
