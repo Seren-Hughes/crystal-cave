@@ -482,7 +482,7 @@ Each button was using a separate image file for the 'pressed' active state. The 
 ### Video demonstrating issue:
 Short video clips were recorded to demonstrate the flicker:
 
-https://github.com/user-attachments/assets/21fdd819-22ed-466d-a679-6b45c4f99a87
+![Button Flicker GIF](assets/media/button-flicker.gif)
 
 
 ### Initial Fix Attempt (preloading images):
@@ -522,8 +522,7 @@ After switching to a sprite sheet:
 2. The short video clip below shows the smooth state transitions:
 
 
-
-https://github.com/user-attachments/assets/a264495a-4741-412a-8fc6-74906145ec29
+![Sprite Sheet Button Transition GIF](assets/media/sprite-sheet-button-transition.gif)
 
 
 
@@ -649,3 +648,38 @@ Using a dynamic custom property for height ensures the layout always fits the vi
 - The game layout now remains consistent and fully visible, even as the address bar appears/disappears or the device orientation changes.
 - No more cut-off or hidden UI elements on mobile browsers.
 
+## 🔎 iOS Audio Overlay & Premature Game Container Display 🛠️
+
+### Issue:
+On iOS devices, the audio permission overlay (`.ios-start-overlay`) appeared as intended on page load, prompting the user with “This site is best experienced with audio. Tap to continue.”  
+However, the game container and speech bubble were briefly visible **behind** the overlay before the user tapped to continue. This resulted in an unsightly page load where users saw a flash of the game UI and speech bubble, followed by a reload/fade-in when the overlay was dismissed.
+
+Even when the overlay was made a solid colour (instead of semi-transparent), a brief glimpse of the game container and speech bubble before the intended fade-in was visually jarring and unprofessional.
+
+![GIF showing iOS audio overlay issue](assets/media/ios-overlay-loading-issue.gif)
+
+### Cause:
+- The game container and speech bubble were being rendered and faded in **before** the audio overlay was dismissed.
+- The DOMContentLoaded event listener logic did not properly sequence the loading and display of the game UI relative to the overlay.
+- The fade-in/fade-out transitions were not synchronized, causing a double-load effect.
+
+### Solution:
+- Refactored the logic so that the game container, speech bubble, and buttons are only shown and faded in **after** the audio permission overlay is dismissed.
+- Used an explicit `startIntro` function to handle all game UI setup after the overlay event, ensuring nothing is visible prematurely.
+- Added a delay and pointer event logic to the speech bubble and the interaction overlay to control the timing of their appearance.
+
+**Commit:**  
+`89cc891` — fix: add button hide and fade-in logic for iOS devices
+
+### Reasoning Behind the Fix:
+By ensuring the game container and speech bubble are only shown after the overlay is dismissed, the user experience is smooth and visually consistent. The refactored page load prevents any premature display of game elements, eliminating the unattractive flash and double-load effect.
+
+### Testing Results:
+- After the fix, the game container and speech bubble are hidden until the user dismisses the audio overlay.
+- The fade-in transition is smooth, with no premature flashes of the game UI.
+- The experience is consistent and professional on iOS and other devices.
+
+![GIF showing iOS audio overlay issue fixed](assets/media/ios-overlay-loading-fix.gif)
+---
+
+*Note: In a later update, this audio user event overlay logic was unified across all devices and browsers, not just iOS. This change is documented in a subsequent troubleshooting section.*
