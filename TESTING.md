@@ -913,4 +913,195 @@ speechBubble.classList.remove("hidden"); // Show the speech bubble when needed
 - [DEV: What the FOUC is Happening?](https://dev.to/lyqht/what-the-fouc-is-happening-flash-of-unstyled-content-413j)
 
 ---
+## 🔎 Modal Scroll Position Not Reset 🛠️
+
+### Issue:
+When using the game dashboard (settings modal) and the "How to Play" modal—which both use the same modal container — if a user scrolled to the bottom of one modal, opening another would start scrolled to the bottom as well. This led to a confusing and poor user experience, as users expected each modal to open at the top.
+
+### Cause:
+The modal container element retained its scroll position between modal uses, since it was reused for different modal content and the scroll position was not reset.
+
+### Solution:
+Added logic to reset the scroll position to the top (`modal.scrollTop = 0;`) whenever the modal is closed. This ensures that every time a modal is opened, it starts at the top, providing a consistent and user-friendly experience.
+
+**Code Example:**
+```js
+function closeModal(type = "speechBubble", event = null, callback = null) {
+    // ...existing code...
+    if (type === "gameModal") {
+        modal.scrollTop = 0; // Reset scroll to the top
+    }
+    // ...existing code...
+}
+```
+
+### Testing Results:
+- Before the fix: Opening a new modal could start at the bottom if the previous modal was scrolled down.
+
+![GIF: Modal scroll before](assets/media/scroll-modal-not-resetting.gif) 
+
+- After the fix: Each modal always opens at the top, regardless of previous scroll position.
+
+![GIF: Modal scroll after](assets/media/scroll-modal-reset-to-top.gif) 
+
+
+### Reasoning Behind the Fix:
+Resetting the scroll position on modal close ensures a predictable and accessible experience for users, especially when reusing modal containers for different content.
+
+---
+
+*This small UX improvement makes navigating between modals much smoother and more intuitive for players.*
+
+## 🔎 Settings Modal State Not Restored 🛠️
+
+### Issue:
+When reopening the settings modal, the positions of the sliders (for brightness and volume) and the mute button states were not restored. This led to a confusing user experience, as the UI did not always reflect the actual audio or brightness state after closing and reopening the modal.
+
+### Cause:
+Most slider tutorials focus on basic input handling but do not address restoring slider positions or mute button styling when a modal is closed and reopened. The UI state was not being synchronised with the underlying settings each time the modal was shown, leading to mismatches between the actual state and what the user saw.
+
+### Solution:
+Refactored the code to ensure that, whenever the settings modal is opened, the UI is synchronised with the current application state:
+- Added a function to update all slider positions and mute button styles based on the latest values and mute flags.
+- Called this function every time the modal is opened.
+
+**Commit:**
+`33e59ad` — _fix: ensure settings modal reopening restores the correct slider and mute button states_
+
+**Code Example:**
+```js
+/**
+ * Synchronizes the audio settings UI in the settings modal.
+ * Updates slider positions and mute button styles to match the current state.
+ */
+function syncAudioSettingsUI() {
+    // ...sync logic for sliders and mute buttons...
+}
+
+// Call this every time the modal is opened:
+document.querySelector(".game-button.settings").addEventListener("click", () => {
+    syncAudioSettingsUI();
+    // ...show modal logic...
+});
+```
+
+**Before the Fix:**
+![GIF: Settings modal before fix](assets/media/slider-position-not-restoring-position.gif)
+
+**After the Fix:**
+![GIF: Settings modal after fix](assets/media/slider-position-mute-restored.gif)
+
+### Reasoning Behind the Fix:
+By explicitly syncing the UI with the current state each time the modal is opened, the user always sees accurate slider positions and mute button states. This approach is more robust than relying on the default input values or assuming the UI will stay in sync after modal close/open cycles.
+
+### Testing Results:
+- After the fix, reopening the settings modal always shows the correct slider positions and mute button states.
+- The UI is now consistent with the actual audio and brightness settings, regardless of how many times the modal is opened or closed.
+
+---
+
+*This was a tricky issue to solve, as most tutorials do not cover restoring UI state for situations like reopening modals. The solution required careful state management and explicit UI synchronisation, as well as some experimentation with regex and string parsing for brightness values (discussed in the next entry).*
+
+## 🔎 Brightness Slider, 🐰 Regex Rabbit Holes & Future-Proofing Filter Controls 🛠️
+
+### Issue:
+While implementing the brightness slider, I initially used a regex to extract the brightness value from the body's CSS filter property.
+This worked for a single filter, but as I considered adding more sliders (e.g., for crystal brightness, contrast, or other accessibility options), I realised maintaining and extending the regex approach would quickly become unwieldy and error-prone.
+
+### 🐰 The Regex Rabbit Hole:
+I spent many hours researching regular expressions, studying syntax on MDN and tutorials on FreeCodeCamp, SitePoint, and other resources.
+While regex is incredibly powerful for string matching, I recognised that chaining multiple filters (like brightness, saturation, contrast, etc.) would make a regex-based approach difficult to maintain _and understand_ — especially for accessibility settings and future feature expansion.
+
+### Solution:
+I refactored the brightness value retrieval using a simpler, more maintainable approach:
+
+- I split the filter string and searched for the brightness(...) part individually.
+- This approach is modular and can easily be extended to handle more filters like saturation and contrast without needing complex regular expressions.
+
+**Commit:**  
+`70a0e23` — refactor: simplify brightness value retrieval and brightnessSlider JSDoc
+
+**Code Example:**
+```js
+/**
+ * Retrieves the current brightness value from the body's CSS filter property.
+ * Splits the filter string and finds the brightness(...) value, defaulting to 1.3 if not set.
+ */
+const bodyFilter = getComputedStyle(document.body).getPropertyValue("filter") || "";
+const brightnessPart = bodyFilter.trim().split(/\s+/).find(part => part.startsWith("brightness("));
+const brightnessValue = brightnessPart
+  ? parseFloat(brightnessPart.replace("brightness(", "").replace(")", ""))
+  : 1.3;
+brightnessSlider.value = brightnessValue;
+```
+
+### Reasoning Behind the Fix:
+Although regex is a fascinating and valuable skill (and I plan to keep learning it properly), the `split()` and `find()` method is much easier to read, debug, and extend.
+It also improves accessibility and maintainability — making it future-proof for additional sliders for effects like contrast or saturation.
+
+
+### Testing Results:
+- The brightness slider now updates correctly based on the current filter value.
+- The solution is easy to extend for more filters in the future.
+- The code is simpler and more readable.
+
+## 🔎 UI Mute Functionality: Syncing Global and Per-Channel States 🛠️
+
+### Issue:
+The mute system for the game was inconsistent and confusing. Toggling the global mute button or individual channel mute buttons (ambient, background, effects) did not always update the UI correctly. Sometimes, the main sound button would appear muted even when sound was playing, or vice versa. This led to a frustrating user experience and made it difficult to trust the mute controls.
+
+### Cause:
+The logic for syncing the global mute state (`isMuted`) and the per-channel mute states (`isAmbientMuted`, `isBackgroundMuted`, `isEffectsMuted`) was tangled and not robust. UI updates were not always triggered after state changes, and the sound button did not always reflect the true audio state. Tutorials rarely cover the complexity of syncing global and per-channel mute states, especially when users can toggle either at any time.
+
+### Solution:
+Refactored the mute logic to ensure that:
+- The main sound button always reflects the true global mute state and the state of all channels.
+- Unmuting any channel while global mute is on will unmute globally and update the UI.
+- The UI is always updated after any mute/unmute action, keeping the sound button and per-channel controls in sync.
+
+**Commit:**  
+`f1e72fa` — fix: enhance UI mute functionality to sync and reflect global and per channel mute states
+
+**Code Example:**
+```js
+/**
+ * Updates the main sound button UI to reflect the current global and per-channel mute state.
+ * Should be called after any mute/unmute action or when the audio state changes.
+ */
+function updateSoundButtonUI() {
+    const soundButton = document.querySelector(".game-button.sound");
+    const tooltipText = soundButton.querySelector(".tooltiptext");
+    if (!isMuted && (!isAmbientMuted || !isBackgroundMuted || !isEffectsMuted)) {
+        soundButton.classList.remove("muted");
+        tooltipText.textContent = "Mute Sound";
+    } else {
+        soundButton.classList.add("muted");
+        tooltipText.textContent = "Unmute Sound";
+    }
+}
+```
+
+### Before the Fix:
+- The sound button could appear muted even when sound was playing, or unmuted when all channels were muted.
+- Toggling per-channel mute did not always update the global mute button.
+- Video demonstration:  
+
+
+### After the Fix:
+- The sound button and all mute controls now stay in sync with the actual audio state.
+- Unmuting a channel while globally muted unmutes globally and updates the UI.
+- Video demonstration:  
+
+
+### Reasoning Behind the Fix:
+Keeping the UI and mute state in sync is essential for a predictable and user-friendly experience. By centralizing the UI update logic and ensuring it runs after every mute/unmute action, the mute controls now always reflect the true state of the game’s audio.
+
+### Testing Results:
+- The mute UI is now reliable and intuitive.
+- No more confusion about whether sound is actually muted or not.
+- All mute/unmute actions are reflected immediately in the UI.
+
+---
+
+*This was one of the most challenging UI bugs to fix, and while the placeholder audio in the demo videos is rough, the end result is a much more reliable and user-friendly mute system.*
 
