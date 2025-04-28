@@ -1,7 +1,35 @@
+# Echoes of the Crystal Cave - Testing
+
+## Table of Contents
+- [Development Troubleshooting](#development-troubleshooting) 
+- [Google Lighthouse Performance](#google-lighthouse-results)
+- [Responsiveness](#responsiveness)
+- [Code Validation](#code-validation)
+- [Manual Testing](#manual-testing)
+- [Jest Testing](#jest-testing)
+- [Bugs](#bugs)
+- [Future Improvements](#future-improvements)
+- [Conclusion](#conclusion)  
+
 # Development Troubleshooting
 
+This section documents the particularly tricky fixes and refactors encountered during active development.  
+These notes were taken while building the project, and focus on real-time troubleshooting rather than post-development bug fixing.  
+Later sections of this document cover post-development testing and any additional issues discovered.
 
-During development, I encountered several issues with layout positioning and game logic errors. Below are the problems I faced and the solutions implemented.
+<details>
+<summary>🔗 Quick Navigation</summary>
+
+- [Bat Sprite and Level Number Positioning](#-bat-sprite-and-level-number-positioning-)
+- [Uncaught ReferenceError: sequence is not defined](#-uncaught-referenceerror-sequence-is-not-defined-)
+- [Duplicate Event Listeners on Player Clicks](#-duplicate-event-listeners-on-player-clicks-)
+- [Lingering Glowing Crystal and Last Crystal Not Glowing](#-lingering-glowing-crystal-and-last-crystal-not-glowing-)
+- [Mobile Touch Events Not Working](#-mobile-touch-events-not-working-)
+
+
+</details>
+
+---
 
 ## 🔎 Bat Sprite and Level Number Positioning 🛠️
 
@@ -599,7 +627,7 @@ Making the overlay visible allowed for immediate visual feedback on its state, w
 ### ✨ Lesson Learned:
 - Making invisible UI blockers visible (even temporarily) can quickly reveal interaction issues.
 - The VS Code debugger is invaluable when console logs are insufficient for tracking down state or event flow bugs.
-- _In hindsight_, implementing a visible overlay for debugging earlier would have saved significant troubleshooting time and clarified many interaction issues much sooner.
+- <u>_**In hindsight**_</u>, implementing a visible overlay for debugging earlier would have saved significant troubleshooting time and clarified many interaction issues much sooner.
 
 ### Testing Results:
 After implementing the fix:

@@ -4,6 +4,44 @@
 
 This game takes the classic Simon and Bop It style memory challenge and gives it a unique twist with a cave setting, atmospheric audio, and a five-note scale system. Players interact with glowing crystals that light up and produce musical tones when activated. The game is designed to be accessible, engaging, and visually appealing, with pixel-art aesthetics and simple, responsive controls.
 
+[View Live Site.](https://seren-hughes.github.io/crystal-cave/) Hosted on GitHub Pages.
+
+#### Key Features:
+
+--- 
+
+## Table of Contents:
+- [Objectives](#objectives)
+- [User Stories](#user-stories)
+- [Design & Planning](#design--planning)
+- [Game Mechanics](#game-mechanics)
+- [Wireframes](#wireframes)
+- [Pseudocode](#pseudocode)
+- [Function Structure](#function-structure-and-game-pseudocode-refined)
+- [Typography](#typography)
+- [Colour Palette](#colour-palette)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+  - [Home Page](#home-page)
+  - [Game Page](#game-page)
+  - [UI Navigation](#ui-navigation)
+  - [Speech Bubble Modal](#speech-bubble-modal)
+  - [Audio & Audio Controls](#audio-audio-controls)
+  - [How to Play Modal](#how-to-play-modal)
+  - [Game Dashboard Modal](#game-dashboard-modal)
+  - [Game Over Modal](#game-over-modal)
+  - [Freestyle Mode](#freestyle-mode)
+  - [Error Page](#error-page)
+  - [Additional Features](#additional-features)
+- [Accessibility](#accessibility)
+- [Deployment](#deployment)
+- [Testing](#testing)
+- [Future Enhancements](#future-enhancements)
+- [Credits](#credits)
+- [Acknowledgements](#acknowledgements)
+
+## Objectives:
+
 **Target Audience:**
 - Casual gamers who enjoy quick, skill-based challenges.
 - All age groups, from children to adults, due to simple controls and gameplay.
@@ -58,65 +96,38 @@ The game is designed to be intuitive and accessible across multiple devices:
 #### Game inspiration: 
 Brucey the plush bat, who inspired the creative process behind the game’s theme. 
 
-![Brucey the Bat](assets/media/brucey.png)
+<img src="assets/media/brucey.png" alt="Brucey the Bat" width="300">
 
 ## Wireframes
 
 1. ### Index / Home Page:
 
-<details><summary><em>Click to expand wireframes</em></summary>
+![Index Home Page Design](assets/media/echoes-index-page-wireframes.png)
 
-   ![Index Home Page Design](assets/media/echoes-index-page-wireframes.png)
-
-   </details>
-  
 2. ### Index / Home Page with modal view:
 
-<details><summary><em>Click to expand wireframes</em></summary>
-
-   ![Index Home Page with modal view](assets/media/echoes-index-page-modal-wireframes.png)
-
-   </details>
+![Index Home Page with modal view](assets/media/echoes-index-page-modal-wireframes.png)
 
 3. ### Game Page:
 
-<details><summary><em>Click to expand wireframes</em></summary>
-
-   ![Game Page Design](assets/media/echoes-game-page-wireframes.png)
-
-   </details>
+![Game Page Design](assets/media/echoes-game-page-wireframes.png)
 
 4. ### Landscape View Small Devices:
 
-<details><summary><em>Click to expand wireframes</em></summary>
-
-   ![Landscape Small Devices](assets/media/echoes-game-landscape-wireframes.png)
-
-   </details>
+![Landscape Small Devices](assets/media/echoes-game-landscape-wireframes.png)
 
 5. ### Greetings / Ready? Modal:
 
-<details><summary><em>Click to expand wireframes</em></summary>
-
-   ![Greetings Ready Modal](assets/media/modal-welcome-ready-wireframes.png)
-
-   </details>
+![Greetings Ready Modal](assets/media/modal-welcome-ready-wireframes.png)
 
 6. ### Game Page Modal View:
 
-<details><summary><em>Click to expand wireframes</em></summary>
+![Game Page Modal View](assets/media/echoes-game-page-modal-wireframes.png)
 
-   ![Game Page Modal View](assets/media/echoes-game-page-modal-wireframes.png)
+7. ### 404 Error Page:
 
-   </details>
+![404 Error Page](assets/media/echoes-error-page-wireframes.png)
 
-6. ### 404 Error Page:
-
-<details><summary><em>Click to expand wireframes</em></summary>
-
-   ![404 Error Page](assets/media/echoes-error-page-wireframes.png)
-
-   </details>
 
 ## Pseudocode 
 
@@ -197,3 +208,140 @@ Basic pseudocode was used during the early planning and development stage. It wa
     - Displays a modal asking if the player wants to retry
     - If "Yes": Calls `startGame()` to reset
     - If "No": Ends the game - return to home page
+
+
+## Typography
+
+Google Fonts Selection:
+
+For the game's typography, I aimed to capture a retro, pixel-inspired aesthetic without sacrificing readability, especially for longer text.
+
+### **Jersey 20** Designed by Sarah Cadigan-Fried 
+![Google Font Jersey 20](assets/media/jersey20.png)
+
+**Jersey 20** was selected as the primary font for its pixelated, slightly retro style, which fits the game's theme perfectly. Unlike many pixel fonts that can seem hard to read, Jersey 20 maintains excellent legibility, making it ideal for headings, speech bubble text, and body text across the game site.
+
+### **Handjet** Designed by Rosetta, David Březina
+![Google Font Handjet](assets/media/handjet.png)
+
+**Handjet** was chosen as a complementary font for more selective use, such as level numbers, tooltips, and modals. Its stronger pixelated look adds character where appropriate, without overwhelming the overall readability of the UI.
+
+This combination balances a nostalgic pixel-game feel with a user-friendly reading experience, ensuring the game remains visually thematic and accessible.
+
+## Colour Palette
+
+The game's colour palette was refined using Coolors to achieve the right balance of aesthetic feel and accessibility. I chose a combination of dark and muted light blues for the backgrounds, headings, and button icons.
+
+Accessibility was a priority: contrast ratios were carefully checked during development to ensure good readability for all text and UI elements.
+
+Speech bubbles use classic black and white for maximum clarity against the dark backdrop, maintaining a clean and focused dialogue progression. 
+
+![Colour Palette](assets/media/cave-blues-colour-pallette.png)
+
+The crystals are designed with bright, saturated colours so they stand out vibrantly against the dark background cave design. 
+
+![Crystal Colour Palette](assets/media/crystal-colours-design.jpg)
+
+## Technologies Used
+
+### Languages, Frameworks & Tools
+#### Languages:
+- **HTML5** — semantic structure and content
+- **CSS3** — styling, responsive layouts, Flexbox
+- **JavaScript (ES6+)** — interactivity, game logic, DOM manipulation
+
+#### Browser APIs:
+- **Web Audio API** — for sound generation and crystal interaction audio
+
+#### Fonts and Visuals:
+- **Google Fonts** — Jersey 20 for retro pixel-style headings, and Handjet for numerical displays, tooltips, and modal text
+**Favicon Generator** — for creating a custom favicon for the site
+**Tiled Map Editor** — for building the cave background and level container layout
+**Adobe Photoshop** — for editing assets, creating pixel backgrounds, modals, and sprites
+
+#### Audio Tools:
+- **Ableton Live** — for creating, editing, and mastering sound effects and musical notes used in the game
+
+#### Additional Tools:
+- **Coolors** — to generate and fine-tune the colour palette ensuring contrast accessibility
+
+## Features
+
+### Additional Features:
+#### 🎨 Visual Polish and Fade-In Effects
+Throughout _Echoes of the Crystal Cave_, a consistent fade-in animation is used for major elements:
+
+- Home screen titles and images
+- Game container and interface elements
+- Modals, overlays, and dialogue bubbles
+- Crystal buttons and level indicators
+
+**Inspiration:**
+
+The design choice was inspired by retro games from the Super Nintendo era, where fade-ins created a smooth, cinematic transition between scenes.
+
+Rather than having elements appear suddenly, the fade-in provides a vintage atmosphere, evokes nostalgia, and makes the game feel more cohesive and polished.
+
+**Implementation:**
+
+Fade-ins were applied using simple CSS transitions for broad browser compatibility and performance.
+
+The effect maintains consistency across devices without adding unnecessary complexity or heavy scripting.
+
+## Future Enhancements
+
+### **Canvas API Animations**
+During development, I researched the [Canvas API](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial) to explore more advanced bat animations and dynamic backgrounds.
+Due to project scope and deadlines, full Canvas integration was deferred. However, I plan to continue studying the Canvas API to enhance future versions of the game with layered animations, scaling effects, and smoother sprite control.
+
+### **🎛️ Web MIDI API Integration (Planned)**
+To expand the interactivity of Echoes of the Crystal Cave, I plan to implement Web MIDI API functionality. This would allow players to connect a MIDI controller (such as a Novation Launchpad) to the game.
+
+How it would work:
+
+**Crystal Layout Mirroring:**
+The crystals' colours and glow states will be reflected on the physical controller's pads.
+
+**Example Images:**
+
+<img src="assets/media/launchpad-layout.jpg" alt="Launchpad Layout" width="300">
+
+<img src="assets/media/launchpad-layout-crystal-match.jpg" alt="Launchpad Layout Crystal Match" width="300">
+
+**Hardware Input:**
+
+- Players could tap their Launchpad buttons instead of clicking or tapping on screen or the keyboard A, W, S, E, D keys.
+- The game will listen for MIDI input events and trigger the corresponding crystal animations and sounds.
+
+**Real-Time Feedback:**
+Correct inputs would trigger light animations and sounds on the hardware in sync with the game.
+
+### **🥁 Rhythm Mode Expansion (Disco Mode)**
+
+Alongside traditional memory gameplay, I aim to introduce an optional Rhythm Memory Mode:
+
+- Players must match the crystal sequence and the beat of a background track.
+- Audio cues and visual feedback will be precisely timed using the Web Audio API.
+- Light effects (on-screen and on hardware) would pulse rhythmically to guide the player.
+
+This would combine memory skills with timing accuracy, offering a fresh twist for players who enjoy rhythm games.
+
+🎯 **Target Audience**
+The expanded features are designed to appeal to a broad audience:
+
+- Casual gamers who enjoy accessible memory games with a musical twist.
+- Music enthusiasts, DJs, and producers who appreciate MIDI technology and rhythm challenges.
+- Parents who want to introduce their children to music creation in a fun way.
+- Players of all ages who enjoy games that blend creativity, sound, and visual charm.
+
+The goal is to create an experience that is easy to pick up but rewarding to master, and that bridges the gap between gameplay and musical creativity.
+
+### **🏆 Achievements**
+I plan to implement an achievements system to reward players for reaching milestones, such as completing levels, achieving high scores, or discovering hidden features. This will encourage replayability and provide a sense of accomplishment.
+The achievements could be displayed in a dedicated modal with mystery badges that unlock as players progress.
+- **Example Achievements:**
+  - First Echo - _Complete your first level._
+  - Crystal Apprentice - _Reach level 5._
+  - Brucey's Blessing - _Play the game with the name 'Brucey' for a special Easter egg._
+
+
