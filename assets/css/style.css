@@ -759,6 +759,7 @@ button.delete-data-button:hover {
 }
 .error-message {
     font-size: 2rem;
+    font-family: var(--primary-font); /* Jersey 20 font */
     margin-bottom: 2rem;
     line-height: 1.5; /* Improve readability */
     color: var(--primary-color); /* Light blue for text content */
