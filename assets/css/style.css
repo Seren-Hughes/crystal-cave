@@ -763,20 +763,56 @@ button.delete-data-button:hover {
     line-height: 1.5; /* Improve readability */
     color: var(--primary-color); /* Light blue for text content */
 }
-/* error crystal styles */
-.crystal-error-container {
+/* Flickering crystal styles */
+.crystal-flicker-container {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1.2rem;
     margin-bottom: 2rem;
 }
-
-.crystal.error {
+/* Flicker effect css implementation (drop shadow and opacity keyframes) 
+inspired by this flickering neon sign https://codepen.io/patrickhill/pen/eYNbdQ by Patrick Hill 
+and this flickering light effect https://codepen.io/prathameshkoshti/pen/PVVRMG by Prathamesh Koshti */
+.crystal.flicker {
     width: 64px;
     height: auto;
+    animation: flicker 3s infinite ease-in-out;
 }
 
+/* Custom glow colours */
+.flicker-blue {
+    filter: brightness(0.7) drop-shadow(0 0 12px #5655fd88);
+}
+.flicker-pink {
+    filter: brightness(0.7) drop-shadow(0 0 12px #fd71e588);
+}
+.flicker-green {
+    filter: brightness(0.7) drop-shadow(0 0 12px #2fff6d88);
+}
+.flicker-yellow {
+    filter: brightness(0.7) drop-shadow(0 0 12px #ffff4d88);
+}
+.flicker-orange {
+    filter: brightness(0.7) drop-shadow(0 0 12px #ff454988);
+}
+
+/* Flicker animation. Adjust opacity and add more keyframe percentages to make it more random/less static flickering *if needed*  */
+@keyframes flicker {
+    0%   { opacity: 0.6; }
+    5%   { opacity: 0.85; }
+    10%  { opacity: 0.5; }
+    20%  { opacity: 0.8; }
+    30%  { opacity: 0.95; }
+    40%  { opacity: 0.5; }
+    50%  { opacity: 0.8; }
+    60%  { opacity: 1; }
+    70%  { opacity: 0.7; }
+    80%  { opacity: 0.8; }
+    90%  { opacity: 0.5; }
+    95%  { opacity: 0.3; }
+    100% { opacity: 0.8; }
+}
 /* -------------------------------------------------------------------------*/
 
 /* ---------------------------------------*/
@@ -1088,6 +1124,34 @@ button.delete-data-button:hover {
         max-height: 60%; /* Further reduce height */
         padding: 10px; /* Adjust padding */
     }
+    /* 404 page: small device adjustments */
+    .error-container {
+        padding: 1rem;
+        min-height: 90vh;
+      }
+      .error-title {
+        font-size: 2.2rem;
+        margin: 1rem 0 1.5rem 0;
+      }
+      .error-message {
+        font-size: 1.1rem;
+        margin-bottom: 1.2rem;
+      }
+      .crystal-flicker-container {
+        margin-bottom: 1rem;
+      }
+      .crystal.flicker {
+        width: 38px;
+      }
+      .return-message {
+        font-size: 1rem;
+        margin: 1.2rem 0 0.7rem 0;
+      }
+      .home-btn {
+        font-size: 1rem;
+        padding: 0.5em 1.2em;
+        border-radius: 6px;
+      }
 }
 
 /* -- mobile devices with smaller height --*/
@@ -1279,6 +1343,30 @@ button.delete-data-button:hover {
         font-size: 1.4rem; /* Adjust font size for smaller screens */
         width: 85%; /* Reduce width further */
     }
+    /* 404 page: mobile landscape adjustments */
+    .error-container {
+        padding: 0.5rem;
+      
+      }
+      .error-title {
+        font-size: 2rem;
+        margin: 0.5rem 0 1.5rem 0;
+      }
+      .error-message {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+      }
+      .crystal-flicker-container {
+        margin-bottom: 0.5rem;
+      }
+      .crystal.flicker {
+        width: 3rem;
+      }
+      .home-btn {
+        font-size: 1.3rem;
+        padding: 0.3em 0.7em;
+        border-radius: 5px;
+      }
 }
 
 
