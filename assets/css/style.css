@@ -736,6 +736,47 @@ button.delete-data-button:hover {
     pointer-events: none; /* Disable overlay clicks when game modal is active */
 }
 
+/*----------------------------------------*/
+/*----------------------------------------*/
+/* ------------ 404 Page -----------------*/
+/*----------------------------------------*/
+/*----------------------------------------*/
+
+/* 404 page container */
+.error-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    padding: 2rem;
+}
+.error-title {
+    font-size: 4rem; 
+    margin: 1rem 0 4rem 0;
+    letter-spacing: 1px;
+}
+.error-message {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    line-height: 1.5; /* Improve readability */
+    color: var(--primary-color); /* Light blue for text content */
+}
+/* error crystal styles */
+.crystal-error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.crystal.error {
+    width: 64px;
+    height: auto;
+}
+
 /* -------------------------------------------------------------------------*/
 
 /* ---------------------------------------*/
