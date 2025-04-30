@@ -1,26 +1,28 @@
 /* 
-1. Global Variables 
-2. Modal Functions
-3. Speech Bubble Modal Functions
-4. Initialisation Functions
-5. Event Listeners
-6. Game Functions
-7. Utility Functions
-8. Audio Functions
+1. Imports
+2. Global Variables 
+3. Modal Functions
+4. Speech Bubble Modal Functions
+5. Initialisation Functions
+6. Event Listeners
+7. Game Functions
+8. Utility Functions
 */
+
+// Imports
+import { audioManager } from "./audio.js"; // Import the AudioManager class from audio.js
 
 // --------------------------------------------------------------------------------- //
 // ------------------------------- GLOBAL VARIABLES -------------------------------- //
 // --------------------------------------------------------------------------------- //
 
 /**
- * Global variables used to manage the game state, player input, and audio settings.
+ * Global variables used to manage the game state, player input.
  * 
  * Notes:
- * - Flags are used to track the current state of the game (e.g., `isPlayerTurn`, `isMuted`).
+ * - Flags are used to track the current state of the game (e.g., `isPlayerTurn`).
  * - Arrays store the current sequence and the player's input.
  * - Objects like `crystalTimeouts` manage crystal-specific timeouts.
- * - Audio-related variables (e.g., `audioBuffers`, `effectsGainNode`) handle sound playback.
  */
 // Flags (boolean variables to manage game state)
 let isSequencePlaying = false; // Indicates if the sequence is currently playing
@@ -29,7 +31,7 @@ let isPlayerTurn = false; // Indicates if it's the player's turn
 let isWaitingForInput = false; // Prevents multiple calls to waitForPlayerInput
 let freestyleMode = false; // Indicates if the game is in freestyle mode
 let skipTriggered = false; // Indicates if the skip button was triggered
-let isMuted = false; // Indicates if the sound is muted
+
 
 // Arrays (to store sequences and player's input)
 let currentSequence = []; // Store the sequence globally
@@ -59,84 +61,7 @@ let currentMessageIndex = 0; // Track the current message
 
 // Global variable for the overlay so it can be accessed in all modal functions
 const overlay = document.querySelector(".overlay");
-// Global variable for the audio context to manage audio playback
-const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-
-// Map crystal colors to their audio file paths
-const crystalSounds = {
-    blue: "assets/audio/blue-crystal-c-placeholder.mp3",
-    green: "assets/audio/green-crystal-d-placeholder.mp3",
-    pink: "assets/audio/pink-crystal-e-placeholder.mp3",
-    yellow: "assets/audio/yellow-crystal-f-placeholder.mp3",
-    orange: "assets/audio/orange-crystal-g-placeholder.mp3",
-};
-
-const celebrationSound = "assets/audio/c-major-celebration-placeholder.mp3";
-
-const caveBackgroundSound = "assets/audio/cave-background-placeholder.mp3";
-
-const caveAmbienceSound = "assets/audio/ambience-placeholder.mp3";
-
-let effectsGainNode; // Gain node for crystal and celebration sounds
-let backgroundGainNode; // Gain node for background sound
-let ambientGainNode; // Gain node for ambient sound
-let userAmbientVolume = 0.7; // User volume for ambient sound
-let userBackgroundVolume = 0.7; // User volume for background sound
-let userEffectsVolume = 0.7; // User volume for crystal effects sound
-// Audio mute flags
-let isAmbientMuted = false;
-let isBackgroundMuted = false;
-let isEffectsMuted = false;
-
-// Store the decoded audio buffers
-const audioBuffers = {};
-
-/**
- * Loads all audio files required for the game and stores them in the `audioBuffers` object.
- * 
- * This function fetches and decodes audio files for crystal sounds, background music, ambient sound, and celebration effects.
- * 
- * Behaviour:
- * - Iterates through the `crystalSounds` object to load crystal-specific audio files.
- * - Loads additional sounds for background, ambient, and celebration effects.
- * - Logs the loading process and errors for debugging purposes.
- * 
- * Notes:
- * - This function is asynchronous and should be called with `await`.
- * - The `audioBuffers` object stores the decoded audio data for playback.
- * 
- * References:
- * - [MDN Web Docs: Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
- */
-async function loadAllAudio() {
-    for (const [color, filePath] of Object.entries(crystalSounds)) {
-        try {
-            audioBuffers[color] = await loadAudioFile(filePath);
-            console.log(`Loaded audio for ${color}: ${filePath}`);
-        } catch (error) {
-            console.error(`Failed to load audio for ${color}: ${filePath}`, error);
-        }
-    }
-    try {
-        audioBuffers.celebration = await loadAudioFile(celebrationSound);
-        console.log("Loaded celebration sound:", celebrationSound);
-    } catch (error) {
-        console.error("Failed to load celebration sound:", celebrationSound, error);
-    }
-    try {
-        audioBuffers.background = await loadAudioFile(caveBackgroundSound);
-        console.log("Loaded background sound:", caveBackgroundSound);
-    } catch (error) {
-        console.error("Failed to load background sound:", caveBackgroundSound, error);
-    }
-    try {
-        audioBuffers.ambient = await loadAudioFile(caveAmbienceSound);
-        console.log("Loaded ambient sound:", caveAmbienceSound);
-    } catch (error) {
-        console.error("Failed to load ambient sound:", caveAmbienceSound, error);
-    }
-}
 
 // ---------------------------------------------------------------------------------- //
 // -------------------------------- MODAL FUNCTIONS --------------------------------- //
@@ -649,8 +574,8 @@ function initializeGameSite() {
         buttonsContainer.classList.add("fade-in-ui");
         allButtons.forEach((btn) => btn.classList.remove("hidden-on-audio-overlay"));
         // Resume audio context if suspended 
-        if (audioContext.state === "suspended") {
-            audioContext.resume().then(() => {
+        if (audioManager.audioContext.state === "suspended") {
+            audioManager.audioContext.resume().then(() => {
                 console.log("AudioContext resumed");
             });
         }
@@ -668,9 +593,9 @@ function initializeGameSite() {
      * - Delays the appearance of the speech bubble for a smoother introduction.
      */
     function startIntro() {
-        loadAllAudio().then(() => {
-            playBackgroundSound(); // Start the background cave sounds after loading audio
-            playAmbientSound(); // Start the ambient soundscape after loading audio
+        audioManager.loadAllAudio().then(() => {
+            audioManager.playBackgroundSound(); // Start the background cave sounds after loading audio
+            audioManager.playAmbientSound(); // Start the ambient soundscape after loading audio
             const storedName = localStorage.getItem("playerName");
 
             if (storedName) {
@@ -951,21 +876,18 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
             const volume = parseFloat(event.target.value);
             const soundType = event.target.dataset.sound;
     
-            if (soundType === "ambient" && ambientGainNode) {
-                userAmbientVolume = volume;
-                if (!isAmbientMuted) ambientGainNode.gain.value = volume;
-            } else if (soundType === "background" && backgroundGainNode) {
-                userBackgroundVolume = volume;
-                if (!isBackgroundMuted) backgroundGainNode.gain.value = volume;
-            } else if (soundType === "effects" && effectsGainNode) {
-                userEffectsVolume = volume;
-                if (!isEffectsMuted) effectsGainNode.gain.value = volume;
+            if (soundType === "ambient") {
+                audioManager.userAmbientVolume = volume;
+            } else if (soundType === "background") {
+                audioManager.userBackgroundVolume = volume;
+            } else if (soundType === "effects") {
+                audioManager.userEffectsVolume = volume;
             }
     
             // Unmute if slider is moved above 0
-            if (soundType === "ambient" && volume > 0) isAmbientMuted = false;
-            if (soundType === "background" && volume > 0) isBackgroundMuted = false;
-            if (soundType === "effects" && volume > 0) isEffectsMuted = false;
+            if (soundType === "ambient" && volume > 0) audioManager.isAmbientMuted = false;
+            if (soundType === "background" && volume > 0) audioManager.isBackgroundMuted = false;
+            if (soundType === "effects" && volume > 0) audioManager.isEffectsMuted = false;
     
             syncAudioSettingsUI();
         });
@@ -974,25 +896,18 @@ document.querySelector(".game-button.settings").addEventListener("click", () => 
     document.querySelectorAll(".mute-toggle").forEach(button => {
         button.addEventListener("click", event => {
             const soundType = event.target.dataset.sound;
-
+    
             // If global mute is on and user unmutes a channel, unmute globally
-            if (isMuted) {
-                isMuted = false;
-                // Restore all channels to their intended state
-                if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(isBackgroundMuted ? 0 : userBackgroundVolume, audioContext.currentTime);
-                if (ambientGainNode) ambientGainNode.gain.setValueAtTime(isAmbientMuted ? 0 : userAmbientVolume, audioContext.currentTime);
-                if (effectsGainNode) effectsGainNode.gain.setValueAtTime(isEffectsMuted ? 0 : userEffectsVolume, audioContext.currentTime);
+            if (audioManager.isMuted) {
+                audioManager.isMuted = false;
             }
     
-            if (soundType === "ambient" && ambientGainNode) {
-                isAmbientMuted = !isAmbientMuted;
-                ambientGainNode.gain.setValueAtTime(isAmbientMuted ? 0 : userAmbientVolume, audioContext.currentTime);
-            } else if (soundType === "background" && backgroundGainNode) {
-                isBackgroundMuted = !isBackgroundMuted;
-                backgroundGainNode.gain.setValueAtTime(isBackgroundMuted ? 0 : userBackgroundVolume, audioContext.currentTime);
-            } else if (soundType === "effects" && effectsGainNode) {
-                isEffectsMuted = !isEffectsMuted;
-                effectsGainNode.gain.setValueAtTime(isEffectsMuted ? 0 : userEffectsVolume, audioContext.currentTime);
+            if (soundType === "ambient") {
+                audioManager.isAmbientMuted = !audioManager.isAmbientMuted;
+            } else if (soundType === "background") {
+                audioManager.isBackgroundMuted = !audioManager.isBackgroundMuted;
+            } else if (soundType === "effects") {
+                audioManager.isEffectsMuted = !audioManager.isEffectsMuted;
             }
             syncAudioSettingsUI();
             updateSoundButtonUI();
@@ -1055,18 +970,7 @@ document.querySelector(".game-button.restart").addEventListener("click", () => {
 
 // sound button event listener to mute/unmute the game sounds
 document.querySelector(".game-button.sound").addEventListener("click", () => {
-    toggleMute();
-
-    // Update the button's appearance and tooltip text based on the mute state
-    const soundButton = document.querySelector(".game-button.sound");
-    const tooltipText = soundButton.querySelector(".tooltiptext");
-    if (isMuted) {
-        soundButton.classList.add("muted"); // Add a muted class for styling
-        tooltipText.textContent = "Unmute Sound"; // Update tooltip text
-    } else {
-        soundButton.classList.remove("muted"); // Remove the muted class
-        tooltipText.textContent = "Mute Sound"; // Update tooltip text
-    }
+    audioManager.isMuted = !audioManager.isMuted;
     updateSoundButtonUI();
 });
 
@@ -1301,13 +1205,13 @@ function playSequence(sequence) {
                     crystal.querySelector(".glow").classList.add("active");
                     crystal.querySelector(".light-crystal").classList.add("active");
 
-                    if (!isMuted) {
-                        lowerAmbientVolume();
+                    if (!audioManager.isMuted) {
+                        audioManager.lowerAmbientVolume();
                     }
 
                     // Play the corresponding crystal sound
-                    if (audioBuffers[color]) {
-                        playSound(audioBuffers[color]);
+                    if (audioManager.buffers[color]) {
+                        audioManager.playSound(audioManager.buffers[color]);
                     } else {
                         console.error(`No audio buffer found for crystal: ${color}`);
                     }
@@ -1466,7 +1370,7 @@ function handleCrystalClick(event) {
  * checkPlayerInput(); // Logs "Incorrect input" and shows the play again modal.
  */
 function checkPlayerInput() {
-    restoreAmbientVolume(); // Restore ambient soundscape volume
+    audioManager.restoreAmbientVolume(); // Restore ambient soundscape volume
     // Check if both arrays are the same length before comparing
     console.log(
         `Player's input length: ${playersInput.length}, Current sequence length: ${currentSequence.length}`
@@ -1525,8 +1429,8 @@ function celebrateCorrectAnswer() {
         activateOverlay(); // Activate overlay for the celebration to block crystal interactions
         console.log("Glow activated for celebration.");
         // Play the celebration sound
-        if (audioBuffers.celebration) {
-            playSound(audioBuffers.celebration);
+        if (audioManager.buffers.celebration) {
+            audioManager.playSound(audioManager.buffers.celebration);
         }
     }, 300); // 300ms delay before starting the celebration
 
@@ -1815,8 +1719,8 @@ const activateGlow = (container) => {
     // Play the corresponding crystal sound
     const crystalColor = container.dataset.color;
     console.log("Activating glow for crystal:", crystalColor);
-    if (audioBuffers[crystalColor]) {
-        playSound(audioBuffers[crystalColor]);
+    if (audioManager.buffers[crystalColor]) {
+        audioManager.playSound(audioManager.buffers[crystalColor]);
     } else {
         console.error("No audio buffer found for crystal:", crystalColor);
     }
@@ -2007,13 +1911,15 @@ function updateHighestLevel() {
 /**
  * Synchronises the audio settings UI in the settings modal.
  *
- * This function updates the state of all audio-related UI controls in the settings modal (game dashboard),
+ * Updates the state of all audio-related UI controls in the settings modal (game dashboard),
  * including volume sliders and mute buttons for ambient, background, and effects channels.
- * It sets each slider to the user's intended volume (not the current GainNode value, which may be ducked or globally muted)
- * and applies or removes the `.muted` class on each mute button based on the per-channel mute flags.
+ * Each slider is set to the user's intended volume (not the current GainNode value, which may be ducked or globally muted)
+ * and is disabled if the corresponding channel or global mute is active.
+ * The `.muted` class is applied or removed on each mute button based on the per-channel mute flags.
  *
  * Behaviour:
  * - Iterates over all `.volume-slider` elements and sets their value to the corresponding user volume variable.
+ * - Disables each slider if the channel or global mute is active.
  * - Updates the `.mute-toggle` button style for each channel based on its mute flag.
  * - Ensures the UI always reflects the user's intended audio state, regardless of temporary changes to GainNode values.
  *
@@ -2032,18 +1938,18 @@ function syncAudioSettingsUI() {
         let isMuted = false; 
 
         if (soundType === "ambient") {
-            userVolume = userAmbientVolume;
-            isMuted = isAmbientMuted;
+            userVolume = audioManager.userAmbientVolume;
+            isMuted = audioManager.isAmbientMuted;
         } else if (soundType === "background") {
-            userVolume = userBackgroundVolume;
-            isMuted = isBackgroundMuted;
+            userVolume = audioManager.userBackgroundVolume;
+            isMuted = audioManager.isBackgroundMuted;
         } else if (soundType === "effects") {
-            userVolume = userEffectsVolume;
-            isMuted = isEffectsMuted;
+            userVolume = audioManager.userEffectsVolume;
+            isMuted = audioManager.isEffectsMuted;
         }
 
         slider.value = userVolume;
-        slider.disabled = isMuted || isMuted; // Disable if globally or channel muted
+        slider.disabled = isMuted || audioManager.isMuted; // Disable if globally or channel muted
 
         const muteButton = document.querySelector(`.mute-toggle[data-sound="${soundType}"]`);
         if (muteButton) {
@@ -2083,7 +1989,10 @@ function updateSoundButtonUI() {
     const soundButton = document.querySelector(".game-button.sound");
     const tooltipText = soundButton.querySelector(".tooltiptext");
     // If any channel is unmuted and global mute is off, show as unmuted
-    if (!isMuted && (!isAmbientMuted || !isBackgroundMuted || !isEffectsMuted)) {
+    if (
+        !audioManager.isMuted &&
+        (!audioManager.isAmbientMuted || !audioManager.isBackgroundMuted || !audioManager.isEffectsMuted)
+    ) {
         soundButton.classList.remove("muted");
         tooltipText.textContent = "Mute Sound";
     } else {
@@ -2135,336 +2044,3 @@ function deleteSavedData() {
     location.reload(); // Reload the page to apply changes
 }
 
-//------------------------------------------------------------ //
-// ----------------------- AUDIO FUNCTIONS ------------------- //
-//------------------------------------------------------------ //
-
-/**
- * Fetches an audio file from the given URL and decodes it into an AudioBuffer object.
- * 
- * This function uses the Fetch API to retrieve the audio file and decodes it using the Web Audio API.
- * If the fetch or decoding process fails, an error is logged, and `null` is returned.
- * 
- * Behaviour:
- * - Fetches the audio file from the provided URL.
- * - Converts the response into an ArrayBuffer.
- * - Decodes the ArrayBuffer into an AudioBuffer using `audioContext.decodeAudioData`.
- * - Logs errors if the fetch or decoding process fails.
- * 
- * Notes:
- * - This function is asynchronous and should be called with `await` or `.then`.
- * - The returned AudioBuffer can be used for audio playback in the game.
- * - The `try...catch` block ensures that any errors during the decoding process are caught and handled gracefully, preventing the application from crashing.
- * 
- * References:
- * - [MDN Web Docs: Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
- * - [MDN Web Docs: ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
- * - [MDN Web Docs: AudioContext.decodeAudioData](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData)
- * - [W3Schools: Async/Await](https://www.w3schools.com/js/js_async.asp)
- * - [W3Schools: JavaScript Promises](https://www.w3schools.com/js/js_promise.asp)
- * - [FreeCodeCamp: Try/Catch in JavaScript – How to Handle Errors in JS](https://www.freecodecamp.org/news/try-catch-in-javascript/)
- * 
- * @param {string} url - The URL of the audio file to fetch and decode.
- * @returns {Promise<AudioBuffer|null>} A promise that resolves to the decoded AudioBuffer or `null` if an error occurs.
- * 
- * @example
- * // Load an audio file and store it in a variable
- * const audioBuffer = await loadAudioFile("assets/audio/example.mp3");
- * if (audioBuffer) {
- *     console.log("Audio file loaded successfully.");
- * } else {
- *     console.error("Failed to load audio file.");
- * }
- */
-async function loadAudioFile(url) {
-    // Initialize GainNodes - move to global scope if audio issues arise on mobile devices
-    if (!ambientGainNode) {
-        ambientGainNode = audioContext.createGain();
-        ambientGainNode.gain.value = 0.3; // Default volume for ambient sounds
-        ambientGainNode.connect(audioContext.destination);
-    }
-
-    if (!backgroundGainNode) {
-        backgroundGainNode = audioContext.createGain();
-        backgroundGainNode.gain.value = 0.1; // Default volume for background sounds
-        backgroundGainNode.connect(audioContext.destination);
-    }
-
-    if (!effectsGainNode) {
-        effectsGainNode = audioContext.createGain();
-        effectsGainNode.gain.value = 1; // Default volume for effects
-        effectsGainNode.connect(audioContext.destination);
-    }
-    console.log("Fetching audio file:", url);
-    const response = await fetch(url);
-    if (!response.ok) {
-        console.error(`Failed to fetch audio file: ${url}`);
-        return null;
-    }
-    const arrayBuffer = await response.arrayBuffer();
-    try {
-        return await audioContext.decodeAudioData(arrayBuffer);
-    } catch (error) {
-        console.error(`Failed to decode audio file: ${url}`, error);
-        return null;
-    }
-}
-
-/**
- * Plays a sound using the provided AudioBuffer.
- * 
- * This function handles audio playback by creating a BufferSource, connecting it to a GainNode for volume control,
- * and starting the playback. If the game is muted or no buffer is provided, the function exits early.
- * 
- * Behaviour:
- * - Checks if the game is muted (`isMuted` flag). If muted, skips playback.
- * - Validates the provided AudioBuffer. If no buffer is provided, logs an error and exits.
- * - Creates a GainNode (`effectsGainNode`) if it doesn't already exist.
- * - Connects the BufferSource to the GainNode and starts playback.
- * - Logs the playback process for debugging purposes.
- * 
- * Notes:
- * - The GainNode is used to control the volume of sound effects.
- * - This function is called whenever a crystal sound or celebration sound needs to be played.
- * 
- * References:
- * - [MDN Web Docs: AudioContext.createBufferSource](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createBufferSource)
- * - [MDN Web Docs: AudioNode.connect](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect)
- * - [MDN Web Docs: AudioBufferSourceNode.start](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/start)
- * 
- * @param {AudioBuffer} buffer - The AudioBuffer containing the sound to play.
- * 
- * @example
- * // Play a crystal sound
- * playSound(audioBuffers["blue"]);
- */
-function playSound(buffer) {
-    if (isMuted) {
-        console.log("Sound is muted. Skipping playback.");
-        return; // Do nothing if the game is muted
-    }
-    if (!buffer) {
-        console.error("No audio buffer provided to playSound.");
-        return;
-    }
-    if (!effectsGainNode) {
-        effectsGainNode = audioContext.createGain(); // Create the GainNode if it doesn't exist
-        effectsGainNode.gain.value = 1; // Set initial volume to 1 (full volume)
-        effectsGainNode.connect(audioContext.destination); // Connect to the destination
-    }
-
-    const source = audioContext.createBufferSource();
-    source.buffer = buffer;
-    source.connect(effectsGainNode); // Connect to the effects GainNode
-    source.start(0);
-    console.log("Playing sound:", buffer);
-}
-/**
- * Plays the background sound for the game.
- * 
- * This function handles the playback of the background sound by:
- * - Creating a BufferSource and GainNode for volume control.
- * - Looping the background sound for continuous playback.
- * - Connecting the BufferSource to the GainNode and the audio context destination.
- * 
- * Behaviour:
- * - Checks if the background audio buffer is loaded. If not, logs an error and exits.
- * - Creates a GainNode (`backgroundGainNode`) for controlling the background sound volume.
- * - Sets the initial volume of the background sound to 0.1.
- * - Logs the playback process for debugging purposes.
- * 
- * Notes:
- * - The GainNode is used to control the volume of the background sound.
- * - The background sound is looped to ensure continuous playback during the game.
- * 
- * References:
- * - [MDN Web Docs: AudioContext.createBufferSource](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createBufferSource)
- * - [MDN Web Docs: AudioNode.connect](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect)
- * - [MDN Web Docs: AudioBufferSourceNode.loop](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop)
- * - [MDN Web Docs: AudioContext.createGain](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createGain)
- * 
- */
-function playBackgroundSound() {
-    if (!audioBuffers.background) {
-        console.error("No audio buffer found for background sound.");
-        return;
-    }
-    const source = audioContext.createBufferSource();
-    backgroundGainNode = audioContext.createGain(); // Create a GainNode for volume control
-
-    source.buffer = audioBuffers.background;
-    source.loop = true; // Enable looping
-    source.connect(backgroundGainNode).connect(audioContext.destination); // Connect source to GainNode, then to destination
-    source.start(0);
-    backgroundGainNode.gain.value = 0.1; // Set initial volume to 0.3
-    console.log("Playing background sound.");
-}
-/**
- * Plays the ambient soundscape for the game.
- * 
- * This function handles the playback of the ambient sound by:
- * - Creating a BufferSource and GainNode for volume control.
- * - Looping the ambient sound for continuous playback.
- * - Connecting the BufferSource to the GainNode and the audio context destination.
- * 
- * Behaviour:
- * - Checks if the ambient audio buffer is loaded. If not, logs an error and exits.
- * - Creates a GainNode (`ambientGainNode`) for controlling the ambient sound volume.
- * - Sets the initial volume of the ambient sound to 0.3.
- * - Logs the playback process for debugging purposes.
- * 
- * Notes:
- * - The GainNode is used to control the volume of the ambient sound.
- * - The ambient sound is looped to ensure continuous playback during the game.
- * 
- * References:
- * - [MDN Web Docs: AudioContext.createBufferSource](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createBufferSource)
- * - [MDN Web Docs: AudioNode.connect](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect)
- * - [MDN Web Docs: AudioBufferSourceNode.loop](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop)
- * - [MDN Web Docs: AudioContext.createGain](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createGain)
- *
- */
-function playAmbientSound() {
-    if (!audioBuffers.ambient) {
-        console.error("No audio buffer found for ambient sound.");
-        return;
-    }
-
-    const source = audioContext.createBufferSource();
-    ambientGainNode = audioContext.createGain(); // Create a GainNode for volume control
-
-    source.buffer = audioBuffers.ambient;
-    source.loop = true; // Enable looping
-    source.connect(ambientGainNode).connect(audioContext.destination); // Connect source to GainNode, then to destination
-    source.start(0);
-
-    ambientGainNode.gain.value = 0.3; // Set initial volume to 0.3
-    console.log("Playing ambient sound with volume control.");
-}
-
-/**
- * Lowers the ambient sound volume gradually over a specified duration.
- *
- * This function reduces the volume of the ambient sound to 0.1 over 2 seconds using a linear ramp.
- * If the game is muted (global mute or per-channel mute), the volume is immediately set to 0 and no ramping occurs.
- *
- * Behaviour:
- * - Checks if the game is globally muted (`isMuted`). If muted, cancels any scheduled volume changes and sets the volume to 0.
- * - Cancels any scheduled volume changes to ensure a smooth transition.
- * - Gradually lowers the volume to 0.1 over 2 seconds using `linearRampToValueAtTime` if not muted.
- * - Logs the volume adjustment process for debugging purposes.
- *
- * Notes:
- * - The `linearRampToValueAtTime` method ensures a smooth transition in volume.
- * - This function is typically called during gameplay events that require reduced ambient sound (e.g., crystal sequence playback).
- *
- * References:
- * - [MDN Web Docs: AudioParam.linearRampToValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime)
- * - [MDN Web Docs: AudioParam.cancelScheduledValues](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/cancelScheduledValues)
- * 
- * @example
- * // Lower the ambient volume during a sequence
- * lowerAmbientVolume();
- */
-function lowerAmbientVolume() {
-    if (isMuted) {
-        console.log("Ambient volume adjustment skipped because sound is muted.");
-        if (ambientGainNode) {
-            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime);
-            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime);
-        }
-        return; // Do nothing if the game is muted
-    }
-
-    if (ambientGainNode) {
-        ambientGainNode.gain.linearRampToValueAtTime(0.1, audioContext.currentTime + 2);
-    }
-}
-
-/**
- * Restores the ambient sound volume gradually over a specified duration.
- *
- * This function increases the volume of the ambient sound to the user's intended ambient volume (`userAmbientVolume`)
- * over 2 seconds using a linear ramp. If the game is globally muted (`isMuted`), the volume is immediately set to 0
- * and no ramping occurs.
- *
- * Behaviour:
- * - Checks if the game is globally muted (`isMuted`). If muted, cancels any scheduled volume changes and sets the volume to 0.
- * - Cancels any scheduled volume changes to ensure a smooth transition.
- * - Gradually restores the volume to `userAmbientVolume` over 2 seconds using `linearRampToValueAtTime` if not muted.
- * - Logs the volume adjustment process for debugging purposes.
- *
- * Notes:
- * - The `linearRampToValueAtTime` method ensures a smooth transition in volume.
- * - This function is called after gameplay events that required reduced ambient sound (crystal notes). 
- * 
- * References:
- * - [MDN Web Docs: AudioParam.linearRampToValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime)
- * - [MDN Web Docs: AudioParam.cancelScheduledValues](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/cancelScheduledValues)
- * 
- * @example
- * // Restore the ambient volume after a sequence
- * restoreAmbientVolume();
- */
-function restoreAmbientVolume() {
-    if (isMuted) {
-        console.log("Ambient volume adjustment skipped because sound is muted.");
-        if (ambientGainNode) {
-            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime);
-            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime);
-        }
-        return;
-    }
-    if (ambientGainNode) {
-        ambientGainNode.gain.linearRampToValueAtTime(userAmbientVolume, audioContext.currentTime + 2);
-    }
-}
-/**
- * Toggles the global mute state of the game, muting or unmuting all sounds.
- *
- * This function handles the muting and unmuting of all game audio by adjusting the gain values of the
- * background, ambient, and effects GainNodes. When muted, all gain values are set to 0. When unmuted,
- * the gain values are restored to the user's intended per-channel volume, unless a channel is muted via its own mute flag.
- *
- * Behaviour:
- * - Toggles the `isMuted` flag to switch between muted and unmuted states.
- * - If muted:
- *   - Sets the gain of all GainNodes (background, ambient, effects) to 0.
- *   - Cancels any scheduled volume changes for the ambient GainNode.
- * - If unmuted:
- *   - Restores the gain of all GainNodes to their user-set volume, unless the channel is muted via its per-channel mute flag.
- * - Calls `syncAudioSettingsUI()` to update the UI mute button styles.
- * - Logs the mute or unmute action for debugging purposes.
- *
- * Notes:
- * - Does not change per-channel mute flags (`isAmbientMuted`, `isBackgroundMuted`, `isEffectsMuted`).
- * - The GainNodes must be initialised before calling this function.
- * - This function is triggered by the main "Mute" button in the game's UI.
- *
- * References:
- * - [MDN Web Docs: AudioParam.setValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setValueAtTime)
- * - [MDN Web Docs: AudioParam.cancelScheduledValues](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/cancelScheduledValues)
- * 
- * @example
- * // Toggle the mute state of the game
- * toggleMute();
- */
-function toggleMute() {
-    isMuted = !isMuted;
-
-    if (isMuted) {
-        if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(0, audioContext.currentTime);
-        if (ambientGainNode) {
-            ambientGainNode.gain.cancelScheduledValues(audioContext.currentTime);
-            ambientGainNode.gain.setValueAtTime(0, audioContext.currentTime);
-        }
-        if (effectsGainNode) effectsGainNode.gain.setValueAtTime(0, audioContext.currentTime);
-        console.log("Sound muted.");
-    } else {
-        if (backgroundGainNode) backgroundGainNode.gain.setValueAtTime(isBackgroundMuted ? 0 : userBackgroundVolume, audioContext.currentTime);
-        if (ambientGainNode) ambientGainNode.gain.setValueAtTime(isAmbientMuted ? 0 : userAmbientVolume, audioContext.currentTime);
-        if (effectsGainNode) effectsGainNode.gain.setValueAtTime(isEffectsMuted ? 0 : userEffectsVolume, audioContext.currentTime);
-        console.log("Sound unmuted.");
-    }
-    syncAudioSettingsUI();
-}
