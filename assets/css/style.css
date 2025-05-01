@@ -822,6 +822,14 @@ and this flickering light effect https://codepen.io/prathameshkoshti/pen/PVVRMG 
 /*----------------------------------------*/
 /* ---------------------------------------*/
 
+/* -- large tablets and desktop devices --*/
+@media (min-width: 600px) {
+    /* Player name input modal */
+    .modal-container.player-name-modal {
+        max-width: 500px; /* Adjust width for larger screens */ 
+    }
+}
+
 /* -- tablet devices --*/
 @media (max-width: 900px) {
     /* home page heading */

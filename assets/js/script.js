@@ -181,6 +181,7 @@ function closeModal(type = "speechBubble", event = null, callback = null) {
 
     if (type === "gameModal") {
         modal.scrollTop = 0; // Reset scroll to the top
+        modal.classList.remove("player-name-modal"); // Remove the class for player name modal if it was added
     }
 
     if (isModalClosing) {
@@ -252,6 +253,10 @@ function closeModal(type = "speechBubble", event = null, callback = null) {
  * 
  */
 function openNameModal() {
+    // Add the class to the modal container to style it specifically for the name input
+    const modalContainer = document.querySelector(".modal-container");
+    modalContainer.classList.add("player-name-modal");
+
     const modalTitle = "Players Name";
     const modalText = `<input type="text" id="player-name-input" placeholder="Enter your name"/>`;
     const modalButtons = [
