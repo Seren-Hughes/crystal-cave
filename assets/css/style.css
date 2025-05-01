@@ -625,6 +625,10 @@ button {
     z-index: 6000; /* Ensure it's above the modal content */
     pointer-events: auto; /* Ensure the button is clickable */
 }
+/* How to play modal AWSED keys image */
+.awsed-keys-image {
+    width: 130px;
+}
 
 /* overflow modal scrollbar */
 .modal-container::-webkit-scrollbar {

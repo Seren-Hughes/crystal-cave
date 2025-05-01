@@ -725,11 +725,10 @@ document
             <p>✨ <strong>Your goal:</strong> Repeat the sequence of crystal notes correctly and see how many levels you can complete!</p>
             <p>🧠 Each level adds one more note to the sequence.</p>
             <h3>🖱️ Controls:</h3>
-            <ul>
-                <li>Use <strong>A W S E D</strong> keys (they match the crystal layout)</li>
-                <li>Or click/tap the crystals</li>
-                <li>Works on keyboard, mouse, and touchscreen</li>
-            </ul>
+                <p>Use <strong>A W S E D</strong> keys (they match the crystal layout)</p>
+                <img src="assets/images/how-to-play-awsed-keys.png" alt="Keyboard keys for crystal layout" class="awsed-keys-image">
+                <p>Or click/tap the crystals</p>
+                <p>Works on keyboard, mouse, and touchscreen</p>
             ${isMobile
                 ? `<p class="mobile-note">📱 Keyboard and mouse controls are available on the desktop version. Try it out for a different experience!</p>`
                 : "" // Show this note only on mobile devices
