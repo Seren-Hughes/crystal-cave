@@ -25,10 +25,15 @@ import { audioManager } from "./audio.js"; // Import the AudioManager class from
  * - Objects like `crystalTimeouts` manage crystal-specific timeouts.
  */
 // Flags (boolean variables to manage game state)
-let isSequencePlaying = false; // Indicates if the sequence is currently playing
+// *** Important! ***
+// Game state flags – essential for logic!
+// Linter/editor might say "unused", but they’re needed across the code.
+// eslint-disable-next-line no-unused-vars
+let isSequencePlaying = false; // Indicates if the sequence is currently playing. 
+// eslint-disable-next-line no-unused-vars
+let isWaitingForInput = false; // Prevents multiple calls to waitForPlayerInput
 let isModalClosing = false; // Prevents multiple triggers of modal close function
 let isPlayerTurn = false; // Indicates if it's the player's turn
-let isWaitingForInput = false; // Prevents multiple calls to waitForPlayerInput
 let freestyleMode = false; // Indicates if the game is in freestyle mode
 let skipTriggered = false; // Indicates if the skip button was triggered
 
