@@ -1135,3 +1135,76 @@ Keeping the UI and mute state in sync is essential for a predictable and user-fr
 
 *This was one of the most challenging UI bugs to fix, and while the placeholder audio in the demo videos is rough, the end result is a much more reliable and user-friendly mute system.*
 
+## 🔎 Modularisation & AudioManager Refactor 🛠️
+_This entry documents the process and lessons learned while refactoring all audio logic into a modular, maintainable AudioManager singleton using ES6 modules._
+
+### Mentor Feedback:
+My Code Institute mentor, Daniel Hamilton, highlighted that my script was getting quite large and suggested splitting it into smaller files for maintainability and best practices. 
+
+### Research:
+Before refactoring, I spent a week researching splitting JavaScript files. I discussed approaches with my brother (a professional software developer), who explained how `globalThis` can be used in non-module setups to share state and methods between files. He provided an example using two `<script>` files and demonstrated how script loading order affects access to shared variables. He also introduced me to bundlers like Rollup, explaining their role in managing large codebases and how they're now standard in the industry. He also shared a code snippet using a Box class to illustrate how `this` works in Javascript. 
+
+```js
+class Box {
+    constructor(content) { this.content = content; }
+    printContent() { console.log(this.content); }
+}
+let dogBox = new Box("Dog");
+let catBox = new Box("Cat");
+dogBox.printContent(); // returns Dog
+catBox.printContent(); // returns Cat
+
+```
+### Choosing an Approach:
+
+My continued research led me to discover ES6 modules and I learned about the `import` and `export` syntax. I found many tutorials including a fantastic resource from The Odin Project. I decided to use ES6 modules for my refactor. 
+
+### Early Refactor Attempts:
+
+My first attempt at separating audio logic involved importing every audio-related function and variable individually into my main script. This quickly became unmanageable and cluttered the codebase. I also ran into issues when trying to use raw flag variables like `isMuted` across files — something I didn’t realise were read-only when imported from modules. This caused unexpected bugs (e.g. some audio features worked, while others failed) and made debugging more difficult.
+
+### Encapsulation, Getters/Setters, Singleton & Constructor Pattern:
+
+The issue with flag variables led me again to The Odin Project, where I learned about encapsulation and how getter/setter methods can provide controlled access to internal state. I had already used encapsulation in my `initializeSite()` function (called from the `DOMContentLoaded` event), so the idea of managing scope and control wasn’t entirely new — but this was my first time applying it at a module-wide scale.
+
+Building on that, I refactored my audio logic into a dedicated `AudioManager` class. By using a constructor, I was able to initialise all audio state (gain nodes, buffer loading, mute flags, and volume levels) in one place. To ensure consistency across the project, I implemented the singleton pattern by exporting a single instance of the `AudioManager` class from the module. This guarantees that all scripts interact with the same, centralised audio manager.
+
+Encapsulating state with getter and setter methods solved the issues I encountered with read-only module imports. It also made it much easier to manage and maintain audio state, since all logic is now self-contained within the `AudioManager` class. This has dramatically improved the modularity and maintainability of the project.
+
+In my main script.js, I access audio functionality like this:
+
+```js
+import { audioManager } from "./audio.js"; // Import the AudioManager class from audio.js
+
+document.querySelector(".game-button.sound").addEventListener("click", () => {
+  audioManager.isMuted = !audioManager.isMuted;
+});
+```
+### Branching Strategy:
+
+I created the new branch in the terminal and ensured I was working on the correct branch before starting the refactor: 
+![Git branch creation](assets/media/terminal-create-new-branch.png)
+
+I created a new branch for the refactor, which allowed me to work on the changes without affecting the main codebase. This was especially useful and reassuring, as I could easily switch back to the original code if needed. Once I was satisfied with the refactor (I tested a deployment on multiple devices and browsers), I merged it back into the main branch. 
+
+To merge the branch back into the main branch, I created a pull request in GitHub. I disccovered git commands to delete the branch after merging, but I have left it in place for now to keep a record of the refactor process. 
+
+[**Link to Useful Git Branch Commands**](https://www.nobledesktop.com/learn/git/git-branches)
+
+
+### Summary of Changes:
+
+- Refactored all audio logic into a single, class-based AudioManager ES6 module.
+- Used getters and setters for state management and encapsulation.
+- Removed global audio flags and direct imports of individual functions.
+- Adopted feature branching for safer, more organised development.
+
+### Testing Results:
+
+- The refactored audio module was tested on both desktop and mobile via a temporary GitHub Pages deployment.
+- All audio features, mute controls, and UI synchronisation worked as expected.
+- The codebase is now more modular, maintainable, and ready for future expansion.
+
+### Reflection:
+
+This refactor was challenging but extremely rewarding. I learned the value of encapsulation, modularity, and clean project structure. Using branches for major changes made experimentation safer and more organised. The Odin Project, my mentor, and peer discussions (my brother) all contributed to a much more professional and maintainable codebase. I plan to continue modularising other parts of my game and revisit bundlers like Rollup in the future. Due to the time constraints of the project, I have chosen not to modularise the rest of the codebase at this time. 
