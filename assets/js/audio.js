@@ -342,10 +342,12 @@ class AudioManager {
      * zero if its mute flag is active, or to its user-set volume if not.
      *
      * Behaviour:
+     * - Cancels any scheduled gain ramps before setting new values to prevent conflicts (e.g., from linear ramps).
      * - If `isMuted` is true, sets all channel gains to 0.
      * - If `isMuted` is false, sets each channel's gain to 0 if its mute flag is true, or to its user volume otherwise.
      *
      * Notes:
+     * - Cancelling scheduled values ensures that mute actions are not overridden by previously scheduled ramps.
      * - This method is called automatically by the setters for mute and volume properties.
      * - Does not update the UI; only affects audio output.
      *
@@ -354,6 +356,10 @@ class AudioManager {
      *
      */
     updateMuteStates() {
+            // Cancel any scheduled ramps before changing gain values
+            this.backgroundGain.gain.cancelScheduledValues(this.audioContext.currentTime);
+            this.ambientGain.gain.cancelScheduledValues(this.audioContext.currentTime);
+            this.effectsGain.gain.cancelScheduledValues(this.audioContext.currentTime);
         // Global mute overrides all
         if (this.isMuted) {
             this.backgroundGain.gain.setValueAtTime(0, this.audioContext.currentTime);
