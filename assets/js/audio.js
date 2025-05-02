@@ -1,4 +1,7 @@
+/* jshint esversion: 10 */ 
+
 // AudioManager singleton for all audio logic
+/*jshint -W056 */ // Suppress "bad constructor" warning for ES6 class syntax (JSHint false positive)
 /**
  * Singleton class for managing all game audio, including loading, playback, muting, and volume.
  *
