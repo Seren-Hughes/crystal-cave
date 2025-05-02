@@ -1,37 +1,55 @@
 # Echoes of the Crystal Cave - Testing
 
 ## Table of Contents
-- [Development Troubleshooting](#development-troubleshooting) 
-- [Google Lighthouse Performance](#google-lighthouse-results)
-- [Responsiveness](#responsiveness)
+- [Development & Troubleshooting](#development--troubleshooting) 
+- [Lighthouse](#lighthouse)
 - [Code Validation](#code-validation)
+- [Responsiveness](#responsiveness)
 - [Manual Testing](#manual-testing)
 - [Jest Testing](#jest-testing)
 - [Bugs](#bugs)
 - [Future Improvements](#future-improvements)
 - [Conclusion](#conclusion)  
 
-# Development Troubleshooting
+# Development & Troubleshooting
 
 This section documents the particularly tricky fixes and refactors encountered during active development.  
 These notes were taken while building the project, and focus on real-time troubleshooting rather than post-development bug fixing.  
 Later sections of this document cover post-development testing and any additional issues discovered.
 
 <details>
-<summary>🔗 Quick Navigation</summary>
+<summary>🔗 Quick Navigation to Development & Troubleshooting Entries</summary>
 
-- [Bat Sprite and Level Number Positioning](#-bat-sprite-and-level-number-positioning-)
-- [Uncaught ReferenceError: sequence is not defined](#-uncaught-referenceerror-sequence-is-not-defined-)
-- [Duplicate Event Listeners on Player Clicks](#-duplicate-event-listeners-on-player-clicks-)
-- [Lingering Glowing Crystal and Last Crystal Not Glowing](#-lingering-glowing-crystal-and-last-crystal-not-glowing-)
-- [Mobile Touch Events Not Working](#-mobile-touch-events-not-working-)
-
+- [Bat Sprite and Level Number Positioning](#bat-sprite-and-level-number-positioning)
+- [Uncaught ReferenceError: sequence is not defined](#uncaught-referenceerror-sequence-is-not-defined)
+- [Duplicate Event Listeners on Player Clicks](#duplicate-event-listeners-on-player-clicks)
+- [Lingering Glowing Crystal and Last Crystal Not Glowing](#lingering-glowing-crystal-and-last-crystal-not-glowing)
+- [Mobile Touch Events Not Working](#mobile-touch-events-not-working)
+- [openModal Not Defined](#openmodal-not-defined)
+- [Overlay Blocking Modal Buttons](#overlay-blocking-modal-buttons)
+- [Overlay Not Progressing Dialogue Messages](#overlay-not-progressing-dialogue-messages)
+- [Layout Discrepancies Between DevTools and iPhone](#layout-discrepancies-between-devtools-and-iphone)
+- [Button Image Lag & Transition to Sprite Sheet](#button-image-lag--transition-to-sprite-sheet)
+- [Level Indicator Reset Issue & Fix Attempts](#level-indicator-reset-issue--fix-attempts)
+- [Overlay & Crystal Interactivity Debugging](#overlay--crystal-interactivity-debugging)
+- [Mobile Browser Address Bar & Body Height Issues](#mobile-browser-address-bar--body-height-issues)
+- [iOS Audio Overlay & Early Game Container Display](#ios-audio-overlay--early-game-container-display)
+- [Audio Context Resume & Universal Audio User Event Overlay](#audio-context-resume--universal-audio-user-event-overlay)
+- [Crystal Sounds Ignoring Mute & Ambient Volume Ducking Issues](#crystal-sounds-ignoring-mute--ambient-volume-ducking-issues)
+- [JSDoc Adoption & Documentation Refactor](#jsdoc-adoption--documentation-refactor)
+- [DOMContentLoaded & Initialisation Issues](#domcontentloaded--initialisation-issues)
+- [Flash of Unstyled Content (FOUC)](#flash-of-unstyled-content-fouc)
+- [Modal Scroll Position Not Reset](#modal-scroll-position-not-reset)
+- [Settings Modal State Not Restored](#settings-modal-state-not-restored)
+- [Brightness Slider, Regex Rabbit Holes & Future-Proofing Filter Controls](#brightness-slider-regex-rabbit-holes--future-proofing-filter-controls)
+- [UI Mute Functionality: Syncing Global and Per-Channel States](#ui-mute-functionality-syncing-global-and-per-channel-states)
+- [Modularisation & AudioManager Refactor](#modularisation--audiomanager-refactor)
 
 </details>
 
 ---
 
-## 🔎 Bat Sprite and Level Number Positioning 🛠️
+## Bat Sprite and Level Number Positioning
 
 ### Issue:
 - The bat sprite was too close to the crystal container on smaller screens and required many adjustments.
@@ -50,7 +68,7 @@ Below is a screenshot of the DevTools Flexbox grid showing the updated layout/wr
 ![DevTools Screenshot](assets/media/game-div-wrapper-for-level-number.png)
 
 
-## 🔎 Uncaught ReferenceError: sequence is not defined 🛠️
+## Uncaught ReferenceError: sequence is not defined
 
 ### Issue:
 During testing, an error appeared in the console:
@@ -89,7 +107,7 @@ After Fix Screenshot:
 
 ![Fixed Result Uncaught ReferenceError DevTools Screenshot](assets/media/currentTarget-troubleshoot-fix.png)
 
-## 🔎 Duplicate Event Listeners on Player Clicks 🛠️
+## Duplicate Event Listeners on Player Clicks
 
 ### Issue: 
 
@@ -139,7 +157,7 @@ After Fix Screenshot
 ![Fixed Player Clicks Duplicated DevTools Console Logs Screenshot](assets/media/player-clicked-duplicated-fixed-console.png)
 
 
-## 🔎 Lingering Glowing Crystal and Last Crystal Not Glowing 🛠️
+## Lingering Glowing Crystal and Last Crystal Not Glowing
 
 ### Issue: 
 
@@ -207,7 +225,7 @@ Below is a screenshot of the console log showing the success message `"Player in
 
 ![Screenshot Console Log Glowing Crystal Fix](assets/media/crystal-glow-delay-fix.png)
 
-## 🔎 Mobile Touch Events Not Working 🛠️
+## Mobile Touch Events Not Working
 
 ### Issue: 
 
@@ -257,7 +275,7 @@ After implementing the fix:
 2. Crystals responded correctly to both clicks and touches
 
 
-## 🔎 openModal Not Defined 🛠️
+## openModal Not Defined
 
 ### Issue:
 
@@ -308,7 +326,7 @@ After moving the `openModal` function to the global scope:
 
 ![openModal Fixed](assets/media/open-modal-fix.png)
 
-## 🔎 Overlay Blocking Modal Buttons 🛠️
+## Overlay Blocking Modal Buttons
 
 ### Issue:
 
@@ -336,7 +354,7 @@ DevTools Inspect Tool Screenshot Before Fix:
 DevTools Inspect Tool Screenshot After Fix:
 ![Modal Z-index Fixed](assets/media/overlay-modal-fix.png)
 
-## 🔎 Overlay Not Progressing Dialogue Messages 🛠️
+## Overlay Not Progressing Dialogue Messages
 
 ### Issue:
 
@@ -416,7 +434,7 @@ After implementing the fix:
 
 ![Console Log Showing Proper Dialogue Progression](assets/media/progressing-dialogue.png)
 
-## 🔎 Layout Discrepancies Between DevTools and iPhone 🛠️
+## Layout Discrepancies Between DevTools and iPhone
 
 ### Issue:
 
@@ -499,7 +517,7 @@ To resolve the issue, the following steps were taken:
 
 Using BrowserStack alongside my iPhone and DevTools allowed me to identify and resolve layout inconsistencies. The updated media queries and testing process ensured the game looks and functions correctly across devices.
 
-## 🔎 Button Image Lag & Transition to Sprite Sheet 🛠️
+## Button Image Lag & Transition to Sprite Sheet
 
 ### Issue:
 When clicking buttons, there was a noticeable lag or flicker before the new image loaded. The delay disrupted the user experience.
@@ -557,7 +575,7 @@ After switching to a sprite sheet:
 ### Conclusion
 While preloading offered a small improvement, switching to a single sprite sheet minimized loading requests and removed flicker entirely. The overall responsiveness and consistency of the UI improved significantly.
 
-## 🔎 Level Indicator Reset Issue & Fix Attempts 🛠️
+## Level Indicator Reset Issue & Fix Attempts
 
 ### Issue:
 When restarting the game (e.g., pressing “Play Again”), the level indicator displayed the wrong level or did not reset to Level 1. Sometimes, errors showed that the “#level-number” element was missing. I suspect the issue was related to hiding the level indicator upon game start and not properly resetting it when the game restarted.
@@ -599,7 +617,7 @@ This properly updates only the numeric portion of the level text, preserving the
 Overwriting only the element’s span avoided removing the entire element under `.level-indicator`. Thanks to these incremental adjustments, the indicator reliably shows “Level 1” on new `startGame()` calls, and the console no longer logs missing elements.
 
 
-## 🔎 Overlay & Crystal Interactivity Debugging 🛠️
+## Overlay & Crystal Interactivity Debugging
 
 ### Issue:
 After introducing modals and more complex game states, crystals sometimes became unresponsive even though logs showed event listeners were attached and it was the player's turn. Console logs alone were not enough to diagnose the problem.
@@ -641,7 +659,7 @@ The following GIF shows the opaque overlay for blocking interactions and how mak
 
 ![Overlay Debugging GIF](assets/media/colour-overlay-development-troubleshooting.gif)
 
-## 🔎 Mobile Browser Address Bar & Body Height Issues 🛠️
+## Mobile Browser Address Bar & Body Height Issues
 
 ### Issue:
 On some mobile devices, especially iPhones and Android browsers, the game layout would shift or become misaligned when the browser address bar appeared or disappeared. This caused the game container or UI elements to be cut off or not fully visible.
@@ -676,7 +694,7 @@ Using a dynamic custom property for height ensures the layout always fits the vi
 - The game layout now remains consistent and fully visible, even as the address bar appears/disappears or the device orientation changes.
 - No more cut-off or hidden UI elements on mobile browsers.
 
-## 🔎 iOS Audio Overlay & Premature Game Container Display 🛠️
+## iOS Audio Overlay & Early Game Container Display
 
 ### Issue:
 On iOS devices, the audio permission overlay (`.ios-start-overlay`) appeared as intended on page load, prompting the user with “This site is best experienced with audio. Tap to continue.”  
@@ -712,7 +730,7 @@ By ensuring the game container and speech bubble are only shown after the overla
 
 *Note: In a later update, this audio user event overlay logic was unified across all devices and browsers, not just iOS. This change is documented next.*
 
-## 🔎 Audio Context Resume & Universal Audio User Event Overlay 🛠️
+## Audio Context Resume & Universal Audio User Event Overlay
 
 ### Issue:
 Initially, the audio permission overlay (`.ios-start-overlay`) and audio context resume logic were only implemented for iOS, since iOS Safari was known to block audio playback until a user gesture. On desktop Chrome, everything seemed to work fine at first.
@@ -759,7 +777,7 @@ At first, I believed the audio autoplay restriction was only an iOS feature. How
 - The overlay prompt and fade-in logic are consistent everywhere.
 - No more platform-specific bugs or user confusion regarding audio playback.
 
-## 🔎 Crystal Sounds Ignoring Mute & Ambient Volume Ducking Issues 🛠️
+## Crystal Sounds Ignoring Mute & Ambient Volume Ducking Issues
 
 ### Issue:
 - Crystal sounds were playing even when the game was muted using the mute toggle.
@@ -806,7 +824,7 @@ By ensuring all sound effects—including crystal sounds—respect the mute stat
 - After the fix, muting the game silences all sounds, including crystal effects.
 - No audio is played or retriggered when the game is muted, even during ambient volume changes.
 
-## 📝 JSDoc Adoption & Documentation Refactor 🛠️
+## JSDoc Adoption & Documentation Refactor
 
 ### Context:
 After a mentor session with Daniel Hamilton, I learned about the benefits of JSDoc for documenting JavaScript functions. Previously, I had written multiline comments (using `/* ... */`) to explain callback functions and logic, mainly to keep my script cleaner and easier to navigate by allowing comment folding in VS Code.
@@ -871,7 +889,7 @@ This greatly improves code navigation and understanding, especially for complex 
 
 *This process improvement has already made my codebase easier to maintain and will help future development by reminding myself and helping others to understand the project more quickly.*
 
-## 🔎 DOMContentLoaded & Initialisation Issues 🛠️
+## DOMContentLoaded & Initialisation Issues
 
 ### Issue:
 Clumsy Initialisation and Difficult Maintenance
@@ -908,7 +926,7 @@ Encapsulating all initialisation logic in a dedicated function and calling it on
 
 *This refactor improved the reliability of the game’s startup process, making the codebase easier to maintain.*
 
-## 🔎 Flash of Unstyled Content (FOUC) 🛠️
+## Flash of Unstyled Content (FOUC) 
 
 ### Issue: 
 
@@ -941,7 +959,7 @@ speechBubble.classList.remove("hidden"); // Show the speech bubble when needed
 - [DEV: What the FOUC is Happening?](https://dev.to/lyqht/what-the-fouc-is-happening-flash-of-unstyled-content-413j)
 
 ---
-## 🔎 Modal Scroll Position Not Reset 🛠️
+## Modal Scroll Position Not Reset
 
 ### Issue:
 When using the game dashboard (settings modal) and the "How to Play" modal—which both use the same modal container — if a user scrolled to the bottom of one modal, opening another would start scrolled to the bottom as well. This led to a confusing and poor user experience, as users expected each modal to open at the top.
@@ -980,7 +998,7 @@ Resetting the scroll position on modal close ensures a predictable and accessibl
 
 *This small UX improvement makes navigating between modals much smoother and more intuitive for players.*
 
-## 🔎 Settings Modal State Not Restored 🛠️
+## Settings Modal State Not Restored
 
 ### Issue:
 When reopening the settings modal, the positions of the sliders (for brightness and volume) and the mute button states were not restored. This led to a confusing user experience, as the UI did not always reflect the actual audio or brightness state after closing and reopening the modal.
@@ -1030,7 +1048,7 @@ By explicitly syncing the UI with the current state each time the modal is opene
 
 *This was a tricky issue to solve, as most tutorials do not cover restoring UI state for situations like reopening modals. The solution required careful state management and explicit UI synchronisation, as well as some experimentation with regex and string parsing for brightness values (discussed in the next entry).*
 
-## 🔎 Brightness Slider, 🐰 Regex Rabbit Holes & Future-Proofing Filter Controls 🛠️
+## Brightness Slider, Regex Rabbit Holes & Future-Proofing Filter Controls
 
 ### Issue:
 While implementing the brightness slider, I initially used a regex to extract the brightness value from the body's CSS filter property.
@@ -1073,7 +1091,7 @@ It also improves accessibility and maintainability — making it future-proof fo
 - The solution is easy to extend for more filters in the future.
 - The code is simpler and more readable.
 
-## 🔎 UI Mute Functionality: Syncing Global and Per-Channel States 🛠️
+## UI Mute Functionality: Syncing Global and Per-Channel States
 
 ### Issue:
 The mute system for the game was inconsistent and confusing. Toggling the global mute button or individual channel mute buttons (ambient, background, effects) did not always update the UI correctly. Sometimes, the main sound button would appear muted even when sound was playing, or vice versa. This led to a frustrating user experience and made it difficult to trust the mute controls.
@@ -1135,7 +1153,7 @@ Keeping the UI and mute state in sync is essential for a predictable and user-fr
 
 *This was one of the most challenging UI bugs to fix, and while the placeholder audio in the demo videos is rough, the end result is a much more reliable and user-friendly mute system.*
 
-## 🔎 Modularisation & AudioManager Refactor 🛠️
+## Modularisation & AudioManager Refactor
 _This entry documents the process and lessons learned while refactoring all audio logic into a modular, maintainable AudioManager singleton using ES6 modules._
 
 ### Mentor Feedback:
@@ -1185,7 +1203,7 @@ document.querySelector(".game-button.sound").addEventListener("click", () => {
 I created the new branch in the terminal and ensured I was working on the correct branch before starting the refactor: 
 ![Git branch creation](assets/media/terminal-create-new-branch.png)
 
-I created a new branch for the refactor, which allowed me to work on the changes without affecting the main codebase. This was especially useful and reassuring, as I could easily switch back to the original code if needed. Once I was satisfied with the refactor (I tested a deployment on multiple devices and browsers), I merged it back into the main branch. 
+The new branch for the refactor, which allowed me to work on the changes without affecting the main codebase. This was especially useful and reassuring, as I could easily switch back to the original code if needed. Once I was satisfied with the refactor (I tested a deployment on multiple devices and browsers), I merged it back into the main branch. 
 
 To merge the branch back into the main branch, I created a pull request in GitHub. I disccovered git commands to delete the branch after merging, but I have left it in place for now to keep a record of the refactor process. 
 
@@ -1207,8 +1225,39 @@ To merge the branch back into the main branch, I created a pull request in GitHu
 
 ### Reflection:
 
-This refactor was challenging but extremely rewarding. I learned the value of encapsulation, modularity, and clean project structure. Using branches for major changes made experimentation safer and more organised. The Odin Project, my mentor, and peer discussions (my brother) all contributed to a much more professional and maintainable codebase. I plan to continue modularising other parts of my game and revisit bundlers like Rollup in the future. Due to the time constraints of the project, I have chosen not to modularise the rest of the codebase at this time. 
+This refactor was challenging but extremely rewarding. I learned the value of encapsulation, modularity, and clean project structure. Using branches for major changes made experimentation safer and more organised. The Odin Project, my mentor, and peer discussions all contributed to a much more professional and maintainable codebase. I plan to continue modularising other parts of my game and revisit bundlers like Rollup in the future. Due to the time constraints of the project, I have chosen not to modularise the rest of the codebase at this time. 
 
+---
+# Lighthouse 
+
+## Index/Home Page Lighthouse Results
+**Desktop:**
+
+![Index Lighthouse Desktop Results](assets/media/index-page-desktop-lighthouse.png)
+
+**Mobile:**
+
+![Index Lighthouse Mobile Results](assets/media/index-page-mobile-lighthouse.png)
+
+## Game Page Lighthouse Results
+**Desktop:**
+
+![Game Lighthouse Desktop Results](assets/media/game-page-desktop-lighthouse.png)
+
+**Mobile:**
+
+![Game Lighthouse Mobile Results](assets/media/game-page-mobile-lighthouse.png)
+
+## 404 Page Lighthouse Results
+**Desktop:**
+
+![404 Lighthouse Desktop Results](assets/media/404-page-desktop-lighthouse.png)
+
+**Mobile:**
+
+![404 Lighthouse Mobile Results](assets/media/404-page-mobile-lighthouse.png)
+
+---
 
 # Code Validation 
 
@@ -1218,3 +1267,18 @@ This refactor was challenging but extremely rewarding. I learned the value of en
 - Game Page: [Document checking completed. No errors or warnings to show.](https://validator.w3.org/nu/?doc=https%3A%2F%2Fseren-hughes.github.io%2Fcrystal-cave%2Fgame.html)
 - 404 Error Page: [Document checking completed. No errors or warnings to show.](https://validator.w3.org/nu/?doc=https%3A%2F%2Fseren-hughes.github.io%2Fcrystal-cave%2F404.html)
 
+### CSS W3C Validation
+
+![CSS Validation Results](assets/media/css-validator-results.png)
+
+### JavaScript Linting
+ESLint was run on all JavaScript files. No errors or warnings to show. 
+_By default, ESLint outputs nothing if there are no issues._
+
+![ESLint Results](assets/media/eslint-validation-result.png)
+
+In addition to ESLint, script.js and audio.js were linted using JSHint. 
+- script.js: 
+![JSHint Script Results](assets/media/jshint-script-validation.png)
+- audio.js: 
+![JSHint Audio Results](assets/media/jshint-audio-validation.png)
