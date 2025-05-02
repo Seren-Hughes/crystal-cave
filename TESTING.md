@@ -1208,3 +1208,13 @@ To merge the branch back into the main branch, I created a pull request in GitHu
 ### Reflection:
 
 This refactor was challenging but extremely rewarding. I learned the value of encapsulation, modularity, and clean project structure. Using branches for major changes made experimentation safer and more organised. The Odin Project, my mentor, and peer discussions (my brother) all contributed to a much more professional and maintainable codebase. I plan to continue modularising other parts of my game and revisit bundlers like Rollup in the future. Due to the time constraints of the project, I have chosen not to modularise the rest of the codebase at this time. 
+
+
+# Code Validation 
+
+### HTML W3C Validation  
+
+- Home Page: [Document checking completed. No errors or warnings to show.](https://validator.w3.org/nu/?doc=https%3A%2F%2Fseren-hughes.github.io%2Fcrystal-cave%2Findex.html)
+- Game Page: [Document checking completed. No errors or warnings to show.](https://validator.w3.org/nu/?doc=https%3A%2F%2Fseren-hughes.github.io%2Fcrystal-cave%2Fgame.html)
+- 404 Error Page: [Document checking completed. No errors or warnings to show.](https://validator.w3.org/nu/?doc=https%3A%2F%2Fseren-hughes.github.io%2Fcrystal-cave%2F404.html)
+
