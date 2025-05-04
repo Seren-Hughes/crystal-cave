@@ -375,9 +375,100 @@ To ensure the game is playable for players with colour vision differences, the c
 ### Documentation & Planning
 - **ChatGPT** — Writing aid for documentation and clarity
 - [**Python Tutor**](https://pythontutor.com/) — Visualising game logic and code flow
-
+- [**Balsamiq Wireframes**](https://balsamiq.com/wireframes/) — For creating wireframes
+- **Todoist** – For managing tasks and tracking project progress.
+- **Microsoft OneNote & Word** – Used to organise content, draft text, and structure ideas. 
 
 ## Features
+
+### Home Page
+The Home Page welcomes players with a retro pixel-art design. The page features a large title, a description of the game, and a Start Game button. The design is responsive, ensuring a consistent experience across devices.
+
+![Home Page](assets/media/seren-hughes.github.io_crystal-cave_index.html.png)
+
+### Game Page
+
+![Game Page](assets/media/seren-hughes.github.io_crystal-cave_game.html.png)
+
+### UI 
+
+The user interface is designed for clarity and accessibility, with intuitive buttons and helpful tooltips. While all buttons are important for navigation and gameplay, three key controls—Mute/Unmute Audio, Freestyle Mode, and Fullscreen—are dynamic: they visually change to reflect their current state and update their tooltips accordingly. This provides immediate feedback and ensures players always know the current mode or setting.
+
+- Mute and unmute audio button:
+
+  ![Mute and Unmute Audio Button](assets/media/mute-toggle-and-tooltip.gif)
+
+- Freestyle Mode Toggle:
+
+  ![Freestyle Mode Button Toggle and Tooltip](assets/media/freestyle-toggle-and-tooltip.gif)
+
+- Fullscreen Toggle:
+
+  ![Fullscreen Button Toggle and Tooltip](assets/media/fullscreen-toggle-and-tooltip.gif)
+
+Other interface buttons, such as How to Play, Restart, Dashboard/Settings and Home remain visually consistent, intuitive and are also clearly labeled with tooltips for ease of use.
+
+### Speech Bubble Modal
+
+When the game page loads, the player first sees the game container, allowing them to take in the environment. After a brief pause, Brucey the bat appears with a speech bubble, introducing himself and the game. This short delay helps set the scene and gives Brucey’s introduction more impact.
+
+![Speech Bubble](assets/media/seren-hughes.github.io_crystal-cave_game_speech_modal.html.png)
+
+In the dialogue bubble, the player is asked for their name and a name input modal opens. 
+
+![Name Input Modal](assets/media/player-name-input-modal.png)
+
+**Personalised Greeting:**  
+  If the player enters a name, Brucey responds with a custom message, making the game feel more personal and engaging. The name is stored in local storage for future visits.
+ 
+
+![Name Input Response](assets/media/player-name-input-response.png)
+
+**Alternative Response:**  
+  If the player skips the name input, Brucey playfully acknowledges their choice, keeping the tone light and fun.
+
+![No Name Input Response](assets/media/player-name-skip-response.png)
+
+**Returning Players:**  
+  Players who return to the site and have previously entered a name are greeted with a “Welcome back” message, reinforcing a sense of continuity.
+
+
+![Returning Player Name](assets/media/returning-player-message.png)
+
+**Responsive Design:**  
+  The speech bubble and name input modal are designed to be responsive, ensuring they look good on all devices. The instructions to **_'Click or press spacebar to continue'_** are on desktop. On mobile, the instructions are to tap the screen to continue. This ensures that players know how to proceed regardless of their device.
+
+  _Mobile **'Tap to continue'** Instructions:_ 
+![Mobile 'Tap to continue' Instructions](assets/media/iphone-speech-bubble-landscape.png)  
+
+### Audio & Audio Controls
+
+When the game page loads, first, an overlay appears stating the site is best experienced with audio, requesting the user to click or tap to continue. A user event is a requirement for the Web Audio API to work properly. This is an effective way to ensure the user is aware of the audio and can choose to continue to enable it or not.
+
+![Audio User Event Permission Overlay](assets/media/seren-hughes.github.io_crystal-cave_game_audio_permission.html.png)
+
+### How to Play Modal
+
+![How to Play Modal](assets/media/seren-hughes.github.io_crystal-cave_game_howtoplay_modal.html.png)
+
+### Game Dashboard Modal
+
+![Game Dashboard Modal](assets/media/seren-hughes.github.io_crystal-cave_game_dashboard_modal.html.png)
+
+### Game Over Modal
+
+![Game Over Modal](assets/media/game-over-modal.png)
+
+### Freestyle Mode
+
+### Error Page
+
+The custom 404 page matches the game's mysterious cave theme. It features fading/flickering crystals, and the message “404: Lost in the Cave. The echoes fade... you are not where you're meant to be...” A Return Home button helps guide players back if they get lost.
+
+![Error Page](assets/media/seren-hughes.github.io_crystal-cave_404.html.png)
+
+**Fading/Flickering Crystals:**
+![Fading/Flickering Crystals](assets/media/flickering-fading-crystals.gif)
 
 ### Additional Features:
 #### 🎨 Visual Polish and Fade-In Effects
