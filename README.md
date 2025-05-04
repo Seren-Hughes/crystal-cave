@@ -81,7 +81,9 @@ This game takes the classic Simon and Bop It style memory challenge and gives it
 ### Freestyle Mode (Bonus)
 - As a player, I want to play the crystal notes freely, so I can experiment with the sounds and enjoy them outside of the main game.
 
-## Design & Planning:
+---
+
+# Design & Planning
 
 ### Game Overview:
 Echoes of the Crystal Cave is a memory-based puzzle game where players help Brucey the bat navigate a mysterious cave filled with glowing, musical crystals. Players must watch and listen to and repeat sequences of notes to progress, while enjoying a dynamic audio-visual experience.
@@ -136,9 +138,9 @@ Brucey the plush bat, who inspired the creative process behind the game’s them
 
 ![Index Home Page Design](assets/media/echoes-index-page-wireframes.png)
 
-2. ### Index / Home Page with modal view:
+2. ### Instructions Modal View:
 
-![Index Home Page with modal view](assets/media/echoes-index-page-modal-wireframes.png)
+![Instructions Modal View](assets/media/echoes-index-page-modal-wireframes.png)
 
 3. ### Game Page:
 
@@ -273,6 +275,13 @@ Speech bubbles use classic black and white for maximum clarity against the dark 
 The crystals are designed with bright, saturated colours so they stand out vibrantly against the dark background cave design. 
 
 ![Crystal Colour Palette](assets/media/crystal-colours-design.jpg)
+
+**Accessibility & Visual Cues:**  
+To ensure the game is playable for players with colour vision differences, the crystal glow effect was designed to provide a strong visual cue that does not rely solely on colour. During development, I tested the crystal animations using the Colorblindly Chrome extension (Monochromacy/Achromatopsia mode) and recorded a GIF to demonstrate that the glow and brightness changes remain visible even in monochrome. This means that while the crystal colours are a big feature, they are not essential for gameplay — players can rely on the glow effect as a clear indicator.
+
+![Crystal Glow Animation Monochrome](assets/media/colorblindly-crystal-glow-monochrome.gif)
+
+*Future plans include extending the settings modal with a filter/slider to allow players to increase the glow, contrast, or brightness of the crystals, making the game even more accessible for a wider range of visual needs.*
 
 ## Technologies Used
 
