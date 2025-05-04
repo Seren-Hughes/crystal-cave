@@ -36,8 +36,8 @@ This game takes the classic Simon and Bop It style memory challenge and gives it
   - [Error Page](#error-page)
   - [Additional Features](#additional-features)
 - [Deployment](#deployment)
-- [Testing](#testing)
 - [JavaScript JSDoc Documentation](#javascript-jsdoc-documentation)
+- [Testing](#testing)
 - [Future Enhancements](#future-enhancements)
 - [Credits](#credits)
 - [Acknowledgements](#acknowledgements)
@@ -400,6 +400,66 @@ Fade-ins were applied using simple CSS transitions for broad browser compatibili
 
 The effect maintains consistency across devices without adding unnecessary complexity or heavy scripting.
 
+# Deployment
+
+## Creating the Repository on GitHub (via UI)
+
+1. Sign in to [GitHub](https://github.com/).
+2. Go to the Code Institute template (if used) or your own repository.
+3. Click **Use this template** and select **Create a new repository**.
+4. Enter a name for your repository and click **Create repository from template**.
+
+## Cloning and Setting Up Locally
+
+1. Open VS Code and connect your GitHub account:
+   - Click on the Accounts icon (bottom-left).
+   - Sign in and authorize VS Code.
+2. Open the repository in VS Code using Remote Repositories:
+   - Click the Source Control tab (or press `Ctrl + Shift + G`).
+   - Click **Clone Repository** and select GitHub.
+   - Find and select your repository.
+   - Choose a location on your machine.
+   - Click **Open in VS Code** once cloning is complete.
+
+## Manual Deployment via Terminal
+
+For those who prefer the terminal, use the following commands:
+
+```sh
+# Initialise a Git repository (if not already initialised)
+git init
+
+# Add all files to the staging area
+git add .
+
+# Commit the changes with a descriptive message
+git commit -m "Initial commit"
+
+# Connect the local repository to GitHub (only needed if not already linked)
+git remote add origin https://github.com/YOUR-USERNAME/YOUR-REPO.git
+
+# Push the changes to the main branch
+git push -u origin main
+```
+
+Whenever updates are made:
+
+```sh
+git add .
+git commit -m "Update features and bug fixes"
+git push
+```
+
+## Deploying to GitHub Pages
+
+1. Go to your GitHub repository.
+2. Click on the **Settings** tab.
+3. Scroll down to the **Pages** section in the left sidebar.
+4. Under **Branch**, select `main` (or the branch you want to deploy).
+5. Click **Save**.
+6. After a few moments, GitHub Pages will generate a link to your live site.
+
+
 # JavaScript JSDoc Documentation
 Full reference documentation for all JavaScript classes and functions in this project is auto-generated using JSDoc and the docdash template.
 
@@ -425,6 +485,13 @@ After running this command, commit and push the updated `docs/` folder to keep t
 - [docdash Template](https://github.com/clenemt/docdash)
 - [JSDoc on npm](https://www.npmjs.com/package/jsdoc)
 - [npm vs npx: (freeCodeCamp)](https://www.freecodecamp.org/news/npm-vs-npx-whats-the-difference/)
+
+# Testing
+The website has been thoroughly tested to ensure functionality, accessibility, and responsiveness across devices and browsers. All HTML, CSS, and JavaScript have passed validation checks without errors, and Lighthouse scores are excellent for performance, accessibility, best practices, and SEO.
+
+During development, I documented key troubleshooting steps, challenging issues, and their solutions to provide transparency and aid future maintenance. Manual testing was performed for all major features, and automated JavaScript testing with Jest is planned to further ensure code reliability.
+
+For a detailed breakdown of the testing process—including validation results, Lighthouse scores, bug fixes, troubleshooting notes — please refer to [TESTING.md](TESTING.md).
 
 ## Future Enhancements
 
