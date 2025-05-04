@@ -1310,7 +1310,7 @@ Below are screenshots demonstrating how the game appears and functions on variou
 
 ### Game Page:
 
-| Google Pixel 9v15 (Chrome) | Moto g9 Play Landscape View | iPad (iOS Safari) Portrait View (fullscreen)  | iPad (iOS Safari) Landscape View  | Desktop (Windows Chrome) |
+| Google Pixel 9v15 (Chrome) / BrowserStack | Moto g9 Play Landscape View / BrowserStack | iPad (iOS Safari) Portrait View (fullscreen)  | iPad (iOS Safari) Landscape View  | Desktop (Windows Chrome) |
 | ------------------------ | --------------------- | ----------------------- | ----------------- | -------------------- |
 | ![Google Pixel Game Screenshot](assets/media/google-pixel-9v15-game-page.png) | ![Moto g9 Landscape Game Screenshot](assets/media/moto-g9-play-game-page-landscape.png) | ![iPad Game Screenshot](assets/media/ipad9-safari-gamepage-fullscreen.png) | ![iPad Game Screenshot Landscape](assets/media/ipad9-safari-gamepage-landscape.png) | ![Desktop Game Screenshot](assets/media/seren-hughes.github.io_crystal-cave_game.html.png) |
 
@@ -1320,22 +1320,15 @@ Below are screenshots demonstrating how the game appears and functions on variou
 | ------------------------ | --------------------- | ----------------------- | ----------------- | -------------------- |
 | ![iPhone Speech Bubble Screenshot](assets/media/iphone-xr-safari-speechmodal.png) | ![iPhone Speech Bubble Screenshot Landscape](assets/media/iphone-speech-bubble-landscape.png) | ![iPad Speech Bubble Screenshot](assets/media/ipad9-safari-speechmodal-portrait.png) | ![iPad Speech Bubble Screenshot Landscape](assets/media/ipad9-safari-speechmodal.png) | ![Desktop Game Screenshot](assets/media/seren-hughes.github.io_crystal-cave_game_speech_modal.html.png) |
 
-- Player Name Input Modal:
+
 - How to Play Modal:
 - Settings/Dashboard Modal:
-- Game Over Modal:
-
-
-
-- Speech Bubble Modal:
-- Player Name Input Modal:
-- How to Play Modal:
-- Settings/Dashboard Modal:
-- Game Over Modal:
 
 ### Error Page:
 
-
+| iPhone XR (Safari) | iPhone XR (Safari) Landscape View | Samsung Galaxy Tab A9 (Chrome) Portrait View / BrowserStack| Samsung Galaxy Tab S8 (Chrome) Landscape View / BrowserStack | Desktop (Windows Chrome) |
+| ------------------------ | --------------------- | ----------------------- | ----------------- | -------------------- |
+| ![iPhone 404 Screenshot](assets/media/iphone-xr-safari-errorpage.png) | ![iPhone 404 Screenshot Landscape](assets/media/iphone-404error-landscape.png) | ![Samsung A9 404 Screenshot](assets/media/samsung-galaxy-tab-a9-errorpage.png) | ![Samsung S8 404 Screenshot Landscape](assets/media/galaxy-tab-s8-error-landscape.png) | ![Desktop 404 Screenshot](assets/media/seren-hughes.github.io_crystal-cave_404.html.png) |
 
 # Audio Responsiveness
 
