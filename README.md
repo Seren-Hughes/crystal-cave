@@ -243,6 +243,51 @@ Basic pseudocode was used during the early planning and development stage. It wa
     - If "Yes": Calls `startGame()` to reset
     - If "No": Ends the game - return to home page
 
+### Early Planning & Visualisation
+
+To help plan and understand the logic for my project, I wrote out basic pseudocode and used [Python Tutor](https://pythontutor.com/) to visualise how my functions and arrays would work. This approach, learned during my course, made it much easier to break down the game’s mechanics and debug early logic before building the full game.
+
+Below are some screenshots of my early function experiments in Python Tutor:
+
+<details>
+<summary>Testing the initial game start and modal logic.</summary>
+
+![Python Tutor Screenshot: startGame](assets/media/python-tutor-screenshot.png)
+
+</details>
+
+<details><summary>Stepping through level progression and sequence updates.</summary>
+
+![Python Tutor Screenshot: nextLevel and game flow](assets/media/python-tutor-screenshot-nextlevel.png)
+
+</details>
+
+<details><summary>Testing random sequence generation for each level.</summary>
+
+![Python Tutor Screenshot: storeSequence](assets/media/python-tutor-screenshot-storesequence.png)
+
+</details>
+
+<details><summary>Simulating how the sequence is played back to the player.</summary>
+
+![Python Tutor Screenshot: playSequence](assets/media/python-tutor-screenshot-play-sequence.png)
+
+</details>
+
+<details><summary>Visualising how player input is stored in an array.</summary>
+
+![Python Tutor Screenshot: waitForPlayerInput](assets/media/python-tutor-screenshot-wait-player-input.png)
+
+</details>
+
+<details><summary>Checking player input against the correct sequence and handling next level and game over logic.</summary>
+
+![Python Tutor Screenshot: checkPlayerInput](assets/media/python-tutor-screenshot-checkplayerinput.png)
+
+</details>
+
+--- 
+_This early visualisation and step-by-step debugging helped me confidently move from pseudocode to working JavaScript code._
 
 ## Typography
 
@@ -274,7 +319,7 @@ Speech bubbles use classic black and white for maximum clarity against the dark 
 
 The crystals are designed with bright, saturated colours so they stand out vibrantly against the dark background cave design. 
 
-![Crystal Colour Palette](assets/media/crystal-colours-design.jpg)
+<img src="assets/media/crystal-colours-design.jpg" alt="Crystal Colour Palette" width="300">
 
 **Accessibility & Visual Cues:**  
 To ensure the game is playable for players with colour vision differences, the crystal glow effect was designed to provide a strong visual cue that does not rely solely on colour. During development, I tested the crystal animations using the Colorblindly Chrome extension (Monochromacy/Achromatopsia mode) and recorded a GIF to demonstrate that the glow and brightness changes remain visible even in monochrome. This means that while the crystal colours are a big feature, they are not essential for gameplay — players can rely on the glow effect as a clear indicator.
@@ -285,26 +330,52 @@ To ensure the game is playable for players with colour vision differences, the c
 
 ## Technologies Used
 
-### Languages, Frameworks & Tools
-#### Languages:
-- **HTML5** — semantic structure and content
-- **CSS3** — styling, responsive layouts, Flexbox
-- **JavaScript (ES6+)** — interactivity, game logic, DOM manipulation
+### Development & Deployment
+- **GitHub** — Version control and project hosting
+- **VSCode** — Code editing
+- **GitHub Pages** — Hosting the live site
 
-#### Browser APIs:
-- **Web Audio API** — for sound generation and crystal interaction audio
+### Languages & Frameworks
+- **HTML** — Semantic structure and content
+- **CSS3** — Styling, responsive layouts
+- **JavaScript (ES6+)** — Interactivity, game logic, DOM manipulation
+- **JavaScript Modules (ES6+)** — Organising code into separate, reusable files using `import` and `export`
 
-#### Fonts and Visuals:
-- **Google Fonts** — Jersey 20 for retro pixel-style headings, and Handjet for numerical displays, tooltips, and modal text
-**Favicon Generator** — for creating a custom favicon for the site
-**Tiled Map Editor** — for building the cave background and level container layout
-**Adobe Photoshop** — for editing assets, creating pixel backgrounds, modals, and sprites
+### Audio & Visuals
+- [**Web Audio API**](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API) — Sound generation and crystal interaction audio
+- [**Ableton Live**](https://ableton.com/) — Creating and mastering sound effects and musical notes
+- [**Google Fonts**](https://fonts.google.com/) — Jersey 20 and Handjet for retro pixel-style typography
+- [**Adobe Photoshop**](https://www.adobe.com/products/photoshop.html) — Editing assets, creating pixel backgrounds, modals, and sprites
+- [**Tiled Map Editor**](https://www.mapeditor.org/) — Building the cave background and level layout
+- [**Favicon Generator**](https://favicon.io/) — Creating a custom favicon
 
-#### Audio Tools:
-- **Ableton Live** — for creating, editing, and mastering sound effects and musical notes used in the game
+### Design & Colour
+- [**Coolors**](https://coolors.co/) — Generating and refining the colour palette
+- [**Eye Dropper**](https://www.eyedropper.com/) — Extracting colours from images for palette consistency
 
-#### Additional Tools:
-- **Coolors** — to generate and fine-tune the colour palette ensuring contrast accessibility
+### Accessibility & Testing
+- [**colorblindly**](https://colorblindly.com/) — Testing for colour accessibility and ensuring the game is playable for players with colour vision differences
+- [**WebAIM Contrast Checker**](https://webaim.org/resources/contrastchecker/) — Checking colour contrast ratios
+- [**Lighthouse**](https://developers.google.com/web/tools/lighthouse) — Performance and accessibility audits 
+
+### Code Quality & Validation
+- [**ESLint**](https://eslint.org/) — Used both as a VSCode extension and via the terminal for JavaScript code quality and error checking
+- [**JSHint**](https://jshint.com/) — Used alongside ESLint to provide extra meticulous, stricter checks and helpful metrics feedback
+- [**JSDoc**](https://jsdoc.app/) — Generating documentation from annotated JavaScript comments
+- [**HTML Validator**](https://validator.w3.org/) — HTML syntax and structure checking
+- [**CSS Validator**](https://jigsaw.w3.org/css-validator/) — CSS syntax and structure checking
+- [**Prettier**](https://prettier.io/) — Code formatting and style consistency
+
+### Responsive & Visual Testing
+- [**Am I Responsive?**](https://ui.dev/amiresponsive) — Testing responsive design across devices
+- **Chrome DevTools** — Debugging and testing
+- [**Gyazo Video and GIF**](https://gyazo.com/) — Recording and sharing gameplay videos and GIFs
+- [**BrowserStack**](https://www.browserstack.com/) — Cross-browser and cross-device compatibility testing
+
+### Documentation & Planning
+- **ChatGPT** — Writing aid for documentation and clarity
+- [**Python Tutor**](https://pythontutor.com/) — Visualising game logic and code flow
+
 
 ## Features
 
@@ -319,9 +390,9 @@ Throughout _Echoes of the Crystal Cave_, a consistent fade-in animation is used 
 
 **Inspiration:**
 
-The design choice was inspired by retro games from the Super Nintendo era, where fade-ins created a smooth, cinematic transition between scenes.
+The design choice was inspired by video games, where fade-ins create a smooth, cinematic transition between scenes.
 
-Rather than having elements appear suddenly, the fade-in provides a vintage atmosphere, evokes nostalgia, and makes the game feel more cohesive and polished.
+Rather than having elements appear suddenly, the fade-in makes the game feel more cohesive and polished.
 
 **Implementation:**
 
