@@ -1320,9 +1320,11 @@ Below are screenshots demonstrating how the game appears and functions on variou
 | ------------------------ | --------------------- | ----------------------- | ----------------- | -------------------- |
 | ![iPhone Speech Bubble Screenshot](assets/media/iphone-xr-safari-speechmodal.png) | ![iPhone Speech Bubble Screenshot Landscape](assets/media/iphone-speech-bubble-landscape.png) | ![iPad Speech Bubble Screenshot](assets/media/ipad9-safari-speechmodal-portrait.png) | ![iPad Speech Bubble Screenshot Landscape](assets/media/ipad9-safari-speechmodal.png) | ![Desktop Game Screenshot](assets/media/seren-hughes.github.io_crystal-cave_game_speech_modal.html.png) |
 
+### Modals: 
 
-- How to Play Modal:
-- Settings/Dashboard Modal:
+| iPhone XR (Safari) / Dashboard Settings | iPhone XR (Safari) Landscape View / How to Play | iPad (iOS Safari) Portrait View / Dashboard Settings | iPad (iOS Safari) Landscape View / Game Over Modal | Desktop (Windows Chrome) / How to Play Modal |
+| ------------------------ | --------------------- | ----------------------- | ----------------- | -------------------- |
+| ![iPhone Dashboard Modal Screenshot](assets/media/iphone-xr-safari-settings-dashboard2.png) | ![iPhone How to Play Modal Screenshot Landscape](assets/media/iphone-modal-howtoplay-landscape.png) | ![iPad Dashboard Modal Screenshot](assets/media/ipad9-settings-dashboard.png) | ![iPad Game Over Modal Screenshot Landscape](assets/media/ipad9-gameover-modal-landscape-fullscreen.png) | ![Desktop How to Play Modal Screenshot](assets/media/desktop-how-to-play-modal.png) |
 
 ### Error Page:
 
