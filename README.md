@@ -1,5 +1,7 @@
 # Echoes of the Crystal Cave
 #### A pixel art memory game
+
+![Echoes of the Crystal Cave - Am I Responsive Screenshot](assets/media/echoes-amiresponsive-screenshot.png)
 #### About:
 
 This game takes the classic Simon and Bop It style memory challenge and gives it a unique twist with a cave setting, atmospheric audio, and a five-note scale system. Players interact with glowing crystals that light up and produce musical tones when activated. The game is designed to be accessible, engaging, and visually appealing, with pixel-art aesthetics and simple, responsive controls.
@@ -48,6 +50,36 @@ This game takes the classic Simon and Bop It style memory challenge and gives it
 - Fans of retro and pixel art games looking for a nostalgic yet fresh experience.
 - Fans of music based games.
 - Fans of memory games and memory training games (music memory included).
+
+## User Stories
+
+### Gameplay & Progress
+- As a player, I want to start a new game easily, so I can quickly begin playing.
+- As a player, I want to see my progress and highest level, so I can track and improve my performance.
+- As a player, I want visual and audio feedback for correct and incorrect actions, so I understand my progress and mistakes.
+- As a player, I want the crystals to light up and play sound when I interact with them, so I know my input was registered.
+
+### Instructions & Accessibility
+- As a new player, I want clear, simple instructions, so I can understand the game quickly.
+- As a player, I want accessible controls (mouse, keyboard, touch), so I can play on any device.
+- As a player, I want clear icons or tooltips for each button, so I understand their purpose even without text.
+
+### Navigation & Settings
+- As a player, I want clear, accessible buttons to restart, return home, view instructions, and access settings, so I can easily control my experience.
+- As a player, I want to toggle full-screen mode and sound, so I can play comfortably in different environments.
+- As a player, I want to delete my saved progress, so I can start fresh whenever I choose.
+- As a user, if I land on a broken or missing page, I want to see a friendly 404 message and a clear way to return to the homepage.
+
+### Personalisation & Persistence
+- As a player, I want to enter a username and receive personalised messages, so the game feels more engaging.
+- As a returning player, I want my progress (like highest level) to be saved locally, so I can aim to improve over time.
+
+### Audio & Immersion
+- As a player, I want to hear ambient cave sounds and background music, so the game feels immersive.
+- As a player, I want to adjust or mute the game’s audio, so I can customise the experience to suit my environment.
+
+### Freestyle Mode (Bonus)
+- As a player, I want to play the crystal notes freely, so I can experiment with the sounds and enjoy them outside of the main game.
 
 ## Design & Planning:
 
