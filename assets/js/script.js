@@ -58,7 +58,8 @@ const speechBubbleMessages = [
   "Nice to meet you!",
   "Want to see what the crystals do?",
   "Give it a try... I'll be right here!",
-  "See how many you can remember!",
+  "Watch the crystals carefully...", 
+  "then tap them back in the same order!",
 ];
 
 let currentMessageIndex = 0; // Track the current message
