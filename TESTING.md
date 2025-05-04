@@ -1175,7 +1175,7 @@ catBox.printContent(); // returns Cat
 ```
 ### Choosing an Approach:
 
-My continued research led me to discover ES6 modules and I learned about the `import` and `export` syntax. I found many tutorials including a fantastic resource from The Odin Project. I decided to use ES6 modules for my refactor. 
+My continued research led me to discover modules and I learned about the `import` and `export` syntax. I found many tutorials including a fantastic resource from The Odin Project. I decided to use modules for my refactor. 
 
 ### Early Refactor Attempts:
 
@@ -1212,7 +1212,7 @@ To merge the branch back into the main branch, I created a pull request in GitHu
 
 ### Summary of Changes:
 
-- Refactored all audio logic into a single, class-based AudioManager ES6 module.
+- Refactored all audio logic into a single, class-based AudioManager ES module.
 - Used getters and setters for state management and encapsulation.
 - Removed global audio flags and direct imports of individual functions.
 - Adopted feature branching for safer, more organised development.
@@ -1271,14 +1271,73 @@ This refactor was challenging but extremely rewarding. I learned the value of en
 
 ![CSS Validation Results](assets/media/css-validator-results.png)
 
-### JavaScript Linting
+### JavaScript Validation
+
 ESLint was run on all JavaScript files. No errors or warnings to show. 
 _By default, ESLint outputs nothing if there are no issues._
 
 ![ESLint Results](assets/media/eslint-validation-result.png)
 
 In addition to ESLint, script.js and audio.js were linted using JSHint. 
-- script.js: 
+<details><summary>script.js:</summary>
+
 ![JSHint Script Results](assets/media/jshint-script-validation.png)
-- audio.js: 
+
+</details>
+<details><summary>audio.js:</summary>
+
 ![JSHint Audio Results](assets/media/jshint-audio-validation.png)
+
+</details>
+
+---
+
+# Responsiveness
+
+Responsiveness was prioritised throughout development to ensure a consistent and enjoyable user experience across all devices. Google Chrome Developer Tools were used extensively to simulate a variety of screen sizes and device types. The layout, UI elements, and interactive features were tested in mobile, tablet, and desktop views to confirm that all components—including text, images, buttons, and modals—adapted fluidly without overlap or visual issues.
+
+In addition to DevTools, I used BrowserStack’s local testing feature to preview and interact with the game on a wide range of real devices and browsers during development and after deployment. This enabled thorough cross-device and cross-browser testing, helping to ensure consistent appearance and functionality across iOS, Android, Windows, and macOS platforms. Access to BrowserStack was provided through the GitHub Student Developer Pack, which offers a trial licence for comprehensive testing during my time as a student at Code Institute.
+
+Below are screenshots demonstrating how the game appears and functions on various devices, including mobile phones, tablets, and laptops.
+
+## Visual Responsiveness by Page
+
+### Home Page:
+
+| iPhone XR (iOS Safari)   | iPhone XR (iOS Safari) Landscape View | iPad (iOS Safari) Portrait View   | iPad (iOS Safari) Landscape View  | Desktop (Windows Chrome) |
+| ------------------------ | --------------------- | ----------------------- | ----------------- | -------------------- |
+| ![iPhone Screenshot Home](assets/media/iphone-xr-safari-home.png) | ![iPhone Home Landscape Screenshot](assets/media/iphone-home-page-landscape.png) | ![iPad Home Screenshot](assets/media/ipad9-safari-homepage-screenshot.png) | ![iPad Home Screenshot Landscape](assets/media/ipad9-safari-homepage-landscape-screenshot.png) | ![Desktop Screenshot](assets/media/seren-hughes.github.io_crystal-cave_index.html.png) |
+
+### Game Page:
+
+| Google Pixel 9v15 (Chrome) | Moto g9 Play Landscape View | iPad (iOS Safari) Portrait View (fullscreen)  | iPad (iOS Safari) Landscape View  | Desktop (Windows Chrome) |
+| ------------------------ | --------------------- | ----------------------- | ----------------- | -------------------- |
+| ![Google Pixel Game Screenshot](assets/media/google-pixel-9v15-game-page.png) | ![Moto g9 Landscape Game Screenshot](assets/media/moto-g9-play-game-page-landscape.png) | ![iPad Game Screenshot](assets/media/ipad9-safari-gamepage-fullscreen.png) | ![iPad Game Screenshot Landscape](assets/media/ipad9-safari-gamepage-landscape.png) | ![Desktop Game Screenshot](assets/media/seren-hughes.github.io_crystal-cave_game.html.png) |
+
+### Speech Bubble Modal:
+
+| iPhone XR (Safari) | iPhone XR (Safari) Landscape View | iPad (iOS Safari) Portrait View | iPad (iOS Safari) Landscape View  | Desktop (Windows Chrome) |
+| ------------------------ | --------------------- | ----------------------- | ----------------- | -------------------- |
+| ![iPhone Speech Bubble Screenshot](assets/media/iphone-xr-safari-speechmodal.png) | ![iPhone Speech Bubble Screenshot Landscape](assets/media/iphone-speech-bubble-landscape.png) | ![iPad Speech Bubble Screenshot](assets/media/ipad9-safari-speechmodal-portrait.png) | ![iPad Speech Bubble Screenshot Landscape](assets/media/ipad9-safari-speechmodal.png) | ![Desktop Game Screenshot](assets/media/seren-hughes.github.io_crystal-cave_game_speech_modal.html.png) |
+
+- Player Name Input Modal:
+- How to Play Modal:
+- Settings/Dashboard Modal:
+- Game Over Modal:
+
+
+
+- Speech Bubble Modal:
+- Player Name Input Modal:
+- How to Play Modal:
+- Settings/Dashboard Modal:
+- Game Over Modal:
+
+### Error Page:
+
+
+
+# Audio Responsiveness
+
+Special attention was also given to audio functionality across devices. Web audio can behave inconsistently, particularly on mobile browsers, with iOS presenting well-documented challenges such as delayed playback, muted autoplay, and the requirement for user interaction before audio can be triggered. These behaviours were accounted for in development, and user interactions were used to initialise audio context to ensure reliable playback. Audio was tested on iOS Safari, Android Chrome, and desktop browsers to verify consistent behaviour where possible.
+
