@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>AudioManager - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AudioManager.html">AudioManager</a><ul class='methods'><li data-type='method'><a href="AudioManager.html#loadAllAudio">loadAllAudio</a></li><li data-type='method'><a href="AudioManager.html#loadAudioFile">loadAudioFile</a></li><li data-type='method'><a href="AudioManager.html#lowerAmbientVolume">lowerAmbientVolume</a></li><li data-type='method'><a href="AudioManager.html#playAmbientSound">playAmbientSound</a></li><li data-type='method'><a href="AudioManager.html#playBackgroundSound">playBackgroundSound</a></li><li data-type='method'><a href="AudioManager.html#playSound">playSound</a></li><li data-type='method'><a href="AudioManager.html#restoreAmbientVolume">restoreAmbientVolume</a></li><li data-type='method'><a href="AudioManager.html#updateMuteStates">updateMuteStates</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#activateGlow">activateGlow</a></li><li><a href="global.html#activateOverlay">activateOverlay</a></li><li><a href="global.html#audioManager">audioManager</a></li><li><a href="global.html#celebrateCorrectAnswer">celebrateCorrectAnswer</a></li><li><a href="global.html#checkPlayerInput">checkPlayerInput</a></li><li><a href="global.html#clearAllGlows">clearAllGlows</a></li><li><a href="global.html#clearAllTimeouts">clearAllTimeouts</a></li><li><a href="global.html#clearTimeoutsAndIntervals">clearTimeoutsAndIntervals</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#deactivateOverlay">deactivateOverlay</a></li><li><a href="global.html#deleteSavedData">deleteSavedData</a></li><li><a href="global.html#freestyle">freestyle</a></li><li><a href="global.html#handleCrystalClick">handleCrystalClick</a></li><li><a href="global.html#initializeGameSite">initializeGameSite</a></li><li><a href="global.html#isSequencePlaying">isSequencePlaying</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openNameModal">openNameModal</a></li><li><a href="global.html#playSequence">playSequence</a></li><li><a href="global.html#progressDialogue">progressDialogue</a></li><li><a href="global.html#setBodyHeight">setBodyHeight</a></li><li><a href="global.html#showPlayAgainModal">showPlayAgainModal</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#storeSequence">storeSequence</a></li><li><a href="global.html#syncAudioSettingsUI">syncAudioSettingsUI</a></li><li><a href="global.html#updateHighestLevel">updateHighestLevel</a></li><li><a href="global.html#updateSoundButtonUI">updateSoundButtonUI</a></li><li><a href="global.html#updateSpeechBubbleText">updateSpeechBubbleText</a></li><li><a href="global.html#waitForPlayerInput">waitForPlayerInput</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">AudioManager</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            AudioManager
+        
+        </h2>
+        
+            <div class="class-description usertext">Singleton class for managing all game audio, including loading, playback, muting, and volume.Handles ambient, background, and effects channels with per-channel and global controls.Provides methods for loading audio assets, playing sounds, and synchronising audio state with the UI.Properties:- `audioContext`: The Web Audio API context.- `buffers`: Stores decoded audio buffers for all sounds.- `crystalSounds`, `celebrationSound`, `caveBackgroundSound`, `caveAmbienceSound`: Audio asset paths.- `effectsGain`, `backgroundGain`, `ambientGain`: GainNodes for volume control.- User volume and mute flags for each channel and globally.Usage:Import and use the singleton `audioManager` for all audio operations in the game.</div>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="AudioManager"><span class="type-signature"></span>new AudioManager<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="audio.js.html">audio.js</a>, <a href="audio.js.html#line23">line 23</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="loadAllAudio"><span class="type-signature type-signature-async">(async) </span>loadAllAudio<span class="signature">()</span><span class="type-signature"> &rarr; {Promise.&lt;void>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Loads all audio files required for the game and stores them in the `buffers` object.This method fetches and decodes audio files for crystal sounds, background music,ambient sound, and celebration effects.Behaviour:- Iterates through the `crystalSounds` object to load crystal-specific audio files.- Loads additional sounds for background, ambient, and celebration effects.- Stores decoded audio data in the `buffers` property for playback.Notes:- This method is asynchronous and should be called with `await`.- The `buffers` object stores the decoded audio data for playback.References:- [MDN Web Docs: Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)- [MDN Web Docs: AudioBuffer](https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="audio.js.html">audio.js</a>, <a href="audio.js.html#line118">line 118</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;void></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="loadAudioFile"><span class="type-signature type-signature-async">(async) </span>loadAudioFile<span class="signature">(url)</span><span class="type-signature"> &rarr; {Promise.&lt;(AudioBuffer|null)>}</span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Fetches an audio file from the given URL and decodes it into an AudioBuffer object.This method uses the Fetch API to retrieve the audio file and decodes it using the Web Audio API.If the fetch or decoding process fails, `null` is returned.Behaviour:- Fetches the audio file from the provided URL.- Converts the response into an ArrayBuffer.- Decodes the ArrayBuffer into an AudioBuffer using `audioContext.decodeAudioData`.- Returns null if the fetch or decoding process fails.Notes:- This method is asynchronous and should be called with `await` or `.then`.- The returned AudioBuffer can be used for audio playback in the game.- The `try...catch` block ensures that any errors during the decoding process are caught and handled gracefully, preventing the application from crashing.References:- [MDN Web Docs: Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)- [MDN Web Docs: ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)- [MDN Web Docs: AudioContext.decodeAudioData](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/decodeAudioData)- [W3Schools: Async/Await](https://www.w3schools.com/js/js_async.asp)- [W3Schools: JavaScript Promises](https://www.w3schools.com/js/js_promise.asp)- [FreeCodeCamp: Try/Catch in JavaScript – How to Handle Errors in JS](https://www.freecodecamp.org/news/try-catch-in-javascript/)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="audio.js.html">audio.js</a>, <a href="audio.js.html#line165">line 165</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Inside the AudioManager classconst audioBuffer = await this.loadAudioFile("assets/audio/example.mp3");if (audioBuffer) {    console.log("Audio file loaded successfully.");} else {    console.error("Failed to load audio file.");}</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>url</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The URL of the audio file to fetch and decode.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns:</h5>
+
+        
+<div class="param-desc">
+    A promise that resolves to the decoded AudioBuffer or `null` if an error occurs.
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise.&lt;(AudioBuffer|null)></span>
+
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="lowerAmbientVolume"><span class="type-signature"></span>lowerAmbientVolume<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Lowers the ambient sound volume gradually over a specified duration.This method reduces the volume of the ambient sound to 0.1 over 2 seconds using a linear ramp.If the game is globally muted, the volume is immediately set to 0 and no ramping occurs.Behaviour:- Checks if the game is globally muted (`isMuted`). If muted, sets the volume to 0 immediately.- Gradually lowers the volume to 0.1 over 2 seconds using `linearRampToValueAtTime` if not muted.Notes:- The `linearRampToValueAtTime` method ensures a smooth transition in volume.- This method is typically called during gameplay events that require reduced ambient sound (e.g., crystal sequence playback).References:- [MDN Web Docs: AudioParam.linearRampToValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="audio.js.html">audio.js</a>, <a href="audio.js.html#line301">line 301</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Lower the ambient volume during a sequencethis.lowerAmbientVolume();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="playAmbientSound"><span class="type-signature"></span>playAmbientSound<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Plays the ambient soundscape for the game.This method handles playback of the ambient sound by:- Creating a BufferSource for the ambient audio.- Looping the ambient sound for continuous playback.- Connecting the BufferSource to the persistent ambient GainNode for volume control.Behaviour:- Checks if the ambient audio buffer is loaded. If not, exits early.- Creates a BufferSource, sets it to loop, connects it to the ambient GainNode, and starts playback.Notes:- The ambient GainNode is used to control the volume of the ambient sound.- The ambient sound is looped to ensure continuous playback during the game.- This method does not log or throw errors if the buffer is missing; it simply returns.References:- [MDN Web Docs: AudioContext.createBufferSource](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createBufferSource)- [MDN Web Docs: AudioNode.connect](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect)- [MDN Web Docs: AudioBufferSourceNode.loop](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="audio.js.html">audio.js</a>, <a href="audio.js.html#line271">line 271</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Play the ambient soundscapethis.playAmbientSound();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="playBackgroundSound"><span class="type-signature"></span>playBackgroundSound<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Plays the background sound for the game.This method handles playback of the background sound by:- Creating a BufferSource for the background audio.- Looping the background sound for continuous playback.- Connecting the BufferSource to the persistent background GainNode for volume control.Behaviour:- Checks if the background audio buffer is loaded. If not, exits early.- Creates a BufferSource, sets it to loop, connects it to the background GainNode, and starts playback.Notes:- The background GainNode is used to control the volume of the background sound.- The background sound is looped to ensure continuous playback during the game.- This method does not log or throw errors if the buffer is missing; it simply returns.References:- [MDN Web Docs: AudioContext.createBufferSource](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createBufferSource)- [MDN Web Docs: AudioNode.connect](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect)- [MDN Web Docs: AudioBufferSourceNode.loop](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/loop)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="audio.js.html">audio.js</a>, <a href="audio.js.html#line236">line 236</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Play the background soundthis.playBackgroundSound();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="playSound"><span class="type-signature"></span>playSound<span class="signature">(buffer)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Plays a sound effect using the provided AudioBuffer.This method handles audio playback by creating a BufferSource, connecting it to the effects GainNodefor volume control, and starting playback. If the game is muted or no buffer is provided, playback is skipped.Behaviour:- Checks if the game is muted (`isMuted` flag). If muted, skips playback.- Validates the provided AudioBuffer. If no buffer is provided, exits early.- Creates a BufferSource, connects it to the effects GainNode, and starts playback.Notes:- The effects GainNode is used to control the volume of sound effects.- This method is called whenever a crystal sound or celebration sound needs to be played.References:- [MDN Web Docs: AudioContext.createBufferSource](https://developer.mozilla.org/en-US/docs/Web/API/BaseAudioContext/createBufferSource)- [MDN Web Docs: AudioNode.connect](https://developer.mozilla.org/en-US/docs/Web/API/AudioNode/connect)- [MDN Web Docs: AudioBufferSourceNode.start](https://developer.mozilla.org/en-US/docs/Web/API/AudioBufferSourceNode/start)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="audio.js.html">audio.js</a>, <a href="audio.js.html#line202">line 202</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Play a crystal soundthis.playSound(this.buffers["blue"]);</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>buffer</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">AudioBuffer</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The AudioBuffer containing the sound to play.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="restoreAmbientVolume"><span class="type-signature"></span>restoreAmbientVolume<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Restores the ambient sound volume gradually over a specified duration.This method increases the volume of the ambient sound to the user's intended ambient volume (`userAmbientVolume`)over 2 seconds using a linear ramp. If the game is globally muted (`isMuted`), the volume is immediately set to 0and no ramping occurs.Behaviour:- Checks if the game is globally muted (`isMuted`). If muted, sets the volume to 0 immediately.- Gradually restores the volume to `userAmbientVolume` over 2 seconds using `linearRampToValueAtTime` if not muted.Notes:- The `linearRampToValueAtTime` method ensures a smooth transition in volume.- This method is called after gameplay events that required reduced ambient sound (e.g., crystal sequence playback).References:- [MDN Web Docs: AudioParam.linearRampToValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/linearRampToValueAtTime)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="audio.js.html">audio.js</a>, <a href="audio.js.html#line331">line 331</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Restore the ambient volume after a sequencethis.restoreAmbientVolume();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="updateMuteStates"><span class="type-signature"></span>updateMuteStates<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Updates the gain (volume) of all audio channels based on mute and volume settings.This method synchronises the gain values for background, ambient, and effects channelsaccording to the global mute flag (`isMuted`), per-channel mute flags, and user-set volumes.If global mute is active, all channels are silenced. Otherwise, each channel's gain is set tozero if its mute flag is active, or to its user-set volume if not.Behaviour:- Cancels any scheduled gain ramps before setting new values to prevent conflicts (e.g., from linear ramps).- If `isMuted` is true, sets all channel gains to 0.- If `isMuted` is false, sets each channel's gain to 0 if its mute flag is true, or to its user volume otherwise.Notes:- Cancelling scheduled values ensures that mute actions are not overridden by previously scheduled ramps.- This method is called automatically by the setters for mute and volume properties.- Does not update the UI; only affects audio output.References:- [MDN Web Docs: AudioParam.setValueAtTime](https://developer.mozilla.org/en-US/docs/Web/API/AudioParam/setValueAtTime)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="audio.js.html">audio.js</a>, <a href="audio.js.html#line361">line 361</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Sun May 04 2025 20:02:35 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

@@ -35,9 +35,9 @@ This game takes the classic Simon and Bop It style memory challenge and gives it
   - [Freestyle Mode](#freestyle-mode)
   - [Error Page](#error-page)
   - [Additional Features](#additional-features)
-- [Accessibility](#accessibility)
 - [Deployment](#deployment)
 - [Testing](#testing)
+- [JavaScript JSDoc Documentation](#javascript-jsdoc-documentation)
 - [Future Enhancements](#future-enhancements)
 - [Credits](#credits)
 - [Acknowledgements](#acknowledgements)
@@ -399,6 +399,32 @@ Rather than having elements appear suddenly, the fade-in makes the game feel mor
 Fade-ins were applied using simple CSS transitions for broad browser compatibility and performance.
 
 The effect maintains consistency across devices without adding unnecessary complexity or heavy scripting.
+
+# JavaScript JSDoc Documentation
+Full reference documentation for all JavaScript classes and functions in this project is auto-generated using JSDoc and the docdash template.
+
+[View the full JavaScript JSDoc Documentation](https://seren-hughes.github.io/crystal-cave/docs/index.html)
+
+## Updating JavaScript JSDoc Documentation
+
+Any changes to the JavaScript code or JSDoc comments can be regenerated to the documentation using the following command in the terminal:
+
+```sh
+npx jsdoc assets/js -r -d docs -t ./node_modules/docdash
+```
+
+- `assets/js` — your JavaScript source folder
+- `-r` — recursive (includes subfolders)
+- `-d docs` — output folder for documentation
+- `-t ./node_modules/docdash` — use the docdash template
+
+After running this command, commit and push the updated `docs/` folder to keep the online documentation up to date.
+
+**References:**
+- [JSDoc Getting Started](https://jsdoc.app/about-getting-started.html)
+- [docdash Template](https://github.com/clenemt/docdash)
+- [JSDoc on npm](https://www.npmjs.com/package/jsdoc)
+- [npm vs npx: (freeCodeCamp)](https://www.freecodecamp.org/news/npm-vs-npx-whats-the-difference/)
 
 ## Future Enhancements
 

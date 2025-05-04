@@ -1,0 +1,3266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>Global - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="AudioManager.html">AudioManager</a><ul class='methods'><li data-type='method'><a href="AudioManager.html#loadAllAudio">loadAllAudio</a></li><li data-type='method'><a href="AudioManager.html#loadAudioFile">loadAudioFile</a></li><li data-type='method'><a href="AudioManager.html#lowerAmbientVolume">lowerAmbientVolume</a></li><li data-type='method'><a href="AudioManager.html#playAmbientSound">playAmbientSound</a></li><li data-type='method'><a href="AudioManager.html#playBackgroundSound">playBackgroundSound</a></li><li data-type='method'><a href="AudioManager.html#playSound">playSound</a></li><li data-type='method'><a href="AudioManager.html#restoreAmbientVolume">restoreAmbientVolume</a></li><li data-type='method'><a href="AudioManager.html#updateMuteStates">updateMuteStates</a></li></ul></li></ul><h3>Global</h3><ul><li><a href="global.html#activateGlow">activateGlow</a></li><li><a href="global.html#activateOverlay">activateOverlay</a></li><li><a href="global.html#audioManager">audioManager</a></li><li><a href="global.html#celebrateCorrectAnswer">celebrateCorrectAnswer</a></li><li><a href="global.html#checkPlayerInput">checkPlayerInput</a></li><li><a href="global.html#clearAllGlows">clearAllGlows</a></li><li><a href="global.html#clearAllTimeouts">clearAllTimeouts</a></li><li><a href="global.html#clearTimeoutsAndIntervals">clearTimeoutsAndIntervals</a></li><li><a href="global.html#closeModal">closeModal</a></li><li><a href="global.html#deactivateOverlay">deactivateOverlay</a></li><li><a href="global.html#deleteSavedData">deleteSavedData</a></li><li><a href="global.html#freestyle">freestyle</a></li><li><a href="global.html#handleCrystalClick">handleCrystalClick</a></li><li><a href="global.html#initializeGameSite">initializeGameSite</a></li><li><a href="global.html#isSequencePlaying">isSequencePlaying</a></li><li><a href="global.html#nextLevel">nextLevel</a></li><li><a href="global.html#openModal">openModal</a></li><li><a href="global.html#openNameModal">openNameModal</a></li><li><a href="global.html#playSequence">playSequence</a></li><li><a href="global.html#progressDialogue">progressDialogue</a></li><li><a href="global.html#setBodyHeight">setBodyHeight</a></li><li><a href="global.html#showPlayAgainModal">showPlayAgainModal</a></li><li><a href="global.html#startGame">startGame</a></li><li><a href="global.html#storeSequence">storeSequence</a></li><li><a href="global.html#syncAudioSettingsUI">syncAudioSettingsUI</a></li><li><a href="global.html#updateHighestLevel">updateHighestLevel</a></li><li><a href="global.html#updateSoundButtonUI">updateSoundButtonUI</a></li><li><a href="global.html#updateSpeechBubbleText">updateSpeechBubbleText</a></li><li><a href="global.html#waitForPlayerInput">waitForPlayerInput</a></li></ul>
+    
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">Global</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        
+            
+        
+        </h2>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<h4 class="name" id="audioManager"><span class="type-signature type-signature-constant">(constant) </span>audioManager<span class="type-signature"> :<a href="AudioManager.html">AudioManager</a></span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Singleton instance of the AudioManager class for managing all game audio.Import and use this instance (`audioManager`) throughout the game to control audio playback,loading, muting, and volume for all channels.</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="audio.js.html">audio.js</a>, <a href="audio.js.html#line387">line 387</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Singleton instance of the AudioManager class for managing all game audio.Import and use this instance (`audioManager`) throughout the game to control audio playback,loading, muting, and volume for all channels.
+</div>
+
+
+
+    <h5 class="h5-types">Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><a href="AudioManager.html">AudioManager</a></span>
+
+
+
+        </li>
+    </ul>
+
+
+
+
+
+
+        
+            
+<h4 class="name" id="isSequencePlaying"><span class="type-signature"></span>isSequencePlaying<span class="type-signature"></span></h4>
+
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Global variables used to manage the game state, player input.Notes:- Flags are used to track the current state of the game (e.g., `isPlayerTurn`).- Arrays store the current sequence and the player's input.- Objects like `crystalTimeouts` manage crystal-specific timeouts.</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line32">line 32</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+<div class="description usertext">
+    Global variables used to manage the game state, player input.Notes:- Flags are used to track the current state of the game (e.g., `isPlayerTurn`).- Arrays store the current sequence and the player's input.- Objects like `crystalTimeouts` manage crystal-specific timeouts.
+</div>
+
+
+
+
+
+
+
+
+        
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id="activateGlow"><span class="type-signature"></span>activateGlow<span class="signature">(container)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Activates the glow effect for a crystal container and plays the corresponding sound.This function visually highlights the crystal by adding active classes to its glow and light-crystal elements.It also plays the associated sound for the crystal's color and removes the glow effect after a short delay.Behaviour:- Checks if it is the player's turn (`isPlayerTurn` flag). If not, the function exits early.- Adds the 'active' class to the glow and light-crystal elements of the container.- Plays the corresponding sound for the crystal's color if the audio buffer is available.- Logs the activation of the glow and any errors related to missing audio buffers.- Removes the 'active' class from the glow and light-crystal elements after 600ms.Notes:- The glow effect duration is set to 600ms to match the game's visual timing.- If the audio buffer for the crystal's color is not found, an error is logged, but the game continues.References:- [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)- [MDN Web Docs: HTMLElement.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)- [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1696">line 1696</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Activate the glow for a crystal containerconst crystalContainer = document.querySelector(".crystal-container[data-color='blue']");activateGlow(crystalContainer);</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>container</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">HTMLElement</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The crystal container element to activate the glow for.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="activateOverlay"><span class="type-signature"></span>activateOverlay<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Activates the overlay by adding the 'active' class and enabling pointer events.This function ensures that the overlay is visible and interactive, blocking user interactions with the game elements behind it.Behaviour:- Adds the 'active' class to the overlay element.- Enables pointer events to make the overlay interactive.- Logs the activation of the overlay for debugging purposes.Notes:- The overlay is used to block interactions during specific game states, such as sequence playback or modals.References:- [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)- [MDN Web Docs: CSS pointer-events](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1635">line 1635</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Activate the overlay to block user inputactivateOverlay();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="celebrateCorrectAnswer"><span class="type-signature"></span>celebrateCorrectAnswer<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Celebrates the player's correct input by activating a glowing effect on all crystals,playing a celebration sound, and transitioning to the next level.This function handles the celebration sequence by:- Activating glow effects on all crystals with a delay.- Playing a celebration sound if available.- Blocking player interactions during the celebration using an overlay.- Deactivating the glow effects after a short duration.- Adding a brief pause before transitioning to the next level.Behaviour:- Activates the glow and celebration-specific classes for all crystals.- Plays the celebration sound if the `audioBuffers.celebration` buffer is loaded.- Deactivates the glow effects after 2.5 seconds.- Proceeds to the next level after a 1-second breather following the glow deactivation.Notes:- The overlay is activated during the celebration to block player interactions.- The celebration sound is played only if the game is not muted and the audio buffer is available.- This function is called when the player's input matches the correct sequence.References:- [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)- [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1400">line 1400</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="checkPlayerInput"><span class="type-signature"></span>checkPlayerInput<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Checks the player's input sequence against the correct sequence for the current level.This function validates the player's input by:- Restoring the ambient soundscape volume before performing the comparison.- Comparing the `playersInput` array with the `currentSequence` array using `JSON.stringify` for strict equality.- Logging debugging information about the lengths of both arrays and the comparison result.- Triggering the appropriate response based on the comparison result:  - Calls `celebrateCorrectAnswer` if the input is correct.  - Calls `showPlayAgainModal` if the input is incorrect.Behaviour:- Logs the lengths of the player's input and the correct sequence for debugging purposes.- Uses strict comparison to ensure both the order and values of the arrays match.- Restores the ambient sound volume before performing the comparison.- Calls the appropriate function to handle the result of the comparison.Notes:- The `JSON.stringify` method is used for deep comparison of arrays.- This function is called after the player has completed their input sequence.References:- [MDN Web Docs: JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify)- [Stack Overflow: How to compare arrays in JavaScript](https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript)- [GeeksforGeeks: How to compare two arrays in JavaScript](https://www.geeksforgeeks.org/how-to-compare-two-arrays-in-javascript/)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1357">line 1357</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Examples</h5>
+    
+    <pre class="prettyprint"><code>// Example of a correct input sequenceplayersInput = ["blue", "green", "pink"];currentSequence = ["blue", "green", "pink"];checkPlayerInput(); // Logs "Correct input" and triggers celebration.</code></pre>
+
+    <pre class="prettyprint"><code>// Example of an incorrect input sequenceplayersInput = ["blue", "pink", "green"];currentSequence = ["blue", "green", "pink"];checkPlayerInput(); // Logs "Incorrect input" and shows the play again modal.</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="clearAllGlows"><span class="type-signature"></span>clearAllGlows<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Clears all glow effects from the crystals.This function ensures that no lingering glow effects remain active on any crystal,resetting their visual state to default.Behaviour:- Selects all crystal containers in the DOM.- Removes the 'active' class from the glow and light-crystal elements of each crystal.Notes:- This function is useful for resetting the visual state of crystals between game states or levels.References:- [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)- [MDN Web Docs: querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1818">line 1818</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Clear all glow effects from the crystalsclearAllGlows();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="clearAllTimeouts"><span class="type-signature"></span>clearAllTimeouts<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Clears all global timeouts and crystal-specific timeouts.This function ensures that no lingering timeouts from previous game states remain active,which could interfere with the current game logic or cause unexpected behavior.Behaviour:- Retrieves the highest timeout ID currently in use and clears all timeouts up to that ID.- Iterates through the `crystalTimeouts` object to clear timeouts specific to each crystal.- Logs the clearing process for debugging purposes and removes references to cleared timeouts.Notes:- This function is more specific for managing crystal timeouts and ensures that no unintended glow effects persist.References:- [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)- [MDN Web Docs: clearTimeout](https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1781">line 1781</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Clear all timeouts before starting a new gameclearAllTimeouts();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="clearTimeoutsAndIntervals"><span class="type-signature"></span>clearTimeoutsAndIntervals<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Clears all active timeouts and intervals to prevent lingering effects in the game.This function ensures that no timeouts or intervals from previous game states remain active,which could interfere with the current game logic or cause unexpected behavior.Behaviour:- Retrieves the highest timeout ID currently in use and clears all timeouts up to that ID.- Retrieves the highest interval ID currently in use and clears all intervals up to that ID.- Logs the clearing process for debugging purposes.Notes:- This function is useful for resetting the game state or transitioning between game modes.- Clearing timeouts and intervals ensures that no unintended callbacks are executed.References:- [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)- [MDN Web Docs: setInterval](https://developer.mozilla.org/en-US/docs/Web/API/setInterval)- [MDN Web Docs: clearTimeout](https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout)- [MDN Web Docs: clearInterval](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1746">line 1746</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Clear all timeouts and intervals before starting a new gameclearTimeoutsAndIntervals();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="closeModal"><span class="type-signature"></span>closeModal<span class="signature">(type<span class="signature-attributes">opt</span>, event<span class="signature-attributes">opt</span>, callback<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Closes a modal and optionally executes a callback after closing.This function handles modal closing behaviour, including:- Hiding the modal.- Deactivating the overlay unless another modal is still open.- Resetting the scroll position of the modal to the top (for "gameModal").- Executing a callback function after the modal is closed.- Re-activating the overlay if the speech bubble modal is still visible.* Behaviour:- If the modal type is `"gameModal"`, the scroll position is reset to the top using `scrollTop = 0`.- Prevents multiple triggers of the close action using the `isModalClosing` flag.- Stops event propagation and prevents default behaviour if an event is provided.- Deactivates the overlay unless another modal is still open.- Executes a callback function if provided after the modal is closed.- Re-activates the overlay if the speech bubble modal is still visible. A ternary operator (shorthand for a simple `if-else` statement) is used to determine which modal element to target:```javascripttype === "speechBubble" ? ".speechBubble" : ".modal-container"```- If `type` is `"speechBubble"`, it selects the `.speechBubble` element.- Otherwise, it selects the `.modal-container` element.Event bubbling and propagation solution references:- [FreeCodeCamp: Event Propagation](https://www.freecodecamp.org/news/event-propagation-event-bubbling-event-catching-beginners-guide/)- [MDN Web Docs: Event.stopPropagation](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)- [Stack Overflow: Difference Between stopPropagation and preventDefault](https://stackoverflow.com/questions/5963669/whats-the-difference-between-event-stoppropagation-and-event-preventdefault)Ternary operator reference:- [MDN Web Docs: Conditional (Ternary) Operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line181">line 181</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Close the "gameModal" without an associated event and execute a callbackcloseModal("gameModal", null, () => {    console.log("Modal closed. Callback executed.");});</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>"speechBubble"</code>
+                
+                </td>
+            
+
+            <td class="description last">The type of modal to close (e.g., "speechBubble" or "gameModal").</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last">The event triggering the modal close, if applicable.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+|
+
+<span class="param-type">null</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>null</code>
+                
+                </td>
+            
+
+            <td class="description last">A callback function to execute after the modal is closed.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="deactivateOverlay"><span class="type-signature"></span>deactivateOverlay<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Deactivates the overlay by removing the 'active' class and disabling pointer events.This function ensures that the overlay is hidden and non-interactive, allowing user interactions with the game elements behind it.Behaviour:- Removes the 'active' class from the overlay element.- Disables pointer events to make the overlay non-interactive.- Logs the deactivation of the overlay for debugging purposes.Notes:- The overlay is deactivated to allow user interactions during specific game states, such as the player's turn.References:- [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)- [MDN Web Docs: CSS pointer-events](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1661">line 1661</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Deactivate the overlay to allow user inputdeactivateOverlay();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="deleteSavedData"><span class="type-signature"></span>deleteSavedData<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Deletes all saved data from localStorage and resets relevant game state and UI elements.This function clears specific and all localStorage data, provides feedback to the user,and resets any game state or UI elements affected by the deleted data.Behaviour:- Removes the player's name from localStorage.- Clears all localStorage data.- Clears the highest level in localStorage.- Resets the speech bubble message and message index to their default values.- Reloads the page to ensure all changes take effect.Notes:- This function is triggered by the settings modal and the "Delete Saved Data" button within it.- The speech bubble message at index 6 is reset to "Nice to meet you!".- The `currentMessageIndex` is reset to 0.- Reloading the page ensures a clean state after data deletion.References:- [MDN Web Docs: localStorage.removeItem](https://developer.mozilla.org/en-US/docs/Web/API/Storage/removeItem)- [MDN Web Docs: localStorage.clear](https://developer.mozilla.org/en-US/docs/Web/API/Storage/clear)- [MDN Web Docs: location.reload](https://developer.mozilla.org/en-US/docs/Web/API/Location/reload)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line2022">line 2022</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="freestyle"><span class="type-signature"></span>freestyle<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Toggles freestyle mode, allowing the player to enter or exit freestyle mode.This function handles both entering and exiting freestyle mode:When entering freestyle mode:- Cancels the current game logic and prepares the game for freestyle play.- Clears all timeouts, intervals, and glow effects.- Resets game state flags and player input.- Hides the overlay and speech bubble.- Updates the level indicator to display "Freestyle Mode."- Updates the freestyle button to indicate the active mode.- Changes the tooltip to "Exit Freestyle Mode."When exiting freestyle mode:- Resets the game state to level 1.- Updates the level indicator to display "Level 1."- Updates the freestyle button to its default state.- Changes the tooltip to "Enter Freestyle Mode."Behaviour:- Ensures that freestyle mode is toggled correctly by checking the `freestyleMode` flag.- Logs the activation or deactivation of freestyle mode for debugging purposes.Notes:- Freestyle mode is a non-competitive mode where the player can freely interact with the crystals.- The overlay is deactivated to allow crystal interactions during freestyle mode.- This function is triggered when the player clicks the freestyle button.References:- [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)- [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1534">line 1534</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="handleCrystalClick"><span class="type-signature"></span>handleCrystalClick<span class="signature">(event)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Handles the player's click on a crystal during their turn.This function processes the player's input by:- Checking if it's the player's turn (using the `isPlayerTurn` flag).- Retrieving the clicked crystal's colour and storing it in the `playersInput` array.- Logging debugging information for the clicked crystal and the player's input sequence.- Validating the player's input against the correct sequence after a delay (to allow glow deactivation).Behaviour:- If it's not the player's turn (`isPlayerTurn` is `false`), the function exits early.- Adds the clicked crystal's colour to the `playersInput` array.- Logs the clicked crystal's colour and the current input sequence for debugging purposes.- If the player's input matches the required sequence length, input validation is triggered after a 600ms delay.Notes:- The `isPlayerTurn` flag prevents interactions when it's not the player's turn.- The delay before input validation matches the glow deactivation duration to ensure smooth gameplay.- This function is called whenever the player clicks or taps on a crystal.References:- [MDN Web Docs: Event.currentTarget](https://developer.mozilla.org/en-US/docs/Web/API/Event/currentTarget)- [W3Schools: JavaScript Array push()](https://www.w3schools.com/jsref/jsref_push.asp)- [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1300">line 1300</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Handle a player's click on a crystalcrystalElement.addEventListener("click", handleCrystalClick);</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>event</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Event</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The click or touch event triggered by the player's interaction with a crystal.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="initializeGameSite"><span class="type-signature"></span>initializeGameSite<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Initialises the game site after the DOM is fully loaded.This function sets up the game environment, initialises UI elements, and adds event listeners for user interactions.It ensures that all DOM elements are available before interacting with them and handles the initial overlay logicto prepare the game for the player.Key Features:- Hides the game container and shows an audio user event overlay to ensure user interaction before audio playback.- Sets up animations, buttons, and event listeners for various game interactions.- Handles audio context resumption for browsers that require user interaction to start audio playback.- Starts the game introduction sequence after the user interacts with the audio overlay.- Handles user interaction with the invisible overlay.Behaviour:- Removes fade-in animations from the game container and buttons to prevent automatic animations.- Hides the game container until the audio user event overlay has been interacted with.- Adds event listeners for:  - Speech bubble interactions to progress dialogue.  - Overlay clicks to close modals or progress dialogue.  - Keyboard interactions (e.g., spacebar to progress dialogue).  - Crystal interactions for both click and touch events.Notes:- _**Moving code out of this function may break the game because DOM elements might not exist yet!**_- The logic encapsulated in initializeGameSite is only called after the DOM is fully loaded to ensure all elements are available.- The `audioUserEventOverlay` is displayed to prompt the user for interaction before audio playback.- The `audioContext` is resumed if it is in a suspended state, ensuring audio playback works as expected.- The `startIntro` function is called after the audio user event overlay is dismissed. It handles the game introduction sequence.References:- [MDN Web Docs: Web Audio API](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)- [MDN Web Docs: AudioContext](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext)- [MDN Web Docs: resume()](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/resume)- [MDN Web Docs: suspend()](https://developer.mozilla.org/en-US/docs/Web/API/AudioContext/suspend)- [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)- [MDN Web Docs: EventTarget.addEventListener](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener)- [FreeCodeCamp: DOM Manipulation Best Practices](https://www.freecodecamp.org/news/dom-manipulation-best-practices/)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line516">line 516</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Call the initializeGameSite function when the DOM is fully loadeddocument.addEventListener("DOMContentLoaded", initializeGameSite);</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="nextLevel"><span class="type-signature"></span>nextLevel<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Prepares the game for the next level by resetting the game state, updating the level indicator,generating a new sequence, and playing it back to the player.This function handles the transition to the next level by:- Incrementing the `level` variable to reflect the new level.- Resetting the player's input array for the new level.- Disabling player interactions while the sequence is being played.- Updating the level number displayed in the UI.- Clearing any lingering timeouts or glow effects from the previous level.- Generating and storing the new sequence for the current level.- Playing the new sequence for the player.Behaviour:- Updates the level indicator in the DOM to reflect the current level.- Logs the current sequence for debugging purposes.- Ensures the game state is reset before starting the new level.Notes:- If the level indicator element is not found in the DOM, an error is logged, but the game continues.- This function is called after the player successfully completes the current level.References:- [MDN Web Docs: Element.textContent](https://developer.mozilla.org/en-US/docs/Web/API/Node/textContent)- [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1471">line 1471</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="openModal"><span class="type-signature"></span>openModal<span class="signature">(type, title<span class="signature-attributes">opt</span>, text<span class="signature-attributes">opt</span>, buttons<span class="signature-attributes">opt</span>, useOverlay<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Opens a modal (either "speechBubble" or "gameModal") and dynamically updates its content.This function handles:- Dynamically updating the modal's title, text, and buttons for "gameModal".- Adding event listeners to modal buttons to execute their respective actions.- Showing the modal and optionally activating or deactivating the overlay.References:- [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)- [CSS Tricks: Considerations Styling Modal](https://css-tricks.com/considerations-styling-modal/)- [FreeCodeCamp: How to Build a Modal with JavaScript](https://www.freecodecamp.org/news/how-to-build-a-modal-with-javascript/)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line95">line 95</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>type</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last">The type of modal to open ("speechBubble" or "gameModal").</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>title</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>""</code>
+                
+                </td>
+            
+
+            <td class="description last">The title of the modal (used for "gameModal").</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>""</code>
+                
+                </td>
+            
+
+            <td class="description last">The text content of the modal (used for "gameModal").</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>buttons</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;Object></span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>[]</code>
+                
+                </td>
+            
+
+            <td class="description last">An array of button objects for "gameModal". Each object should have:  - {string} text - The button's label.  - {Function} action - The function to execute when the button is clicked.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>useOverlay</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    <code>true</code>
+                
+                </td>
+            
+
+            <td class="description last">Whether to activate the overlay when the modal is opened.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="openNameModal"><span class="type-signature"></span>openNameModal<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Opens a modal to prompt the player for their name.This modal allows the player to input their name or skip the prompt. The player's name is stored in local storage if provided,and the speech bubble message is updated accordingly. If the player skips, an alternative message is used.Behaviour:- If the player enters their name, the speech bubble message at index 6 is updated to:  `"Nice to meet you, [playerName]!"` (where `[playerName]` is the name entered by the player).- If the player skips, the speech bubble message at index 6 is updated to:  `"No name? You must be on a secret mission!"`.The modal includes two buttons:- "OK": Saves the player's name and progresses the dialogue inserting the player's name with template literal.- "Skip": Skips the name input and progresses the dialogue with an alternative message.Notes:- The `closeModal` function is called with `null` as the second argument for the `event` parameter,  indicating that no event is associated with the modal close action.References:- [MDN Web Docs: localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)- [MDN Web Docs: Element.querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)- [FreeCodeCamp: How to use localStorage in JavaScript](https://www.freecodecamp.org/news/use-local-storage-in-modern-applications/)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line259">line 259</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="playSequence"><span class="type-signature"></span>playSequence<span class="signature">(sequence)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Plays the sequence of crystal colours for the current level.This function visually and audibly plays back the sequence of crystal colours stored in the `sequence` array.It activates the glow effect on the crystals, plays the corresponding sounds, and ensures proper timing between each crystal.Behaviour:- Activates the overlay to block player interactions during the sequence.- Clears any lingering timeouts or glow effects from previous sequences.- Iterates through the `sequence` array and plays each crystal's glow and sound with a delay.- Deactivates the glow effect after a short duration for each crystal.- Enables player interactions after the sequence finishes.Notes:- The sequence playback is delayed by 2 seconds before starting to allow for a smoother transition.- Each crystal in the sequence is played with a 1.2-second delay between them.- The glow effect duration for each crystal is 600ms.- If the game is muted (`isMuted` is `true`), no sound will be played.References:- [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)- [FreeCodeCamp: JavaScript Timing Events: setTimeout and setInterval](https://www.freecodecamp.org/news/javascript-timing-events-settimeout-and-setinterval/)- [MDN Web Docs: Array.forEach](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)- [MDN Web Docs: Array.prototype.find](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/find)- [MDN Web Docs: HTMLElement.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)- [FreeCodeCamp: JavaScript Array Find Tutorial - How to Iterate Through Elements in an Array](https://www.freecodecamp.org/news/javascript-array-find-tutorial-how-to-iterate-through-elements-in-an-array/)- [Dev.to: Console Methods](https://dev.to/johongirr/consolelog-consoleerror-consoleassert-and-more-1lf)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1170">line 1170</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Play a sequence of crystal coloursplaySequence(["blue", "green", "pink"]);</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sequence</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An array of crystal colours representing the sequence to be played.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="progressDialogue"><span class="type-signature"></span>progressDialogue<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Progresses the dialogue in the speech bubble based on the current message index.This function handles the flow of dialogue messages and determines the next action:- If the game modal is open, dialogue progression is blocked.- If the player's name is not stored and the current message index is 6, the name input modal is opened.- If the player's name is stored and the current message index is 0 (on page load), the dialogue skips to the last message index 9.- Updates the speech bubble with the next message or starts the game if the last message is reached.Behaviour:- Increments the `currentMessageIndex` to track the next message.- Updates the speech bubble content using `updateSpeechBubbleText()`.- Opens the name input modal using `openNameModal()` if conditions are met.- Starts the game using `startGame()` when the last message is reached.Notes:- The player's name is retrieved from `localStorage` and used to personalise the dialogue.- The `skipTriggered` flag prevents reopening the name modal if the skip button was previously clicked.-  Reference: [Geeks for Geeks: Use of FLAG in programming](https://www.geeksforgeeks.org/use-of-flag-in-programming/)- The overlay is deactivated, and pointer events are reset when the dialogue ends.Blocking Condition:- If the game modal (`.modal-container`) is open (not hidden), dialogue progression is blocked.- This is achieved with the condition:  ```javascript  if (!gameModal.classList.contains("hidden")) {      return; // Block dialogue progression if the game modal is open  }  ```References:- [MDN Web Docs: localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)- [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line429">line 429</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Progress the dialogue when the speech bubble is clickedspeechBubble.addEventListener("click", progressDialogue);</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="setBodyHeight"><span class="type-signature"></span>setBodyHeight<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Sets the height of the body element to match the visible viewport height.This function adjusts the height of the body to account for changes in the viewport height,such as when the address bar on mobile devices hides or shows, which can affect the layout.Behaviour:- Retrieves the current viewport height using `window.innerHeight`.- Sets the body's height style property to the calculated viewport height.Notes:- This function is particularly useful for ensuring consistent layout on mobile devices.- It should be called on page load and whenever the window is resized.References:- [MDN Web Docs: Window.innerHeight](https://developer.mozilla.org/en-US/docs/Web/API/Window/innerHeight)- [MDN Web Docs: Element.style](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/style)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1850">line 1850</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Set the body height on page loadwindow.addEventListener("load", setBodyHeight);// Update the height when the window is resized (if the the address bar hides)window.addEventListener("resize", setBodyHeight);</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="showPlayAgainModal"><span class="type-signature"></span>showPlayAgainModal<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Displays a modal asking the player if they want to play again.This modal provides two options:- "Play Again": Closes the modal and starts the game using a callback.- "Maybe Later": Closes the modal and redirects the player to the home page.The "Play Again" button executes a callback function that:- Closes the modal.- Starts the game by calling `startGame()` after the modal is closed.References:- [TopCoder: Callback Method in JavaScript](https://www.topcoder.com/thrive/articles/callback-method-oop-null-and-string-in-javascript)- [FreeCodeCamp: How to Use Callback Functions in JavaScript](https://www.freecodecamp.org/news/how-to-use-callback-functions-in-javascript/#heading-basic-structure-of-a-callback-function)- [JavaScript.info: Callbacks](https://javascript.info/callbacks)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line314">line 314</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="startGame"><span class="type-signature"></span>startGame<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Starts the game by initialising the game state and preparing the first level.This function handles the setup required to begin the game, including:- Resetting the game state variables.- Clearing any lingering timeouts or glow effects.- Generating and storing the sequence for the current level.- Displaying the level indicator and updating it with the current level.Behaviour:- If `freestyleMode` is active, the function exits early without executing normal game logic.- Resets the game state to ensure a clean start.- Disables player input while the sequence is playing.- Updates the level indicator to reflect the current level.Notes:- The `freestyleMode` flag allows the player to interact with the crystals freely without following the game sequence.- The `clearAllTimeouts` and `clearAllGlows` functions are used to ensure no lingering effects from previous levels.References:- [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1067">line 1067</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="storeSequence"><span class="type-signature"></span>storeSequence<span class="signature">(level)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Generates and stores a random sequence of crystal colours for the current level.This function creates a sequence of crystal colours based on the current level and stores it in the global `currentSequence` array.The sequence is then played back using the `playSequence` function.Behaviour:- Resets the `currentSequence` array to ensure no lingering data from previous levels.- Generates a random sequence of crystal colours by selecting random crystals from the DOM.- The length of the sequence is determined by the current level (`level + 2`).- Stores the colour of each selected crystal in the `currentSequence` array.- Calls `playSequence` to play back the generated sequence.Notes:- The sequence length starts at 3 crystals for level 1 and increases by 1 for each subsequent level.- Crystal colours are retrieved from the `data-color` attribute of each crystal container.References:- [MDN Web Docs: Math.random](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random)- [Stack Overflow: Generate Random Number Between Two Numbers](https://stackoverflow.com/questions/4959975/generate-random-number-between-two-numbers-in-javascript)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1121">line 1121</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Generate and store a sequence for level 1storeSequence(1);</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>level</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The current game level, used to determine the sequence length.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="syncAudioSettingsUI"><span class="type-signature"></span>syncAudioSettingsUI<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Synchronises the audio settings UI in the settings modal.Updates the state of all audio-related UI controls in the settings modal (game dashboard),including volume sliders and mute buttons for ambient, background, and effects channels.Each slider is set to the user's intended volume (not the current GainNode value, which may be ducked or globally muted)and is disabled if the corresponding channel or global mute is active.The `.muted` class is applied or removed on each mute button based on the per-channel mute flags.Behaviour:- Iterates over all `.volume-slider` elements and sets their value to the corresponding user volume variable.- Disables each slider if the channel or global mute is active.- Updates the `.mute-toggle` button style for each channel based on its mute flag.- Ensures the UI always reflects the user's intended audio state, regardless of temporary changes to GainNode values.Notes:- Should be called after opening the settings modal and after any user interaction with audio controls.- Does not modify audio playback, only updates the UI.References:- [MDN Web Docs: NodeList: forEach() method](https://developer.mozilla.org/en-US/docs/Web/API/NodeList/forEach)- [MDN Web Docs: Element.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1923">line 1923</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="updateHighestLevel"><span class="type-signature"></span>updateHighestLevel<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Updates the highest level reached by the player and stores it in localStorage.This function checks if a player's name is stored in localStorage. If a name exists, it compares the current levelwith the stored highest level. If the current level is greater, it updates the highest level in localStorage.Behaviour:- Retrieves the player's name from localStorage.- If no name is found, logs a message and exits the function.- Retrieves the stored highest level from localStorage or defaults to 0 if not found.- Compares the current level with the stored highest level.- If the current level is higher, updates the highest level in localStorage.Notes:- This function is called after the player successfully completes a level within the celebrateCorrectAnswer() function.- The highest level is only stored if a player's name is present in localStorage.References:- [MDN Web Docs: localStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage)- [MDN Web Docs: parseInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1885">line 1885</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Update the highest level after completing a levelupdateHighestLevel();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="updateSoundButtonUI"><span class="type-signature"></span>updateSoundButtonUI<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Updates the main sound button UI to reflect the current global and per-channel mute state.This function sets the appearance and tooltip of the main sound button based on whether the game is globally mutedor all individual channels (ambient, background, effects) are muted. If any channel is unmuted and global mute is off,the button appears unmuted; otherwise, it appears muted.Behaviour:- Removes the "muted" class and sets tooltip to "Mute Sound" if any channel is unmuted and global mute is off.- Adds the "muted" class and sets tooltip to "Unmute Sound" if global mute is on or all channels are muted.Notes:- Should be called after any mute/unmute action or when the audio state changes.- Keeps the UI consistent with the actual audio playback state.References:- [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)- [MDN Web Docs: querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1979">line 1979</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>// Update the sound button UI after toggling muteupdateSoundButtonUI();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="updateSpeechBubbleText"><span class="type-signature"></span>updateSpeechBubbleText<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Updates the speech bubble text and instructions based on the current message index.This function dynamically updates the content of the speech bubble, including:- The current message from the `speechBubbleMessages` array.- Contextual instructions based on the device type (touch or non-touch) and the current message index.Behaviour:- If the current message is the last one in the array, the instructions prompt the player to start the game.- Otherwise, the instructions prompt the player to continue to the next message.- Instructions are tailored for touch devices (e.g., "Tap to continue...") or non-touch devices (e.g., "Click or press spacebar to continue...").Device Detection:- Uses `"ontouchstart" in window` to check for touch event support.- Uses `navigator.maxTouchPoints > 0` for more accurate detection of touch-enabled devices.- Combines both checks with the logical OR (`||`) operator:  - If either condition is `true`, the device is considered a touch device.  - Logical OR (`||`) returns `true` if at least one of the conditions is `true`.- Credit: [GeeksforGeeks: How to Detect Touch Screen Device Using JavaScript](https://www.geeksforgeeks.org/how-to-detect-touch-screen-device-using-javascript/?itm_source=auth&itm_medium=contributions&itm_campaign=articles)References:- [MDN Web Docs: Element.innerHTML](https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML)- [MDN Web Docs: Touch Events](https://developer.mozilla.org/en-US/docs/Web/API/Touch_events)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line374">line 374</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id="waitForPlayerInput"><span class="type-signature"></span>waitForPlayerInput<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+    
+    <dt class="tag-description">Description:</dt>
+    <dd class="tag-description"><ul class="dummy"><li>Waits for the player to input their sequence by interacting with the crystals.This function prepares the game for the player's turn by:- Activating the crystals for interaction.- Resetting the player's input array for the new round.- Removing any duplicate event listeners to prevent unintended behavior.Behaviour:- Sets the `isPlayerTurn` flag to `true` to indicate it's the player's turn.- Resets the `playersInput` array to ensure no lingering input from previous rounds.- Deactivates the overlay to allow crystal interactions.- Ensures no duplicate event listeners are attached to the crystals by removing existing listeners before adding new ones.Notes:- Duplicate event listeners can cause unintended behaviour, such as multiple triggers for a single interaction.- The `removeEventListener` method is used to prevent duplication before attaching new listeners.- This function is called after the sequence has been played back to the player.References:- [MDN Web Docs: EventTarget.removeEventListener() method](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/removeEventListener)- [FreeCodeCamp: The addEventListener() Method](https://www.freecodecamp.org/news/javascript-addeventlistener-example-code/)- [Stack Overflow: Removing Duplicate Event Listeners](https://stackoverflow.com/questions/45723205/removing-duplicate-event-listeners)</li></ul></dd>
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="script.js.html">script.js</a>, <a href="script.js.html#line1247">line 1247</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.4</a> on Sun May 04 2025 20:02:35 GMT+0100 (British Summer Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>
