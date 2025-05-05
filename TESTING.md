@@ -1470,5 +1470,19 @@ This approach was based on best practices and community discussions, including:
   _Note: The GIF has a low frame rate, which exaggerates the glitch._
 
 
+## Future Improvements
 
+**Modularisation:**
+- I plan to modularise the rest of the codebase in the future, following the successful refactor of the audio logic into a dedicated AudioManager module. This will improve maintainability and readability. 
+
+**Improve JSDoc Comments:** 
+- I plan to enhance the JSDoc comments throughout the codebase to provide clearer documentation and improve the docdash output. 
+
+
+## Conclusion
   
+I have thoroughly tested this project to ensure functionality, usability, and responsiveness across a wide range of devices and browsers. While every effort has been made to identify and resolve bugs, I recognise that some issues may still go unnoticed. 
+
+Feedback is invaluable for improving both this project and my skills as a developer. If you encounter any bugs, accessibility issues, or have suggestions for new features or enhancements, please don’t hesitate to get in touch. I greatly appreciate any feedback or issue reports.
+
+Thank you for taking the time to review and test Echoes of the Crystal Cave! 🦇
