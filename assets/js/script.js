@@ -1,16 +1,42 @@
 /* 
 1. Imports
-2. Global Variables 
-3. Modal Functions
-4. Speech Bubble Modal Functions
-5. Initialisation Functions
-6. Event Listeners
-7. Game Functions
-8. Utility Functions
+2. LocalStorage Helpers for Error Handling
+3. Global Variables 
+4. Modal Functions
+5. Speech Bubble Modal Functions
+6. Initialisation Functions
+7. Event Listeners
+8. Game Functions
+9. Utility Functions
 */
 
 // Imports
 import { audioManager } from "./audio.js"; // Import the AudioManager class from audio.js
+
+// localStorage helpers to handle errors gracefully 
+function getLocalItem(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+
+function setLocalItem(key, value) {
+  try {
+    localStorage.setItem(key, value);
+  } catch {
+    // Do nothing
+  }
+}
+
+function removeLocalItem(key) {
+  try {
+    localStorage.removeItem(key);
+  } catch {
+    // Do nothing
+  }
+}
 
 // --------------------------------------------------------------------------------- //
 // ------------------------------- GLOBAL VARIABLES -------------------------------- //
@@ -271,7 +297,7 @@ function openNameModal() {
           .querySelector("#player-name-input")
           .value.trim(); // Get the value of the input field
         if (nameInput) {
-          localStorage.setItem("playerName", nameInput); // Store the name in local storage
+          setLocalItem("playerName", nameInput); // Store the name in local storage
           speechBubbleMessages[6] = `Nice to meet you, ${nameInput}!`; // Update the message with the player's name
         }
         currentMessageIndex = 5;
@@ -433,7 +459,7 @@ function progressDialogue() {
   }
 
   // Check if a player name is stored
-  const storedName = localStorage.getItem("playerName");
+  const storedName = getLocalItem("playerName");
 
   currentMessageIndex++; // Increment the message index
 
@@ -570,7 +596,7 @@ function initializeGameSite() {
     audioManager.loadAllAudio().then(() => {
       audioManager.playBackgroundSound(); // Start the background cave sounds after loading audio
       audioManager.playAmbientSound(); // Start the ambient soundscape after loading audio
-      const storedName = localStorage.getItem("playerName");
+      const storedName = getLocalItem("playerName");
 
       if (storedName) {
         currentMessageIndex = 9;
@@ -758,8 +784,8 @@ document
 document
   .querySelector(".game-button.settings")
   .addEventListener("click", () => {
-    const highestLevel = localStorage.getItem("highestLevel");
-    const playerName = localStorage.getItem("playerName") || "Unknown Player";
+    const highestLevel = getLocalItem("highestLevel");
+    const playerName = getLocalItem("playerName") || "Unknown Player";
     const crystalsRemembered =
       highestLevel && parseInt(highestLevel) > 0 ? 
       parseInt(highestLevel) + 2 : 
@@ -1061,7 +1087,7 @@ document.addEventListener("keydown", function (event) {
  * - The `clearAllTimeouts` and `clearAllGlows` functions are used to ensure no lingering effects from previous levels.
  *
  * References:
- * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element.classList)
  *
  */
 function startGame() {
@@ -1527,7 +1553,7 @@ function nextLevel() {
  * - This function is triggered when the player clicks the freestyle button.
  *
  * References:
- * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element.classList)
  * - [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
  *
  */
@@ -1682,7 +1708,7 @@ function deactivateOverlay() {
  * - If the audio buffer for the crystal's color is not found, an error is logged, but the game continues.
  *
  * References:
- * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element.classList)
  * - [MDN Web Docs: HTMLElement.dataset](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/dataset)
  * - [MDN Web Docs: setTimeout](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout)
  *
@@ -1808,7 +1834,7 @@ function clearAllTimeouts() {
  * - This function is useful for resetting the visual state of crystals between game states or levels.
  *
  * References:
- * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element.classList)
  * - [MDN Web Docs: querySelectorAll](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll)
  *
  * @example
@@ -1883,16 +1909,16 @@ window.addEventListener("resize", setBodyHeight);
  * updateHighestLevel();
  */
 function updateHighestLevel() {
-  const storedName = localStorage.getItem("playerName"); // Check if the player's name is stored
+  const storedName = getLocalItem("playerName"); // Check if the player's name is stored
   if (!storedName) {
     console.log("Player name not found. Highest level will not be stored.");
     return; // Exit the function if no player name is stored
   }
 
   const storedHighestLevel =
-    parseInt(localStorage.getItem("highestLevel")) || 0;
+    parseInt(getLocalItem("highestLevel")) || 0;
   if (level > storedHighestLevel) {
-    localStorage.setItem("highestLevel", level);
+    getLocalItem("highestLevel", level);
     console.log(`New highest level saved: Level ${level}`);
   }
 }
@@ -1969,7 +1995,7 @@ function syncAudioSettingsUI() {
  * - Keeps the UI consistent with the actual audio playback state.
  *
  * References:
- * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element/classList)
+ * - [MDN Web Docs: Element.classList](https://developer.mozilla.org/en-US/docs/Web/API/Element.classList)
  * - [MDN Web Docs: querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector)
  *
  * @example
@@ -2021,12 +2047,16 @@ function updateSoundButtonUI() {
  */
 function deleteSavedData() {
   // Clear specific data from localStorage
-  localStorage.removeItem("playerName"); // Remove the player's name
+  removeLocalItem("playerName"); // Remove the player's name
   console.log("Player name removed from localStorage.");
 
-  // Clear all localStorage data
-  localStorage.clear();
-  localStorage.removeItem("highestLevel"); // Reset the highest level
+  // Clear all localStorage data (safely)
+  try {
+    localStorage.clear();
+  } catch {
+    // Do nothing if localStorage is unavailable
+  }
+  removeLocalItem("highestLevel"); // Reset the highest level
 
   // Reset any game state or UI elements affected by the deleted data
   speechBubbleMessages[6] = "Nice to meet you!"; // Reset the default message
