@@ -8,9 +8,19 @@ This game takes the classic Simon and Bop It style memory challenge and gives it
 
 [View Live Site.](https://seren-hughes.github.io/crystal-cave/) Hosted on GitHub Pages.
 
-#### Key Features:
+**_Key features that make Echoes of the Crystal Cave unique and engaging:_**
 
---- 
+- Five-note memory sequence system with musical tones
+- Pixel-art cave environment with atmospheric sound effects
+- Glowing, animated pixel-art crystals
+- Animated bat character (Brucey) guiding the player
+- Responsive controls for keyboard, mouse, and touch devices
+- Personalised greetings and returning player recognition
+- Accessibility features including visual cues for colour vision differences
+- Increasing difficulty with each level
+- Freestyle mode for creative exploration of the crystal sounds
+- Progress and stats saved in local storage, including best level and highest memory streak
+- Game Dashboard modal for easy access to player stats and customisation settings
 
 ## Table of Contents:
 - [Objectives](#objectives)
@@ -28,9 +38,9 @@ This game takes the classic Simon and Bop It style memory challenge and gives it
   - [Game Page](#game-page)
   - [UI Navigation](#ui-navigation)
   - [Speech Bubble Modal](#speech-bubble-modal)
-  - [Audio & Audio Controls](#audio-audio-controls)
   - [How to Play Modal](#how-to-play-modal)
   - [Game Dashboard Modal](#game-dashboard-modal)
+  - [Audio & Sound Design](#audio-sound-design)
   - [Game Over Modal](#game-over-modal)
   - [Freestyle Mode](#freestyle-mode)
   - [Error Page](#error-page)
@@ -130,7 +140,7 @@ The game is designed to be intuitive and accessible across multiple devices:
 #### Game inspiration: 
 Brucey the plush bat, who inspired the creative process behind the game’s theme. 
 
-<img src="assets/media/brucey.png" alt="Brucey the Bat" width="300">
+<img src="assets/media/brucey.png" alt="Brucey the Bat" width="400">
 
 ## Wireframes
 
@@ -390,7 +400,7 @@ The Home Page welcomes players with a retro pixel-art design. The page features 
 
 ![Game Page](assets/media/seren-hughes.github.io_crystal-cave_game.html.png)
 
-### UI 
+### UI and Navigation
 
 The user interface is designed for clarity and accessibility, with intuitive buttons and helpful tooltips. While all buttons are important for navigation and gameplay, three key controls—Mute/Unmute Audio, Freestyle Mode, and Fullscreen—are dynamic: they visually change to reflect their current state and update their tooltips accordingly. This provides immediate feedback and ensures players always know the current mode or setting.
 
@@ -441,21 +451,60 @@ In the dialogue bubble, the player is asked for their name and a name input moda
   _Mobile **'Tap to continue'** Instructions:_ 
 ![Mobile 'Tap to continue' Instructions](assets/media/iphone-speech-bubble-landscape.png)  
 
-### Audio & Audio Controls
 
+### How to Play Modal
+
+The How to Play modal provides players with clear instructions on how to play the game. It includes a brief overview of the game mechanics and controls. The modal is designed to be visually appealing and easy to read. 
+
+![How to Play Modal](assets/media/seren-hughes.github.io_crystal-cave_game_howtoplay_modal.html.png)
+
+### Game Dashboard/Settings Modal
+
+![Game Dashboard/Settings Modal](assets/media/seren-hughes.github.io_crystal-cave_game_dashboard_modal.html.png)
+
+The game dashboard modal provides players with a summary of their progress, including the highest level reached and best memory streak. It also offers quick access to key settings for a more personalised and accessible experience.
+
+- **Delete Progress:**  
+  Players can reset their saved progress—including their name and highest level—by clicking the "Delete Progress" button. This action reloads the page and clears all saved data. A tooltip warns players before proceeding, ensuring they are aware of the consequences.
+
+- **Audio Settings:**  
+  Players can independently adjust the volume of ambient background music, cave sound effects, and crystal notes using intuitive sliders and mute buttons. There’s also a global mute button for convenience on the main game page.
+
+- **Brightness Control:**  
+  In addition to device brightness settings, the dashboard includes a site-specific brightness slider. This allows players to increase or decrease the brightness of the game page itself, making it easier to see the crystals against the dark cave background—especially in bright environments or for those with visual needs. The effect is achieved using CSS filters and JavaScript to dynamically update the brightness level in real time.
+
+  ![Brightness Slider](assets/media/brightness-slider.gif)
+
+### Audio & Sound Design
+
+Audio is a core part of the Echoes of the Crystal Cave experience. The game features a layered soundscape with ambient cave music, interactive crystal tones, and celebratory effects.
+
+As someone passionate about game audio, I designed Echoes of the Crystal Cave with a focus on interactive sound. The audio system is fully modular, allowing for dynamic mixing, real-time effects, and future expansion with custom music and sound design.
+
+- **Dynamic Audio Ducking:**  
+  When the crystal sequence plays or the player interacts with crystals, the ambient track automatically fades (ducks) to ensure the crystal sounds are clear and prominent. The ambient volume smoothly returns when the sequence ends, creating a polished, immersive feel.
+
+- **Individual Track Controls:**  
+  The Game Dashboard/Settings modal provides volume sliders and mute buttons for each audio channel:
+  - Ambient background music
+  - Cave sound effects
+  - Crystal notes and celebration effects
+
+  There’s also a global mute button for quick access on the main game page.
+
+- **Responsive Audio Logic:**  
+  All audio controls update in real time, ensuring that changes are immediately reflected in the game. This includes volume adjustments and mute/unmute actions.
+
+*Note: The current build uses placeholder audio, but the system is ready for original, chiptune-inspired sounds and ambient music, which I plan to compose and integrate before the final release.*
+
+**Audio User Event Permission Overlay:**  
 When the game page loads, first, an overlay appears stating the site is best experienced with audio, requesting the user to click or tap to continue. A user event is a requirement for the Web Audio API to work properly. This is an effective way to ensure the user is aware of the audio and can choose to continue to enable it or not.
 
 ![Audio User Event Permission Overlay](assets/media/seren-hughes.github.io_crystal-cave_game_audio_permission.html.png)
 
-### How to Play Modal
-
-![How to Play Modal](assets/media/seren-hughes.github.io_crystal-cave_game_howtoplay_modal.html.png)
-
-### Game Dashboard Modal
-
-![Game Dashboard Modal](assets/media/seren-hughes.github.io_crystal-cave_game_dashboard_modal.html.png)
-
 ### Game Over Modal
+
+When the player makes a mistake, a Game Over modal appears, displaying an encouraging message and options to restart or return to the home page. The modal is designed to be consistent with the game's theme.
 
 ![Game Over Modal](assets/media/game-over-modal.png)
 
@@ -468,6 +517,7 @@ The custom 404 page matches the game's mysterious cave theme. It features fading
 ![Error Page](assets/media/seren-hughes.github.io_crystal-cave_404.html.png)
 
 **Fading/Flickering Crystals:**
+
 ![Fading/Flickering Crystals](assets/media/flickering-fading-crystals.gif)
 
 ### Additional Features:
@@ -485,11 +535,15 @@ The design choice was inspired by video games, where fade-ins create a smooth, c
 
 Rather than having elements appear suddenly, the fade-in makes the game feel more cohesive and polished.
 
+![CSS Fade-In Home Page Example](assets/media/fade-in-effect.gif)
+
 **Implementation:**
 
 Fade-ins were applied using simple CSS transitions for broad browser compatibility and performance.
 
 The effect maintains consistency across devices without adding unnecessary complexity or heavy scripting.
+
+![CSS Fade-In Game Page Example](assets/media/fade-in-effect-game-page.gif)
 
 # Deployment
 
