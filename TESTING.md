@@ -1386,3 +1386,36 @@ Special attention was also given to audio functionality across devices. Web audi
 
 ---
 
+## Integration & UI Testing
+
+| **Scenario** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
+|--------------|----------------|---------------------|---------------|-----------|
+| Start game, lose, and restart | Start a game, make a mistake, click "Restart" in Game Over modal | Game resets to level 1, UI updates correctly | ✅ | Tested on desktop and mobile |
+| Open settings, change audio, return to game | Open dashboard, adjust volume, close modal, resume game | Audio settings persist | ✅ | Volume changes reflected immediately |
+| Navigate from game to home and back | Click "Home", then "Start Game" again | Home page loads, then game starts fresh | ✅ | State resets as expected |
+| Scroll through instructions modal | Open "How to Play" close modal |  Modal button closes at end | ✅ | Tested on desktop and mobile |
+| Adjust brightness using slider | Use slider to adjust brightness | Brightness changes immediately | ✅ | Tested on desktop and mobile |
+| Toggle full-screen mode | Click full-screen button during gameplay | Full-screen activates/deactivates as expected | ✅ | Layout still responsive |
+| Bat sprite positions correctly on screen sizes | Resize browser to mobile/desktop breakpoints | Bat scales and repositions responsively | ✅ | Used dev tools, BrowserStack and mobile devices |
+| Audio plays when crystals are clicked | During player input phase, click crystals | Corresponding notes play without delay | ✅ | Tested on desktop and mobile |
+| Crystal glow activates visually on sequence playback | Play through levels, observe crystal activation | Glow effects occur during sequence | ✅ | Tested for visual timing accuracy |
+| Level display updates after success | Complete level or make a mistake | Level number updates, resets or increments | ✅ | Display stays synced with logic |
+| Game persists settings (e.g. player name) | Enter name, refresh, check if remembered | Name is retrieved from localStorage | ✅ | Also confirmed reset functionality |
+| Keyboard navigation through UI | Use Tab/Shift+Tab to move focus, Enter/Space to activate | All interactive elements accessible by keyboard | ✅ | Tested on desktop browsers |
+| Progress persists after reload | Play, refresh page, check progress | Progress and settings are restored | ✅ | Confirmed in Chrome and Safari |
+| Test on multiple browsers/devices | Run all above tests on Chrome, Firefox, Safari, iOS, Android | All features work consistently | ✅ | Used BrowserStack and real devices |
+
+## Defensive Testing
+
+| **Scenario** | **Expected Behaviour** | **Result** | **Notes** |
+|--------------|-----------------------|------------|-----------|
+| User tries to interact with crystals during sequence playback | Input is ignored, no feedback given, game state is safe | ✅ | Prevents accidental input |
+| User doesn't enter name in modal and clicks OK instead of Skip | Player Name modal remains open or requires Skip button | ✅ | Tested on multiple devices; prevents empty name submission |
+| localStorage is unavailable or disabled | Game shows warning or falls back gracefully, does not crash | ❌ | Tested by disabling localStorage in browser. If localStorage is unavailable or disabled, the game cannot load or save progress, and the intro speech bubble modal may not appear. This is a known limitation due to time constraints. |
+| User reloads or closes the page mid-game | Progress is saved (if applicable) or game resets cleanly | ✅ | No errors. Game resets cleanly.|
+| User rapidly clicks/taps buttons or crystals | Game handles input | ✅ | No duplicate actions or stuck state |
+| Audio context fails to initialise (e.g., on iOS) | Game continues without audio features, does not crash | ✅ | Tested on desktop and mobile devices. |
+| User tries to start a new game while a modal is open | Modal closes, new game starts cleanly | ✅ | No UI overlap or stuck modals |
+| User tries to access Dashboard settings or How to play Modal while the other is open | Modal closes, new settings/modal opens cleanly | ✅ | No UI overlap or stuck modals |
+
+---
