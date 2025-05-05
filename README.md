@@ -4,13 +4,13 @@
 ![Echoes of the Crystal Cave - Am I Responsive Screenshot](assets/media/echoes-amiresponsive-screenshot.png)
 #### About:
 
-This game takes the classic Simon and Bop It style memory challenge and gives it a unique twist with a cave setting, atmospheric audio, and a five-note scale system. Players interact with glowing crystals that light up and produce musical tones when activated. The game is designed to be accessible, engaging, and visually appealing, with pixel-art aesthetics and simple, responsive controls.
+A musical memory game inspired by Simon and Bop It, Echoes of the Crystal Cave gives the classic format a unique twist. Set in a mysterious cave filled with glowing crystals, the game uses a five-note musical scale and atmospheric audio to create an immersive experience. Players interact with animated, glowing crystals that light up and play tones. Designed with accessibility, responsiveness, and pixel-art charm in mind, the game is easy to play yet increasingly challenging.
 
-[View Live Site.](https://seren-hughes.github.io/crystal-cave/) Hosted on GitHub Pages.
+[View Live Site on GitHub Pages.](https://seren-hughes.github.io/crystal-cave/) 
 
 **_Key features that make Echoes of the Crystal Cave unique and engaging:_**
 
-- Five-note memory sequence system with musical tones
+- Musical memory gameplay based on a five-note scale
 - Pixel-art cave environment with atmospheric sound effects
 - Glowing, animated pixel-art crystals
 - Animated bat character (Brucey) guiding the player
@@ -30,6 +30,7 @@ This game takes the classic Simon and Bop It style memory challenge and gives it
 - [Wireframes](#wireframes)
 - [Pseudocode](#pseudocode)
 - [Function Structure](#function-structure-and-game-pseudocode-refined)
+- [Project Kanban Board](#project-kanban-board)
 - [Typography](#typography)
 - [Colour Palette](#colour-palette)
 - [Technologies Used](#technologies-used)
@@ -64,32 +65,32 @@ This game takes the classic Simon and Bop It style memory challenge and gives it
 ## User Stories
 
 ### Gameplay & Progress
-- As a player, I want to start a new game easily, so I can quickly begin playing.
-- As a player, I want to see my progress and highest level, so I can track and improve my performance.
-- As a player, I want visual and audio feedback for correct and incorrect actions, so I understand my progress and mistakes.
-- As a player, I want the crystals to light up and play sound when I interact with them, so I know my input was registered.
+- _As a player, I want to start a new game easily, so I can quickly begin playing._
+- _As a player, I want to see my progress and highest level, so I can track and improve my performance._
+- _As a player, I want visual and audio feedback for correct and incorrect actions, so I understand my progress and mistakes._
+- _As a player, I want the crystals to light up and play sound when I interact with them, so I know my input was registered._
 
 ### Instructions & Accessibility
-- As a new player, I want clear, simple instructions, so I can understand the game quickly.
-- As a player, I want accessible controls (mouse, keyboard, touch), so I can play on any device.
-- As a player, I want clear icons or tooltips for each button, so I understand their purpose even without text.
+- _As a new player, I want clear, simple instructions, so I can understand the game quickly._
+- _As a player, I want accessible controls (mouse, keyboard, touch), so I can play on any device._
+- _As a player, I want clear icons or tooltips for each button, so I understand their purpose even without text._
 
 ### Navigation & Settings
-- As a player, I want clear, accessible buttons to restart, return home, view instructions, and access settings, so I can easily control my experience.
-- As a player, I want to toggle full-screen mode and sound, so I can play comfortably in different environments.
-- As a player, I want to delete my saved progress, so I can start fresh whenever I choose.
-- As a user, if I land on a broken or missing page, I want to see a friendly 404 message and a clear way to return to the homepage.
+- _As a player, I want clear, accessible buttons to restart, return home, view instructions, and access settings, so I can easily control my experience._
+- _As a player, I want to toggle full-screen mode and sound, so I can play comfortably in different environments._
+- _As a player, I want to delete my saved progress, so I can start fresh whenever I choose._
+- _As a user, if I land on a broken or missing page, I want to see a friendly 404 message and a clear way to return to the homepage._
 
 ### Personalisation & Persistence
-- As a player, I want to enter a username and receive personalised messages, so the game feels more engaging.
-- As a returning player, I want my progress (like highest level) to be saved locally, so I can aim to improve over time.
+- _As a player, I want to enter a username and receive personalised messages, so the game feels more engaging._
+- _As a returning player, I want my progress (like highest level) to be saved locally, so I can aim to improve over time._
 
 ### Audio & Immersion
-- As a player, I want to hear ambient cave sounds and background music, so the game feels immersive.
-- As a player, I want to adjust or mute the game’s audio, so I can customise the experience to suit my environment.
+- _As a player, I want to hear ambient cave sounds and background music, so the game feels immersive._
+- _As a player, I want to adjust or mute the game’s audio, so I can customise the experience to suit my environment._
 
 ### Freestyle Mode (Bonus)
-- As a player, I want to play the crystal notes freely, so I can experiment with the sounds and enjoy them outside of the main game.
+- _As a player, I want to play the crystal notes freely, so I can experiment with the sounds and enjoy them outside of the main game._
 
 ---
 
@@ -135,12 +136,32 @@ Help Brucey the bat remember the sequence of crystals.
 ![Index Home Page Design](assets/media/design-sketch-crystals-controls.png)
 
 
-#### Layout sketches:
-The game is designed to be intuitive and accessible across multiple devices:
 #### Game inspiration: 
-Brucey the plush bat, who inspired the creative process behind the game’s theme. 
+Brucey the plush bat - inspired the game’s theme. 
 
 <img src="assets/media/brucey.png" alt="Brucey the Bat" width="400">
+
+## Initial Planning & Sketches
+
+Before creating digital wireframes, I began with rough hand-drawn notes and layout sketches to quickly capture my ideas for gameplay, UI, and features. At this stage, I also started thinking about the basic pseudocode — such as how many containers would be needed for the game layout and how the game would flow. This helped me visualise the game structure and user experience before moving on to more refined wireframes.
+
+---
+Below are some of my initial hand-drawn notes and layout sketches. While extremely rough, they show my early ideas and the creative planning process before moving to digital wireframes.
+
+<details><summary>Click to view rough game container sketches.</summary>
+
+<img src="assets/media/rough-game-container-notes.jpg" alt="Rough Game Container Sketches" width="280">
+
+</details>
+
+<details><summary>Click to view rough UI sketches.</summary>
+
+<img src="assets/media/rough-ui-notes.jpg" alt="Rough UI Sketches" width="280">
+
+</details>
+
+---
+_These early sketches helped me clarify the game’s structure and user flow before moving on to more polished wireframes._
 
 ## Wireframes
 
@@ -298,6 +319,12 @@ Below are some screenshots of my early function experiments in Python Tutor:
 
 --- 
 _This early visualisation and step-by-step debugging helped me confidently move from pseudocode to working JavaScript code._
+
+## Project Kanban Board
+
+The project was managed using a Kanban board to track tasks and features. This helped me stay organised and focused on the development process. The board was regularly updated to reflect progress and priorities.
+
+[View Echoes of the Crystal Cave Project Kanban Board](https://github.com/users/Seren-Hughes/projects/6)
 
 ## Typography
 
@@ -510,6 +537,10 @@ When the player makes a mistake, a Game Over modal appears, displaying an encour
 
 ### Freestyle Mode
 
+Freestyle Mode lets players explore and play the crystal sounds without the pressure of following a sequence. Players can click or tap on the crystals to create their own melodies, experimenting with the different notes at their own pace. This mode is ideal for those who want to enjoy the musical aspect of the game or simply relax and be creative.
+
+Looking ahead, Freestyle Mode is designed to be expandable — with plans for more complex musical features and potential integration with the Web MIDI API, allowing for even greater interactivity and creativity.
+
 ### Error Page
 
 The custom 404 page matches the game's mysterious cave theme. It features fading/flickering crystals, and the message “404: Lost in the Cave. The echoes fade... you are not where you're meant to be...” A Return Home button helps guide players back if they get lost.
@@ -694,4 +725,81 @@ The achievements could be displayed in a dedicated modal with mystery badges tha
   - Crystal Apprentice - _Reach level 5._
   - Brucey's Blessing - _Play the game with the name 'Brucey' for a special Easter egg._
 
+# Credits
+
+## Art Assets:
+
+- [Pixel Art Bat Sprite](https://caz-creates-games.itch.io/bat) _by Caz Creates Games_ - Brucey the bat sprite used in the game.
+- [UI Asset Pack](https://samuel-tome.itch.io/ui-asset-pack) _by Samuel Tome_ - UI icons used in the game.
+- [UI Buttons](https://totuslotus.itch.io/pixel-ui-buttons) _by Totus Lotus_ - UI buttons used in the game.
+- [Pixel Art Cave Background](https://mugenencount.itch.io/pixel-cave-backgrounds-vol1) _by MugenenCount_ - Background cave design used in the game (modified).
+- [Pixel Art Crystals](https://craftpix.net/freebies/top-down-crystals-pixel-art/?srsltid=AfmBOooHE0h1oaAqLnrkDlPHTrKJBthANdEfDjSjQsZhi1YWQCfKYjSy) - Crystals used in the game.
+- [Pixel Cave Wall Tileset](https://ansimuz.itch.io/super-grotto-escape-pack) _by Ansimuz_- Environment tileset used in the game.
+- [Speech Bubble](https://justajoke.itch.io/pixel-speech-balloons) _by Just a Joke_ - Speech bubble used in the game.
+
+### Google Fonts:
+- [Jersey 20](https://fonts.google.com/specimen/Jersey+20) _by Sarah Cadigan-Fried_ - Primary font used in the game.
+- [Handjet](https://fonts.google.com/specimen/Handjet) _by Rosetta, David Březina_ - Secondary font used in the game.
+
+
+## References & Online Resources
+
+Throughout development, I consulted a wide range of online resources, tutorials, and community posts. Key references are grouped below by topic.
+
+### JavaScript Structure & Modules
+- [Should I break up a large JavaScript file? (Quora)](https://www.quora.com/Should-I-break-up-a-large-JavaScript-file-into-separate-modules-or-is-it-preferable-to-keep-it-as-one-file-Does-breaking-up-a-file-help-with-maintenance-and-debugging-in-the-first-place)
+- [JavaScript Module Pattern In-Depth](https://www.nilovelez.com/blog/javascript-module-pattern-in-depth/)
+- [How to use ES6 Modules to separate your JavaScript](https://www.theodinproject.com/lessons/javascript-es6-modules)
+- [MDN: ES6 Modules](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)
+- [Best practices for using and linking multiple JS files (Reddit)](https://www.reddit.com/r/learnjavascript/comments/efh8s8/best_practices_for_using_and_linking_multiple_js/)
+- [Exploring globalThis in JavaScript](https://medium.com/@alperen.talaslioglu/exploring-globalthis-in-javascript-a-unified-global-object-81986042341a)
+- [MDN: Property Accessors](https://javascript.info/property-accessors)
+- [Singleton Pattern in JavaScript (freeCodeCamp)](https://www.freecodecamp.org/news/singleton-design-pattern-with-javascript/)
+- [What is globalThis? (LogRocket)](https://blog.logrocket.com/what-is-globalthis-why-use-it/)
+- [JavaScript ES6 Modules - The Odin Project](https://www.theodinproject.com/lessons/javascript-es6-modules)
+
+### Web Audio API & Audio Implementation
+- [Web Audio API: Changing the Volume of a Sound (web.dev)](https://web.dev/articles/webaudio-intro#changing_the_volume_of_a_sound)
+- [Web Audio API Intro (web.dev)](https://web.dev/articles/webaudio-intro)
+- [Standardized Audio Context (GitHub)](https://github.com/chrisguttandin/standardized-audio-context)
+- [Web Audio API Best Practices (MDN)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API/Best_practices)
+- [Web Audio API Book (free)](https://webaudioapi.com/book/) _This is a fantastic free resource!_
+- [Dealing with Latency (Jamie On Keys)](https://www.jamieonkeys.dev/posts/web-audio-api-output-latency/)
+- [Unlock Web Audio in Safari for iOS and macOS](https://www.mattmontag.com/web/unlock-web-audio-in-safari-for-ios-and-macos)
+- [Web Audio on iOS Issues (HTML5 Game Devs)](https://www.html5gamedevs.com/topic/48284-solved-webaudio-on-ios-still-no-solution-in-2022/)
+- [Webkit AudioContext Code](https://github.com/WebKit/WebKit/blob/cbf93f016e9697a706929e9b8bdc7a243041e0f8/Source/WebCore/Modules/webaudio/AudioContext.idl#L38-L39)
+
+### CSS Effects & Animations
+- [CSS Glow Effect for Images (Stack Overflow)](https://stackoverflow.com/questions/8693733/how-to-give-outer-glow-to-an-object-in-a-transparent-png-using-css3)
+- [CSS Fade-In Animation (HubSpot)](https://blog.hubspot.com/website/css-fade-in)
+- [Flickering Neon Sign Effect (CodePen)](https://codepen.io/patrickhill/pen/eYNbdQ)
+- [Flickering Lamp Effect (CodePen)](https://codepen.io/prathameshkoshti/pen/PVVRMG)
+
+### Modals & Overlays
+- [Vanilla Modal Example (CodePen)](https://codepen.io/metinsaylan/pen/WgLEOx)
+- [Modal Popup Example (CodexWorld)](https://www.codexworld.com/simple-modal-popup-javascript-css/)
+- [CSS Tricks: Styling Modals](https://css-tricks.com/considerations-styling-modal/)
+- [FreeCodeCamp: How to Build a Modal with JavaScript](https://www.freecodecamp.org/news/how-to-build-a-modal-with-javascript/)
+
+### Documentation & JSDoc
+- [JSDoc Official Site](https://jsdoc.app/)
+- [JSDoc: The Ultimate Guide](https://precodes.hashnode.dev/jsdoc-the-ultimate-guide-to-documenting-your-javascript-code)
+- [Document Your JavaScript Code with JSDoc (dev.to)](https://dev.to/paulasantamaria/document-your-javascript-code-with-jsdoc-2fbf)
+- [Write Better, Faster, and Self-Documenting Tag Management (JSDoc)](https://thebounce.io/write-better-faster-and-self-documenting-tag-management-javascript-with-jsdoc-9a4ce1f36239)
+- [Creating Better JSDoc Documentation](https://medium.com/swlh/creating-better-jsdoc-documentation-8b7a65744dcb) 
+- [docdash Template](https://github.com/clenemt/docdash)
+
+### Accessibility & Colour
+- [How to Make Colors in Games Accessible (IndieKlem)](https://indieklem.substack.com/p/how-to-make-colors-games-accessible)
+
+## Acknowledgements
+- **Code Institute** — For providing a supportive course and community that enabled me to build this project.
+- **Code Institute course content** — The course materials, especially the Python Tutor lessons and the "Love Maths" project, were invaluable for understanding core programming concepts and structuring my own project.
+ - **Code Institute Slack Community** — An invaluable resource for advice, encouragement, and troubleshooting throughout the project.
+- **Marko Tot** — Code Institute facilitator, for hosting weekly stand-up calls and sharing practical resources and guidance — especially around focusing on MVP features, meeting project deadlines, and giving constructive feedback.
+- **Wallace Green** — Fellow student, for generous feedback, sharing helpful books and websites, and supporting my project’s development.
+- **Dan Hamilton** — My mentor, for his encouragement and expert advice on coding best practices and audio implementation (particularly on iOS), and for sharing insights into industry standards.
+- **My brother** — For insightful discussions on JavaScript architecture and file organisation, and for sharing his professional experience as a software developer.
+
+Thank you all for your support, expertise, and encouragement!
 
