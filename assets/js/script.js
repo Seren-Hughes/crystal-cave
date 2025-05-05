@@ -564,9 +564,7 @@ function initializeGameSite() {
   audioUserEventOverlay.addEventListener("click", () => {
     audioUserEventOverlay.style.display = "none";
     gameContainer.style.visibility = "visible"; // Show the game container
-    // Restart css animations. Credit: https://www.harrytheo.com/blog/2021/02/restart-a-css-animation-with-javascript/
-    // void gameContainer.offsetWidth; // force reflow if needed - test the fade-ins and animations on ios device on multi browsers
-    // ***commented out code don't forget to delete it later***
+    // Add fade-in animation to the game container
     gameContainer.classList.add("fade-in-game-container");
     // Show the buttons
     buttonsContainer.classList.add("fade-in-ui");
