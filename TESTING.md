@@ -1336,3 +1336,53 @@ Below are screenshots demonstrating how the game appears and functions on variou
 
 Special attention was also given to audio functionality across devices. Web audio can behave inconsistently, particularly on mobile browsers, with iOS presenting well-documented challenges such as delayed playback, muted autoplay, and the requirement for user interaction before audio can be triggered. These behaviours were accounted for in development, and user interactions were used to initialise audio context to ensure reliable playback. Audio was tested on iOS Safari, Android Chrome, and desktop browsers to verify consistent behaviour where possible.
 
+## Manual Testing
+
+### Gameplay & Progress
+
+| **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
+|----------------|---------------|---------------------|---------------|--------------|
+| As a player, I want to start a new game easily, so I can quickly begin playing. | Click "Start Game" on the home page. | Game starts and player is taken to the game page. | ✅ | Confirmed in Chrome, Firefox, and Safari. |
+| As a player, I want to see my progress and highest level, so I can track and improve my performance. | Play several rounds, check dashboard/stats. | Progress and highest level are displayed and updated. | ✅ | Tested on desktop and mobile devices. ![Player progress stats](assets/media/player-stats.png) |
+| As a player, I want visual and audio feedback for correct and incorrect actions, so I understand my progress and mistakes. | Play correct and incorrect sequences. | Crystals light up and play sound; errors trigger Game Over modal. | ✅ | Tested on desktop and mobile devices. |
+| As a player, I want the crystals to light up and play sound when I interact with them, so I know my input was registered. | Click/tap/press keys on crystals. | Crystals glow and play a note on interaction. | ✅  | Confirmed on desktop and iOS devices in Chrome, Firefox and Safari browsers. |
+
+### Instructions & Accessibility
+
+| **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
+|----------------|---------------|---------------------|---------------|--------------|
+| As a new player, I want clear, simple instructions, so I can understand the game quickly. | Click "How to Play" button. | Instructions modal appears with clear steps. | ✅ | 	Tested on desktop and mobile devices. |
+| As a player, I want accessible controls (mouse, keyboard, touch), so I can play on any device. | Test controls on desktop, tablet, and mobile. | All controls work as expected on each device. | ✅ | 	Tested on desktop and mobile and tablet devices. |
+| As a player, I want clear icons or tooltips for each button, so I understand their purpose even without text. | Hover/tap on all buttons. | Tooltips/icons are visible, descriptive and intuitive. | ✅ | 	Tested on desktop and mobile devices.  |
+
+### Navigation & Settings
+
+| **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
+|----------------|---------------|---------------------|---------------|--------------|
+| As a player, I want clear, accessible buttons to restart, return home, view instructions, and access settings, so I can easily control my experience. | Use all navigation/settings buttons. | Each button works and is easy to find. | ✅ | Confirmed on desktop and iOS devices in Chrome, Firefox and Safari browsers. Positive feedback from peer testing. |
+| As a player, I want to toggle full-screen mode and sound, so I can play comfortably in different environments. | Use fullscreen and mute buttons. | Game enters/exits fullscreen; audio mutes/unmutes. | ✅ | Tested on desktop and large tablet devices. |
+| As a player, I want to delete my saved progress, so I can start fresh whenever I choose. | Use "Delete Progress" in dashboard/settings. | Progress is cleared and game resets. | ✅  | Confirmed behaviour on desktop and mobile devices in Chrome, Firefox and Safari browsers. |
+| As a user, if I land on a broken or missing page, I want to see a friendly 404 message and a clear way to return to the homepage. | Visit a non-existent URL. | Custom 404 page appears with Return Home button. | ✅ | Tested on desktop and mobile devices. |
+
+### Personalisation & Persistence
+
+| **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
+|----------------|---------------|---------------------|---------------|--------------|
+| As a player, I want to enter a username and receive personalised messages, so the game feels more engaging. | Enter a name at the prompt. | Game greets player by name and uses it in messages. | ✅ | Tested on desktop and mobile devices using various browsers. |
+| As a returning player, I want my progress (like highest level) to be saved locally, so I can aim to improve over time. | Play, close, and reopen the game. | Progress and name are remembered. | ✅ | Confirmed on desktop and mobile devices in Chrome, Firefox, and Safari. |
+
+### Audio & Immersion
+
+| **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
+|----------------|---------------|---------------------|---------------|--------------|
+| As a player, I want to hear ambient cave sounds and background music, so the game feels immersive. | Start game and listen. | Ambient sounds/music play as expected. | ✅ | Tested on desktop and mobile devices using various browsers. |
+| As a player, I want to adjust or mute the game’s audio, so I can customise the experience to suit my environment. | Use audio sliders/mute buttons. | Audio adjusts/mutes as expected. | ✅ | Tested on desktop and mobile devices using various browsers. | 
+
+### Freestyle Mode 
+
+| **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
+|----------------|---------------|---------------------|---------------|--------------|
+| As a player, I want to play the crystal notes freely, so I can experiment with the sounds and enjoy them outside of the main game. | Enter Freestyle Mode, interact with crystals. | Crystals play notes freely, no sequence required. | ✅  | Tested on desktop and mobile devices using various browsers. |
+
+---
+

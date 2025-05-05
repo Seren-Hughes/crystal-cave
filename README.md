@@ -145,7 +145,6 @@ Brucey the plush bat - inspired the game’s theme.
 
 Before creating digital wireframes, I began with rough hand-drawn notes and layout sketches to quickly capture my ideas for gameplay, UI, and features. At this stage, I also started thinking about the basic pseudocode — such as how many containers would be needed for the game layout and how the game would flow. This helped me visualise the game structure and user experience before moving on to more refined wireframes.
 
----
 Below are some of my initial hand-drawn notes and layout sketches. While extremely rough, they show my early ideas and the creative planning process before moving to digital wireframes.
 
 <details><summary>Click to view rough game container sketches.</summary>
