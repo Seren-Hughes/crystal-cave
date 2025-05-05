@@ -6,8 +6,11 @@
 - [Code Validation](#code-validation)
 - [Responsiveness](#responsiveness)
 - [Manual Testing](#manual-testing)
+- [Integration & UI Testing](#integration--ui-testing)
+- [Defensive Testing](#defensive-testing)
 - [Jest Testing](#jest-testing)
 - [Bugs](#bugs)
+- [Known Issues](#known-issues)
 - [Future Improvements](#future-improvements)
 - [Conclusion](#conclusion)  
 
@@ -1342,47 +1345,47 @@ Special attention was also given to audio functionality across devices. Web audi
 
 | **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
 |----------------|---------------|---------------------|---------------|--------------|
-| As a player, I want to start a new game easily, so I can quickly begin playing. | Click "Start Game" on the home page. | Game starts and player is taken to the game page. | ✅ | Confirmed in Chrome, Firefox, and Safari. |
-| As a player, I want to see my progress and highest level, so I can track and improve my performance. | Play several rounds, check dashboard/stats. | Progress and highest level are displayed and updated. | ✅ | Tested on desktop and mobile devices. ![Player progress stats](assets/media/player-stats.png) |
-| As a player, I want visual and audio feedback for correct and incorrect actions, so I understand my progress and mistakes. | Play correct and incorrect sequences. | Crystals light up and play sound; errors trigger Game Over modal. | ✅ | Tested on desktop and mobile devices. |
-| As a player, I want the crystals to light up and play sound when I interact with them, so I know my input was registered. | Click/tap/press keys on crystals. | Crystals glow and play a note on interaction. | ✅  | Confirmed on desktop and iOS devices in Chrome, Firefox and Safari browsers. |
+| _As a player, I want to start a new game easily, so I can quickly begin playing._ | Click "Start Game" on the home page. | Game starts and player is taken to the game page. | ✅ | Confirmed in Chrome, Firefox, and Safari. |
+| _As a player, I want to see my progress and highest level, so I can track and improve my performance._ | Play several rounds, check dashboard/stats. | Progress and highest level are displayed and updated. | ✅ | Tested on desktop and mobile devices. ![Player progress stats](assets/media/player-stats.png) |
+| _As a player, I want visual and audio feedback for correct and incorrect actions, so I understand my progress and mistakes._ | Play correct and incorrect sequences. | Crystals light up and play sound; errors trigger Game Over modal. | ✅ | Tested on desktop and mobile devices. |
+| _As a player, I want the crystals to light up and play sound when I interact with them, so I know my input was registered._ | Click/tap/press keys on crystals. | Crystals glow and play a note on interaction. | ✅  | Confirmed on desktop and iOS devices in Chrome, Firefox and Safari browsers. |
 
 ### Instructions & Accessibility
 
 | **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
 |----------------|---------------|---------------------|---------------|--------------|
-| As a new player, I want clear, simple instructions, so I can understand the game quickly. | Click "How to Play" button. | Instructions modal appears with clear steps. | ✅ | 	Tested on desktop and mobile devices. |
-| As a player, I want accessible controls (mouse, keyboard, touch), so I can play on any device. | Test controls on desktop, tablet, and mobile. | All controls work as expected on each device. | ✅ | 	Tested on desktop and mobile and tablet devices. |
-| As a player, I want clear icons or tooltips for each button, so I understand their purpose even without text. | Hover/tap on all buttons. | Tooltips/icons are visible, descriptive and intuitive. | ✅ | 	Tested on desktop and mobile devices.  |
+| _As a new player, I want clear, simple instructions, so I can understand the game quickly._ | Click "How to Play" button. | Instructions modal appears with clear steps. | ✅ | 	Tested on desktop and mobile devices. |
+| _As a player, I want accessible controls (mouse, keyboard, touch), so I can play on any device._ | Test controls on desktop, tablet, and mobile. | All controls work as expected on each device. | ✅ | 	Tested on desktop and mobile and tablet devices. |
+| _As a player, I want clear icons or tooltips for each button, so I understand their purpose even without text._ | Hover/tap on all buttons. | Tooltips/icons are visible, descriptive and intuitive. | ✅ | 	Tested on desktop and mobile devices.  |
 
 ### Navigation & Settings
 
 | **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
 |----------------|---------------|---------------------|---------------|--------------|
-| As a player, I want clear, accessible buttons to restart, return home, view instructions, and access settings, so I can easily control my experience. | Use all navigation/settings buttons. | Each button works and is easy to find. | ✅ | Confirmed on desktop and iOS devices in Chrome, Firefox and Safari browsers. Positive feedback from peer testing. |
-| As a player, I want to toggle full-screen mode and sound, so I can play comfortably in different environments. | Use fullscreen and mute buttons. | Game enters/exits fullscreen; audio mutes/unmutes. | ✅ | Tested on desktop and large tablet devices. |
-| As a player, I want to delete my saved progress, so I can start fresh whenever I choose. | Use "Delete Progress" in dashboard/settings. | Progress is cleared and game resets. | ✅  | Confirmed behaviour on desktop and mobile devices in Chrome, Firefox and Safari browsers. |
-| As a user, if I land on a broken or missing page, I want to see a friendly 404 message and a clear way to return to the homepage. | Visit a non-existent URL. | Custom 404 page appears with Return Home button. | ✅ | Tested on desktop and mobile devices. |
+| _As a player, I want clear, accessible buttons to restart, return home, view instructions, and access settings, so I can easily control my experience._ | Use all navigation/settings buttons. | Each button works and is easy to find. | ✅ | Confirmed on desktop and iOS devices in Chrome, Firefox and Safari browsers. Positive feedback from peer testing. |
+| _As a player, I want to toggle full-screen mode and sound, so I can play comfortably in different environments._ | Use fullscreen and mute buttons. | Game enters/exits fullscreen; audio mutes/unmutes. | ✅ | Tested on desktop and large tablet devices. |
+| _As a player, I want to delete my saved progress, so I can start fresh whenever I choose._ | Use "Delete Progress" in dashboard/settings. | Progress is cleared and game resets. | ✅  | Confirmed behaviour on desktop and mobile devices in Chrome, Firefox and Safari browsers. |
+| _As a user, if I land on a broken or missing page, I want to see a friendly 404 message and a clear way to return to the homepage._ | Visit a non-existent URL. | Custom 404 page appears with Return Home button. | ✅ | Tested on desktop and mobile devices. |
 
 ### Personalisation & Persistence
 
 | **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
 |----------------|---------------|---------------------|---------------|--------------|
-| As a player, I want to enter a username and receive personalised messages, so the game feels more engaging. | Enter a name at the prompt. | Game greets player by name and uses it in messages. | ✅ | Tested on desktop and mobile devices using various browsers. |
-| As a returning player, I want my progress (like highest level) to be saved locally, so I can aim to improve over time. | Play, close, and reopen the game. | Progress and name are remembered. | ✅ | Confirmed on desktop and mobile devices in Chrome, Firefox, and Safari. |
+| _As a player, I want to enter a username and receive personalised messages, so the game feels more engaging._ | Enter a name at the prompt. | Game greets player by name and uses it in messages. | ✅ | Tested on desktop and mobile devices using various browsers. |
+| _As a returning player, I want my progress (like highest level) to be saved locally, so I can aim to improve over time._ | Play, close, and reopen the game. | Progress and name are remembered. | ✅ | Confirmed on desktop and mobile devices in Chrome, Firefox, and Safari. |
 
 ### Audio & Immersion
 
 | **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
 |----------------|---------------|---------------------|---------------|--------------|
-| As a player, I want to hear ambient cave sounds and background music, so the game feels immersive. | Start game and listen. | Ambient sounds/music play as expected. | ✅ | Tested on desktop and mobile devices using various browsers. |
-| As a player, I want to adjust or mute the game’s audio, so I can customise the experience to suit my environment. | Use audio sliders/mute buttons. | Audio adjusts/mutes as expected. | ✅ | Tested on desktop and mobile devices using various browsers. | 
+| _As a player, I want to hear ambient cave sounds and background music, so the game feels immersive._ | Start game and listen. | Ambient sounds/music play as expected. | ✅ | Tested on desktop and mobile devices using various browsers. |
+| _As a player, I want to adjust or mute the game’s audio, so I can customise the experience to suit my environment._ | Use audio sliders/mute buttons. | Audio adjusts/mutes as expected. | ✅ | Tested on desktop and mobile devices using various browsers. | 
 
 ### Freestyle Mode 
 
 | **User Story** | **Test Steps** | **Expected Result** | **Pass/Fail** | **Notes** |
 |----------------|---------------|---------------------|---------------|--------------|
-| As a player, I want to play the crystal notes freely, so I can experiment with the sounds and enjoy them outside of the main game. | Enter Freestyle Mode, interact with crystals. | Crystals play notes freely, no sequence required. | ✅  | Tested on desktop and mobile devices using various browsers. |
+| _As a player, I want to play the crystal notes freely, so I can experiment with the sounds and enjoy them outside of the main game._ | Enter Freestyle Mode, interact with crystals. | Crystals play notes freely, no sequence required. | ✅  | Tested on desktop and mobile devices using various browsers. |
 
 ---
 
@@ -1411,11 +1414,61 @@ Special attention was also given to audio functionality across devices. Web audi
 |--------------|-----------------------|------------|-----------|
 | User tries to interact with crystals during sequence playback | Input is ignored, no feedback given, game state is safe | ✅ | Prevents accidental input |
 | User doesn't enter name in modal and clicks OK instead of Skip | Player Name modal remains open or requires Skip button | ✅ | Tested on multiple devices; prevents empty name submission |
-| localStorage is unavailable or disabled | Game shows warning or falls back gracefully, does not crash | ❌ | Tested by disabling localStorage in browser. If localStorage is unavailable or disabled, the game cannot load or save progress, and the intro speech bubble modal may not appear. This is a known limitation due to time constraints. |
+| localStorage is unavailable or disabled | Game shows warning or falls back gracefully, does not crash | ✅ | Tested by disabling localStorage in browser. If localStorage is unavailable or disabled, the game can still be played. The game will function without saving progress. Players forced to skip Player Name entry modal. |
 | User reloads or closes the page mid-game | Progress is saved (if applicable) or game resets cleanly | ✅ | No errors. Game resets cleanly.|
-| User rapidly clicks/taps buttons or crystals | Game handles input | ✅ | No duplicate actions or stuck state |
+| User rapidly clicks/taps buttons or crystals | Game handles input | ✅ | No duplicate actions or stuck state.  _Note: On iOS, rapid tapping may cause a temporary visual glitch in the crystal animation (see Known Issues), but this does not affect gameplay or input handling._ |
+| User tries to interact with crystals during sequence playback | Input is ignored, no feedback given, game state is safe | ✅ | Prevents accidental input |
 | Audio context fails to initialise (e.g., on iOS) | Game continues without audio features, does not crash | ✅ | Tested on desktop and mobile devices. |
 | User tries to start a new game while a modal is open | Modal closes, new game starts cleanly | ✅ | No UI overlap or stuck modals |
 | User tries to access Dashboard settings or How to play Modal while the other is open | Modal closes, new settings/modal opens cleanly | ✅ | No UI overlap or stuck modals |
 
 ---
+# Bugs 
+
+🐞 **localStorage Unavailable Breaks Game Start** 🐛
+
+**Issue:**
+During defensive testing, I disabled localStorage in my browser to simulate a scenario where it is unavailable (e.g. strict privacy settings or legacy browsers). As a result, the game logic was broken: the speech bubble modal did not appear, and the game could not start.
+
+**Cause:**
+The game attempted to access localStorage directly during initialisation (e.g., to retrieve the player name or progress). If localStorage is unavailable or disabled, this throws a JavaScript `SecurityError`, which prevented further code from running and stopped the UI from loading correctly.
+
+**Fix:**
+I refactored all localStorage access throughout the codebase to use helper functions wrapped in `try/catch` blocks. This ensures that if localStorage is unavailable, the game continues to function without saving progress. Players are forced to skip the Player Name entry modal to continue the speech bubble dialogue progression. The game remains playable.
+
+**Example Helper:**
+```js
+function getLocalItem(key) {
+  try {
+    return localStorage.getItem(key);
+  } catch {
+    return null;
+  }
+}
+```
+
+**Credit:**
+This approach was based on best practices and community discussions, including:
+
+- [Stack Overflow: How to check if localStorage is available](https://stackoverflow.com/questions/16427636/check-if-localstorage-is-available)
+- [AlpineJS GitHub Discussions: Catching localStorage errors](https://github.com/alpinejs/alpine/discussions/3451)
+- [Stack Overflow: Try/catch for localStorage detection](https://stackoverflow.com/questions/14154478/javascript-try-catch-for-localstorage-detection)
+- [PlainEnglish.io: How to use localStorage safely](https://javascript.plainenglish.io/how-to-use-localstorage-safely-a96eb50fbb4e)
+- [MDN Web Docs: Control flow and error handling in JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Control_flow_and_error_handling)
+- [Stack Overflow: Should I wrap getSessionStorage in a try/catch?](https://stackoverflow.com/questions/69727969/best-practice-should-i-wrap-getsessionstorage-in-a-try-catch)
+- [Tomayac Blog: Things not available when someone blocks all cookies](https://blog.tomayac.com/2022/08/30/things-not-available-when-someone-blocks-all-cookies/)
+
+
+# Known Issues
+ **Crystal Animation Rendering (iOS):**  
+  During defensive testing, I observed occasional visual glitches in the crystal animation when rapidly tapping crystals on iOS devices. This issue appears to be related to how iOS handles CSS animations and transitions, especially when multiple animations are triggered in quick succession. I have not been able to replicate this issue on desktop browsers or Android devices. The glitch is purely visual and does not affect gameplay.
+
+  I plan to revisit this in the future, potentially by implementing a different CSS glow effect (such as the drop-shadow filter used on the 404 page) and exploring optimisations for smoother animations.
+
+  ![GIF: Crystal Animation Rendering Issue](assets/media/crystal-container-glitch-ios.gif) 
+
+  _Note: The GIF has a low frame rate, which exaggerates the glitch._
+
+
+
+  

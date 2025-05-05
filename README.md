@@ -384,6 +384,7 @@ To ensure the game is playable for players with colour vision differences, the c
 - [**Adobe Photoshop**](https://www.adobe.com/products/photoshop.html) — Editing assets, creating pixel backgrounds, modals, and sprites
 - [**Tiled Map Editor**](https://www.mapeditor.org/) — Building the cave background and level layout
 - [**Favicon Generator**](https://favicon.io/) — Creating a custom favicon
+- [**Video to GIF Converter**](https://www.adobe.com/express/feature/video/convert/video-to-gif) - for creating GIFs for documentation
 
 ### Design & Colour
 - [**Coolors**](https://coolors.co/) — Generating and refining the colour palette
