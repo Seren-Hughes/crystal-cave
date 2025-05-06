@@ -8,7 +8,6 @@
 - [Manual Testing](#manual-testing)
 - [Integration & UI Testing](#integration--ui-testing)
 - [Defensive Testing](#defensive-testing)
-- [Jest Testing](#jest-testing)
 - [Bugs](#bugs)
 - [Known Issues](#known-issues)
 - [Future Improvements](#future-improvements)
@@ -452,9 +451,12 @@ The layout of the game appeared correct in Chrome DevTools' mobile emulation mod
 2. Viewport Meta Tag: While the viewport meta tag was correctly set, additional adjustments were needed for real-world device dimensions.
 3. CSS Media Queries: The media queries used for responsive design did not fully account for the actual dimensions and safe areas of the iPhone screen.
 4. DevTools Limitations: Chrome DevTools' mobile emulation does not perfectly replicate the rendering environment of a real device.
+
 References:
-- https://stackoverflow.com/questions/61111643/why-does-my-responsive-code-look-different-on-an-iphone-compared-to-slimming-win 
-- https://www.oxyplug.com/optimization/device-pixel-ratio/#:~:text=As%20mentioned%20earlier%2C%20because%20of,browsers%20do%20the%20same%20thing. 
+
+- [Stack Overflow: Why does my responsive code look different on an iPhone compared to slimming window down?](https://stackoverflow.com/questions/61111643/why-does-my-responsive-code-look-different-on-an-iphone-compared-to-slimming-win) 
+- [Oxyplug: Device Pixel Ratio](https://www.oxyplug.com/optimization/device-pixel-ratio/#:~:text=As%20mentioned%20earlier%2C%20because%20of,browsers%20do%20the%20same%20thing) 
+
 ### Solution:
 
 To resolve the issue, the following steps were taken:
@@ -528,10 +530,10 @@ When clicking buttons, there was a noticeable lag or flicker before the new imag
 ### Cause:
 Each button was using a separate image file for the 'pressed' active state. The first time the button states changed to active, the browser fetched a new image, causing slight loading lag.
 
-### Video demonstrating issue:
-Short video clips were recorded to demonstrate the flicker:
+### GIF demonstrating issue:
+Short GIF clips were recorded to demonstrate the flicker:
 
-![Button Flicker GIF](assets/media/button-flicker.gif)
+<img src="assets/media/button-flicker.gif" alt="Button Flicker GIF" width="300">
 
 
 ### Initial Fix Attempt (preloading images):
@@ -570,8 +572,8 @@ After switching to a sprite sheet:
 1. No lag or flicker was observed when clicking the buttons.
 2. The short video clip below shows the smooth state transitions:
 
+<img src="assets/media/sprite-sheet-button-transition.gif" alt="Sprite Sheet Button Transition GIF" width="300">
 
-![Sprite Sheet Button Transition GIF](assets/media/sprite-sheet-button-transition.gif)
 
 
 
@@ -987,11 +989,12 @@ function closeModal(type = "speechBubble", event = null, callback = null) {
 ### Testing Results:
 - Before the fix: Opening a new modal could start at the bottom if the previous modal was scrolled down.
 
-![GIF: Modal scroll before](assets/media/scroll-modal-not-resetting.gif) 
+  <img src="assets/media/scroll-modal-not-resetting.gif" alt="Modal Scroll Before Fix" width="300">
+
 
 - After the fix: Each modal always opens at the top, regardless of previous scroll position.
-
-![GIF: Modal scroll after](assets/media/scroll-modal-reset-to-top.gif) 
+    
+  <img src="assets/media/scroll-modal-reset-to-top.gif" alt="Modal Scroll After Fix" width="300">
 
 
 ### Reasoning Behind the Fix:
@@ -1281,7 +1284,7 @@ _By default, ESLint outputs nothing if there are no issues._
 
 ![ESLint Results](assets/media/eslint-validation-result.png)
 
-In addition to ESLint, script.js and audio.js were linted using JSHint. 
+In addition to ESLint, script.js and audio.js were linted using JSHint for extra validation. JSHint is more strict and provides useful metrics. The results are shown below.
 <details><summary>script.js:</summary>
 
 ![JSHint Script Results](assets/media/jshint-script-validation.png)
@@ -1417,7 +1420,6 @@ Special attention was also given to audio functionality across devices. Web audi
 | localStorage is unavailable or disabled | Game shows warning or falls back gracefully, does not crash | ✅ | Tested by disabling localStorage in browser. If localStorage is unavailable or disabled, the game can still be played. The game will function without saving progress. Players forced to skip Player Name entry modal. |
 | User reloads or closes the page mid-game | Progress is saved (if applicable) or game resets cleanly | ✅ | No errors. Game resets cleanly.|
 | User rapidly clicks/taps buttons or crystals | Game handles input | ✅ | No duplicate actions or stuck state.  _Note: On iOS, rapid tapping may cause a temporary visual glitch in the crystal animation (see Known Issues), but this does not affect gameplay or input handling._ |
-| User tries to interact with crystals during sequence playback | Input is ignored, no feedback given, game state is safe | ✅ | Prevents accidental input |
 | Audio context fails to initialise (e.g., on iOS) | Game continues without audio features, does not crash | ✅ | Tested on desktop and mobile devices. |
 | User tries to start a new game while a modal is open | Modal closes, new game starts cleanly | ✅ | No UI overlap or stuck modals |
 | User tries to access Dashboard settings or How to play Modal while the other is open | Modal closes, new settings/modal opens cleanly | ✅ | No UI overlap or stuck modals |
@@ -1473,11 +1475,17 @@ This approach was based on best practices and community discussions, including:
 ## Future Improvements
 
 **Modularisation:**
-- I plan to modularise the rest of the codebase in the future, following the successful refactor of the audio logic into a dedicated AudioManager module. This will improve maintainability and readability. 
+- Following the successful refactor of the audio logic into a dedicated `AudioManager` module, I plan to continue modularising the codebase. This will improve maintainability, scalability, and readability as the project grows. 
 
 **Improve JSDoc Comments:** 
-- I plan to enhance the JSDoc comments throughout the codebase to provide clearer documentation and improve the docdash output. 
+- I intend to improve JSDoc comments throughout the codebase to provide clearer documentation and enhance the quality of the generated output using Docdash. 
 
+**Automated Unit & Regression Testing:**
+- I recognise the value of setting up automated unit tests, especially with future refactors and new features in mind. As the codebase becomes more modular, testing will help make sure that existing functionality stays intact.
+
+- I plan to use Jest for this, taking advantage of its built-in jsdom environment to test both core logic and DOM-related code.
+
+- These tests will help catch bugs earlier, support future development, and act as regression tests to prevent issues when making bigger changes — like modularisation or integrating the Web MIDI API.
 
 ## Conclusion
   
