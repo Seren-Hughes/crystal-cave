@@ -29,7 +29,7 @@ A musical memory game inspired by Simon and Bop It, Echoes of the Crystal Cave g
 - [Game Mechanics](#game-mechanics)
 - [Wireframes](#wireframes)
 - [Pseudocode](#pseudocode)
-- [Function Structure](#function-structure-and-game-pseudocode-refined)
+- [Function Structure and Game Pseudocode Refined](#function-structure-and-game-pseudocode-refined)
 - [Project Kanban Board](#project-kanban-board)
 - [Typography](#typography)
 - [Colour Palette](#colour-palette)
@@ -232,7 +232,7 @@ Basic pseudocode was used during the early planning and development stage. It wa
 - Store player progress (e.g., name and highest level reached) in local storage.
 - Easter egg for special player name (e.g., "Brucey" replace bat pixel sprite).
 
-## Function Structure (and game psuedocode refined)
+## Function Structure and Game Pseudocode Refined
 
 1. `startGame()`
 
