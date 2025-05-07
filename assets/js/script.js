@@ -421,7 +421,7 @@ function updateSpeechBubbleText() {
  * This function handles the flow of dialogue messages and determines the next action:
  * - If the game modal is open, dialogue progression is blocked.
  * - If the player's name is not stored and the current message index is 6, the name input modal is opened.
- * - If the player's name is stored and the current message index is 0 (on page load), the dialogue skips to the last message index 9.
+ * - If the player's name is stored and the current message index is 0 (on page load), the dialogue skips to the last message index 10.
  * - Updates the speech bubble with the next message or starts the game if the last message is reached.
  *
  * Behaviour:
@@ -457,7 +457,7 @@ function progressDialogue() {
   if (!gameModal.classList.contains("hidden")) {
     return; // Block dialogue progression if the game modal is open
   }
-  
+
   // Check if a player name is stored
   const storedName = getLocalItem("playerName");
 
@@ -466,7 +466,7 @@ function progressDialogue() {
   if (storedName && currentMessageIndex <= 0) {
     currentMessageIndex = 10;
     speechBubbleMessages[10] = `Hi again, ${storedName}! Let's play!`;
-}
+  }
 
   // if the player name is not stored, and the current message index is 6, and skipTriggered is false, open the name modal
   if (!storedName && currentMessageIndex === 6 && !skipTriggered) {
@@ -560,7 +560,6 @@ function initializeGameSite() {
   // Show audio user event overlay
   audioUserEventOverlay.style.display = "flex";
 
-  // Tap to continue - (may need to change click to touchstart for audio event on mobile devices)
   audioUserEventOverlay.addEventListener("click", () => {
     audioUserEventOverlay.style.display = "none";
     gameContainer.style.visibility = "visible"; // Show the game container
@@ -1089,7 +1088,7 @@ document.addEventListener("keydown", function (event) {
  */
 function startGame() {
   if (freestyleMode) {
-    console.log("Freestyle mode active. Skipping normal game logic.");
+    console.log("Freestyle mode active.");
     return;
   }
 
@@ -1411,7 +1410,7 @@ function checkPlayerInput() {
  */
 function celebrateCorrectAnswer() {
   let crystals = document.querySelectorAll(".crystal-container");
-  console.log("Celebrating correct answer! All crystals will glow.");
+  console.log("Celebrating correct answer!");
 
   // Activate glow for all crystals
   setTimeout(() => {
