@@ -457,21 +457,21 @@ function progressDialogue() {
   if (!gameModal.classList.contains("hidden")) {
     return; // Block dialogue progression if the game modal is open
   }
-
+  
   // Check if a player name is stored
   const storedName = getLocalItem("playerName");
 
   currentMessageIndex++; // Increment the message index
 
+  if (storedName && currentMessageIndex <= 0) {
+    currentMessageIndex = 10;
+    speechBubbleMessages[10] = `Hi again, ${storedName}! Let's play!`;
+}
+
   // if the player name is not stored, and the current message index is 6, and skipTriggered is false, open the name modal
   if (!storedName && currentMessageIndex === 6 && !skipTriggered) {
     openNameModal();
     return;
-  }
-
-  if (storedName && currentMessageIndex <= 0) {
-    currentMessageIndex = 9;
-    speechBubbleMessages[9] = `Hi again, ${storedName}! Let's play!`;
   }
 
   if (storedName) {
@@ -597,8 +597,8 @@ function initializeGameSite() {
       const storedName = getLocalItem("playerName");
 
       if (storedName) {
-        currentMessageIndex = 9;
-        speechBubbleMessages[9] = `Hi again, ${storedName}! Let's play!`;
+        currentMessageIndex = 10;
+        speechBubbleMessages[10] = `Hi again, ${storedName}! Let's play!`;
       }
 
       updateSpeechBubbleText();
