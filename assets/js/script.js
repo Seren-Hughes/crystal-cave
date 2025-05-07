@@ -728,7 +728,6 @@ document.addEventListener("keydown", function (event) {
   const crystalColor = keyToColorMap[pressedKey];
 
   if (crystalColor) {
-    console.log(`Key pressed: ${pressedKey} -> Crystal color: ${crystalColor}`);
 
     // Find the corresponding crystal container
     const crystal = document.querySelector(
@@ -1100,7 +1099,6 @@ function startGame() {
   clearAllTimeouts(); // Clear any lingering timeouts
   clearAllGlows(); // Clear any lingering glow effects
   storeSequence(level); // Generate and store the sequence
-  console.log("Current sequence:", currentSequence);
   isWaitingForInput = false; // Reset the flag to allow player input again
 
   // Make sure the level indicator is visible
@@ -1112,7 +1110,7 @@ function startGame() {
   if (levelNumberElement) {
     levelNumberElement.textContent = level; // Update the text content to the current level
   }
-  console.log(`Level indicator displayed for level ${level}`); // debugging for play again issue
+  
 }
 
 /**
@@ -1153,7 +1151,6 @@ function storeSequence(level) {
     currentSequence.push(selectedCrystal.dataset.color); // Store the crystal’s color in the global array
   }
 
-  console.log("Generated sequence:", currentSequence);
   playSequence(currentSequence); // Play the sequence
 }
 
@@ -1201,7 +1198,6 @@ function playSequence(sequence) {
   // Add a delay before starting the sequence
   setTimeout(() => {
     clearAllGlows(); // Clear any lingering glow effects
-    console.log("Cleared all glows before starting the sequence.");
   }, 300); // Delay by 300ms
 
   setTimeout(() => {
@@ -1275,11 +1271,8 @@ function waitForPlayerInput() {
   deactivateOverlay(); // Deactivate overlay to allow crystal interactions
 
   playersInput = []; // Reset player's input for the new round
-  console.log("Player input reset:", playersInput);
-  console.log("isPlayerTurn set to:", isPlayerTurn);
 
   let crystals = document.querySelectorAll(".crystal-container"); // Get all crystal containers
-  console.log("Crystals available for player input:", crystals);
 
   // Add event listeners to each crystal for player input
   crystals.forEach((crystal) => {
@@ -1327,8 +1320,6 @@ function handleCrystalClick(event) {
   let clickedColor = event.currentTarget.dataset.color; // Get the crystal's assigned color
   playersInput.push(clickedColor); // Store the clicked crystal color in the player's input array
 
-  console.log(`Player clicked: ${clickedColor}`);
-  console.log(`Current input sequence: ${playersInput}`);
 
   // If player's input matches the required sequence length, stop capturing
   if (playersInput.length === currentSequence.length) {
@@ -1381,9 +1372,6 @@ function handleCrystalClick(event) {
 function checkPlayerInput() {
   audioManager.restoreAmbientVolume(); // Restore ambient soundscape volume
   // Check if both arrays are the same length before comparing
-  console.log(
-    `Player's input length: ${playersInput.length}, Current sequence length: ${currentSequence.length}`
-  );
 
   if (JSON.stringify(playersInput) === JSON.stringify(currentSequence)) {
     console.log("Correct input");
@@ -1436,15 +1424,11 @@ function celebrateCorrectAnswer() {
         .classList.add("active", "celebration-active"); // Add light-crystal and celebration-specific class
     });
     activateOverlay(); // Activate overlay for the celebration to block crystal interactions
-    console.log("Glow activated for celebration.");
     // Play the celebration sound
     if (audioManager.buffers.celebration) {
       audioManager.playSound(audioManager.buffers.celebration);
     }
   }, 300); // 300ms delay before starting the celebration
-
-  // Play celebratory music (placeholder for actual implementation)
-  console.log("Playing celebratory twinkly music...");
 
   // Deactivate glow after a short delay
   setTimeout(() => {
@@ -1493,11 +1477,6 @@ function celebrateCorrectAnswer() {
  *
  */
 function nextLevel() {
-  console.log(
-    `Great memory! Let's see what the crystals play next... Proceeding to level ${
-      level + 1
-    }`
-  );
   level++; // Increase level
   playersInput = []; // Reset player's input for the new level
   isPlayerTurn = false; // Disable player input while playing the sequence
@@ -1505,7 +1484,6 @@ function nextLevel() {
 
   // update the level number html
   const levelNumberElement = document.getElementById("level-number");
-  console.log("Level number element:", document.getElementById("level-number"));
   if (levelNumberElement) {
     levelNumberElement.textContent = level; // Update the text content to the current level
   } else {
@@ -1516,7 +1494,6 @@ function nextLevel() {
   clearAllGlows(); // Clear any lingering glow effects
   storeSequence(level); // Generate and store the sequence
   playSequence(currentSequence); // Play the new sequence
-  console.log("Current sequence:", currentSequence);
 
   isWaitingForInput = false; // Reset the flag to allow player input again
 }
@@ -1728,7 +1705,6 @@ const activateGlow = (container) => {
 
   // Play the corresponding crystal sound
   const crystalColor = container.dataset.color;
-  console.log("Activating glow for crystal:", crystalColor);
   if (audioManager.buffers[crystalColor]) {
     audioManager.playSound(audioManager.buffers[crystalColor]);
   } else {
@@ -1917,7 +1893,6 @@ function updateHighestLevel() {
     parseInt(getLocalItem("highestLevel")) || 0;
   if (level > storedHighestLevel) {
     getLocalItem("highestLevel", level);
-    console.log(`New highest level saved: Level ${level}`);
   }
 }
 
