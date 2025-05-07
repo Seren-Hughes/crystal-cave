@@ -635,6 +635,56 @@ git push
 5. Click **Save**.
 6. After a few moments, GitHub Pages will generate a link to your live site.
 
+### **Branching and Merging**
+
+To maintain a clean and organised codebase, this project adopts a branching workflow. For this project, I created a dedicated feature branch for a major refactor, which I merged into the main branch before deployment. In future development, I plan to use this workflow for all significant changes.  
+
+1. **Creating a New Branch:**  
+To create a new branch for a specific feature or module refactor:  
+```bash
+git checkout -b feature/branch-name
+```
+
+2. **Making and Committing Changes:**  
+Make your changes, then stage and commit:  
+```bash
+git add .
+git commit -m "Implement new feature or refactor module"
+```
+
+3. **Pushing the Branch to GitHub:**  
+Push the branch to GitHub:  
+```bash
+git push -u origin feature/branch-name
+```
+
+4. **Merging the Branch into Main:**  
+Once the feature/refactor is complete and tested, merge it into the main branch:  
+- Switch to the main branch:  
+  ```bash
+  git checkout main
+  ```
+- Pull the latest changes to ensure it’s up to date:  
+  ```bash
+  git pull origin main
+  ```
+- Merge the feature branch:  
+  ```bash
+  git merge feature/branch-name
+  ```
+- Resolve any merge conflicts, then commit the changes:  
+  ```bash
+  git add .
+  git commit -m "Merge feature/branch-name into main"
+  ```
+
+5. **Pushing the Merged Changes:**  
+Push the updated main branch to GitHub:  
+```bash
+git push
+```
+
+- Alternatively, you can open a Pull Request on GitHub to merge your feature branch into main. This is recommended for collaboration and for keeping a clear history of code reviews and merges.
 
 # JavaScript JSDoc Documentation
 Full reference documentation for all JavaScript classes and functions in this project is auto-generated using JSDoc and the docdash template.
