@@ -25,15 +25,15 @@ class AudioManager {
         this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
         this.buffers = {};
         this.crystalSounds = {
-            blue: "assets/audio/blue-crystal-c-placeholder.mp3",
-            green: "assets/audio/green-crystal-d-placeholder.mp3",
-            pink: "assets/audio/pink-crystal-e-placeholder.mp3",
-            yellow: "assets/audio/yellow-crystal-f-placeholder.mp3",
-            orange: "assets/audio/orange-crystal-g-placeholder.mp3",
+            blue: "assets/audio/blue-c-crystal.mp3",
+            green: "assets/audio/green-d-crystal.mp3",
+            pink: "assets/audio/pink-e-crystal.mp3",
+            yellow: "assets/audio/yellow-f-crystal.mp3",
+            orange: "assets/audio/orange-g-crystal.mp3",
         };
-        this.celebrationSound = "assets/audio/c-major-celebration-placeholder.mp3";
-        this.caveBackgroundSound = "assets/audio/cave-background-placeholder.mp3";
-        this.caveAmbienceSound = "assets/audio/ambience-placeholder.mp3";
+        this.celebrationSound = "assets/audio/celebration-chord.mp3";
+        this.caveBackgroundSound = "assets/audio/cave-background-sounds.mp3";
+        this.caveAmbienceSound = "assets/audio/cave-ambient-background-music.mp3";
 
         // Gain nodes
         this.effectsGain = this.audioContext.createGain();
