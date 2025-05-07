@@ -725,7 +725,27 @@ The achievements could be displayed in a dedicated modal with mystery badges tha
   - Crystal Apprentice - _Reach level 5._
   - Brucey's Blessing - _Play the game with the name 'Brucey' for a special Easter egg._
 
-# Credits
+
+### **Modularisation:**
+- Following the successful refactor of the audio logic into a dedicated `AudioManager` module, I plan to continue modularising the codebase. This will improve maintainability, scalability, and readability as the project grows. 
+
+### **Refactor Complex Functions for Maintainability**
+- Based on feedback from JSHint metrics, I have identified that some functions — such as the main initialisation function that sets up event listeners and UI after the DOM loads — have a cyclomatic complexity value of 10, which is at the upper limit of recommended maintainability.
+- I understand that this function’s complexity is due to handling many responsibilities (UI setup, event binding, game logic) in one place.
+- In future development, I plan to refactor this and other complex functions (as part of ongoing modularisation) to reduce their complexity, improve readability, and make the codebase easier to understand and maintain for both myself and other developers.
+- This will involve breaking down large functions into smaller, single-purpose functions and ensuring each module has a clear responsibility.
+
+### **Improve JSDoc Comments:** 
+- I intend to improve JSDoc comments throughout the codebase to provide clearer documentation and enhance the quality of the generated output using Docdash. 
+
+### **Automated Unit & Regression Testing:**
+- I recognise the value of setting up automated unit tests, especially with future refactors and new features in mind. As the codebase becomes more modular, testing will help make sure that existing functionality stays intact.
+
+- I plan to use Jest for this, taking advantage of its built-in jsdom environment to test both core logic and DOM-related code.
+
+- These tests will help catch bugs earlier, support future development, and act as regression tests to prevent issues when making bigger changes — like modularisation or integrating the Web MIDI API.
+
+# **Credits**
 
 ## Art Assets:
 

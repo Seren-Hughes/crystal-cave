@@ -10,8 +10,7 @@
 - [Defensive Testing](#defensive-testing)
 - [Bugs](#bugs)
 - [Known Issues](#known-issues)
-- [Future Improvements](#future-improvements)
-- [Conclusion](#conclusion)  
+- [Feedback & Bug Reporting](#feedback--bug-reporting)
 
 # Development & Troubleshooting
 
@@ -1472,25 +1471,11 @@ This approach was based on best practices and community discussions, including:
   _Note: The GIF has a low frame rate, which exaggerates the glitch._
 
 
-## Future Improvements
-
-**Modularisation:**
-- Following the successful refactor of the audio logic into a dedicated `AudioManager` module, I plan to continue modularising the codebase. This will improve maintainability, scalability, and readability as the project grows. 
-
-**Improve JSDoc Comments:** 
-- I intend to improve JSDoc comments throughout the codebase to provide clearer documentation and enhance the quality of the generated output using Docdash. 
-
-**Automated Unit & Regression Testing:**
-- I recognise the value of setting up automated unit tests, especially with future refactors and new features in mind. As the codebase becomes more modular, testing will help make sure that existing functionality stays intact.
-
-- I plan to use Jest for this, taking advantage of its built-in jsdom environment to test both core logic and DOM-related code.
-
-- These tests will help catch bugs earlier, support future development, and act as regression tests to prevent issues when making bigger changes — like modularisation or integrating the Web MIDI API.
-
-## Conclusion
+## Feedback & Bug Reporting
+I welcome any feedback or bug reports regarding the game. I am committed to improving the project and my skills as a developer, and your input is invaluable in this process.
   
 I have thoroughly tested this project to ensure functionality, usability, and responsiveness across a wide range of devices and browsers. While every effort has been made to identify and resolve bugs, I recognise that some issues may still go unnoticed. 
 
-Feedback is invaluable for improving both this project and my skills as a developer. If you encounter any bugs, accessibility issues, or have suggestions for new features or enhancements, please don’t hesitate to get in touch. I greatly appreciate any feedback or issue reports.
+Your feedback is invaluable for improving both this project and my skills as a developer. If you encounter any bugs, accessibility issues, or have suggestions for new features or enhancements, please don’t hesitate to get in touch. I greatly appreciate any feedback or issue reports.
 
 Thank you for taking the time to review and test Echoes of the Crystal Cave! 🦇
