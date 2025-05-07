@@ -35,16 +35,16 @@ A musical memory game inspired by Simon and Bop It, Echoes of the Crystal Cave g
 - [Colour Palette](#colour-palette)
 - [Technologies Used](#technologies-used)
 - [Features](#features)
-  - [Home Page](#home-page)
-  - [Game Page](#game-page)
-  - [UI Navigation](#ui-navigation)
-  - [Speech Bubble Modal](#speech-bubble-modal)
-  - [How to Play Modal](#how-to-play-modal)
-  - [Game Dashboard Modal](#game-dashboard-modal)
-  - [Audio & Sound Design](#audio-sound-design)
-  - [Game Over Modal](#game-over-modal)
-  - [Freestyle Mode](#freestyle-mode)
-  - [Error Page](#error-page)
+  - [Features Home Page](#features-home-page)
+  - [Features Game Page](#features-game-page)
+  - [Features UI Navigation](#features-ui-navigation)
+  - [Features Speech Bubble Modal](#features-speech-bubble-modal)
+  - [Features How to Play Modal](#features-how-to-play-modal)
+  - [Features Game Dashboard Modal](#features-game-dashboard-modal)
+  - [Features Audio & Sound Design](#features-audio-sound-design)
+  - [Features Game Over Modal](#features-game-over-modal)
+  - [Features Freestyle Mode](#features-freestyle-mode)
+  - [Features Error Page](#features-error-page)
   - [Additional Features](#additional-features)
 - [Deployment](#deployment)
 - [JavaScript JSDoc Documentation](#javascript-jsdoc-documentation)
@@ -418,16 +418,26 @@ To ensure the game is playable for players with colour vision differences, the c
 
 ## Features
 
-### Home Page
+### Features Home Page
 The Home Page welcomes players with a retro pixel-art design. The page features a large title, a description of the game, and a Start Game button. The design is responsive, ensuring a consistent experience across devices.
 
 ![Home Page](assets/media/seren-hughes.github.io_crystal-cave_index.html.png)
 
-### Game Page
+### Features Game Page
 
 ![Game Page](assets/media/seren-hughes.github.io_crystal-cave_game.html.png)
 
-### UI and Navigation
+Below is a GIF of the game page in action, showing the crystals glowing and the player playing back the correct sequence. All crystals glow when correct before the next level starts.
+
+<img src="assets/media/echoes-gameplay.gif" alt="Game Page in Action" width="400">
+
+**Key Features of the Game Page:**
+- Five interactive, glowing crystals, each with a unique sound and colour.
+- Level indicator and animated bat character for guidance.
+- Responsive design for desktop, tablet, and mobile.
+- Accessible controls: mouse, keyboard (A, W, S, E, D), and touch.
+
+### Features UI and Navigation
 
 The user interface is designed for clarity and accessibility, with intuitive buttons and helpful tooltips. While all buttons are important for navigation and gameplay, three key controls—Mute/Unmute Audio, Freestyle Mode, and Fullscreen—are dynamic: they visually change to reflect their current state and update their tooltips accordingly. This provides immediate feedback and ensures players always know the current mode or setting.
 
@@ -445,7 +455,7 @@ The user interface is designed for clarity and accessibility, with intuitive but
 
 Other interface buttons, such as How to Play, Restart, Dashboard/Settings and Home remain visually consistent, intuitive and are also clearly labeled with tooltips for ease of use.
 
-### Speech Bubble Modal
+### Features Speech Bubble Modal
 
 When the game page loads, the player first sees the game container, allowing them to take in the environment. After a brief pause, Brucey the bat appears with a speech bubble, introducing himself and the game. This short delay helps set the scene and gives Brucey’s introduction more impact.
 
@@ -479,13 +489,13 @@ In the dialogue bubble, the player is asked for their name and a name input moda
 ![Mobile 'Tap to continue' Instructions](assets/media/iphone-speech-bubble-landscape.png)  
 
 
-### How to Play Modal
+### Features How to Play Modal
 
 The How to Play modal provides players with clear instructions on how to play the game. It includes a brief overview of the game mechanics and controls. The modal is designed to be visually appealing and easy to read. 
 
 ![How to Play Modal](assets/media/seren-hughes.github.io_crystal-cave_game_howtoplay_modal.html.png)
 
-### Game Dashboard/Settings Modal
+### Features Game Dashboard/Settings Modal
 
 ![Game Dashboard/Settings Modal](assets/media/seren-hughes.github.io_crystal-cave_game_dashboard_modal.html.png)
 
@@ -502,7 +512,7 @@ The game dashboard modal provides players with a summary of their progress, incl
 
   ![Brightness Slider](assets/media/brightness-slider.gif)
 
-### Audio & Sound Design
+### Features Audio & Sound Design
 
 Audio is a core part of the Echoes of the Crystal Cave experience. The game features a layered soundscape with ambient cave music, interactive crystal tones, and celebratory effects.
 
@@ -529,19 +539,19 @@ When the game page loads, first, an overlay appears stating the site is best exp
 
 ![Audio User Event Permission Overlay](assets/media/seren-hughes.github.io_crystal-cave_game_audio_permission.html.png)
 
-### Game Over Modal
+### Features Game Over Modal
 
 When the player makes a mistake, a Game Over modal appears, displaying an encouraging message and options to restart or return to the home page. The modal is designed to be consistent with the game's theme.
 
 ![Game Over Modal](assets/media/game-over-modal.png)
 
-### Freestyle Mode
+### Features Freestyle Mode
 
 Freestyle Mode lets players explore and play the crystal sounds without the pressure of following a sequence. Players can click or tap on the crystals to create their own melodies, experimenting with the different notes at their own pace. This mode is ideal for those who want to enjoy the musical aspect of the game or simply relax and be creative.
 
 Looking ahead, Freestyle Mode is designed to be expandable — with plans for more complex musical features and potential integration with the Web MIDI API, allowing for even greater interactivity and creativity.
 
-### Error Page
+### Features Error Page
 
 The custom 404 page matches the game's mysterious cave theme. It features fading/flickering crystals, and the message “404: Lost in the Cave. The echoes fade... you are not where you're meant to be...” A Return Home button helps guide players back if they get lost.
 
