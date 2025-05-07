@@ -284,8 +284,8 @@ class AudioManager {
      * If the game is globally muted, the volume is immediately set to 0 and no ramping occurs.
      *
      * Behaviour:
-     * - Checks if the game is globally muted (`isMuted`). If muted, sets the volume to 0 immediately.
-     * - Gradually lowers the volume to 0.1 over 2 seconds using `linearRampToValueAtTime` if not muted.
+     * - If the game is globally muted (`isMuted`) or ambient is muted (`isAmbientMuted`), sets the volume to 0 immediately.
+     * - Otherwise, gradually lowers the volume to 0.1 over 2 seconds using `linearRampToValueAtTime`.
      *
      * Notes:
      * - The `linearRampToValueAtTime` method ensures a smooth transition in volume.
@@ -299,7 +299,7 @@ class AudioManager {
      * this.lowerAmbientVolume();
      */
     lowerAmbientVolume() {
-        if (this.isMuted) {
+        if (this.isMuted || this.isAmbientMuted) {
             this.ambientGain.gain.setValueAtTime(0, this.audioContext.currentTime);
             return;
         }
@@ -314,8 +314,8 @@ class AudioManager {
      * and no ramping occurs.
      *
      * Behaviour:
-     * - Checks if the game is globally muted (`isMuted`). If muted, sets the volume to 0 immediately.
-     * - Gradually restores the volume to `userAmbientVolume` over 2 seconds using `linearRampToValueAtTime` if not muted.
+     * - If the game is globally muted (`isMuted`) or ambient is muted (`isAmbientMuted`), sets the volume to 0 immediately.
+     * - Otherwise, gradually restores the volume to `userAmbientVolume` over 2 seconds using `linearRampToValueAtTime`.
      *
      * Notes:
      * - The `linearRampToValueAtTime` method ensures a smooth transition in volume.
@@ -329,7 +329,7 @@ class AudioManager {
      * this.restoreAmbientVolume();
      */
     restoreAmbientVolume() {
-        if (this.isMuted) {
+        if (this.isMuted || this.isAmbientMuted) {
             this.ambientGain.gain.setValueAtTime(0, this.audioContext.currentTime);
             return;
         }
