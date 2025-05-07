@@ -1891,7 +1891,7 @@ function updateHighestLevel() {
   const storedHighestLevel =
     parseInt(getLocalItem("highestLevel")) || 0;
   if (level > storedHighestLevel) {
-    getLocalItem("highestLevel", level);
+    setLocalItem("highestLevel", level);
   }
 }
 
