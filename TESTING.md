@@ -213,7 +213,7 @@ if (playersInput.length === currentSequence.length) {
 
 ### Importance of Console Messages:
 
-The console messages were instrumental in troubleshooting this issue. By carefully analyzing the sequence of logs, I was able to pinpoint where the logic was being interrupted. The key success message, `"Player input complete. Checking input after delay"`, confirmed that the delay allowed the glow deactivation to complete before transitioning to input validation.
+The console messages were instrumental in troubleshooting this issue. By carefully analysing the sequence of logs, I was able to pinpoint where the logic was being interrupted. The key success message, `"Player input complete. Checking input after delay"`, confirmed that the delay allowed the glow deactivation to complete before transitioning to input validation.
 
 ### Testing Results:
 
@@ -234,7 +234,7 @@ During testing on mobile devices, the game stopped progressing after the first s
 
 ### Cause: 
 
-The issue was caused by missing or conflicting event listeners for touch events (`touchstart` or `touchend`) on mobile devices. While `click` events worked on desktop, mobile devices rely on touch events, and the existing logic did not properly handle these events. Additionally, duplicate event listeners were being added, which may have caused unexpected behavior.
+The issue was caused by missing or conflicting event listeners for touch events (`touchstart` or `touchend`) on mobile devices. While `click` events worked on desktop, mobile devices rely on touch events, and the existing logic did not properly handle these events. Additionally, duplicate event listeners were being added, which may have caused unexpected behaviour.
 
 ### Solution:
 
@@ -1147,7 +1147,7 @@ https://github.com/user-attachments/assets/842e965a-86f0-49d5-9e4d-b57b98b0b8d9
 https://github.com/user-attachments/assets/a803f2e6-8866-4e21-af40-65e2531e096d
 
 ### Reasoning Behind the Fix:
-Keeping the UI and mute state in sync is essential for a predictable and user-friendly experience. By centralizing the UI update logic and ensuring it runs after every mute/unmute action, the mute controls now always reflect the true state of the game’s audio.
+Keeping the UI and mute state in sync is essential for a predictable and user-friendly experience. By centralising the UI update logic and ensuring it runs after every mute/unmute action, the mute controls now always reflect the true state of the game’s audio.
 
 ### Testing Results:
 - The mute UI is now reliable and intuitive.

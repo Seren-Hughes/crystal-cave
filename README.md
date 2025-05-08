@@ -197,7 +197,7 @@ _These early sketches helped me clarify the game’s structure and user flow bef
 
 Basic pseudocode was used during the early planning and development stage. It was helpful to write out the basic logic in order to visualise the game layout and html div containers needed in order to make dynamic changes to each componant. 
 
-### Game Initialization:
+### Game Initialisation:
 
 - Start the game when the player clicks "Start".
 - Set the initial level to 1.
@@ -427,7 +427,7 @@ The Home Page welcomes players with a retro pixel-art design. The page features 
 
 ![Game Page](assets/media/seren-hughes.github.io_crystal-cave_game.html.png)
 
-Below is a GIF of the game page in action, showing the crystals glowing and the player playing back the correct sequence. All crystals glow when correct before the next level starts.
+Below is a GIF of the game page in action, showing the crystals glowing and the player playing back the correct sequence. All crystals glow when the player enters the correct sequence, before the next level starts.
 
 <img src="assets/media/echoes-gameplay.gif" alt="Game Page in Action" width="400">
 
